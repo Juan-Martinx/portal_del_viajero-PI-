@@ -1,5 +1,7 @@
 package com.pdv.model;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -38,8 +41,17 @@ public class Usuario {
 	@Column(name = "txt_password", nullable = false, length = 20)
 	private String txtPassword;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false, targetEntity = Perfil.class)
 	@JoinColumn(referencedColumnName = "id_perfil", columnDefinition = "id_perfil")
 	private Perfil perfil;
+	
+	@OneToMany(mappedBy = "usuarioCliente", targetEntity = AlquilerAlojamiento.class)
+	private Set<AlquilerAlojamiento> alquileres;
+	
+	@OneToMany(mappedBy = "gestorAlojamiento", targetEntity = Alojamiento.class)
+	private Set<Alojamiento> alojamientos;
+	
+	@OneToMany(mappedBy = "usuarioValorador", targetEntity = ValoracionAlojamiento.class)
+	private Set<ValoracionAlojamiento> valoracionesAlojamientos;
 
 }
