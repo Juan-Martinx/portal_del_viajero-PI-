@@ -5,18 +5,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Data
-@AllArgsConstructor
-@Table(name = "Ubicacion_alojamiento")
+@Table(name = "ubicacion_alojamiento")
 public class UbicacionAlojamiento {
-	
-	//relacion con alojamiento falta
-	
+		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_ubicacion_alojamiento")
@@ -39,5 +37,9 @@ public class UbicacionAlojamiento {
 	
 	@Column(name = "latitud")
 	private String latitud;
+	
+	@OneToOne(optional = false, targetEntity = Alojamiento.class)
+	@JoinColumn(referencedColumnName = "id_alojamiento", columnDefinition = "id_alojamiento", nullable = false)
+	private Alojamiento alojamiento;
 
 }

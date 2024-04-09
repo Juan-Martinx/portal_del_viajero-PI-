@@ -42,7 +42,7 @@ public class Usuario {
 	private String txtPassword;
 
 	@ManyToOne(optional = false, targetEntity = Perfil.class)
-	@JoinColumn(referencedColumnName = "id_perfil", columnDefinition = "id_perfil")
+	@JoinColumn(referencedColumnName = "id_perfil", columnDefinition = "id_perfil", nullable = false)
 	private Perfil perfil;
 	
 	@OneToMany(mappedBy = "usuarioCliente", targetEntity = AlquilerAlojamiento.class)

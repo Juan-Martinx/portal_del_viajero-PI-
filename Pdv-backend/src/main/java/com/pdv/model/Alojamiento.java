@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -45,7 +46,7 @@ public class Alojamiento {
 	private Integer numbanyos;
 	
 	@ManyToOne(optional = false, targetEntity = Usuario.class)
-	@JoinColumn(referencedColumnName = "id_usuario", columnDefinition = "id_usuario")
+	@JoinColumn(referencedColumnName = "id_usuario", columnDefinition = "id_usuario", nullable = false)
 	private Usuario gestorAlojamiento;
 	
 	@OneToMany(mappedBy = "alojamientoValorado", targetEntity = ValoracionAlojamiento.class)
@@ -53,4 +54,13 @@ public class Alojamiento {
 	
 	@OneToMany(mappedBy = "alojamientoAlquilado", targetEntity = AlquilerAlojamiento.class)
 	private Set<AlquilerAlojamiento> alquileresAlojamiento;
+	
+	@OneToMany(mappedBy = "alojamiento", targetEntity = ImagenAlojamiento.class)
+	private Set<ImagenAlojamiento> imagenesAlojamiento;
+	
+	@OneToOne(mappedBy = "alojamiento", targetEntity = UbicacionAlojamiento.class, optional = false)
+	private UbicacionAlojamiento ubicacion;
+	
+	@OneToMany(mappedBy = "alojamiento", targetEntity = AlojamientoComodidadAlojamiento.class)
+	private Set<AlojamientoComodidadAlojamiento> alojamientoComodidades;
 }

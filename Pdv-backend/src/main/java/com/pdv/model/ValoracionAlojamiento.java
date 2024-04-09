@@ -23,7 +23,7 @@ public class ValoracionAlojamiento {
 	@Column(name = "txt_mensaje", nullable = false)
 	private String txtMensaje;
 	
-	@Column(name = "txtAsunto", nullable = false, length = 50)
+	@Column(name = "txt_asunto", nullable = false, length = 50)
 	private String txtAsunto;
 	
 	@Column(name = "provincia", nullable = false, length = 60)
@@ -32,12 +32,12 @@ public class ValoracionAlojamiento {
 	@Column(name = "puntuacion", nullable = false)
 	private Integer puntuacion;
 	
-	@ManyToOne(optional = false, targetEntity = Usuario.class)
-	@JoinColumn(referencedColumnName = "id_usuario", columnDefinition = "id_usuario")
+	@ManyToOne(targetEntity = Usuario.class)
+	@JoinColumn(referencedColumnName = "id_usuario", columnDefinition = "id_usuario", nullable = false)
 	private Usuario usuarioValorador;
 	
-	@ManyToOne(optional = false, targetEntity = Alojamiento.class)
-	@JoinColumn(referencedColumnName = "id_alojamiento", columnDefinition = "id_alojamiento")
+	@ManyToOne(targetEntity = Alojamiento.class)
+	@JoinColumn(referencedColumnName = "id_alojamiento", columnDefinition = "id_alojamiento", nullable = false)
 	private Alojamiento alojamientoValorado;
 	
 }

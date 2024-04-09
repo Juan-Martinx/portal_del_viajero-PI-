@@ -6,30 +6,25 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "imagen_alojamiento")
-public class ImagenAlojamiento {
-		
+@Table(name = "alojamiento_comodidad_alojamiento")
+public class AlojamientoComodidadAlojamiento {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_imagen_alojamiento")
+	@Column(name = "id_alojamiento_comodidad_alojamiento")
 	private Long id;
 	
-	@Column(name = "datos_imagen", nullable = false)
-	@Lob
-	private Byte[] datosImagen;
+	@ManyToOne(targetEntity = ComodidadAlojamiento.class)
+	@JoinColumn(referencedColumnName = "id_comodidad_alojamiento", columnDefinition = "id_comodidad_alojamiento", nullable = false)
+	private ComodidadAlojamiento comodidadAlojamiento;
 	
-	@Column(name = "num_orden", nullable = false)
-	private Integer numOrden;
-	
-	@ManyToOne(optional = false, targetEntity = Alojamiento.class)
+	@ManyToOne(targetEntity = Alojamiento.class)
 	@JoinColumn(referencedColumnName = "id_alojamiento", columnDefinition = "id_alojamiento", nullable = false)
 	private Alojamiento alojamiento;
-
 }

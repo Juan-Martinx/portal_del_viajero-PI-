@@ -15,7 +15,7 @@ import lombok.Data;
 @Entity
 @Data
 @AllArgsConstructor
-@Table(name = "Tipo_comodidad")
+@Table(name = "tipo_comodidad")
 public class TipoComodidad {
 	
 	@Id
@@ -29,7 +29,7 @@ public class TipoComodidad {
 	@Column(name = "txt_nombre", nullable = false, length = 50)
 	private String txtNombre;
 	
-	@OneToMany(mappedBy = "tipoComodidad")
+	@OneToMany(mappedBy = "tipoComodidad", targetEntity = ComodidadAlojamiento.class)
 	private Set<ComodidadAlojamiento> comodidadAlojamientos;
 
 }

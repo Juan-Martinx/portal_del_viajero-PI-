@@ -34,11 +34,11 @@ public class AlquilerAlojamiento {
 	@Column(name = "num_plazas_reservadas", nullable = false)
 	private Integer numPlazasReservadas;
 	
-	@ManyToOne(optional = false, targetEntity = Usuario.class)
-	@JoinColumn(referencedColumnName = "id_usuario", columnDefinition = "id_usuario")
+	@ManyToOne(targetEntity = Usuario.class)
+	@JoinColumn(referencedColumnName = "id_usuario", columnDefinition = "id_usuario", nullable = false)
 	private Usuario usuarioCliente;
 	
-	@ManyToOne(optional = false, targetEntity = Alojamiento.class)
-	@JoinColumn(referencedColumnName = "id_alojamiento", columnDefinition = "id_alojamiento")
+	@ManyToOne(targetEntity = Alojamiento.class)
+	@JoinColumn(referencedColumnName = "id_alojamiento", columnDefinition = "id_alojamiento", nullable = false)
 	private Alojamiento alojamientoAlquilado;
 }
