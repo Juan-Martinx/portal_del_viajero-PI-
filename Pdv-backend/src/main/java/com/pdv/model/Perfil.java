@@ -9,12 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Data
-@AllArgsConstructor
 @Table(name = "perfil")
 public class Perfil {
 
@@ -29,6 +27,6 @@ public class Perfil {
 	@Column(name = "txt_perfil", nullable = false)
 	private String txtPerfil;
 
-	@OneToMany(mappedBy = "perfil")
+	@OneToMany(mappedBy = "perfil", targetEntity = Usuario.class)
 	private Set<Usuario> usuarios;
 }
