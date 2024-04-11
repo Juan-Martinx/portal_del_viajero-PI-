@@ -1,6 +1,7 @@
 package com.pdv.dto;
 
-import jakarta.validation.constraints.NotNull;
+import java.util.Set;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,11 +12,13 @@ public class PerfilDTO {
 	
 	private Long id;
 	
-	@NotNull
+	@NotBlank
 	@Size(max = 50)
 	private String codPerfil;
 
-	@NotNull
+	@NotBlank
 	private String txtPerfil;
+	
+	private Set<UsuarioDTO> idUsuario;
 	
 }
