@@ -41,17 +41,17 @@ public class Usuario {
 	@Column(name = "txt_password", nullable = false, length = 20)
 	private String txtPassword;
 
-	@ManyToOne(optional = false, targetEntity = Perfil.class)
-	@JoinColumn(referencedColumnName = "id_perfil", columnDefinition = "id_perfil", nullable = false)
-	private Perfil perfil;
+	@ManyToOne(targetEntity = Perfil.class)
+	@JoinColumn(referencedColumnName = "id_perfil", name = "id_perfil", nullable = false)
+	private Perfil idPerfil;
 	
-	@OneToMany(mappedBy = "usuarioCliente", targetEntity = AlquilerAlojamiento.class)
-	private Set<AlquilerAlojamiento> alquileres;
+	@OneToMany(mappedBy = "idUsuarioCliente", targetEntity = AlquilerAlojamiento.class)
+	private Set<AlquilerAlojamiento> idAlquileres;
 	
-	@OneToMany(mappedBy = "gestorAlojamiento", targetEntity = Alojamiento.class)
-	private Set<Alojamiento> alojamientos;
+	@OneToMany(mappedBy = "idGestorAlojamiento", targetEntity = Alojamiento.class)
+	private Set<Alojamiento> idAlojamientos;
 	
-	@OneToMany(mappedBy = "usuarioValorador", targetEntity = ValoracionAlojamiento.class)
-	private Set<ValoracionAlojamiento> valoracionesAlojamientos;
+	@OneToMany(mappedBy = "idUsuarioValorador", targetEntity = ValoracionAlojamiento.class)
+	private Set<ValoracionAlojamiento> idValoracionesAlojamientos;
 
 }

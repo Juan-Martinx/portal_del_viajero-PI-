@@ -43,24 +43,24 @@ public class Alojamiento {
 	private Integer numCamas;
 	
 	@Column(name = "num_banyos", nullable = false)
-	private Integer numbanyos;
+	private Integer numBanyos;
 	
-	@ManyToOne(optional = false, targetEntity = Usuario.class)
-	@JoinColumn(referencedColumnName = "id_usuario", columnDefinition = "id_usuario", nullable = false)
-	private Usuario gestorAlojamiento;
+	@ManyToOne(targetEntity = Usuario.class)
+	@JoinColumn(referencedColumnName = "id_usuario", name = "id_usuario", nullable = false)
+	private Usuario idGestorAlojamiento;
 	
-	@OneToMany(mappedBy = "alojamientoValorado", targetEntity = ValoracionAlojamiento.class)
-	private Set<ValoracionAlojamiento> valoracionesAlojamiento;
+	@OneToMany(mappedBy = "idAlojamientoValorado", targetEntity = ValoracionAlojamiento.class)
+	private Set<ValoracionAlojamiento> idValoracionesAlojamiento;
 	
-	@OneToMany(mappedBy = "alojamientoAlquilado", targetEntity = AlquilerAlojamiento.class)
-	private Set<AlquilerAlojamiento> alquileresAlojamiento;
+	@OneToMany(mappedBy = "idAlojamientoAlquilado", targetEntity = AlquilerAlojamiento.class)
+	private Set<AlquilerAlojamiento> idAlquileresAlojamiento;
 	
-	@OneToMany(mappedBy = "alojamiento", targetEntity = ImagenAlojamiento.class)
-	private Set<ImagenAlojamiento> imagenesAlojamiento;
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ImagenAlojamiento.class)
+	private Set<ImagenAlojamiento> idImagenesAlojamiento;
 	
-	@OneToOne(mappedBy = "alojamiento", targetEntity = UbicacionAlojamiento.class, optional = false)
-	private UbicacionAlojamiento ubicacion;
+	@OneToOne(mappedBy = "idAlojamiento", targetEntity = UbicacionAlojamiento.class, optional = false)
+	private UbicacionAlojamiento IdUbicacion;
 	
-	@OneToMany(mappedBy = "alojamiento", targetEntity = AlojamientoComodidadAlojamiento.class)
-	private Set<AlojamientoComodidadAlojamiento> alojamientoComodidades;
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class)
+	private Set<AlojamientoComodidadAlojamiento> idAlojamientoComodidades;
 }

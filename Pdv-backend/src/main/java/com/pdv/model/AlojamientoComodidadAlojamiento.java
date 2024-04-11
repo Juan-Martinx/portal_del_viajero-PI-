@@ -21,10 +21,10 @@ public class AlojamientoComodidadAlojamiento {
 	private Long id;
 	
 	@ManyToOne(targetEntity = ComodidadAlojamiento.class)
-	@JoinColumn(referencedColumnName = "id_comodidad_alojamiento", columnDefinition = "id_comodidad_alojamiento", nullable = false)
-	private ComodidadAlojamiento comodidadAlojamiento;
+	@JoinColumn(referencedColumnName = "id_comodidad_alojamiento", name = "id_comodidad_alojamiento", nullable = false)
+	private ComodidadAlojamiento idComodidadAlojamiento;
 	
 	@ManyToOne(targetEntity = Alojamiento.class)
-	@JoinColumn(referencedColumnName = "id_alojamiento", columnDefinition = "id_alojamiento", nullable = false)
-	private Alojamiento alojamiento;
+	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
+	private Alojamiento idAlojamiento;
 }

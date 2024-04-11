@@ -3,11 +3,9 @@ package com.pdv.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class UbicacionAlojamientoDTO {
 
 	private Long id;
@@ -31,6 +29,5 @@ public class UbicacionAlojamientoDTO {
 	private String latitud;
 	
 	private AlojamientoDTO idAlojamiento;
-
 	
 }

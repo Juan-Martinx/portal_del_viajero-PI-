@@ -35,10 +35,10 @@ public class AlquilerAlojamiento {
 	private Integer numPlazasReservadas;
 	
 	@ManyToOne(targetEntity = Usuario.class)
-	@JoinColumn(referencedColumnName = "id_usuario", columnDefinition = "id_usuario", nullable = false)
-	private Usuario usuarioCliente;
+	@JoinColumn(referencedColumnName = "id_usuario", name = "id_usuario", nullable = false)
+	private Usuario idUsuarioCliente;
 	
 	@ManyToOne(targetEntity = Alojamiento.class)
-	@JoinColumn(referencedColumnName = "id_alojamiento", columnDefinition = "id_alojamiento", nullable = false)
-	private Alojamiento alojamientoAlquilado;
+	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
+	private Alojamiento idAlojamientoAlquilado;
 }

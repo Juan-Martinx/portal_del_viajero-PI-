@@ -1,7 +1,5 @@
 package com.pdv.dto;
 
-import com.pdv.model.Alojamiento;
-
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 

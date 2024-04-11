@@ -2,11 +2,6 @@ package com.pdv.dto;
 
 import java.util.Set;
 
-import com.pdv.model.AlquilerAlojamiento;
-import com.pdv.model.ImagenAlojamiento;
-import com.pdv.model.UbicacionAlojamiento;
-import com.pdv.model.ValoracionAlojamiento;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

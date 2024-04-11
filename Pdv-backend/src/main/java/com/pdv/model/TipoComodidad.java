@@ -29,7 +29,7 @@ public class TipoComodidad {
 	@Column(name = "txt_nombre", nullable = false, length = 50)
 	private String txtNombre;
 	
-	@OneToMany(mappedBy = "tipoComodidad", targetEntity = ComodidadAlojamiento.class)
-	private Set<ComodidadAlojamiento> comodidadAlojamientos;
+	@OneToMany(mappedBy = "idTipoComodidad", targetEntity = ComodidadAlojamiento.class)
+	private Set<ComodidadAlojamiento> idComodidadAlojamientos;
 
 }

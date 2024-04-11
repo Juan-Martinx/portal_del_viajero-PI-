@@ -33,11 +33,11 @@ public class ValoracionAlojamiento {
 	private Integer puntuacion;
 	
 	@ManyToOne(targetEntity = Usuario.class)
-	@JoinColumn(referencedColumnName = "id_usuario", columnDefinition = "id_usuario", nullable = false)
-	private Usuario usuarioValorador;
+	@JoinColumn(referencedColumnName = "id_usuario", name = "id_usuario", nullable = false)
+	private Usuario idUsuarioValorador;
 	
 	@ManyToOne(targetEntity = Alojamiento.class)
-	@JoinColumn(referencedColumnName = "id_alojamiento", columnDefinition = "id_alojamiento", nullable = false)
-	private Alojamiento alojamientoValorado;
+	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
+	private Alojamiento idAlojamientoValorado;
 	
 }

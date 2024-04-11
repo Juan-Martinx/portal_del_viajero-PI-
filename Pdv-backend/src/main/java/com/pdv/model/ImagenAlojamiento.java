@@ -29,7 +29,7 @@ public class ImagenAlojamiento {
 	private Integer numOrden;
 	
 	@ManyToOne(optional = false, targetEntity = Alojamiento.class)
-	@JoinColumn(referencedColumnName = "id_alojamiento", columnDefinition = "id_alojamiento", nullable = false)
-	private Alojamiento alojamiento;
+	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
+	private Alojamiento idAlojamiento;
 
 }

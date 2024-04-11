@@ -2,8 +2,6 @@ package com.pdv.dto;
 
 import java.util.Set;
 
-import com.pdv.model.TipoComodidad;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

@@ -27,6 +27,6 @@ public class Perfil {
 	@Column(name = "txt_perfil", nullable = false)
 	private String txtPerfil;
 
-	@OneToMany(mappedBy = "perfil", targetEntity = Usuario.class)
-	private Set<Usuario> usuarios;
+	@OneToMany(mappedBy = "idPerfil", targetEntity = Usuario.class)
+	private Set<Usuario> idUsuarios;
 }

@@ -33,9 +33,9 @@ public class ComodidadAlojamiento {
 	private String txtDescripcion;
 	
 	@ManyToOne(optional = false, targetEntity = TipoComodidad.class)
-	@JoinColumn(referencedColumnName = "id_tipo_comodidad", columnDefinition = "id_tipo_comodidad", nullable = false)
-	private TipoComodidad tipoComodidad;
+	@JoinColumn(referencedColumnName = "id_tipo_comodidad", name = "id_tipo_comodidad", nullable = false)
+	private TipoComodidad idTipoComodidad;
 
-	@OneToMany(mappedBy = "comodidadAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class)
-	private Set<AlojamientoComodidadAlojamiento> alojamientoComodidades;
+	@OneToMany(mappedBy = "idComodidadAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class)
+	private Set<AlojamientoComodidadAlojamiento> idAlojamientoComodidades;
 }

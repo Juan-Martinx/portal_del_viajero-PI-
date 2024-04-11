@@ -1,21 +1,22 @@
 package com.pdv.dto;
 
 import java.time.LocalDate;
+
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class AlquilerAlojamientoDTO {
-	
 	
 	private Long id;
 	
 	@NotBlank
+	@FutureOrPresent
 	private LocalDate fechaInicioAlquiler;
 	
 	@NotBlank
+	@FutureOrPresent
 	private LocalDate fechaFinAlquiler;
 	
 	@NotBlank
