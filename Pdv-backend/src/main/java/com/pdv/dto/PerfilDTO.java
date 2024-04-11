@@ -1,16 +1,21 @@
 package com.pdv.dto;
 
-import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class PerfilDTO {
 	
+	private Long id;
+	
 	@NotNull
-	//@UniqueConstraint
-	@Max(value = 50)
+	@Size(max = 50)
 	private String codPerfil;
 
+	@NotNull
+	private String txtPerfil;
+	
 }
