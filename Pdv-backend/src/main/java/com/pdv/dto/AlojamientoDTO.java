@@ -2,14 +2,12 @@ package com.pdv.dto;
 
 import java.util.Set;
 
-import com.pdv.model.AlojamientoComodidadAlojamiento;
 import com.pdv.model.AlquilerAlojamiento;
 import com.pdv.model.ImagenAlojamiento;
 import com.pdv.model.UbicacionAlojamiento;
-import com.pdv.model.Usuario;
 import com.pdv.model.ValoracionAlojamiento;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -18,8 +16,7 @@ public class AlojamientoDTO {
 	
 	private Long id;
 	
-	@NotNull
-	@NotEmpty
+	@NotBlank
 	private String txtNombre;
 	
 	private String txtDescripcion;
@@ -39,15 +36,15 @@ public class AlojamientoDTO {
 	@NotNull
 	private Integer numbanyos;
 	
-	private Usuario gestorAlojamiento;
+	private UsuarioDTO idGestorAlojamiento;
 	
-	private Set<ValoracionAlojamiento> valoracionesAlojamiento;
+	private Set<ValoracionAlojamientoDTO> idValoracionesAlojamiento;
 	
-	private Set<AlquilerAlojamiento> alquileresAlojamiento;
+	private Set<AlquilerAlojamientoDTO> idAlquileresAlojamiento;
 	
-	private Set<ImagenAlojamiento> imagenesAlojamiento;
+	private Set<ImagenAlojamientoDTO> idImagenesAlojamiento;
 	
-	private UbicacionAlojamiento ubicacion;
+	private UbicacionAlojamientoDTO idUbicacion;
 	
-	private Set<AlojamientoComodidadAlojamiento> alojamientoComodidades;
+	private Set<AlojamientoComodidadAlojamientoDTO> idAlojamientoComodidades;
 }

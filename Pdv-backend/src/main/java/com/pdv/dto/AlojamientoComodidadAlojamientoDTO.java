@@ -1,16 +1,13 @@
 package com.pdv.dto;
 
-import com.pdv.model.Alojamiento;
-import com.pdv.model.ComodidadAlojamiento;
-
 import lombok.Data;
 
 @Data
-public class AlojamientoComodidadAlojamientoDTO {
+public class AlojamientoComodidadAlojamientoDTO{
 	
 	private Long id;
+	
+	private ComodidadAlojamientoDTO idComodidadAlojamiento;
 
-	private ComodidadAlojamiento idComodidadAlojamiento;
-
-	private Alojamiento alojamiento;
+	private AlojamientoDTO idAlojamiento;
 }
