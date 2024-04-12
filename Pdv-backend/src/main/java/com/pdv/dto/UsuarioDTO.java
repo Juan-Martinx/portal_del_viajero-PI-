@@ -37,11 +37,11 @@ public class UsuarioDTO {
 	
 	private PerfilDTO idPerfil;
 	
-	private Set<AlquilerAlojamientoDTO> alquilerAlojamientoDTO;
+	private Set<AlquilerAlojamientoDTO> idAlquileres;
 	
-	private Set<AlojamientoDTO> alojamientosDTO;
+	private Set<AlojamientoDTO> idAlojamientos;
 	
-	private Set<ValoracionAlojamientoDTO> valoracionesAlojamientosDTO;
+	private Set<ValoracionAlojamientoDTO> idValoracionesAlojamientos;
 
 	
 }

@@ -2,19 +2,16 @@ import { AlojamientoDTO } from "./AlojamientoDTO";
 
 export class ImagenAlojamientoDTO{
 
-    private id?: Number;
-
+    private id?: number;
     private datosImagen?: Uint8Array;
-
-    private numOrden?: Number;
-
+    private numOrden?: number;
     private idAlojamiento?: AlojamientoDTO;
 
     constructor(){
         
     }
 
-    set setId(id: Number){
+    set setId(id: number){
         this.id = id;
     }
 
@@ -30,7 +27,7 @@ export class ImagenAlojamientoDTO{
         return this.datosImagen;
     }
 
-    set setNumOrden(numOrden: Number){
+    set setNumOrden(numOrden: number){
         this.numOrden = numOrden;
     }
 

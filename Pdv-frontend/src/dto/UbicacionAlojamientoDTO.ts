@@ -2,27 +2,20 @@ import { AlojamientoDTO } from "./AlojamientoDTO";
 
 export class UbicacionAlojamientoDTO{
 
-    private id?: Number;
-
-    private codigoPostal?: Number;
-
-    private ciudad?: String;
-
-    private provincia?: String;
-
-    private lineaDireccion?: String;
-
-    private longitud?: String;
-
-    private latitud?: String;
-
+    private id?: number;
+    private codigoPostal?: number;
+    private ciudad?: string;
+    private provincia?: string;
+    private lineaDireccion?: string;
+    private longitud?: string;
+    private latitud?: string;
     private idAlojamiento?: AlojamientoDTO;
 
     constructor(){
 
     }
 
-    set setId(id: Number){
+    set setId(id: number){
         this.id = id;
     }
 
@@ -30,7 +23,7 @@ export class UbicacionAlojamientoDTO{
         return this.id;
     }
 
-    set setCodigoPostal(codigoPostal: Number){
+    set setCodigoPostal(codigoPostal: number){
         this.codigoPostal = codigoPostal;
     }
 
@@ -38,7 +31,7 @@ export class UbicacionAlojamientoDTO{
         return this.codigoPostal;
     }
 
-    set setCiudad(ciudad: String){
+    set setCiudad(ciudad: string){
         this.ciudad = ciudad;
     }
 
@@ -46,7 +39,7 @@ export class UbicacionAlojamientoDTO{
         return this.ciudad;
     }
 
-    set setProvincia(provincia: String){
+    set setProvincia(provincia: string){
         this.provincia = provincia;
     }
 
@@ -54,7 +47,7 @@ export class UbicacionAlojamientoDTO{
         return this.provincia;
     }
 
-    set setLineaDireccion(lineaDireccion: String){
+    set setLineaDireccion(lineaDireccion: string){
         this.lineaDireccion = lineaDireccion;
     }
 
@@ -62,7 +55,7 @@ export class UbicacionAlojamientoDTO{
         return this.lineaDireccion;
     }
 
-    set setLongitud(longitud: String){
+    set setLongitud(longitud: string){
         this.longitud = longitud;
     }
 
@@ -70,7 +63,7 @@ export class UbicacionAlojamientoDTO{
         return this.longitud;
     }
 
-    set setLatitud(latitud: String){
+    set setLatitud(latitud: string){
         this.latitud = latitud;
     }
 
@@ -85,7 +78,5 @@ export class UbicacionAlojamientoDTO{
     get getIdAlojamiento(){
         return this.idAlojamiento;
     }
-
-
 
 }

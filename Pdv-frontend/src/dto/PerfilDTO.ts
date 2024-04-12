@@ -4,6 +4,7 @@ export class PerfilDTO{
 
     private id?: number;
     private codPerfil?: string;
+    private txtPerfil?: string;
     private idUsuario?: UsuarioDTO;
 
     constructor(){
@@ -26,6 +27,14 @@ export class PerfilDTO{
         return this.codPerfil;
     }
 
+    set setTxtPerfil(txtPerfil: string){
+        this.txtPerfil = txtPerfil;
+    }
+
+    get getTxtPerfil(){
+        return this.txtPerfil;
+    }
+    
     set setIdUsuario(usuario: UsuarioDTO){
         this.idUsuario = usuario;
     }

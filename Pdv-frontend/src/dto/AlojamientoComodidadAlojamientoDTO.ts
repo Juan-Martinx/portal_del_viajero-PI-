@@ -3,17 +3,15 @@ import { AlojamientoDTO } from "./AlojamientoDTO";
 
 export class AlojamientoComodidadAlojamientoDTO{
 
-    private id?: Number;
-
+    private id?: number;
     private idComodidadAlojamiento?: ComodidadAlojamientoDTO;
-
     private idAlojamiento?: AlojamientoDTO;
 
     constructor(){
         
     }
 
-    set setId(id: Number){
+    set setId(id: number){
         this.id = id;
     }
 

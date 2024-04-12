@@ -1,4 +1,9 @@
+import { AlquilerAlojamientoDTO } from "./AlquilerAlojamientoDTO";
+import { ComodidadAlojamientoDTO } from "./ComodidadAlojamientoDTO";
+import { ImagenAlojamientoDTO } from "./ImagenAlojamientoDTO";
+import { UbicacionAlojamientoDTO } from "./UbicacionAlojamientoDTO";
 import { UsuarioDTO } from "./UsuarioDTO";
+import { ValoracionAlojamientoDTO } from "./ValoracionAlojamientoDTO";
 
 export class AlojamientoDTO{
 
@@ -11,6 +16,11 @@ export class AlojamientoDTO{
     private numCamas?: number;
     private numBanyos?: number;
     private idGestorAlojamiento?: UsuarioDTO;
+    private idValoracionesAlojamiento?: Set<ValoracionAlojamientoDTO>;
+    private idAlquileresAlojamiento?: Set<AlquilerAlojamientoDTO>;
+    private idImagenesAlojamiento?: Set<ImagenAlojamientoDTO>;
+    private idUbicacion?: UbicacionAlojamientoDTO;
+    private idAlojamientoComodidades?: Set<ComodidadAlojamientoDTO>;
 
     constructor(){
 
@@ -86,6 +96,46 @@ export class AlojamientoDTO{
 
     get getIdGestorAlojamiento() {
         return this.idGestorAlojamiento;
+    }
+    
+    set setIdValoracionesAlojamiento(idValoracionesAlojamiento: Set<ValoracionAlojamientoDTO>) {
+        this.idValoracionesAlojamiento = idValoracionesAlojamiento;
+    }
+    
+    get getIdValoracionesAlojamiento() {
+        return this.idValoracionesAlojamiento;
+    }
+    
+    set setIdAlquileresAlojamiento(idAlquileresAlojamiento: Set<AlquilerAlojamientoDTO>) {
+        this.idAlquileresAlojamiento = idAlquileresAlojamiento;
+    }
+    
+    get getIdAlquileresAlojamiento() {
+        return this.idAlquileresAlojamiento;
+    }
+    
+    set setIdImagenesAlojamiento(idImagenesAlojamiento: Set<ImagenAlojamientoDTO>) {
+        this.idImagenesAlojamiento = idImagenesAlojamiento;
+    }
+    
+    get getIdImagenesAlojamiento() {
+        return this.idImagenesAlojamiento;
+    }
+    
+    set setIdUbicacion(idUbicacion: UbicacionAlojamientoDTO) {
+        this.idUbicacion = idUbicacion;
+    }
+    
+    get getIdUbicacion() {
+        return this.idUbicacion;
+    }
+    
+    set setIdAlojamientoComodidades(idAlojamientoComodidades: Set<ComodidadAlojamientoDTO>) {
+        this.idAlojamientoComodidades = idAlojamientoComodidades;
+    }
+    
+    get getIdAlojamientoComodidades() {
+        return this.idAlojamientoComodidades;
     }
     
 }

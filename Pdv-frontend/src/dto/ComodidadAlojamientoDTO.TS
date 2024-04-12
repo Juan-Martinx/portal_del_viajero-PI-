@@ -2,23 +2,19 @@ import { AlojamientoComodidadAlojamientoDTO } from "./AlojamientoComodidadAlojam
 import{TipoComodidadDTO} from "./TipoComodidadDTO";
 
 export class ComodidadAlojamientoDTO{
-    private id?: Number;
-
-    private codigoComodidad?: String;
-
-    private txtNombre?: String;
-
-    private txtDescripcion?: String;
-
+   
+    private id?: number;
+    private codigoComodidad?: string;
+    private txtNombre?: string;
+    private txtDescripcion?: string;
     private idTipoComodidad?: TipoComodidadDTO;
-
     private idAlojamientoComodidades?: Set<AlojamientoComodidadAlojamientoDTO>;
 
     constructor(){
 
     }
 
-    set setId(id: Number){
+    set setId(id: number){
         this.id = id;
     }
 
@@ -26,7 +22,7 @@ export class ComodidadAlojamientoDTO{
         return this.id;
     }
 
-    set setCodigoComodidad(codigoComodidad: String){
+    set setCodigoComodidad(codigoComodidad: string){
         this.codigoComodidad = codigoComodidad;
     }
 
@@ -34,7 +30,7 @@ export class ComodidadAlojamientoDTO{
         return this.codigoComodidad;
     }
 
-    set setTxtNombre(txtNombre: String){
+    set setTxtNombre(txtNombre: string){
         this.txtNombre = txtNombre;
     }
 
@@ -42,7 +38,7 @@ export class ComodidadAlojamientoDTO{
         return this.txtNombre;
     }
 
-    set setTxtDescripcion(txtDescripcion: String){
+    set setTxtDescripcion(txtDescripcion: string){
         this.txtDescripcion = txtDescripcion;
     }
 

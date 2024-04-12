@@ -1,14 +1,22 @@
+import { AlojamientoDTO } from "./AlojamientoDTO";
+import { AlquilerAlojamientoDTO } from "./AlquilerAlojamientoDTO";
 import { PerfilDTO } from "./PerfilDTO";
+import { ValoracionAlojamientoDTO } from "./ValoracionAlojamientoDTO";
 
 export class UsuarioDTO{
 
     private id?: number;
+    private txtNombreUsuario?: string;
     private txtDescripcion?: string;
     private txtDni?: string;
     private numTelefono?: number;
     private txtEmail?: string;
     private txtPassword?: string;
     private idPerfil?: PerfilDTO;
+    private idAlquileres?: Set<AlquilerAlojamientoDTO>;
+    private idAlojamientos?: Set<AlojamientoDTO>;
+    private idValoracionesAlojamientos?: Set<ValoracionAlojamientoDTO>;
+
 
     constructor(){
 
@@ -58,16 +66,48 @@ export class UsuarioDTO{
         this.txtPassword = txtPassword;
     }
 
-    get getTxtPassword(){
+    get getTxtPassword() {
         return this.txtPassword;
     }
-
-    set setIdPerfil(perfil: PerfilDTO){
-        this.idPerfil = perfil;
+    
+    set setIdPerfil(idPerfil: PerfilDTO) {
+        this.idPerfil = idPerfil;
     }
-
-    get getIdPerfil(){
+    
+    get getIdPerfil() {
         return this.idPerfil;
+    }
+    
+    set setIdAlquileres(idAlquileres: Set<AlquilerAlojamientoDTO>) {
+        this.idAlquileres = idAlquileres;
+    }
+    
+    get getIdAlquileres() {
+        return this.idAlquileres;
+    }
+    
+    set setIdAlojamientos(idAlojamientos: Set<AlojamientoDTO>) {
+        this.idAlojamientos = idAlojamientos;
+    }
+    
+    get getIdAlojamientos() {
+        return this.idAlojamientos;
+    }
+    
+    set setIdValoracionesAlojamientos(idValoracionesAlojamientos: Set<ValoracionAlojamientoDTO>) {
+        this.idValoracionesAlojamientos = idValoracionesAlojamientos;
+    }
+    
+    get getIdValoracionesAlojamientos() {
+        return this.idValoracionesAlojamientos;
+    }
+    
+    set setTxtNombreUsuario(txtNombreUsuario: string) {
+        this.txtNombreUsuario = txtNombreUsuario;
+    }
+    
+    get getTxtNombreUsuario() {
+        return this.txtNombreUsuario;
     }
 
 }
