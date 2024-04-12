@@ -3,7 +3,7 @@ import { UsuarioDTO } from "./UsuarioDTO";
 export class PerfilDTO{
 
     private id?: number;
-    private codPerfil?: String;
+    private codPerfil?: string;
     private idUsuario?: UsuarioDTO;
 
     constructor(){
@@ -18,7 +18,7 @@ export class PerfilDTO{
         return this.id;
     }
 
-    set setCodPerfil(codPerfil: String){
+    set setCodPerfil(codPerfil: string){
         this.codPerfil = codPerfil;
     }
 

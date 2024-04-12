@@ -31,7 +31,7 @@ public class AlojamientoDTO {
 	private Integer numCamas;
 	
 	@NotNull
-	private Integer numbanyos;
+	private Integer numBanyos;
 	
 	private UsuarioDTO idGestorAlojamiento;
 	
