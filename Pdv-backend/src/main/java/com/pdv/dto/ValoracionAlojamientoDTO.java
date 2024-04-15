@@ -19,7 +19,7 @@ public class ValoracionAlojamientoDTO {
 	@NotNull
 	private Integer puntuacion;
 	
-	private UsuarioDTO idUsuarioValorador;
+	private UsuarioDTO idUsuario;
 	
 	private AlojamientoDTO idAlojamiento;
 	

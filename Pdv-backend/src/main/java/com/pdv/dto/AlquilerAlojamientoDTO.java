@@ -3,7 +3,6 @@ package com.pdv.dto;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -26,7 +25,7 @@ public class AlquilerAlojamientoDTO {
 	@NotNull
 	private Integer numPlazasReservadas;
 	
-	private UsuarioDTO idUsuarioCliente;
+	private UsuarioDTO idUsuario;
 	
 	private AlojamientoDTO idAlojamiento;
 	

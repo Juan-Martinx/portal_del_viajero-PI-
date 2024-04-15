@@ -32,7 +32,7 @@ public class ValoracionAlojamiento {
 	
 	@ManyToOne(targetEntity = Usuario.class)
 	@JoinColumn(referencedColumnName = "id_usuario", name = "id_usuario", nullable = false)
-	private Usuario idUsuarioValorador;
+	private Usuario idUsuario;
 	
 	@ManyToOne(targetEntity = Alojamiento.class)
 	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)

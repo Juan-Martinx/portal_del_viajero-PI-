@@ -45,13 +45,13 @@ public class Usuario {
 	@JoinColumn(referencedColumnName = "id_perfil", name = "id_perfil", nullable = false)
 	private Perfil idPerfil;
 	
-	@OneToMany(mappedBy = "idUsuarioCliente", targetEntity = AlquilerAlojamiento.class)
+	@OneToMany(mappedBy = "idUsuario", targetEntity = AlquilerAlojamiento.class)
 	private Set<AlquilerAlojamiento> idAlquileres;
 	
 	@OneToMany(mappedBy = "idUsuario", targetEntity = Alojamiento.class)
 	private Set<Alojamiento> idAlojamiento;
 	
-	@OneToMany(mappedBy = "idUsuarioValorador", targetEntity = ValoracionAlojamiento.class)
+	@OneToMany(mappedBy = "idUsuario", targetEntity = ValoracionAlojamiento.class)
 	private Set<ValoracionAlojamiento> idValoracionesAlojamientos;
 
 }
