@@ -8,7 +8,7 @@ export class AlquilerAlojamientoDTO{
     private fechaFinAlquiler?: Date;
     private precioTotalAlquiler?: number;
     private numPlazasReservadas?: number;
-    private idUsuarioCliente?: UsuarioDTO;
+    private idUsuario?: UsuarioDTO;
     private idAlojamiento?: AlojamientoDTO;
 
     set setId(id:number){
@@ -51,12 +51,12 @@ export class AlquilerAlojamientoDTO{
         return this.numPlazasReservadas;
     }
 
-    set setIdUsuarioCliente(idUsuarioCliente: UsuarioDTO) {
-        this.idUsuarioCliente = idUsuarioCliente;
+    set setIdUsuario(idUsuario: UsuarioDTO) {
+        this.idUsuario = idUsuario;
     }
 
-    get getIdUsuarioCliente() {
-        return this.idUsuarioCliente;
+    get getIdUsuario() {
+        return this.idUsuario;
     }
 
     set setIdAlojamiento(idAlojamiento: AlojamientoDTO) {

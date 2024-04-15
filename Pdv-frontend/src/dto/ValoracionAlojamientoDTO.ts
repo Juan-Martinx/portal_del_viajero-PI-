@@ -7,7 +7,7 @@ export class ValoracionAlojamientoDTO{
     private txtMensaje?: string;
     private txtAsunto?: string;
     private puntuacion?: number;
-    private idUsuarioValorador?: UsuarioDTO;
+    private idUsuario?: UsuarioDTO;
     private idAlojamiento?: AlojamientoDTO;
 
     constructor(){
@@ -46,12 +46,12 @@ export class ValoracionAlojamientoDTO{
         return this.puntuacion;
     }
     
-    set setIdUsuarioValorador(idUsuarioValorador: UsuarioDTO) {
-        this.idUsuarioValorador = idUsuarioValorador;
+    set setIdUsuario(idUsuario: UsuarioDTO) {
+        this.idUsuario = idUsuario;
     }
     
-    get getIdUsuarioValorador() {
-        return this.idUsuarioValorador;
+    get getIdUsuario() {
+        return this.idUsuario;
     }
     
     set setIdAlojamiento(idAlojamiento: AlojamientoDTO) {
