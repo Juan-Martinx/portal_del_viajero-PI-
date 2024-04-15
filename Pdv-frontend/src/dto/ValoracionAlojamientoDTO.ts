@@ -6,7 +6,6 @@ export class ValoracionAlojamientoDTO{
     private id?: number;
     private txtMensaje?: string;
     private txtAsunto?: string;
-    private provincia?: string;
     private puntuacion?: number;
     private idUsuarioValorador?: UsuarioDTO;
     private idAlojamiento?: AlojamientoDTO;
@@ -37,14 +36,6 @@ export class ValoracionAlojamientoDTO{
     
     get getTxtAsunto() {
         return this.txtAsunto;
-    }
-    
-    set setProvincia(provincia: string) {
-        this.provincia = provincia;
-    }
-    
-    get getProvincia() {
-        return this.provincia;
     }
     
     set setPuntuacion(puntuacion: number) {

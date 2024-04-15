@@ -15,7 +15,7 @@ export class AlojamientoDTO{
     private numPrecioPlaza?: number;
     private numCamas?: number;
     private numBanyos?: number;
-    private idGestorAlojamiento?: UsuarioDTO;
+    private idUsuario?: UsuarioDTO;
     private idValoracionesAlojamiento?: Set<ValoracionAlojamientoDTO>;
     private idAlquileresAlojamiento?: Set<AlquilerAlojamientoDTO>;
     private idImagenesAlojamiento?: Set<ImagenAlojamientoDTO>;
@@ -90,12 +90,12 @@ export class AlojamientoDTO{
         return this.numBanyos;
     }
 
-    set setIdGestorAlojamiento(idGestorAlojamiento: UsuarioDTO) {
-        this.idGestorAlojamiento = idGestorAlojamiento;
+    set setIdUsuario(idUsuario: UsuarioDTO) {
+        this.idUsuario = idUsuario;
     }
 
-    get getIdGestorAlojamiento() {
-        return this.idGestorAlojamiento;
+    get getIdUsuario() {
+        return this.idUsuario;
     }
     
     set setIdValoracionesAlojamiento(idValoracionesAlojamiento: Set<ValoracionAlojamientoDTO>) {

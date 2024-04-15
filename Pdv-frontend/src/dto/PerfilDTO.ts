@@ -5,7 +5,7 @@ export class PerfilDTO{
     private id?: number;
     private codPerfil?: string;
     private txtPerfil?: string;
-    private idUsuario?: UsuarioDTO;
+    private idUsuarios?: UsuarioDTO;
 
     constructor(){
 
@@ -35,11 +35,11 @@ export class PerfilDTO{
         return this.txtPerfil;
     }
     
-    set setIdUsuario(usuario: UsuarioDTO){
-        this.idUsuario = usuario;
+    set setIdUsuarios(usuarios: UsuarioDTO){
+        this.idUsuarios = usuarios;
     }
 
-    get getIdUsuario(){
-        return this.idUsuario;
+    get getIdUsuarios(){
+        return this.idUsuarios;
     }
 }

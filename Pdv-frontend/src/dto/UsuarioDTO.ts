@@ -14,7 +14,7 @@ export class UsuarioDTO{
     private txtPassword?: string;
     private idPerfil?: PerfilDTO;
     private idAlquileres?: Set<AlquilerAlojamientoDTO>;
-    private idAlojamientos?: Set<AlojamientoDTO>;
+    private idAlojamiento?: Set<AlojamientoDTO>;
     private idValoracionesAlojamientos?: Set<ValoracionAlojamientoDTO>;
 
 
@@ -86,12 +86,12 @@ export class UsuarioDTO{
         return this.idAlquileres;
     }
     
-    set setIdAlojamientos(idAlojamientos: Set<AlojamientoDTO>) {
-        this.idAlojamientos = idAlojamientos;
+    set setIdAlojamiento(idAlojamiento: Set<AlojamientoDTO>) {
+        this.idAlojamiento = idAlojamiento;
     }
     
-    get getIdAlojamientos() {
-        return this.idAlojamientos;
+    get getIdAlojamiento() {
+        return this.idAlojamiento;
     }
     
     set setIdValoracionesAlojamientos(idValoracionesAlojamientos: Set<ValoracionAlojamientoDTO>) {

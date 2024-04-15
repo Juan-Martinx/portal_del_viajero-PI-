@@ -35,11 +35,11 @@ export class TipoComodidadDTO{
         return this.txtNombre;
     }
 
-    set setIdComodidadAlojamiento(idComodidadAlojamientos: Set<ComodidadAlojamientoDTO>){
+    set setIdComodidadAlojamientos(idComodidadAlojamientos: Set<ComodidadAlojamientoDTO>){
         this.idComodidadAlojamientos = idComodidadAlojamientos;
     }
 
-    get getIdComodidadAlojamiento(){
+    get getIdComodidadAlojamientos(){
         return this.idComodidadAlojamientos;
     }
 }
