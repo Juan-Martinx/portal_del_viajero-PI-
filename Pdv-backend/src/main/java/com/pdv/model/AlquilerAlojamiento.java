@@ -40,5 +40,5 @@ public class AlquilerAlojamiento {
 	
 	@ManyToOne(targetEntity = Alojamiento.class)
 	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
-	private Alojamiento idAlojamientoAlquilado;
+	private Alojamiento idAlojamiento;
 }

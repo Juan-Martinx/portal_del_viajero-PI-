@@ -1,6 +1,7 @@
 package com.pdv.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -10,7 +11,7 @@ public class UbicacionAlojamientoDTO {
 
 	private Long id;
 	
-	@NotBlank
+	@NotNull
 	@Pattern(regexp = "^[0-9]{5}")
 	private Integer codigoPostal;
 	
@@ -18,6 +19,7 @@ public class UbicacionAlojamientoDTO {
 	@Size(max = 60)
 	private String ciudad;
 	
+	@NotBlank
 	@Size(max = 60)
 	private String provincia;
 	

@@ -18,6 +18,6 @@ public class PerfilDTO {
 	@NotBlank
 	private String txtPerfil;
 	
-	private Set<UsuarioDTO> idUsuario;
+	private Set<UsuarioDTO> idUsuarios;
 	
 }

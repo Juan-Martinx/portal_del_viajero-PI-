@@ -26,8 +26,6 @@ public class ValoracionAlojamiento {
 	@Column(name = "txt_asunto", nullable = false, length = 50)
 	private String txtAsunto;
 	
-	@Column(name = "provincia", nullable = false, length = 60)
-	private String provincia;
 	
 	@Column(name = "puntuacion", nullable = false)
 	private Integer puntuacion;
@@ -38,6 +36,6 @@ public class ValoracionAlojamiento {
 	
 	@ManyToOne(targetEntity = Alojamiento.class)
 	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
-	private Alojamiento idAlojamientoValorado;
+	private Alojamiento idAlojamiento;
 	
 }

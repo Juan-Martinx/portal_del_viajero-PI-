@@ -48,8 +48,8 @@ public class Usuario {
 	@OneToMany(mappedBy = "idUsuarioCliente", targetEntity = AlquilerAlojamiento.class)
 	private Set<AlquilerAlojamiento> idAlquileres;
 	
-	@OneToMany(mappedBy = "idGestorAlojamiento", targetEntity = Alojamiento.class)
-	private Set<Alojamiento> idAlojamientos;
+	@OneToMany(mappedBy = "idUsuario", targetEntity = Alojamiento.class)
+	private Set<Alojamiento> idAlojamiento;
 	
 	@OneToMany(mappedBy = "idUsuarioValorador", targetEntity = ValoracionAlojamiento.class)
 	private Set<ValoracionAlojamiento> idValoracionesAlojamientos;

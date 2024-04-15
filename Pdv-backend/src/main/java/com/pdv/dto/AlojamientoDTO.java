@@ -16,6 +16,7 @@ public class AlojamientoDTO {
 	@Size(min = 6, max = 50)
 	private String txtNombre;
 	
+	@NotBlank
 	private String txtDescripcion;
 	
 	@NotNull
@@ -33,7 +34,7 @@ public class AlojamientoDTO {
 	@NotNull
 	private Integer numBanyos;
 	
-	private UsuarioDTO idGestorAlojamiento;
+	private UsuarioDTO idUsuario;
 	
 	private Set<ValoracionAlojamientoDTO> idValoracionesAlojamiento;
 	

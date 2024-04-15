@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -11,18 +12,18 @@ public class AlquilerAlojamientoDTO {
 	
 	private Long id;
 	
-	@NotBlank
+	@NotNull
 	@FutureOrPresent
 	private LocalDate fechaInicioAlquiler;
 	
-	@NotBlank
+	@NotNull
 	@FutureOrPresent
 	private LocalDate fechaFinAlquiler;
 	
-	@NotBlank
+	@NotNull
 	private Double precioTotalAlquiler;
 	
-	@NotBlank
+	@NotNull
 	private Integer numPlazasReservadas;
 	
 	private UsuarioDTO idUsuarioCliente;

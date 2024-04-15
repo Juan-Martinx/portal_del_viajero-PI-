@@ -1,5 +1,6 @@
 package com.pdv.dto;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -15,11 +16,7 @@ public class ValoracionAlojamientoDTO {
 	@Size(max = 50)
 	private String txtAsunto;
 	
-	@NotBlank
-	@Size(max = 60)
-	private String provincia;
-	
-	@NotBlank
+	@NotNull
 	private Integer puntuacion;
 	
 	private UsuarioDTO idUsuarioValorador;

@@ -47,12 +47,12 @@ public class Alojamiento {
 	
 	@ManyToOne(targetEntity = Usuario.class)
 	@JoinColumn(referencedColumnName = "id_usuario", name = "id_usuario", nullable = false)
-	private Usuario idGestorAlojamiento;
+	private Usuario idUsuario;
 	
-	@OneToMany(mappedBy = "idAlojamientoValorado", targetEntity = ValoracionAlojamiento.class)
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ValoracionAlojamiento.class)
 	private Set<ValoracionAlojamiento> idValoracionesAlojamiento;
 	
-	@OneToMany(mappedBy = "idAlojamientoAlquilado", targetEntity = AlquilerAlojamiento.class)
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlquilerAlojamiento.class)
 	private Set<AlquilerAlojamiento> idAlquileresAlojamiento;
 	
 	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ImagenAlojamiento.class)
