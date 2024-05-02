@@ -16,7 +16,7 @@ export class UsuarioDTO{
     private idAlquileres?: Set<AlquilerAlojamientoDTO>;
     private idAlojamiento?: Set<AlojamientoDTO>;
     private idValoracionesAlojamientos?: Set<ValoracionAlojamientoDTO>;
-
+    private datosImagenUsuario?: Uint8Array;
 
     constructor(){
 
@@ -110,4 +110,11 @@ export class UsuarioDTO{
         return this.txtNombreUsuario;
     }
 
+    set setDatosImagenUsuario(datosImagenUsuario: Uint8Array){
+        this.datosImagenUsuario = datosImagenUsuario;
+    }
+
+    get getDatosImagenUsuario(){
+        return this.datosImagenUsuario;
+    }
 }

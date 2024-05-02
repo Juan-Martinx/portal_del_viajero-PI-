@@ -26,13 +26,7 @@ public class AlojamientoDTO {
 	private Integer numPlazaMax;
 	
 	@NotNull
-	private Double numPrecioPlaza;
-	
-	@NotNull
-	private Integer numCamas;
-	
-	@NotNull
-	private Integer numBanyos;
+	private Double numPrecioNoche;
 	
 	private UsuarioDTO idUsuario;
 	

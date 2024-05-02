@@ -2,12 +2,15 @@ package com.pdv.model;
 
 import java.util.Set;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -40,7 +43,12 @@ public class Usuario {
 
 	@Column(name = "txt_password", nullable = false, length = 20)
 	private String txtPassword;
-
+	
+	@Column(name = "datos_imagen_usuario")
+	@Basic(fetch = FetchType.LAZY)
+	@Lob
+	private Byte[] datosImagenUsuario;
+	
 	@ManyToOne(targetEntity = Perfil.class)
 	@JoinColumn(referencedColumnName = "id_perfil", name = "id_perfil", nullable = false)
 	private Perfil idPerfil;

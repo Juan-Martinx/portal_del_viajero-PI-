@@ -36,6 +36,8 @@ public class UsuarioDTO {
 	@Size(max = 20)
 	private String txtPassword;
 	
+	private Byte[] datosImagenUsuario;
+
 	private PerfilDTO idPerfil;
 	
 	private Set<AlquilerAlojamientoDTO> idAlquileres;
@@ -43,6 +45,5 @@ public class UsuarioDTO {
 	private Set<AlojamientoDTO> idAlojamiento;
 	
 	private Set<ValoracionAlojamientoDTO> idValoracionesAlojamientos;
-
 	
 }

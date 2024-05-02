@@ -36,14 +36,8 @@ public class Alojamiento {
 	@Column(name = "num_plaza_max", nullable = false)
 	private Integer numPlazaMax;
 	
-	@Column(name = "num_precio_plaza", nullable = false)
-	private Double numPrecioPlaza;
-	
-	@Column(name = "num_camas", nullable = false)
-	private Integer numCamas;
-	
-	@Column(name = "num_banyos", nullable = false)
-	private Integer numBanyos;
+	@Column(name = "num_precio_noche", nullable = false)
+	private Double numPrecioNoche;
 	
 	@ManyToOne(targetEntity = Usuario.class)
 	@JoinColumn(referencedColumnName = "id_usuario", name = "id_usuario", nullable = false)

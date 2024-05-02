@@ -24,7 +24,7 @@ public class ImagenAlojamiento {
 	private Long id;
 	
 	@Column(name = "datos_imagen", nullable = false)
-	@Basic(optional = false, fetch = FetchType.EAGER)
+	@Basic(optional = false, fetch = FetchType.LAZY)
 	@Lob
 	private Byte[] datosImagen;
 	

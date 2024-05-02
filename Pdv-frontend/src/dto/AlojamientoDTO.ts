@@ -13,8 +13,6 @@ export class AlojamientoDTO{
     private numPlazaMin?: number;
     private numPlazaMax?: number;
     private numPrecioPlaza?: number;
-    private numCamas?: number;
-    private numBanyos?: number;
     private idUsuario?: UsuarioDTO;
     private idValoracionesAlojamiento?: Set<ValoracionAlojamientoDTO>;
     private idAlquileresAlojamiento?: Set<AlquilerAlojamientoDTO>;
@@ -72,22 +70,6 @@ export class AlojamientoDTO{
 
     get getNumPrecioPlaza() {
         return this.numPrecioPlaza;
-    }
-
-    set setNumCamas(numCamas: number) {
-        this.numCamas = numCamas;
-    }
-
-    get getNumCamas() {
-        return this.numCamas;
-    }
-
-    set setNumBanyos(numBanyos: number) {
-        this.numBanyos = numBanyos;
-    }
-
-    get getNumBanyos() {
-        return this.numBanyos;
     }
 
     set setIdUsuario(idUsuario: UsuarioDTO) {
