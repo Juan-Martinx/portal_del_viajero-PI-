@@ -14,11 +14,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alojamiento` (
   `id_alojamiento` bigint(20) NOT NULL,
-  `num_banyos` int(11) NOT NULL,
-  `num_camas` int(11) NOT NULL,
   `num_plaza_max` int(11) NOT NULL,
   `num_plaza_min` int(11) NOT NULL,
-  `num_precio_plaza` double NOT NULL,
+  `num_precio_noche` double NOT NULL,
   `txt_descripcion` varchar(255) NOT NULL,
   `txt_nombre` varchar(50) NOT NULL,
   `id_usuario` bigint(20) NOT NULL
@@ -128,6 +126,7 @@ CREATE TABLE `ubicacion_alojamiento` (
 
 CREATE TABLE `usuario` (
   `id_usuario` bigint(20) NOT NULL,
+  `datos_imagen_usuario` tinyblob DEFAULT NULL,
   `num_telefono` int(11) NOT NULL,
   `txt_descripcion` varchar(255) DEFAULT NULL,
   `txt_dni` varchar(9) NOT NULL,
