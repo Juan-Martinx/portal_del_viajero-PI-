@@ -1,0 +1,80 @@
+<div class="col-lg-12" style="background-image: url(/src/assets/paginaRegistro/imagenRegistro.jpg);">
+    <div class="col-lg-8 d-flex m-auto h-screen" style="justify-content: center; align-items: center;">
+       <div class="col-lg-6" style="background-color: blueviolet;">
+        <!--<img src="/src/imagenes/imagenRegistro.jpg">-->
+        <h1 class="col-lg-8" style="color: white;">¿Listo para empezar tu aventura?</h1>
+       </div>
+       <div class="col-lg-6" style="background: white;">
+        <h1 class="col-lg-9" style="margin-left: 12%;">Registrar</h1>
+        <p class="col-lg-9" style="color: rgb(162, 162, 162); margin-left: 12%; margin-bottom: 5%;">¡Bienvenido! Por favor, regístrese</p>
+        <form [formGroup]="usuarios" class="col-lg-9 m-auto">
+            
+            <mat-form-field class="col-lg-12">
+              <mat-label>Usuario</mat-label>
+              <input matInput placeholder="Introduzca nombre de usuario" formControlName="usuario">
+              <mat-hint></mat-hint>
+              @if (this.usuarios.get('usuario')?.errors?.['required']){
+                <mat-error>Usuario <strong>requerido</strong></mat-error>
+              }
+            </mat-form-field>
+            
+            <mat-form-field class="col-lg-12">
+                <mat-label>Contraseña</mat-label>
+                <input matInput placeholder="Introduzca contraseña" formControlName="contrasena">
+                <mat-hint></mat-hint>
+                @if(this.usuarios.get('contrasena')?.errors?.['minlength'] && !this.usuarios.get('contrasena')?.errors?.['required']){
+                    <mat-error>Longitud mínima 6 caracteres</mat-error>
+                }
+                @if(this.usuarios.get('contrasena')?.errors?.['maxlength']){
+                    <mat-error>Longitud máxima 12 caracteres</mat-error>
+                }
+                @if(this.usuarios.get('contrasena')?.errors?.['required']){
+                    <mat-error>Contraseña <strong>requerida</strong></mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field class="col-lg-12">
+                <mat-label>DNI</mat-label>
+                <input matInput placeholder="Introduzca DNI" formControlName="dni">
+                <mat-hint></mat-hint>
+                @if(this.usuarios.get('dni')?.errors?.['pattern']){
+                    <mat-error>Tiene que cumplir con el formato de <strong>DNI</strong></mat-error>
+                }
+                @if(this.usuarios.get('dni')?.errors?.['required']){
+                    <mat-error>DNI es <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field class="col-lg-12">
+                <mat-label>Teléfono</mat-label>
+                <input matInput placeholder="Introduzca teléfono" formControlName="telefono">
+                <mat-hint></mat-hint>
+                @if(this.usuarios.get('telefono')?.errors?.['pattern']){
+                    <mat-error>Tiene que tener entre 0 y 9 caracteres</mat-error>
+                }
+                @if(this.usuarios.get('telefono')?.errors?.['required']){
+                    <mat-error>Teléfono es <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field class="col-lg-12">
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput placeholder="Introduzca correo electrónico" formControlName="correoElectronico">
+                <mat-hint></mat-hint>
+                @if(this.usuarios.get('correoElectronico')?.errors?.['email']){
+                    <mat-error>Por favor, introduzca un email válido</mat-error>
+                }
+                @if(this.usuarios.get('correoElectronico')?.errors?.['required']){
+                    <mat-error>Email es <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+          
+            <!--<mat-form-field class="example-full-width">
+              <mat-label>Leave a comment</mat-label>
+              <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+            </mat-form-field>-->
+          </form>
+       </div>
+    </div>
+</div>
+
