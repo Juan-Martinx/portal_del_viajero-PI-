@@ -1,0 +1,72 @@
+<div class="background-container">
+    <div class="container col-lg-12">
+      <div class="row col-lg-8 d-flex m-auto inicio-sesion-container">
+        <div class="col-lg-6 imagen-inicio-sesion">
+          <div class="col-lg-9">
+            <h1 class="col-lg-10 titulo-imagen">
+              <strong>¿Listo para empezar tu aventura?</strong>
+            </h1>
+            <p><img src="../../../assets/paginaRegistro/logoAplicacion.jpg"></p>
+          </div>
+        </div>
+        <div class="col-lg-6 formulario-inicio-sesion">
+          <i class="bi bi-arrow-left d-flex justify-content-end mt-4 me-lg-2"></i>
+          <h1 class="col-lg-9 mt-lg-2 titulo-inicio-sesion"><strong>Iniciar Sesión</strong></h1>
+          <p
+            class="col-lg-9 texto"
+          >
+            ¡Bienvenido! Por favor, inicie sesión
+          </p>
+          <form [formGroup]="usuarios" class="col-lg-9 m-auto">
+            <mat-form-field class="col-lg-12">
+              <mat-label>Usuario</mat-label>
+              <input
+                matInput
+                placeholder="Introduzca nombre de usuario"
+                formControlName="usuario"
+              />
+              <mat-hint></mat-hint>
+              @if (this.usuarios.get('usuario')?.errors?.['required']){
+              <mat-error>Usuario <strong>requerido</strong></mat-error>
+              }
+            </mat-form-field>
+  
+            <mat-form-field class="col-lg-12">
+              <mat-label>Contraseña</mat-label>
+              <input
+                matInput
+                placeholder="Introduzca contraseña"
+                formControlName="contrasena"
+              />
+              <mat-hint></mat-hint>
+              @if(this.usuarios.get('contrasena')?.errors?.['minlength'] &&
+              !this.usuarios.get('contrasena')?.errors?.['required']){
+              <mat-error>Longitud mínima 6 caracteres</mat-error>
+              } @if(this.usuarios.get('contrasena')?.errors?.['maxlength']){
+              <mat-error>Longitud máxima 12 caracteres</mat-error>
+              } @if(this.usuarios.get('contrasena')?.errors?.['required']){
+              <mat-error>Contraseña <strong>requerida</strong></mat-error>
+              }
+            </mat-form-field>
+  
+          </form>
+  
+          <div class="col-lg-12 form-check recordar">
+            <input
+              class="col-lg-1 form-check-input checkbox"
+              type="checkbox"
+              value=""
+              id="flexCheckDefault"
+            />
+            <label class="col-lg-9 form-check-label" for="flexCheckDefault">
+              Recordar
+            </label>
+          </div>
+  
+          <button class="col-lg-9 boton-iniciar-sesion">Iniciar Sesión</button>
+  
+          <p class="col-lg-12 mt-4 mb-lg-4 texto-registrar">¿Nuevo usuario? <a href="#">Registrar</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
