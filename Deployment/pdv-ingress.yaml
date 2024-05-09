@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pdv-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: portaldelviajero.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: pdv-frontend-svc
+            port:
+              number: 80
+      - pathType: Prefix
+        path: "/backend"
+        backend:
+          service:
+            name: pdv-backend-svc
+            port:
+              number: 9999
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: pdv-mysql-svc
+            port:
+              number: 3306
