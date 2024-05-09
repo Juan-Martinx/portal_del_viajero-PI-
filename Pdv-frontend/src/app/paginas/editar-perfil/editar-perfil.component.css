@@ -1,3 +1,45 @@
+.casas-alquiler{
+    color:  rgb(162, 162, 162);
+    font-size: 15px;
+}
+
 .bi-house-door{
-    font-size: 30px;
+    font-size: 35px;
+    color: black;
+}
+
+.titulo-nombre, .titulo-descripcion, .titulo-telefono, .titulo-correo{
+    color: rgb(162, 162, 162);
+}
+
+.btn-guardar{
+    border-radius: 8px;
+    border: none;
+    background-color: blueviolet;
+    color: white;
+    padding: 10px;
+    width: 40%;
+    margin-right: 10%;
+}
+
+.btn-cancelar{
+    border-radius: 8px;
+    border: none;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    width: 40%;
+    margin-left: 10%;
+}
+
+.bi-pencil-fill{
+    color: black;
+    font-size: 20px;
+}
+
+
+.editar-usuario{
+    color:  rgb(162, 162, 162);
+    font-size: 15px;
+    cursor: pointer;
 }
