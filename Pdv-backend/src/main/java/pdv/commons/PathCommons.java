@@ -1,0 +1,38 @@
+package pdv.commons;
+
+public class PathCommons {
+
+	/*Path General del Backend*/
+	public static final String BACKEND = "/pdv-backend";
+	
+	/*USUARIOS*/
+	public static final String USUARIOS = BACKEND + "/usuarios";
+	
+	/*PERFILES*/
+	public static final String PERFIL = BACKEND + "/perfil";
+	
+	/*ALOJAMIENTO-COMODIDAD-ALOJAMIENTO*/
+	public static final String ALOJAMIENTO_COMODIDAD_ALOJAMIENTO = BACKEND + "/alojamiento-comodidad-alojamiento";
+
+	/*ALOJAMIENTO*/
+	public static final String ALOJAMIENTO = BACKEND + "/alojamiento";
+	
+	/*ALQUILER-ALOJAMIENTO*/
+	public static final String ALQUILER_ALOJAMIENTO = BACKEND + "/alquiler-alojamiento";
+	
+	/*IMÁGEN-ALOJAMIENTO*/
+	public static final String IMAGEN_ALOJAMIENTO = BACKEND + "/imagen-alojamiento";
+	
+	
+	/*UBICACIÓN-ALOJAMIENTO*/
+	public static final String UBICACION_ALOJAMIENTO = BACKEND + "/ubicacion-alojamiento";
+	
+	/*VALORACIÓN-ALOJAMIENTO*/
+	public static final String VALORACION_ALOJAMIENTO = BACKEND + "/valoracion-alojamiento";
+	
+	/*COMODIDAD-ALOJAMIENTO*/
+	public static final String COMODIDAD_ALOJAMIENTO = BACKEND + "/comodidad-alojamiento";
+	
+	/*TIPO-COMODIDAD*/
+	public static final String TIPO_COMODIDAD = BACKEND + "/tipo-comodidad";
+}

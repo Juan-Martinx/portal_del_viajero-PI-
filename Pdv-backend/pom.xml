@@ -12,7 +12,7 @@
 	<groupId>com.pdv</groupId>
 	<artifactId>Pdv-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ActividadPaginacion</name>
+	<name>PortalDelViajero</name>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -27,9 +27,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>8.0.33</version>
+		    <scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
