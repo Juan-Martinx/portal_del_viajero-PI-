@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pdv-ingress
+spec:
+  rules:
+  - host: portaldelviajero.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: pdv-frontend-svc
+            port:
+              number: 80
+      - pathType: Prefix
+        path: "/pdv-backend"
+        backend:
+          service:
+            name: pdv-backend-svc
+            port:
+              number: 8080

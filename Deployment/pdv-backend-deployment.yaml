@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pdv-backend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: pdv-backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pdv-backend
+    spec:
+      containers:
+        - name: pdv-backend
+          image: jmarcan286/pdv-backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              valueFrom :
+                configMapKeyRef :
+                  name : db-config
+                  key :  host
+
+            - name: DB_NAME
+              valueFrom :
+                configMapKeyRef :
+                  name : db-config
+                  key :  dbName
+
+            - name: DB_USERNAME
+              valueFrom :
+                secretKeyRef :
+                  name : mysql-secrets
+                  key :  username
+
+            - name: DB_PASSWORD
+              valueFrom :
+                secretKeyRef :
+                  name : mysql-secrets
+                  key :  password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pdv-backend-svc
+spec:
+  selector:
+    app: pdv-backend
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080

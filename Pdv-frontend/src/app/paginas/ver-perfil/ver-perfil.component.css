@@ -1,0 +1,13 @@
+.casas-alquiler{
+    color:  rgb(162, 162, 162);
+    font-size: 15px;
+}
+
+.bi-house-door{
+    font-size: 35px;
+    color: black;
+}
+
+.titulo-nombre, .titulo-descripcion, .titulo-telefono, .titulo-correo{
+    color: rgb(162, 162, 162);
+}

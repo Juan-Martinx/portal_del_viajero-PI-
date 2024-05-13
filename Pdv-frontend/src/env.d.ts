@@ -7,5 +7,3 @@ declare interface Env {
 declare interface ImportMeta {
   readonly env: Env;
 }
-
-// Para acceder a las variables de entorno se usa import.meta.env.NG_APP_API
