@@ -19,11 +19,15 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Table(name = "usuario")
 public class Usuario implements UserDetails{
@@ -35,22 +39,22 @@ public class Usuario implements UserDetails{
 	@Column(name = "id_usuario")
 	private Long id;
 
-	@Column(name = "txt_nombre_usuario", length = 15, nullable = false, unique = true)
+	@Column(name = "username", length = 15, nullable = false, unique = true)
 	private String username;
 
 	@Column(name = "txt_descripcion")
 	private String txtDescripcion;
 
-	@Column(name = "txt_dni", length = 9, nullable = false, unique = true)
+	@Column(name = "txt_dni", length = 9, unique = true)
 	private String txtDni;
 
-	@Column(name = "num_telefono", nullable = false, unique = true)
+	@Column(name = "num_telefono", unique = true)
 	private Integer numTelefono;
 
-	@Column(name = "txt_email", nullable = false, unique = true)
+	@Column(name = "txt_email", unique = true)
 	private String txtEmail;
 
-	@Column(name = "txt_password", nullable = false, length = 20)
+	@Column(name = "password", nullable = false)
 	private String password;
 	
 	@Column(name = "datos_imagen_usuario")
@@ -63,7 +67,7 @@ public class Usuario implements UserDetails{
 	private boolean credentialsExpired = false;
 	private boolean disabled = false;
 	
-	@ManyToMany(targetEntity = Perfil.class)
+	@ManyToMany(targetEntity = Perfil.class, fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_perfiles", joinColumns = @JoinColumn(name = "id_usuario"), 
 		inverseJoinColumns = @JoinColumn(name = "id_perfil"))
 	private Set<Perfil> idPerfiles;

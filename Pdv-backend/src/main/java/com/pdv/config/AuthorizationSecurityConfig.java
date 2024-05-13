@@ -12,9 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
@@ -26,7 +24,6 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
@@ -35,11 +32,16 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import pdv.commons.PathCommons;
 
 @Configuration
+@RequiredArgsConstructor
 @Slf4j
 public class AuthorizationSecurityConfig {
+	
+	private final PasswordEncoder passwordEncoder;
 	
 	@Bean
 	@Order(1)
@@ -48,7 +50,7 @@ public class AuthorizationSecurityConfig {
 		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
 			.oidc(Customizer.withDefaults());
 		http.exceptionHandling(exception -> exception
-				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
+				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(PathCommons.LOGIN_ENTRYPOINT)))
 				.oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
 		return http.build();
 	}
@@ -56,25 +58,19 @@ public class AuthorizationSecurityConfig {
 	@Bean
 	@Order(2)
 	SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+		http.authorizeHttpRequests(auth -> auth.requestMatchers(PathCommons.USUARIOS + "/**").permitAll().anyRequest().authenticated())
 			.formLogin(Customizer.withDefaults());
+		http.csrf((csrf) -> csrf
+				.ignoringRequestMatchers(PathCommons.USUARIOS + "/**")
+				);
 		return http.build();
-	}
-	
-	@Bean
-	UserDetailsService userDetailsService() {
-		UserDetails userDetails = User.withUsername("user")
-				.password("{noop}user")
-				.authorities("ROLE_USER")
-				.build();
-		return new InMemoryUserDetailsManager(userDetails);
 	}
 	
     @Bean
     RegisteredClientRepository registeredClientRepository(){
         RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("client")
-                .clientSecret("{noop}secret")
+                .clientSecret(passwordEncoder.encode("secret"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
@@ -93,7 +89,7 @@ public class AuthorizationSecurityConfig {
 
     @Bean
     AuthorizationServerSettings authorizationServerSettings(){
-        return AuthorizationServerSettings.builder().issuer("http://localhost:9999").build();
+        return AuthorizationServerSettings.builder().issuer(PathCommons.API_URL).build();
     }
 
     @Bean

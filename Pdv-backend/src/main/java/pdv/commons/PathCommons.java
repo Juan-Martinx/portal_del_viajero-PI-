@@ -35,4 +35,11 @@ public class PathCommons {
 	
 	/*TIPO-COMODIDAD*/
 	public static final String TIPO_COMODIDAD = BACKEND + "/tipo-comodidad";
+	
+	/*LOGIN ENTRYPOINT*/
+	public static final String LOGIN_ENTRYPOINT = BACKEND + "/login";
+	
+	/*URL DE LA API*/
+	public static final String API_URL = "http://localhost:8080";
+
 }

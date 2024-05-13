@@ -19,6 +19,10 @@ public class UsuarioDTO {
 	@Size(max = 15)
 	private String username;
 	
+	@NotBlank
+	@Size(max = 20)
+	private String password;
+	
 	private String txtDescripcion;
 
 	@NotBlank
@@ -32,10 +36,6 @@ public class UsuarioDTO {
 	@NotBlank
 	@Email
 	private String txtEmail;
-	
-	@NotBlank
-	@Size(max = 20)
-	private String password;
 	
 	private Byte[] datosImagenUsuario;
 

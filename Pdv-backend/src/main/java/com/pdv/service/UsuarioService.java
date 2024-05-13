@@ -1,10 +1,13 @@
 package com.pdv.service;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.pdv.dto.GenericAPIMessageDTO;
 import com.pdv.dto.UsuarioDTO;
 import com.pdv.enums.CodPerfiles;
 import com.pdv.model.Perfil;
@@ -24,7 +27,7 @@ public class UsuarioService {
 	private final PerfilRepository perfilRepository;
 	private final PasswordEncoder passwordEncoder;
 	
-	public void crearUsuario(UsuarioDTO usuarioDTO) {
+	public GenericAPIMessageDTO crearUsuario(UsuarioDTO usuarioDTO) {
 		
 		var nuevoUsuario = Usuario.builder()
 				.username(usuarioDTO.getUsername())
@@ -40,6 +43,12 @@ public class UsuarioService {
 		
 		nuevoUsuario.setIdPerfiles(perfiles);
 		usuarioRepository.save(nuevoUsuario);
+		
+		return GenericAPIMessageDTO.builder()
+				.mensaje("Usuario Creado Con Éxito")
+				.fechaYHora(LocalDateTime.now())
+				.estado(HttpStatus.CREATED)
+				.build();
 	}
 	
 }
