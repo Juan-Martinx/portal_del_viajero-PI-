@@ -7,23 +7,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pdv.dto.CreateClientDTO;
 import com.pdv.dto.GenericAPIMessageDTO;
-import com.pdv.dto.UsuarioDTO;
-import com.pdv.service.UsuarioService;
+import com.pdv.service.ClientService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import pdv.commons.PathCommons;
 
 @RestController
-@RequestMapping(PathCommons.USUARIOS)
+@RequestMapping(PathCommons.AUTENTIFICATION_CLIENT)
 @RequiredArgsConstructor
-public class UsuarioController {
+@Slf4j
+public class ClientController {
 
-	private final UsuarioService usuarioService;
-		
-	@PostMapping("/crear")
-	public ResponseEntity<GenericAPIMessageDTO> crearUsuario(@RequestBody UsuarioDTO dto){
-		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.crearUsuario(dto));
-	}
-	
+    private final ClientService clientService;
+
+    @PostMapping("/crear")
+    public ResponseEntity<GenericAPIMessageDTO> crear(@RequestBody CreateClientDTO dto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientService.create(dto));
+    }
 }

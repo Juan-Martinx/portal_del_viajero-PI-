@@ -32,8 +32,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuario")
 public class Usuario implements UserDetails{
 
-	private static final long serialVersionUID = -2996297027505667791L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_usuario")
@@ -58,7 +56,7 @@ public class Usuario implements UserDetails{
 	private String password;
 	
 	@Column(name = "datos_imagen_usuario")
-	@Basic(fetch = FetchType.LAZY)
+	@Basic(fetch = FetchType.EAGER)
 	@Lob
 	private Byte[] datosImagenUsuario;
 	
@@ -67,18 +65,18 @@ public class Usuario implements UserDetails{
 	private boolean credentialsExpired = false;
 	private boolean disabled = false;
 	
-	@ManyToMany(targetEntity = Perfil.class, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_perfiles", joinColumns = @JoinColumn(name = "id_usuario"), 
 		inverseJoinColumns = @JoinColumn(name = "id_perfil"))
 	private Set<Perfil> idPerfiles;
 	
-	@OneToMany(mappedBy = "idUsuario", targetEntity = AlquilerAlojamiento.class)
+	@OneToMany(mappedBy = "idUsuario", targetEntity = AlquilerAlojamiento.class, fetch = FetchType.EAGER)
 	private Set<AlquilerAlojamiento> idAlquileres;
 	
-	@OneToMany(mappedBy = "idUsuario", targetEntity = Alojamiento.class)
+	@OneToMany(mappedBy = "idUsuario", targetEntity = Alojamiento.class, fetch = FetchType.EAGER)
 	private Set<Alojamiento> idAlojamiento;
 	
-	@OneToMany(mappedBy = "idUsuario", targetEntity = ValoracionAlojamiento.class)
+	@OneToMany(mappedBy = "idUsuario", targetEntity = ValoracionAlojamiento.class, fetch = FetchType.EAGER)
 	private Set<ValoracionAlojamiento> idValoracionesAlojamientos;
 
 	@Override

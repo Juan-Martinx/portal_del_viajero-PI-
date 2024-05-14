@@ -1,7 +1,5 @@
 package com.pdv.model;
 
-import java.util.Set;
-
 import org.springframework.security.core.GrantedAuthority;
 
 import com.pdv.enums.CodPerfiles;
@@ -10,11 +8,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,9 +36,6 @@ public class Perfil implements GrantedAuthority{
 
 	@Column(name = "txt_perfil", nullable = false)
 	private String txtPerfil;
-
-	@ManyToMany(mappedBy = "idPerfiles", targetEntity = Usuario.class, fetch = FetchType.EAGER)
-	private Set<Usuario> idUsuarios;
 
 	@Override
 	public String getAuthority() {
