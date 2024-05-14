@@ -1,0 +1,85 @@
+<div>
+    <div class="container">
+        <div class="row col-lg-12">
+            <div class="col-lg-12 m-auto d-inline-block mt-lg-5">
+                <div class="col-lg-12 titulo">
+                    <h1 class="col-lg-7 d-inline-block"><strong>Buscador de Comodidades</strong></h1>
+                    <div class="col-lg-5 d-inline-block contenedor-anadir">
+                        <button class="col-lg-5 btn-anadir">AÑADIR</button>
+                    </div>
+                </div>
+                
+                <form [formGroup]="comodidades" class="col-lg-12 mt-lg-5">
+                    <mat-form-field class="col-lg-2 me-lg-5">
+                      <mat-label>Nombre de comodidad</mat-label>
+                      <input
+                        matInput
+                        placeholder="Introduzca nombre de comodidad"
+                        formControlName="nombre"
+                      />
+                    </mat-form-field>
+          
+                    <mat-form-field class="col-lg-2 ms-lg-2 me-lg-5">
+                      <mat-label>Código de comodidad</mat-label>
+                      <input
+                        matInput
+                        placeholder="Introduzca código de comodidad"
+                        formControlName="codigo"
+                      />
+                    </mat-form-field>
+
+                    <mat-form-field class="col-lg-2 ms-lg-2 me-lg-5">
+                        <mat-label>Código de tipo de comodidad</mat-label>
+                        <input
+                        matInput
+                        placeholder="Introduzca código de tipo de comodidad"
+                        formControlName="codigoTipoComodidad"/>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-lg-2 ms-lg-3 me-lg-5 mb-lg-5">
+                        <mat-label>Nombre de tipo de comodidad</mat-label>
+                        <input
+                        matInput
+                        placeholder="Introduzca nombre de tipo de comodidad"
+                        formControlName="nombreTipoComodidad"/>
+                    </mat-form-field>
+                    <i class="bi bi-search ms-lg-4"></i>
+                  </form>
+
+                  <div class="col-lg-12 mt-lg-5">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nombre de comodidad</th>
+                                <th>Código de comodidad</th>
+                                <th>Código de tipo comodidad</th>
+                                <th>Nombre de tipo comodidad</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @for (comodidade of comodidad; track comodidad.length) {
+                                <tr>
+                                    <td><mat-icon class="d-flex justify-content-center icon-pool">{{comodidade.icono}}</mat-icon></td>
+                                    <td> {{comodidade.nombre}}</td>
+                                    <td>{{comodidade.codigo}}</td>
+                                    <td>{{comodidade.codigoTipoComodidad}}</td>
+                                    <td>{{comodidade.nombreTipoComodidad}}</td>
+                                    <td><i class="bi bi-pencil-fill d-flex justify-content-center"></i></td>
+                                    <td><i class="bi bi-trash d-flex justify-content-center"></i></td>
+                                </tr>
+                            }
+                            
+                        </tbody>
+                    </table>
+                  </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
