@@ -1,0 +1,63 @@
+<div>
+    <div class="container">
+        <div class="row col-lg-12">
+            <div class="col-lg-12 m-auto d-inline-block mt-lg-5">
+                <div class="col-lg-12 titulo">
+                    <h1 class="col-lg-12 d-inline-block"><strong>Buscador de Usuarios</strong></h1>
+                </div>
+                
+                <form [formGroup]="usuarios" class="col-lg-12 mt-lg-5">
+                    <mat-form-field class="col-lg-2 me-lg-5">
+                      <mat-label>Nombre de usuario</mat-label>
+                      <input
+                        matInput
+                        placeholder="Introduzca nombre de usuario"
+                        formControlName="nombre"
+                      />
+                    </mat-form-field>
+          
+                    <mat-form-field class="col-lg-2 ms-lg-2 me-lg-5">
+                      <mat-label>Número de teléfono</mat-label>
+                      <input
+                        matInput
+                        placeholder="Introduzca número de teléfono"
+                        formControlName="telefono"
+                      />
+                    </mat-form-field>
+
+                    <mat-form-field class="col-lg-2 ms-lg-2 me-lg-5">
+                        <mat-label>Correo electrónico</mat-label>
+                        <input
+                        matInput
+                        placeholder="Introduzca correo electrónico"
+                        formControlName="correoElectronico"/>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-lg-2 ms-lg-3 me-lg-5 mb-lg-5">
+                        <mat-label>DNI</mat-label>
+                        <input
+                        matInput
+                        placeholder="Introduzca DNI"
+                        formControlName="dni"/>
+                    </mat-form-field>
+                    <i class="bi bi-search ms-lg-4"></i>
+                  </form>
+
+                  <div class="col-lg-11">
+                    @for (usu of numeroUsuario; track usu.length) {
+                        <div class="col-lg-2 me-lg-5 mb-lg-4 d-inline-block lista-usuarios">
+                            <img class="d-inline-block me-lg-2 imagen-usuario"  src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                            <div class="d-inline-block">
+                                <h3 class="d-inline-block"> <strong>{{usu.usuario}}</strong></h3>
+                            </div>
+
+                        </div>
+                    }
+                  </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

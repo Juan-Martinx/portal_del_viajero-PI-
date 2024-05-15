@@ -8,11 +8,17 @@ import { VerPerfilComponent } from './paginas/ver-perfil/ver-perfil.component';
 import { BuscarComodidadComponent } from './paginas/buscar-comodidad/buscar-comodidad.component';
 import { ModificarComodidadComponent } from './paginas/modificar-comodidad/modificar-comodidad.component';
 import { AnadirComodidadComponent } from './paginas/anadir-comodidad/anadir-comodidad.component';
+import { CasasAlquilerComponent } from './paginas/casas-alquiler/casas-alquiler.component';
+import { CasasDisponiblesComponent } from './paginas/casas-disponibles/casas-disponibles.component';
+import { VerReservasComponent } from './paginas/ver-reservas/ver-reservas.component';
+import { BuscarUsuariosComponent } from './paginas/buscar-usuarios/buscar-usuarios.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PaginaRegistroComponent, InicioSesionComponent, ConvertirGestorComponent, EditarPerfilComponent, VerPerfilComponent, BuscarComodidadComponent, ModificarComodidadComponent, AnadirComodidadComponent],
+  imports: [RouterOutlet, PaginaRegistroComponent, InicioSesionComponent, ConvertirGestorComponent, EditarPerfilComponent, 
+    VerPerfilComponent, BuscarComodidadComponent, ModificarComodidadComponent, AnadirComodidadComponent, CasasAlquilerComponent, 
+  CasasDisponiblesComponent, VerReservasComponent, BuscarUsuariosComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
