@@ -1,4 +1,4 @@
-package com.pdv.config;
+package com.pdv.oauth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,5 +27,4 @@ public class BeansConfig {
 		source.registerCorsConfiguration("/**", cors);
 		return source;
 	}
-	
 }

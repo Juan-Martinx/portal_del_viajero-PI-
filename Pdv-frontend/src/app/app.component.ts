@@ -1,18 +1,32 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { PaginaRegistroComponent } from './paginas/pagina-registro/pagina-registro.component';
-import { InicioSesionComponent } from './paginas/inicio-sesion/inicio-sesion.component';
-import { ConvertirGestorComponent } from './paginas/convertir-gestor/convertir-gestor.component';
-import { EditarPerfilComponent } from './paginas/editar-perfil/editar-perfil.component';
-import { VerPerfilComponent } from './paginas/ver-perfil/ver-perfil.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RouterOutlet, RouterEvent, Router, NavigationEnd } from '@angular/router';
+import { MenuComponent } from './components/menu/menu.component';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { ResourceInterceptor } from './interceptors/resource.interceptor';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, PaginaRegistroComponent, InicioSesionComponent, ConvertirGestorComponent, EditarPerfilComponent, VerPerfilComponent],
+  imports: [RouterOutlet, MenuComponent, HttpClientModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: ResourceInterceptor, multi: true}]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Pdv-frontend';
+
+  @ViewChild('menu') menu?: MenuComponent;
+
+  constructor(
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(()=> {
+      if (this.menu) {
+        this.menu.getLogged();
+      }
+    });
+  }
 }

@@ -1,12 +1,13 @@
-package com.pdv.dto;
+package com.pdv.oauth.dto;
+
+import java.util.Set;
+
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor

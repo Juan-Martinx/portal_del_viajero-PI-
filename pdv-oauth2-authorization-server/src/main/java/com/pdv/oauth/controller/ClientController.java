@@ -1,4 +1,4 @@
-package com.pdv.controller;
+package com.pdv.oauth.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pdv.dto.CreateClientDTO;
-import com.pdv.dto.GenericAPIMessageDTO;
-import com.pdv.service.ClientService;
+import com.pdv.oauth.commons.PathCommons;
+import com.pdv.oauth.dto.CreateClientDTO;
+import com.pdv.oauth.dto.GenericAPIMessageDTO;
+import com.pdv.oauth.service.ClientService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import pdv.commons.PathCommons;
 
 @RestController
 @RequestMapping(PathCommons.AUTENTIFICATION_CLIENT)

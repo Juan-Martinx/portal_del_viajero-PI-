@@ -1,4 +1,4 @@
-package com.pdv.service;
+package com.pdv.oauth.service;
 
 import java.time.LocalDateTime;
 
@@ -8,10 +8,10 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.stereotype.Service;
 
-import com.pdv.dto.CreateClientDTO;
-import com.pdv.dto.GenericAPIMessageDTO;
-import com.pdv.model.authClient.Client;
-import com.pdv.repository.ClientRepository;
+import com.pdv.oauth.dto.CreateClientDTO;
+import com.pdv.oauth.dto.GenericAPIMessageDTO;
+import com.pdv.oauth.model.Client;
+import com.pdv.oauth.repository.ClientRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

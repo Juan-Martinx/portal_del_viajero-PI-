@@ -1,4 +1,4 @@
-package com.pdv.model.authClient;
+package com.pdv.oauth.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,7 +43,10 @@ public class Client {
                 .redirectUris(ru -> ru.addAll(client.getRedirectUris()))
                 .scopes(sc -> sc.addAll(client.getScopes()))
                 .clientSettings(ClientSettings
-                        .builder().requireProofKey(client.isRequireProofKey()).build());
+                        .builder()
+                        .requireProofKey(client.isRequireProofKey())
+                        .requireAuthorizationConsent(true)
+                        .build());
         return builder.build();
     }
 

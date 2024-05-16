@@ -1,16 +1,16 @@
-package com.pdv;
+package com.pdv.oauth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApplicationLauncher /*implements CommandLineRunner*/{
+public class OAuth2Launcher{
 	
 //	@Autowired
 //	PerfilRepository perfilRepository;
 	
 	public static void main(String[] args) {
-		SpringApplication.run(ApplicationLauncher.class, args);
+		SpringApplication.run(OAuth2Launcher.class, args);
 	}
 
 //	@Override
