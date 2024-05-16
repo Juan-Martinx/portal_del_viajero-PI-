@@ -12,13 +12,14 @@ import { CasasAlquilerComponent } from './paginas/casas-alquiler/casas-alquiler.
 import { CasasDisponiblesComponent } from './paginas/casas-disponibles/casas-disponibles.component';
 import { VerReservasComponent } from './paginas/ver-reservas/ver-reservas.component';
 import { BuscarUsuariosComponent } from './paginas/buscar-usuarios/buscar-usuarios.component';
+import { DetallesCasaRuralGestorAdministradorComponent } from './paginas/detalles-casa-rural-gestor-administrador/detalles-casa-rural-gestor-administrador.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, PaginaRegistroComponent, InicioSesionComponent, ConvertirGestorComponent, EditarPerfilComponent, 
     VerPerfilComponent, BuscarComodidadComponent, ModificarComodidadComponent, AnadirComodidadComponent, CasasAlquilerComponent, 
-  CasasDisponiblesComponent, VerReservasComponent, BuscarUsuariosComponent],
+  CasasDisponiblesComponent, VerReservasComponent, BuscarUsuariosComponent, DetallesCasaRuralGestorAdministradorComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
