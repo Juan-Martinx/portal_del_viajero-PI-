@@ -37,7 +37,19 @@ export class TokenService {
     return localStorage.getItem(ACCESS_TOKEN) != null;
   }
 
+  isCliente(): boolean {
+    return this.tokenWithProfile('PERFIL_CLIENTE');
+  }
+
+  isGestor(): boolean {
+    return this.tokenWithProfile('PERFIL_GESTOR');
+  }
+  
   isAdmin(): boolean {
+  return this.tokenWithProfile('PERFIL_ADMIN');
+  }
+
+  tokenWithProfile(profile: string): boolean {
     if(!this.isLogged()) {
       return false;
     }
@@ -45,8 +57,8 @@ export class TokenService {
     const payload = token?.split(".")[1] as string;
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
-    const roles = values.roles;
-    if (roles.indexOf('ROLE_ADMIN') < 0) {
+    const perfiles = values.perfiles;
+    if (perfiles.indexOf(profile) < 0) {
       return false;
     }
     return true;

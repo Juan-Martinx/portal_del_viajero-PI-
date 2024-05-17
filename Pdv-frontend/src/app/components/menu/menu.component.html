@@ -1,25 +1,32 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
-        </ul>
-        <form class="d-flex" role="search">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          @if(isLogged){
+            <a class="nav-link"  routerLink="/user">User</a>
+          }
+        </li>
+        <li class="nav-item">
+          @if (isAdmin) {
+            <a class="nav-link"  routerLink="/admin">Admin</a>
+          }
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        @if(isLogged){
+          <button class="btn btn-outline-danger" type="button" (click)="onLogout()">Logout</button>
+        }@else{
           <button class="btn btn-outline-success" type="button" (click)="onLogin()">Login</button>
-          <button class="btn btn-outline-danger" type="button">Logout</button>
-        </form>
-      </div>
+        }
+      </form>
     </div>
-  </nav>
+  </div>
+</nav>

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
@@ -28,13 +29,17 @@ import org.springframework.security.oauth2.server.authorization.settings.Authori
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.pdv.oauth.commons.PathCommons;
+import com.pdv.oauth.federated.FederatedIdentityAuthenticationSuccessHandler;
 import com.pdv.oauth.federated.FederatedIdentityConfigurer;
 import com.pdv.oauth.federated.UserRepositoryOAuth2UserHandler;
 import com.pdv.oauth.repository.GoogleUserRepository;
@@ -55,15 +60,19 @@ public class AuthorizationSecurityConfig {
 	@Bean 
 	@Order(1)
 	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
+		
 		http.cors(Customizer.withDefaults());
+		http.csrf((csrf) -> csrf.ignoringRequestMatchers(PathCommons.AUTH + "/**", PathCommons.AUTENTIFICATION_CLIENT + "/**"));
 		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
 			.oidc(Customizer.withDefaults());
 		
-        http.oauth2ResourceServer(oAuthResourceServer -> 
-        	oAuthResourceServer.jwt(Customizer.withDefaults()));
+        http.oauth2ResourceServer(oAuthResourceServer -> oAuthResourceServer.jwt(Customizer.withDefaults()));
 
-        http.apply(new FederatedIdentityConfigurer());
+        http.exceptionHandling(exceptions -> exceptions.defaultAuthenticationEntryPointFor(
+                new LoginUrlAuthenticationEntryPoint("/login"),
+                new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
+        )).oauth2ResourceServer(resource -> resource.jwt(Customizer.withDefaults()));
 
 		return http.build();
 	}
@@ -73,6 +82,7 @@ public class AuthorizationSecurityConfig {
 	public SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
 		
 		http.cors(Customizer.withDefaults());
+		http.csrf((csrf) -> csrf.ignoringRequestMatchers(PathCommons.AUTH + "/**", PathCommons.AUTENTIFICATION_CLIENT + "/**"));
         FederatedIdentityConfigurer federatedIdentityConfigurer = new FederatedIdentityConfigurer()
                 .oauth2UserHandler(new UserRepositoryOAuth2UserHandler(googleUserRepository));
         http
@@ -80,12 +90,13 @@ public class AuthorizationSecurityConfig {
                         authorize
                                 .requestMatchers(PathCommons.AUTH + "/**", PathCommons.AUTENTIFICATION_CLIENT + "/**", "/login").permitAll()
                                 .anyRequest().authenticated()
+                ).formLogin(login -> login.loginPage("/login"))
+                .oauth2Login(login -> login.loginPage("/login")
+                        .successHandler(authenticationSuccessHandler())
                 )
-                .formLogin(Customizer.withDefaults())
                 .apply(federatedIdentityConfigurer);
         http.logout(logout ->
         		logout.logoutSuccessUrl("http://127.0.0.1:4200/logout"));
-		http.csrf((csrf) -> csrf.ignoringRequestMatchers(PathCommons.AUTH + "/**", PathCommons.AUTENTIFICATION_CLIENT + "/**"));
 		return http.build();
 	}
     
@@ -153,5 +164,9 @@ public class AuthorizationSecurityConfig {
             throw new RuntimeException(e.getMessage());
         }
         return keyPair;
+    }
+    
+    private AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new FederatedIdentityAuthenticationSuccessHandler();
     }
 }
