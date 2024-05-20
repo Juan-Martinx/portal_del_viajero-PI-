@@ -44,6 +44,7 @@ import com.pdv.oauth.federated.FederatedIdentityConfigurer;
 import com.pdv.oauth.federated.UserRepositoryOAuth2UserHandler;
 import com.pdv.oauth.repository.GoogleUserRepository;
 import com.pdv.oauth.service.ClientService;
+import com.pdv.oauth.service.UsuarioService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +57,7 @@ public class AuthorizationSecurityConfig {
 	private final PasswordEncoder passwordEncoder;
     private final ClientService clientService;
     private final GoogleUserRepository googleUserRepository;
+    private final UsuarioService usuarioService;
 
 	@Bean 
 	@Order(1)
@@ -70,7 +72,7 @@ public class AuthorizationSecurityConfig {
         http.oauth2ResourceServer(oAuthResourceServer -> oAuthResourceServer.jwt(Customizer.withDefaults()));
 
         http.exceptionHandling(exceptions -> exceptions.defaultAuthenticationEntryPointFor(
-                new LoginUrlAuthenticationEntryPoint("/login"),
+                new LoginUrlAuthenticationEntryPoint("/oauth2/authorization/google-idp"),
                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
         )).oauth2ResourceServer(resource -> resource.jwt(Customizer.withDefaults()));
 
@@ -84,7 +86,7 @@ public class AuthorizationSecurityConfig {
 		http.cors(Customizer.withDefaults());
 		http.csrf((csrf) -> csrf.ignoringRequestMatchers(PathCommons.AUTH + "/**", PathCommons.AUTENTIFICATION_CLIENT + "/**"));
         FederatedIdentityConfigurer federatedIdentityConfigurer = new FederatedIdentityConfigurer()
-                .oauth2UserHandler(new UserRepositoryOAuth2UserHandler(googleUserRepository));
+                .oauth2UserHandler(new UserRepositoryOAuth2UserHandler(googleUserRepository, usuarioService));
         http
                 .authorizeHttpRequests(authorize ->
                         authorize

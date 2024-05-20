@@ -4,12 +4,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { BotonRegistroGoogleComponent } from '../../components/boton-registro-google/boton-registro-google.component';
 
 
 @Component({
   selector: 'app-pagina-registro',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, BotonRegistroGoogleComponent],
   templateUrl: './pagina-registro.component.html',
   styleUrl: './pagina-registro.component.css'
 })

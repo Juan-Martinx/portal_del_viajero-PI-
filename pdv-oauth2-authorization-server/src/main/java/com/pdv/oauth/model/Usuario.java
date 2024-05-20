@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -68,6 +70,9 @@ public class Usuario implements UserDetails{
 	@JoinTable(name = "usuario_perfiles", joinColumns = @JoinColumn(name = "id_usuario"), 
 		inverseJoinColumns = @JoinColumn(name = "id_perfil"))
 	private Set<Perfil> idPerfiles;
+	
+	@OneToOne(mappedBy = "appUser", cascade = CascadeType.ALL)
+	private GoogleUser googleAccount;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

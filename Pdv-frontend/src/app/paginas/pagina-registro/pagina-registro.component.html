@@ -34,6 +34,7 @@
           <mat-form-field class="col-lg-12">
             <mat-label>Contraseña</mat-label>
             <input
+              type="password"
               matInput
               placeholder="Introduzca contraseña"
               formControlName="contrasena"
@@ -70,6 +71,7 @@
           <mat-form-field class="col-lg-12">
             <mat-label>Teléfono</mat-label>
             <input
+              type="tel"
               matInput
               placeholder="Introduzca teléfono"
               formControlName="telefono"
@@ -85,6 +87,7 @@
           <mat-form-field class="col-lg-12">
             <mat-label>Correo electrónico</mat-label>
             <input
+              type="email"
               matInput
               placeholder="Introduzca correo electrónico"
               formControlName="correoElectronico"
@@ -128,7 +131,7 @@
         </div>
 
         <button class="col-lg-9 boton-registrar">Registrar</button>
-
+        <app-boton-registro-google></app-boton-registro-google>
         <p class="col-lg-12 mt-4 mb-lg-4 texto-inicioSesion">¿Ya tienes cuenta? <a href="#">Iniciar Sesión</a></p>
       </div>
     </div>

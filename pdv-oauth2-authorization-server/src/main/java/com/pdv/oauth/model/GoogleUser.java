@@ -2,10 +2,12 @@ package com.pdv.oauth.model;
 
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +27,10 @@ public class GoogleUser {
     private String givenName;
     private String familyName;
     private String pictureUrl;
-
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    private Usuario appUser;
+    
     public static GoogleUser fromOauth2User(OAuth2User user){
         GoogleUser googleUser = GoogleUser.builder()
                 .email(user.getName())

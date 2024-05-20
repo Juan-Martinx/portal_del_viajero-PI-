@@ -46,6 +46,7 @@ export class MenuComponent implements OnInit {
     this.params.code_challenge = this.generateCodeChallenge(code_verifier);
     const httpParams = new HttpParams({fromObject: this.params});
     const codeUrl = this.authorize_uri + httpParams.toString();
+    console.log(codeUrl);
     location.href = codeUrl;
   }
 
