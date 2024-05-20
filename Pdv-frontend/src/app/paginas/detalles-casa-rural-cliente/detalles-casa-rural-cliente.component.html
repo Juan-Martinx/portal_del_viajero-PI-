@@ -2,11 +2,10 @@
     <div class="container">
         <div class="row col-lg-12 m-lg-auto">
             <div class="col-lg-12 mt-lg-5">
-                <h1 class="d-inline-flex me-lg-4"><strong>{{casasRurales[0].titulo}}</strong></h1>
-                <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
+                <h1 class="me-lg-4"><strong>{{casasRurales[0].titulo}}</strong></h1>
             </div>
 
-            <div class="col-lg-12 imagenes" style="display: grid;">
+            <div class="col-lg-12 imagenes">
                 <div class="img1">Imagen 1</div>
                 <div class="img2">Imagen 2</div>
                 <div class="img3">Imagen 3</div>
@@ -15,66 +14,81 @@
 
             </div>
 
-            <div class="col-lg-12 mt-lg-5 precio-noche">
-                <h3><strong>Precio</strong></h3>
-                <form [formGroup]="anuncio" class="col-lg-12 mb-lg-2">
-                    <mat-form-field class="col-lg-5">
-                      <mat-label>Precio por noche</mat-label>
-                      <input
-                        matInput
-                        placeholder="Introduzca precio por noche"
-                        formControlName="precio"
-                      />
-                    </mat-form-field>
-                </form>
-            </div>
-
-            <div class="col-lg-12 mt-lg-5 huespedes">
-                <h3><strong>Huéspedes</strong></h3>
-                <form [formGroup]="anuncio" class="col-lg-12 mb-lg-2">
-                    <mat-form-field class="col-lg-2 me-lg-5">
-                      <mat-label>Número mínimo</mat-label>
-                      <input
-                        matInput
-                        placeholder="Introduzca número mínimo de huéspedes"
-                        formControlName="minHuespedes"
-                      />
-                    </mat-form-field>
-                    <b style="font-size: 35px;">-</b>
-                    <mat-form-field class="col-lg-2 ms-lg-5">
-                        <mat-label>Número máximo</mat-label>
-                        <input
-                          matInput
-                          placeholder="Introduzca número máximo de huéspedes"
-                          formControlName="mHuespedes"
-                        />
-                      </mat-form-field>
-                </form>
-            </div>
-
-            <div class="col-lg-12 mt-lg-5 instalaciones">
-                <h3 class="d-inline-flex me-lg-4"><strong>Instalaciones</strong></h3>
-                <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
-                <div class="col-lg-9">
+            <div class="col-lg-6 mt-lg-5 instalaciones">
+                <h3 class="me-lg-4"><strong>Instalaciones</strong></h3>
+                <div class="col-lg-12">
                     @for (instalacion of instalaciones; track instalacion.length) {
-                        <div class="col-lg-5 d-inline-flex flex-column-2 mb-lg-3">
+                        <div class="col-lg-6 d-inline-flex flex-column-2 mb-lg-3">
                             <mat-icon class="d-inline-flex justify-content-center me-lg-2 icon-pool">{{instalacion.icono}}</mat-icon>
                             <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
                         </div>   
                     }  
                 </div>
             </div>
+            <div class="col-lg-4 mt-lg-5 ms-lg-5">
+                <div class="card p-lg-4" style="position: relative;">
+                    <h3 class=""> <strong>124€</strong>  noche</h3>
+                    <div class="col-lg-10 d-flex">
+                        <div style="border: 1px solid; border-top-left-radius: 8px;">
+                            <label for="llegada">LLEGADA</label>
+                            <input type="date" id="llegada" class="form-control">
+                        </div>
+                        <div style="border: 1px solid; border-top-right-radius: 8px; width: 160px;">
+                            <label for="salida">SALIDA</label>
+                            <input type="date" id="salida" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-11" style="border: 1px solid; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+                        <label for="huespedes">HUÉSPEDES</label>
+                        <select id="huespedes" class="form-control">
+                            <option>1 viajero</option>
+                            <option>2 viajeros</option>
+                            <option>3 viajeros</option>
+                            <option>4 viajeros</option>
+                            <option>5 viajeros</option>
+                            <option>6 viajeros</option>
+                            <option>7 viajeros</option>
+                            <option>8 viajeros</option>
+                            <option>9 viajeros</option>
+                            <option>10 viajeros</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-lg-3 btn-reservar"> RESERVAR</button>
+                    <p class="text-center mt-lg-2">No se te cobrará nada aún</p>
+                    <div class="d-flex justify-content-between">
+                        <p>124€ x 5 noches</p>
+                        <p>620€</p>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <strong>Total</strong>
+                        <strong>620€</strong>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-lg-12 mt-lg-5 comodidades">
-                <h3 class="d-inline-flex me-lg-4"><strong>Comodidades</strong></h3>
-                <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
+                <div class="col-lg-6">
+                    <h3 class="d-inline-flex me-lg-4"><strong>Comodidades</strong></h3>
+                    <div class="col-lg-12">
+                        @for (instalacion of instalaciones; track instalacion.length) {
+                            <div class="col-lg-6 d-inline-flex flex-column-2 mb-lg-3">
+                                <mat-icon class="d-inline-flex justify-content-center me-lg-2 icon-pool">{{instalacion.icono}}</mat-icon>
+                                <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
+                            </div>   
+                        }  
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-12 mt-lg-5 ubicacion">
+                <h3 class="d-inline-flex me-lg-4"><strong>Ubicación</strong></h3>
                 <div class="col-lg-9">
-                    @for (instalacion of instalaciones; track instalacion.length) {
                         <div class="col-lg-5 d-inline-flex flex-column-2 mb-lg-3">
-                            <mat-icon class="d-inline-flex justify-content-center me-lg-2 icon-pool">{{instalacion.icono}}</mat-icon>
-                            <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
-                        </div>   
-                    }  
+                            <i class="bi bi-geo-alt me-lg-2"></i>
+                            <p class="d-inline-flex align-items-end">Sevilla, Andalucía, España</p>
+                        </div> 
                 </div>
             </div>
 
@@ -170,11 +184,7 @@
 
             
                 <button class="col-lg-2 mt-lg-5 mb-lg-4 btn-guardar">GUARDAR</button>
-                <button class="col-lg-2 mt-lg-5 mb-lg-4 btn-cancelar">CANCELAR</button>
             
-
-
-
         </div>
     </div>
 </div>

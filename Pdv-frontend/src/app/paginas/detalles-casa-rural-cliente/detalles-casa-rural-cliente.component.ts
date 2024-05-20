@@ -6,15 +6,13 @@ import {FormsModule} from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-detalles-casa-rural-gestor-administrador',
+  selector: 'app-detalles-casa-rural-cliente',
   standalone: true,
   imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './detalles-casa-rural-gestor-administrador.component.html',
-  styleUrl: './detalles-casa-rural-gestor-administrador.component.css'
+  templateUrl: './detalles-casa-rural-cliente.component.html',
+  styleUrl: './detalles-casa-rural-cliente.component.css'
 })
-export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
- 
-
+export class DetallesCasaRuralClienteComponent implements OnInit {
 
   ver: boolean = false;
 
@@ -88,5 +86,6 @@ cogerPrimerosComentarios(){
 verMas(){
   this.ver = true;
 }
+
 
 }
