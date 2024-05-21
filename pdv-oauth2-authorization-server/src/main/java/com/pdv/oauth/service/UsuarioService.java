@@ -39,6 +39,9 @@ public class UsuarioService {
 		var nuevoUsuario = Usuario.builder()
 				.username(dto.username())
 				.password(passwordEncoder.encode(dto.password()))
+				.txtEmail(dto.txtEmail())
+				.txtDni(dto.txtDni())
+				.numTelefono(dto.numTelefono())
 				.build();
 		
 		var perfiles = new HashSet<Perfil>();

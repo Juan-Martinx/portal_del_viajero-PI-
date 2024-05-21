@@ -4,6 +4,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IUsuarioDTO } from '../../../dto/IUsuarioDTO';
+import { UsuarioService } from '../../services/usuario.service';
 
 
 @Component({
@@ -14,8 +16,27 @@ import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Valida
   styleUrl: './inicio-sesion.component.css'
 })
 export class InicioSesionComponent {
-  usuarios = new FormGroup({
+
+  constructor(private usuarioService: UsuarioService){}
+  formLogin = new FormGroup({
     usuario: new FormControl('', Validators.required),
-    contrasena: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
+    contrasena: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(12)]),
   })
+
+  iniciarSesion(){
+    if(this.formLogin.valid){
+      console.log("Iniciando sesión...");
+      const sesion: IUsuarioDTO = {
+        username: this.formLogin.get('usuario')?.value as string,
+        password: this.formLogin.get('contrasena')?.value as string
+      }
+      this.usuarioService.login(sesion).subscribe(
+        genericApiMessage => {
+          console.log(genericApiMessage.mensaje + "\n\r Con fecha " + genericApiMessage.fechaYHora);
+        }
+      );
+    }else{
+      alert("Por favor, rellene los campos correctamente");
+    }
+  }
 }

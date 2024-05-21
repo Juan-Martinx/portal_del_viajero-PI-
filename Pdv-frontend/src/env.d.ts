@@ -16,6 +16,7 @@ declare interface Env {
   readonly NG_APP_OUATH2_RESOURCE_URL: string;
   readonly NG_APP_OAUTH2_LOGOUT_URL: string;
   readonly NG_APP_OAUTH2_SECRET_PKCE: string;
+  readonly NG_APP_OAUTH_API: string;
 }
 
 declare interface ImportMeta {

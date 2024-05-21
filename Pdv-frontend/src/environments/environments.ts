@@ -1,5 +1,6 @@
 export const environment = {
     api: import.meta.env.NG_APP_API,
+    oauth_api: import.meta.env.NG_APP_OAUTH_API,
     authorizeUri: import.meta.env.NG_APP_OAUTH2_AUTHORIZE_URI,
     client_id: import.meta.env.NG_APP_OAUTH2_CLIENT_ID,
     redirect_uri:import.meta.env.NG_APP_OAUTH2_REDIRECT_URI,
