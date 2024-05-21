@@ -1,0 +1,33 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" style="border-radius: 50%;">
+    <button mat-menu-item style="border-top-right-radius: 8px;">
+      <!--<mat-icon>dialpad</mat-icon>-->
+      <strong><span>Regístrate</span></strong>
+    </button>
+    <button mat-menu-item style="border-bottom: 1px solid;">
+      <!--<mat-icon>voicemail</mat-icon>-->
+      <span>Iniciar Sesión</span>
+    </button>
+    <button mat-menu-item>
+      <!--<mat-icon>notifications_off</mat-icon>-->
+      <span>Editar Perfil</span>
+    </button>
+    <button mat-menu-item>
+        <!--<mat-icon>notifications_off</mat-icon>-->
+        <span>Ver reservas realizadas</span>
+    </button>
+    <button mat-menu-item style="border-bottom: 1px solid;">
+        <!--<mat-icon>notifications_off</mat-icon>-->
+        <span>Cerrar Sesión</span>
+    </button>
+    <button mat-menu-item>
+        <!--<mat-icon>notifications_off</mat-icon>-->
+        <span>Administrar comodidades</span>
+    </button>
+    <button mat-menu-item>
+        <!--<mat-icon>notifications_off</mat-icon>-->
+        <span>Ver usuarios registrados</span>
+    </button>
+  </mat-menu>

@@ -55,7 +55,7 @@
     margin-left: 2%;
 }
 
-.instalaciones, .comodidades,.ubicacion, .resenas-comentarios{
+.instalaciones, .comodidades,.ubicacion{
     border-bottom: 1px solid rgba(162, 162, 162, 0.6);
 }
 
@@ -134,3 +134,49 @@
     
 }
 
+.instalaciones-comodidades{
+    display: inline-block;
+   /* width: calc(50% - 10px);*/
+    margin-right: 108px;
+    vertical-align: top;
+}
+
+.reservar{
+    /*width: calc(50% - 10px);*/
+    display: inline-block;
+    vertical-align: top;
+}
+
+.llegada{
+    border-top: 1px solid rgb(162, 162, 162);
+    border-right: 1px solid rgb(162, 162, 162);
+    border-left: 1px solid rgb(162, 162, 162); 
+    border-top-left-radius: 8px;
+    width: 164px;
+    box-sizing: content-box;
+}
+
+.formulario-llegada, .formulario-salida{
+    width: 100%;
+}
+
+.salida{
+    border-top: 1px solid rgb(162, 162, 162);
+    border-right: 1px solid rgb(162, 162, 162); 
+    border-top-right-radius: 8px; 
+    width: 164px;
+}
+
+.huespedes{
+    border: 1px solid rgb(162, 162, 162); 
+    border-bottom-left-radius: 8px; 
+    border-bottom-right-radius: 8px;
+}
+
+.texto, .texto2, .texto3{
+    color:rgb(162, 162, 162);
+}
+
+.texto2{
+    text-decoration: underline;
+}

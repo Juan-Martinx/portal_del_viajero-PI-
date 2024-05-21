@@ -14,6 +14,7 @@ import { VerReservasComponent } from './paginas/ver-reservas/ver-reservas.compon
 import { BuscarUsuariosComponent } from './paginas/buscar-usuarios/buscar-usuarios.component';
 import { DetallesCasaRuralGestorAdministradorComponent } from './paginas/detalles-casa-rural-gestor-administrador/detalles-casa-rural-gestor-administrador.component';
 import { DetallesCasaRuralClienteComponent } from './paginas/detalles-casa-rural-cliente/detalles-casa-rural-cliente.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ import { DetallesCasaRuralClienteComponent } from './paginas/detalles-casa-rural
   imports: [RouterOutlet, PaginaRegistroComponent, InicioSesionComponent, ConvertirGestorComponent, EditarPerfilComponent, 
     VerPerfilComponent, BuscarComodidadComponent, ModificarComodidadComponent, AnadirComodidadComponent, CasasAlquilerComponent, 
     CasasDisponiblesComponent, VerReservasComponent, BuscarUsuariosComponent, DetallesCasaRuralGestorAdministradorComponent,
-    DetallesCasaRuralClienteComponent],
+    DetallesCasaRuralClienteComponent, MenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

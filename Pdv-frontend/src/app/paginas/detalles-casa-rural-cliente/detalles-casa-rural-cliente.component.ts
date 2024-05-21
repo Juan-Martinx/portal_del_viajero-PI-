@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 @Component({
   selector: 'app-detalles-casa-rural-cliente',
   standalone: true,
-  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule],
+  providers: [provideNativeDateAdapter()],
+  imports: [MatDatepickerModule, MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule],
   templateUrl: './detalles-casa-rural-cliente.component.html',
   styleUrl: './detalles-casa-rural-cliente.component.css'
 })
@@ -70,6 +73,12 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
     }
 
 ];
+
+reservar = new FormGroup({
+  llegada: new FormGroup(''),
+  salida: new FormGroup(''),
+  huespedes: new FormControl('')
+});
 
 primerosComentarios: any[] = [];
 
