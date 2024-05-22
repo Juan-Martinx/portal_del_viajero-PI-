@@ -1,5 +1,6 @@
 package com.pdv.dto;
 
+import java.util.List;
 import java.util.Set;
 
 import jakarta.validation.constraints.Email;
@@ -16,7 +17,11 @@ public class UsuarioDTO {
 
 	@NotBlank
 	@Size(max = 15)
-	private String txtNombreUsuario;
+	private String username;
+	
+	@NotBlank
+	@Size(max = 20)
+	private String password;
 	
 	private String txtDescripcion;
 
@@ -32,13 +37,9 @@ public class UsuarioDTO {
 	@Email
 	private String txtEmail;
 	
-	@NotBlank
-	@Size(max = 20)
-	private String txtPassword;
-	
 	private Byte[] datosImagenUsuario;
 
-	private PerfilDTO idPerfil;
+	private List<String> perfiles;
 	
 	private Set<AlquilerAlojamientoDTO> idAlquileres;
 	

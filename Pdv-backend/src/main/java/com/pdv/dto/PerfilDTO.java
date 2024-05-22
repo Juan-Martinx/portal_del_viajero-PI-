@@ -2,6 +2,8 @@ package com.pdv.dto;
 
 import java.util.Set;
 
+import com.pdv.enums.CodPerfiles;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -13,7 +15,7 @@ public class PerfilDTO {
 	
 	@NotBlank
 	@Size(max = 50)
-	private String codPerfil;
+	private CodPerfiles codPerfil;
 
 	@NotBlank
 	private String txtPerfil;

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { PaginaRegistroComponent } from './paginas/pagina-registro/pagina-registro.component';
 import { InicioSesionComponent } from './paginas/inicio-sesion/inicio-sesion.component';
 import { ConvertirGestorComponent } from './paginas/convertir-gestor/convertir-gestor.component';
@@ -15,6 +15,8 @@ import { BuscarUsuariosComponent } from './paginas/buscar-usuarios/buscar-usuari
 import { DetallesCasaRuralGestorAdministradorComponent } from './paginas/detalles-casa-rural-gestor-administrador/detalles-casa-rural-gestor-administrador.component';
 import { DetallesCasaRuralClienteComponent } from './paginas/detalles-casa-rural-cliente/detalles-casa-rural-cliente.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -22,10 +24,24 @@ import { MenuComponent } from './components/menu/menu.component';
   imports: [RouterOutlet, PaginaRegistroComponent, InicioSesionComponent, ConvertirGestorComponent, EditarPerfilComponent, 
     VerPerfilComponent, BuscarComodidadComponent, ModificarComodidadComponent, AnadirComodidadComponent, CasasAlquilerComponent, 
     CasasDisponiblesComponent, VerReservasComponent, BuscarUsuariosComponent, DetallesCasaRuralGestorAdministradorComponent,
-    DetallesCasaRuralClienteComponent, MenuComponent],
+    DetallesCasaRuralClienteComponent, MenuComponent, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Pdv-frontend';
+
+  @ViewChild('menu') menu?: MenuComponent;
+
+  constructor(
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(()=> {
+      if (this.menu) {
+        this.menu.getLogged();
+      }
+    });
+  }
 }

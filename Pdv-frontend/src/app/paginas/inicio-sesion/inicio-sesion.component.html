@@ -17,7 +17,7 @@
           >
             ¡Bienvenido! Por favor, inicie sesión
           </p>
-          <form [formGroup]="usuarios" class="col-lg-9 m-auto">
+          <form [formGroup]="formLogin" class="col-lg-9 m-auto">
             <mat-form-field class="col-lg-12">
               <mat-label>Usuario</mat-label>
               <input
@@ -26,7 +26,7 @@
                 formControlName="usuario"
               />
               <mat-hint></mat-hint>
-              @if (this.usuarios.get('usuario')?.errors?.['required']){
+              @if (this.formLogin.get('usuario')?.errors?.['required']){
               <mat-error>Usuario <strong>requerido</strong></mat-error>
               }
             </mat-form-field>
@@ -39,12 +39,12 @@
                 formControlName="contrasena"
               />
               <mat-hint></mat-hint>
-              @if(this.usuarios.get('contrasena')?.errors?.['minlength'] &&
-              !this.usuarios.get('contrasena')?.errors?.['required']){
+              @if(this.formLogin.get('contrasena')?.errors?.['minlength'] &&
+              !this.formLogin.get('contrasena')?.errors?.['required']){
               <mat-error>Longitud mínima 6 caracteres</mat-error>
-              } @if(this.usuarios.get('contrasena')?.errors?.['maxlength']){
+              } @if(this.formLogin.get('contrasena')?.errors?.['maxlength']){
               <mat-error>Longitud máxima 12 caracteres</mat-error>
-              } @if(this.usuarios.get('contrasena')?.errors?.['required']){
+              } @if(this.formLogin.get('contrasena')?.errors?.['required']){
               <mat-error>Contraseña <strong>requerida</strong></mat-error>
               }
             </mat-form-field>
@@ -63,7 +63,7 @@
             </label>
           </div>
   
-          <button class="col-lg-9 boton-iniciar-sesion">Iniciar Sesión</button>
+          <button class="col-lg-9 boton-iniciar-sesion" (click)="iniciarSesion()">Iniciar Sesión</button>
   
           <p class="col-lg-12 mt-4 mb-lg-4 texto-registrar">¿Nuevo usuario? <a href="#">Registrar</a></p>
         </div>
