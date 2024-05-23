@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -13,12 +13,9 @@ import { Validators } from '@angular/forms';
   templateUrl: './editar-perfil.component.html',
   styleUrl: './editar-perfil.component.css'
 })
-export class EditarPerfilComponent implements OnInit{
-  ngOnInit(): void {
-    this.editar = false;
-  }
+export class EditarPerfilComponent{
 
-  editar: boolean = false;
+  isUsuarioEnEdicion: boolean = false;
 
   usuarios = new FormGroup({
     usuario: new FormControl('', Validators.required),
@@ -29,11 +26,7 @@ export class EditarPerfilComponent implements OnInit{
   });
 
   editarUsuario(){
-    this.editar = true;
-  }
-
-  cancelarEditarUsuario(){
-    this.editar = false;
+    this.isUsuarioEnEdicion = !this.isUsuarioEnEdicion;
   }
 
 }
