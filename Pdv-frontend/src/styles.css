@@ -35,10 +35,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border: 2px solid #212529;
     border-radius: 4px;
     background: blueviolet;
-    width: 70%;
 }
 
-.boton-personalizado-a:hover {
+.boton-personalizado-b{
+  min-width: 130px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border: 2px solid #212529;
+  border-radius: 4px;
+  background: red;
+}
+
+.boton-personalizado-a:hover, .boton-personalizado-b:hover{
     background: #fff;
     color: #212529
 }
