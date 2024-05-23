@@ -12,9 +12,7 @@
     border: 2px solid #212529;
     border-radius: 4px;
     background: #212529;
-    margin-left: 12%;
-    margin-top: 20px;
-    width: 75%;
+    width: 73%;
 }
 .css-button-sharp--black:hover {
     background: #fff;

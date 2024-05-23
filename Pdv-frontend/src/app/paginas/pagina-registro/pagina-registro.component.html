@@ -1,44 +1,27 @@
 <div class="background-container">
-  <div class="container col-lg-12">
-    <div class="row col-lg-8 d-flex m-auto registro-container">
-      <div class="col-lg-6 imagen-registro">
-        <div class="col-lg-9">
-          <h1 class="col-lg-10 titulo-imagen">
-            <strong>¿Listo para empezar tu aventura?</strong>
-          </h1>
-          <p><img src="../../../assets/paginaRegistro/logoAplicacion.jpg"></p>
-        </div>
+  <div class="container">
+    <div class="row d-flex m-auto justify-content-center align-items-center registro-container">
+      <div class="d-none d-md-flex col-md-6 imagen-registro justify-content-center align-items-center flex-column">
+        <h1>¿Listo para empezar tu aventura?</h1>
+        <img src="../../../assets/paginaRegistro/logoAplicacion.jpg" class="logo">
       </div>
-      <div class="col-lg-6 formulario-registro">
-        <i class="bi bi-arrow-left d-flex justify-content-end mt-4 me-lg-2"></i>
-        <h1 class="col-lg-9 mt-lg-2 titulo-registrar"><strong>Registrar</strong></h1>
-        <p
-          class="col-lg-9 texto"
-        >
-          ¡Bienvenido! Por favor, regístrese
-        </p>
-        <form [formGroup]="formRegistro" class="col-lg-9 m-auto">
-          <mat-form-field class="col-lg-12">
+      <div class="col-xs-12 col-md-6 formulario-registro row">
+        <i class="bi bi-arrow-left d-flex justify-content-end p-2 mt-2"></i>
+        <h2 class="ms-4 mb-auto">Registrar</h2>
+        <p class="ms-4 mb-auto">¡Bienvenido! Por favor, regístrese</p>
+        <form [formGroup]="formRegistro" class="col-12 row">
+          <mat-form-field class="col-9 ms-4">
             <mat-label>Usuario</mat-label>
-            <input
-              matInput
-              placeholder="Introduzca nombre de usuario"
-              formControlName="usuario"
-            />
+            <input matInput placeholder="Introduzca nombre de usuario" formControlName="usuario" />
             <mat-hint></mat-hint>
             @if (this.formRegistro.get('usuario')?.errors?.['required']){
             <mat-error>Usuario <strong>requerido</strong></mat-error>
             }
           </mat-form-field>
 
-          <mat-form-field class="col-lg-12">
+          <mat-form-field class="col-9 ms-4">
             <mat-label>Contraseña</mat-label>
-            <input
-              type="password"
-              matInput
-              placeholder="Introduzca contraseña"
-              formControlName="contrasena"
-            />
+            <input type="password" matInput placeholder="Introduzca contraseña" formControlName="contrasena" />
             <mat-hint></mat-hint>
             @if(this.formRegistro.get('contrasena')?.errors?.['minlength'] &&
             !this.formRegistro.get('contrasena')?.errors?.['required']){
@@ -50,48 +33,33 @@
             }
           </mat-form-field>
 
-          <mat-form-field class="col-lg-12">
+          <mat-form-field class="col-9 ms-4">
             <mat-label>DNI</mat-label>
-            <input
-              matInput
-              placeholder="Introduzca DNI"
-              formControlName="dni"
-            />
+            <input matInput placeholder="Introduzca DNI" formControlName="dni" />
             <mat-hint></mat-hint>
             @if(this.formRegistro.get('dni')?.errors?.['pattern']){
-            <mat-error
-              >Tiene que cumplir con el formato de
-              <strong>DNI</strong></mat-error
-            >
+            <mat-error>Tiene que cumplir con el formato de
+              <strong>DNI</strong></mat-error>
             } @if(this.formRegistro.get('dni')?.errors?.['required']){
             <mat-error>DNI es <strong>requerido</strong></mat-error>
             }
           </mat-form-field>
 
-          <mat-form-field class="col-lg-12">
+          <mat-form-field class="col-9 ms-4">
             <mat-label>Teléfono</mat-label>
-            <input
-              type="tel"
-              matInput
-              placeholder="Introduzca teléfono"
-              formControlName="telefono"
-            />
+            <input type="tel" matInput placeholder="Introduzca teléfono" formControlName="telefono" />
             <mat-hint></mat-hint>
             @if(this.formRegistro.get('telefono')?.errors?.['pattern']){
-            <mat-error>Tiene que tener entre 0 y 9 caracteres</mat-error>
+            <mat-error>Tiene que tener 9 dígitos</mat-error>
             } @if(this.formRegistro.get('telefono')?.errors?.['required']){
             <mat-error>Teléfono es <strong>requerido</strong></mat-error>
             }
           </mat-form-field>
 
-          <mat-form-field class="col-lg-12">
+          <mat-form-field class="col-9 ms-4">
             <mat-label>Correo electrónico</mat-label>
-            <input
-              type="email"
-              matInput
-              placeholder="Introduzca correo electrónico"
-              formControlName="correoElectronico"
-            />
+            <input type="email" matInput placeholder="Introduzca correo electrónico"
+              formControlName="correoElectronico" />
             <mat-hint></mat-hint>
             @if(this.formRegistro.get('correoElectronico')?.errors?.['email']){
             <mat-error>Por favor, introduzca un email válido</mat-error>
@@ -99,32 +67,33 @@
             <mat-error>Email es <strong>requerido</strong></mat-error>
             }
           </mat-form-field>
-          
+
         </form>
 
-        <div class="col-lg-12 perfil-registro">
-          <p class="col-lg-12 texto">
-            ¿Quieres poner tu casa en alquiler?
-          </p>
-
-          <select [(ngModel)]="perfilGestorSeleccionado" class="col-lg-5 form-select select" aria-label="Seleccionar tipo de perfil">
+        <div class="col-9 ms-4">
+          <p>¿Quieres poner tu casa en alquiler?</p>
+          <select [(ngModel)]="perfilGestorSeleccionado" class="form-select" aria-label="Seleccionar tipo de perfil">
             <option [ngValue]="false">No</option>
             <option [ngValue]="true">Si</option>
           </select>
         </div>
 
-        <div class="col-lg-12 form-check aceptar-terminos">
-          <input class="col-lg-1 form-check-input checkbox" type="checkbox" id="terminosYCondiciones" [(ngModel)]="logAceptaTerminosYCondiciones"/>
+        <div class="col-9 form-check ms-4 mt-1">
+          <input class="col-lg-1 form-check-input checkbox" type="checkbox" id="terminosYCondiciones"
+            [(ngModel)]="logAceptaTerminosYCondiciones" />
           <label class="col-lg-9 form-check-label" for="terminosYCondiciones">
             Acepto
-            <a href="#">términos de politica y privacidad</a
-            >
+            <a href="#">términos de politica y privacidad</a>
           </label>
         </div>
 
-        <button class="col-lg-9 boton-registrar" (click)="registrarUsuario()">Registrar</button>
-        <app-boton-registro-google></app-boton-registro-google>
-        <p class="col-lg-12 mt-4 mb-lg-4 texto-inicioSesion">¿Ya tienes cuenta? <a href="#">Iniciar Sesión</a></p>
+        <button type="button" class="boton-registrar ms-4 mt-2" (click)="registrarUsuario()">
+          <span>Registrar</span>
+        </button>
+
+        <app-boton-registro-google class="ms-3 mt-2"></app-boton-registro-google>
+        
+        <p class="ms-4 texto-inicioSesion">¿Ya tienes cuenta? <a href="#">Iniciar Sesión</a></p>
       </div>
     </div>
   </div>
