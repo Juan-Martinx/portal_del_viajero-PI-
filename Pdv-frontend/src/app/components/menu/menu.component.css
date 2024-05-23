@@ -1,0 +1,19 @@
+.btn-menu{
+    border: 1px solid rgba(162, 162, 162, 0.6);
+    border-radius: 30px;
+}
+
+.lines{
+    font-size: 25px;
+}
+.person{
+    font-size: 25px;
+}
+
+.inicio-sesion{
+    border-bottom: 1px solid rgba(162, 162, 162, 0.6);
+}
+
+.cerrar-sesion{
+    border-bottom: 1px solid rgba(162, 162, 162, 0.6);
+}

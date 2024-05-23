@@ -1,33 +1,29 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu" style="border-radius: 50%;">
-    <button mat-menu-item style="border-top-right-radius: 8px;">
-      <!--<mat-icon>dialpad</mat-icon>-->
+<button mat-raised-button class="btn btn-menu" [matMenuTriggerFor]="menu" aria-label="Menu">
+  <div  class="d-inline-flex example-button-row pt-lg-2">
+    <mat-icon class="d-inline-flex me-lg-2 lines">dehaze</mat-icon>
+    <mat-icon class="d-inline-flex person">person_outline</mat-icon>
+  </div>
+</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="registro">
       <strong><span>Regístrate</span></strong>
     </button>
-    <button mat-menu-item style="border-bottom: 1px solid;">
-      <!--<mat-icon>voicemail</mat-icon>-->
+    <button mat-menu-item class="inicio-sesion" routerLink="inicio-sesion">
       <span>Iniciar Sesión</span>
     </button>
-    <button mat-menu-item>
-      <!--<mat-icon>notifications_off</mat-icon>-->
+    <button mat-menu-item routerLink="editar-perfil">
       <span>Editar Perfil</span>
     </button>
-    <button mat-menu-item>
-        <!--<mat-icon>notifications_off</mat-icon>-->
+    <button mat-menu-item routerLink="reservas-realizadas">
         <span>Ver reservas realizadas</span>
     </button>
-    <button mat-menu-item style="border-bottom: 1px solid;">
-        <!--<mat-icon>notifications_off</mat-icon>-->
+    <button mat-menu-item class="cerrar-sesion" routerLink="logout">
         <span>Cerrar Sesión</span>
     </button>
-    <button mat-menu-item>
-        <!--<mat-icon>notifications_off</mat-icon>-->
+    <button mat-menu-item routerLink="buscador-comodidades">
         <span>Administrar comodidades</span>
     </button>
-    <button mat-menu-item>
-        <!--<mat-icon>notifications_off</mat-icon>-->
+    <button mat-menu-item routerLink="usuarios-registrados">
         <span>Ver usuarios registrados</span>
     </button>
   </mat-menu>
