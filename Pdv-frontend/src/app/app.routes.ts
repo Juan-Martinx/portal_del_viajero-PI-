@@ -6,7 +6,7 @@ import { InicioSesionComponent } from './paginas/inicio-sesion/inicio-sesion.com
 import { MenuComponent } from './components/menu/menu.component';
 
 export const routes: Routes = [
-    { path: '', component: MenuComponent, title: 'Inicio'},
+    { path: '', component: PaginaRegistroComponent, title: 'Inicio'},
     { path: 'registro', component: PaginaRegistroComponent, title: 'Inicio'},
     { path: 'inicio-sesion', component: InicioSesionComponent, title: 'Inicio'},
     { path: 'authorized', component: AuthorizedComponent },
