@@ -1,52 +1,70 @@
-<div>
-    <div class="container">
-        <div class="row col-lg-12 m-lg-auto">
-            <div class="col-lg-12 mt-lg-5">
-                <h1 class="me-lg-4"><strong>{{casasRurales[0].titulo}}</strong></h1>
+<div class="container">
+    <div class="row m-auto mt-5">
+        <div class="col-12 px-0">
+            <h1 class="fw-bold">{{casasRurales[0].titulo}}</h1>
+        </div>
+
+        <div class="row">
+            <div class="img-principal col-12 col-md-6 col-4">
+                Imagen 1
             </div>
-
-            <div class="col-lg-12 imagenes">
-                <div class="img1">Imagen 1</div>
-                <div class="img2">Imagen 2</div>
-                <div class="img3">Imagen 3</div>
-                <div class="img4">Imagen 4</div>
-                <div class="img5">Imagen 5</div>
-
+            <div class="row d-none d-md-flex col-6 col-4 m-auto mt-0 d-flex flex-column justify-content-between"
+                style="height: 400px;">
+                <div class="img">
+                    Imagen 2
+                </div>
+                <div class="img">
+                    Imagen 3
+                </div>
             </div>
+            <div class="row d-none d-flex col-4 d-flex m-auto mt-0 flex-column justify-content-between"
+                style="height: 400px;">
+                <div class="img">
+                    Imagen 4
+                </div>
+                <div class="img">
+                    Imagen 5
+                </div>
+            </div>
+        </div>
 
-            <div class="col-lg-7 mt-lg-5 instalaciones-comodidades">
-                <div class="col-lg-12 mt-lg-5 instalaciones">
-                    <h3 class="me-lg-4"><strong>Instalaciones</strong></h3>
-                    <div class="col-lg-12">
+        <div class="row">
+            <div class="row col-6 mt-3">
+                <div class="row instalaciones">
+                    <h2 class="fw-bold px-0">Instalaciones</h2>
+                    <div class="row">
                         @for (instalacion of instalaciones; track instalacion.length) {
-                            <div class="col-lg-6 d-inline-flex flex-column-2 mb-lg-3">
-                                <mat-icon class="d-inline-flex justify-content-center me-lg-2 icon-pool">{{instalacion.icono}}</mat-icon>
-                                <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
-                            </div>   
-                        }  
+                        <div class="col-6 d-inline-flex flex-column-2 mb-3">
+                            <mat-icon
+                                class="d-inline-flex justify-content-center me-2 icon-pool">{{instalacion.icono}}</mat-icon>
+                            <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
+                        </div>
+                        }
                     </div>
                 </div>
-            
-                <div class="col-lg-12 mt-lg-5 comodidades">
-                    <div class="col-lg-6">
-                        <h3 class="d-inline-flex me-lg-4"><strong>Comodidades</strong></h3>
-                        <div class="col-lg-12">
+
+                <div class="row mt-5 comodidades">
+                    <div class="row">
+                        <h2 class="fw-bold px-0">Comodidades</h2>
+                        <div class="col-12">
                             @for (instalacion of instalaciones; track instalacion.length) {
-                                <div class="col-lg-6 d-inline-flex flex-column-2 mb-lg-3">
-                                    <mat-icon class="d-inline-flex justify-content-center me-lg-2 icon-pool">{{instalacion.icono}}</mat-icon>
-                                    <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
-                                </div>   
-                            }  
+                            <div class="col-6 d-inline-flex flex-column-2 mb-3">
+                                <mat-icon
+                                    class="d-inline-flex justify-content-center me-2 icon-pool">{{instalacion.icono}}</mat-icon>
+                                <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
+                            </div>
+                            }
                         </div>
                     </div>
-
                 </div>
+
             </div>
 
-            <div class="col-lg-4 mt-lg-5 reservar">
-                <div class="card p-lg-4">
-                    <h3> <strong>124€</strong>  noche</h3>
-                    <div class="col-lg-12 d-flex">
+            <!-- Formulario de Reservar -->
+            <form class="row col-6 ms-4 mt-4 reservar">
+                <div class="card p-4">
+                    <h3> <strong>124€</strong> noche</h3>
+                    <div class="col-12 d-flex">
                         <div class="llegada">
                             <form [formGroup]="reservar">
                                 <mat-form-field class="formulario-llegada">
@@ -55,11 +73,11 @@
                                     <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                                     <mat-datepicker #picker1></mat-datepicker>
                                 </mat-form-field>
-                                
+
                             </form>
                         </div>
-                        
-                        
+
+
                         <div class="salida">
                             <form [formGroup]="reservar">
                                 <mat-form-field class="formulario-salida">
@@ -68,25 +86,22 @@
                                     <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                                     <mat-datepicker #picker1></mat-datepicker>
                                 </mat-form-field>
-                                
+
                             </form>
                         </div>
                     </div>
-                    <div class="col-lg-11 huespedes">
-                        <form [formGroup]="reservar" >
-                            <mat-form-field class="col-lg-12">
+                    <div class="col-11 huespedes">
+                        <form [formGroup]="reservar">
+                            <mat-form-field class="col-12">
                                 <mat-label>HÚESPEDES</mat-label>
-                                <input
-                                  matInput
-                                  placeholder="Introduzca número de huéspedes"
-                                  formControlName="huespedes"
-                                />
-                              </mat-form-field>
-                            
+                                <input matInput placeholder="Introduzca número de huéspedes"
+                                    formControlName="huespedes" />
+                            </mat-form-field>
+
                         </form>
                     </div>
-                    <button class="w-100 mt-lg-3 btn-reservar"> RESERVAR</button>
-                    <p class="text-center mt-lg-2 texto">No se te cobrará nada aún</p>
+                    <button class="w-100 mt-3 btn-reservar"> RESERVAR</button>
+                    <p class="text-center mt-2 texto">No se te cobrará nada aún</p>
                     <div class="d-flex justify-content-between">
                         <p class="texto2">124€ x 5 noches</p>
                         <p class="texto3">620€</p>
@@ -97,112 +112,114 @@
                         <strong>620€</strong>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-lg-12 ubicacion">
-                <h3 class="d-inline-flex me-lg-4"><strong>Ubicación</strong></h3>
-                <div class="col-lg-9">
-                        <div class="col-lg-5 d-inline-flex flex-column-2 mb-lg-3">
-                            <i class="bi bi-geo-alt me-lg-2"></i>
-                            <p class="d-inline-flex align-items-end">Sevilla, Andalucía, España</p>
-                        </div> 
-                </div>
-            </div>
-
-            <div class="col-lg-12 mt-lg-5 resenas-comentarios">
-                <div class="col-lg-6 px-lg-5 pt-lg-4 pb-lg-2 valoraciones">
-                    <img class="d-inline-flex paz1" src="../../../assets/paginaRegistro/paz1.png">
-                    <h3 class="d-inline-flex"><strong>Recomendaciones</strong></h3>
-                    <img class="d-inline-flex paz2" src="../../../assets/paginaRegistro/paz.png">
-                    <div class="d-inline-flex ms-lg-5 contenedor-estrellas">
-                        <strong>4,90</strong>
-                        <div>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill estrella"></i>
-                        </div>
-                        
-                    </div>
-
-                    <div class="d-inline-flex contenedor ms-lg-5 contenedor-evaluaciones px-lg-4 pt-lg-3 pb-lg-2">
-                        <strong>10</strong>
-                        <a class="evaluaciones" href="#">evaluaciones</a>
-                    </div>
-
-                </div>
-                <div class="col-lg-12 mt-lg-5 contenedor-resenas-comentarios">
-                    @if (ver) {
-                        @for (comentario of comentarios ; track comentario.length) {
-                            <div class="col-lg-5 d-inline-flex flex-column">
-                                <div class="cabecera-comentarios">
-                                    <img class="d-inline-flex perfil-usuario" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-                                    <div class="d-inline-flex contenedor-comentarios ms-lg-2">
-                                        <strong>Nombre</strong>
-                                        <p class="pais">{{comentario.pais}}</p>   
-                                    </div>
-                                </div>
-                               
-
-                                <div>
-                                    <div class="d-inline-flex">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill me-lg-2 estrella-comentarios"></i>
-                                    </div>
-                                    <p class="d-inline-flex me-lg-2" style="font-size: 40px; color: gray;">.</p>
-                                    <p class="d-inline-flex semanas">Hace 2 semanas</p>
-                                </div>
-
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi suscipit earum provident.</p>
-
-                                
-                            </div>
-                        }
-
-                    }@else {
-                        @for (comentario of primerosComentarios; track comentario.length) {
-                            <div class="col-lg-5 d-inline-flex flex-column">
-                                <div class="cabecera-comentarios">
-                                    <img class="d-inline-flex perfil-usuario" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-                                    <div class="d-inline-flex contenedor-comentarios ms-lg-2">
-                                        <strong>Nombre</strong>
-                                        <p class="pais">{{comentario.pais}}</p>   
-                                    </div>
-                                </div>
-                               
-
-                                <div>
-                                    <div class="d-inline-flex">
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill"></i>
-                                        <i class="bi bi-star-fill me-lg-2 estrella-comentarios"></i>
-                                    </div>
-                                    <p class="d-inline-flex me-lg-2" style="font-size: 40px; color: gray;">.</p>
-                                    <p class="d-inline-flex semanas">Hace 2 semanas</p>
-                                </div>
-
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi suscipit earum provident.</p>
-
-                                
-                            </div>
-                        }
-                     
-                        <a class="d-flex mb-lg-4 ver-mas" (click)="verMas()">Ver más</a>
-                    }
-
-                </div>
-            </div>
-
-            
+            </form>
         </div>
+
+        <!-- Ubicación -->
+        <div class="row ubicacion mt-3 pb-3">
+            <h2 class="fw-bold px-0">Ubicación</h2>
+            <div class="d-flex align-items-center px-0">
+                <i class="bi bi-geo-alt px-0 me-2"></i>
+                <p class="pt-2">Sevilla, Andalucía, España</p>
+            </div>
+        </div>
+
+        <div class="col-12 mt-5 resenas-comentarios">
+            <div class="col-6 px-5 pt-4 pb-2 valoraciones">
+                <img class="d-inline-flex paz1" src="../../../assets/paginaRegistro/paz1.png">
+                <h3 class="d-inline-flex"><strong>Recomendaciones</strong></h3>
+                <img class="d-inline-flex paz2" src="../../../assets/paginaRegistro/paz.png">
+                <div class="d-inline-flex ms-5 contenedor-estrellas">
+                    <strong>4,90</strong>
+                    <div>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill estrella"></i>
+                    </div>
+
+                </div>
+
+                <div class="d-inline-flex contenedor ms-5 contenedor-evaluaciones px-4 pt-3 pb-2">
+                    <strong>10</strong>
+                    <a class="evaluaciones" href="#">evaluaciones</a>
+                </div>
+
+            </div>
+            <div class="col-12 mt-5 contenedor-resenas-comentarios">
+                @if (ver) {
+                @for (comentario of comentarios ; track comentario.length) {
+                <div class="col-5 d-inline-flex flex-column">
+                    <div class="cabecera-comentarios">
+                        <img class="d-inline-flex perfil-usuario"
+                            src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                        <div class="d-inline-flex contenedor-comentarios ms-2">
+                            <strong>Nombre</strong>
+                            <p class="pais">{{comentario.pais}}</p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="d-inline-flex">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
+                        </div>
+                        <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
+                        <p class="d-inline-flex semanas">Hace 2 semanas</p>
+                    </div>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
+                        harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi
+                        suscipit earum provident.</p>
+
+
+                </div>
+                }
+
+                }@else {
+                @for (comentario of primerosComentarios; track comentario.length) {
+                <div class="col-5 d-inline-flex flex-column">
+                    <div class="cabecera-comentarios">
+                        <img class="d-inline-flex perfil-usuario"
+                            src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                        <div class="d-inline-flex contenedor-comentarios ms-2">
+                            <strong>Nombre</strong>
+                            <p class="pais">{{comentario.pais}}</p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="d-inline-flex">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
+                        </div>
+                        <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
+                        <p class="d-inline-flex semanas">Hace 2 semanas</p>
+                    </div>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
+                        harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi
+                        suscipit earum provident.</p>
+
+
+                </div>
+                }
+
+                <a class="d-flex mb-4 ver-mas" (click)="verMas()">Ver más</a>
+                }
+
+            </div>
+        </div>
+
+
     </div>
 </div>
-
-
-
