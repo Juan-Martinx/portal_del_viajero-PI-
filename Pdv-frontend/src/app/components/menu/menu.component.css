@@ -17,3 +17,32 @@
 .cerrar-sesion{
     border-bottom: 1px solid rgba(162, 162, 162, 0.6);
 }
+
+@media(max-width: 700px){
+    .btn-menu{
+        border: 1px solid rgba(162, 162, 162, 0.6);
+        border-radius: 30px;
+        width: 20px;
+    }
+    
+    .lines{
+        font-size: 21px;
+    }
+    .person{
+        font-size: 21px;
+    }
+
+    /*.matMenu{
+        width: 30px !important;
+        height: 20px;
+        font-size: 20px;
+    }*/
+    
+    .inicio-sesion{
+        border-bottom: 1px solid rgba(162, 162, 162, 0.6);
+    }
+    
+    .cerrar-sesion{
+        border-bottom: 1px solid rgba(162, 162, 162, 0.6);
+    }
+}
