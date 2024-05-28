@@ -1,36 +1,37 @@
 <div class="container contenedor-principal">
-    <div class="row col-lg-12 m-lg-auto">
-        <div class="col-lg-12 d-inline-block mt-lg-5 pb-lg-5">
-            <div class="col-lg-12 pb-lg-5 titulo">
-                <h1 class="col-lg-7 d-inline-block"><strong>Tus casas en alquiler</strong></h1>
-                <div class="col-lg-5 d-inline-block contenedor-anadir">
-                    <button class="col-lg-5 btn-anadir">AÑADIR CASA RURAL</button>
+    <div class="row col-12 m-auto">
+        <div class="col-12 d-inline-block mt-5 pb-5">
+            <div class="row titulo pb-2">
+                <h1 class="col-7 col-sm-9 fw-bold">Tus casas en alquiler</h1>
+                <div class="col-4 col-sm-3 contenedor-anadir">
+                    <button class="col-12 boton-personalizado-a">AÑADIR CASA</button>
                 </div>
             </div>
         </div>
 
         @for (casaRural of casasRurales; track casasRurales.length) {
-        <div class="card px-0 mb-lg-4">
-            <img class="ms-lg-0 me-lg-0 imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg"
+        <div class="card px-0 m-auto mt-3 pb-3">
+            <img class="ms-0 me-0 imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg"
                 alt="Card image cap">
             <div class="card-body">
-                <h3 class="card-title"><strong>{{ casaRural.titulo }}</strong></h3>
+                <h2 class="card-title fw-bold">{{ casaRural.titulo }}</h2>
                 <div class="localizacion">
-                    <i class="bi bi-geo-alt-fill d-inline-block me-lg-1"></i>
-                    <h5 class="d-inline-block"> {{ casaRural.localizacion }} </h5>
+                    <i class="bi bi-geo-alt-fill d-inline-block me-1"></i>
+                    <h3 class="d-inline-block"> {{ casaRural.localizacion }} </h3>
                 </div>
                 <div class="precio-noche">
-                    <p class="d-inline-block me-lg-5 mt-lg-3"><strong>Precio/noche</strong></p>
-                    <p class="d-inline-block ms-lg-5"><strong>{{casaRural.precio}}€</strong></p>
+                    <p class="d-inline-block me-5 mt-3"><strong>Precio/noche</strong></p>
+                    <p class="d-inline-block ms-5"><strong>{{casaRural.precio}}€</strong></p>
                 </div>
 
-                <p class="mt-lg-4 card-text">{{ casaRural.detalles }}</p>
-                <button class="mt-lg-3 btn-guardar">EDITAR</button>
-                <button class="btn-cancelar">ELIMINAR</button>
+                <p class="mt-4 card-text">{{ casaRural.detalles }}</p>
+                <div class="row">
+                    <button class="col-4 ms-2 mt-2 boton-personalizado-a">EDITAR</button>
+                    <button class="col-4 ms-2 mt-2 boton-personalizado-b">ELIMINAR</button>
+                </div>
+
             </div>
         </div>
         }
-
-
     </div>
 </div>

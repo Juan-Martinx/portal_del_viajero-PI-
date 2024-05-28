@@ -14,15 +14,6 @@
     text-align: end;
 }
 
-.btn-anadir{
-    border-radius: 8px;
-    border: none;
-    background-color: blueviolet;
-    color: white;
-    padding: 10px;
-    width: 40%;    
-}
-
 .card{
     width: 18rem;
     height: 36rem;
@@ -35,38 +26,7 @@
     height: 40%;
 }
 
-h5{
-    color: rgb(162, 162, 162);
-}
-
 .precio-noche{
     border-top: 1px solid rgba(162, 162, 162, 0.4);
     border-bottom: 1px solid rgba(162, 162, 162, 0.4);
-}
-
-.btn-guardar{
-    border-radius: 8px;
-    border: none;
-    background-color: blueviolet;
-    color: white;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
-    margin-right: 12%;
-    
-}
-
-
-.btn-cancelar{
-    border-radius: 8px;
-    border: none;
-    background-color: red;
-    color: white;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-
-    
 }

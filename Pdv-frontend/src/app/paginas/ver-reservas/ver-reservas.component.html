@@ -1,40 +1,38 @@
-<div>
-    <div class="container contenedor-principal">
-        <div class="row mt-5">
-            <div class="col-12 titulo mb-5">
-                <h1 class="fw-bold"><strong>Tus Reservas</strong></h1>
-            </div>
-            <div class="row">
-                @for (casaRural of casasRurales; track casasRurales.length) {
-                <div class="card px-0 m-auto mx-md-none mb-4">
-                    <img class="imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h2 class="card-title"><strong>{{ casaRural.titulo }}</strong></h2>
-                        <div>
-                            <i class="bi bi-geo-alt-fill d-inline-block me-1"></i>
-                            <h3 class="d-inline-block"> {{ casaRural.localizacion }} </h3>
-                        </div>
-                        <div class="precio-noche px-1 pt-2">
-                            <p class="d-inline-block"><strong>Precio/noche</strong></p>
-                            <p class="d-inline-block"><strong>{{casaRural.precio}}€</strong></p>
-                        </div>
-
-                        <ul class="px-3 pt-2">
-                            @for (detalle of casaRural.detalles; track detalle) {
-                            <li class="mt-1">{{detalle.descripcion}}</li>
-                            }
-
-                        </ul>
-
-                        <div class="row mt-3 ">
-                            <button class="boton-personalizado-a ms-1 col-5">DETALLES</button>
-                            <button class="boton-personalizado-b ms-2 col-5">CANCELAR</button>
-                        </div>
-
+<div class="container contenedor-principal">
+    <div class="row mt-5">
+        <div class="col-12 titulo mb-5">
+            <h1 class="fw-bold"><strong>Tus Reservas</strong></h1>
+        </div>
+        <div class="row">
+            @for (casaRural of casasRurales; track casasRurales.length) {
+            <div class="card px-0 m-auto mx-md-none mb-4">
+                <img class="imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h2 class="card-title"><strong>{{ casaRural.titulo }}</strong></h2>
+                    <div>
+                        <i class="bi bi-geo-alt-fill d-inline-block me-1"></i>
+                        <h3 class="d-inline-block"> {{ casaRural.localizacion }} </h3>
                     </div>
+                    <div class="precio-noche px-1 pt-2">
+                        <p class="d-inline-block"><strong>Precio/noche</strong></p>
+                        <p class="d-inline-block"><strong>{{casaRural.precio}}€</strong></p>
+                    </div>
+
+                    <ul class="px-3 pt-2">
+                        @for (detalle of casaRural.detalles; track detalle) {
+                        <li class="mt-1">{{detalle.descripcion}}</li>
+                        }
+
+                    </ul>
+
+                    <div class="row mt-3 ">
+                        <button class="boton-personalizado-a ms-1 col-5">DETALLES</button>
+                        <button class="boton-personalizado-b ms-2 col-5">CANCELAR</button>
+                    </div>
+
                 </div>
-                }
             </div>
+            }
         </div>
     </div>
 </div>

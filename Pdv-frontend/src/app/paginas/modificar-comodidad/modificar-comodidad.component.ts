@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -12,7 +14,20 @@ import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Valida
   templateUrl: './modificar-comodidad.component.html',
   styleUrl: './modificar-comodidad.component.css'
 })
-export class ModificarComodidadComponent {
+export class ModificarComodidadComponent implements OnInit{
+
+  IsActionNew: boolean = false;
+
+  constructor(private route: ActivatedRoute, private titleService: Title) { }
+
+  ngOnInit(): void {
+      this.route.queryParams.subscribe(params => {
+        if(params['action'].toLowerCase() == 'new'){
+          this.IsActionNew = true;
+          this.titleService.setTitle('Añadir Comodidad');
+        }
+      });
+  }
 
   comodidades = new FormGroup({
     icono: new FormControl(''),

@@ -1,45 +1,46 @@
-<div>
-  <div class="container contenedor-principal">
-    <div class="row pt-5">
-      <div class="col-12 titulo">
-        <h1 class="fw-bold">Modificar Comodidad</h1>
+<div class="container contenedor-principal">
+  <div class="row pt-3">
+    <div class="col-12 titulo">
+      @if(!this.IsActionNew){
+      <h1 class="fw-bold">Modificar Comodidad</h1>
+      }@else{
+      <h1 class="fw-bold">Añadir Comodidad</h1>
+      }
+    </div>
+    <form [formGroup]="comodidades" class="col-12 mt-5">
+      <div class="row">
+        <mat-form-field class="col-10 col-md-5">
+          <mat-label>Icono Comodidad</mat-label>
+          <input matInput placeholder="Introduzca icono de comodidad" formControlName="icono" />
+        </mat-form-field>
+        <mat-form-field class="col-10 col-md-5">
+          <mat-label>Nombre de comodidad</mat-label>
+          <input matInput placeholder="Introduzca nombre de comodidad" formControlName="nombre" />
+        </mat-form-field>
       </div>
-      <form [formGroup]="comodidades" class="col-12 mt-5">
-        <div class="row">
-          <mat-form-field class="col-10 col-md-5">
-            <mat-label>Icono Comodidad</mat-label>
-            <input matInput placeholder="Introduzca icono de comodidad" formControlName="icono" />
-          </mat-form-field>
-          <mat-form-field class="col-10 col-md-5">
-            <mat-label>Nombre de comodidad</mat-label>
-            <input matInput placeholder="Introduzca nombre de comodidad" formControlName="nombre" />
-          </mat-form-field>
-        </div>
-        <div class="row">
-          <mat-form-field class="col-10 col-md-5">
-            <mat-label>Código de comodidad</mat-label>
-            <input matInput placeholder="Introduzca código de comodidad" formControlName="codigo" />
-          </mat-form-field>
-          <mat-form-field class="col-10 col-md-5">
-            <mat-label>Tipo de Comodidad</mat-label>
-            <input matInput placeholder="Seleccione Tipo de Comodidad..."
-              formControlName="nombreTipoComodidad" />
-          </mat-form-field>
-        </div>
-        <div class="row">
-          <mat-form-field class="col-10 mb-3">
-            <mat-label>Descripción</mat-label>
-            <textarea matInput placeholder="Descripción" formControlName="descripcion"></textarea>
-          </mat-form-field>
-        </div>
-      </form>
-      <div class="row mt-3 mb-3">
-        <div class="col-5 col-md-4">
-          <button class="col-12 boton-personalizado-a">GUARDAR</button>
-        </div>
-        <div class="col-5 col-md-4">
-          <button class="col-12 boton-personalizado-b">CANCELAR</button>
-        </div>
+      <div class="row">
+        <mat-form-field class="col-10 col-md-5">
+          <mat-label>Código de comodidad</mat-label>
+          <input matInput placeholder="Introduzca código de comodidad" formControlName="codigo" />
+        </mat-form-field>
+        <mat-form-field class="col-10 col-md-5">
+          <mat-label>Tipo de Comodidad</mat-label>
+          <input matInput placeholder="Seleccione Tipo de Comodidad..." formControlName="nombreTipoComodidad" />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-10 mb-3">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput placeholder="Descripción" formControlName="descripcion"></textarea>
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="row mt-3 mb-3">
+      <div class="col-5 col-md-4">
+        <button class="col-12 boton-personalizado-a">GUARDAR</button>
+      </div>
+      <div class="col-5 col-md-4">
+        <button class="col-12 boton-personalizado-b">CANCELAR</button>
       </div>
     </div>
   </div>
