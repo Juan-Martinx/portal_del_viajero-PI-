@@ -1,182 +1,180 @@
-<div>
-    <div class="container">
-        <div class="row m-auto m-auto">
-            <div class="col-12">
-                <h1 class="d-inline-flex me-4 fw-bold">{{casasRurales[0].titulo}}</h1>
-            </div>
+<div class="container contenedor-principal">
+    <div class="row m-auto pt-3">
+        <div class="col-12">
+            <h1 class="d-inline-flex me-4 fw-bold">{{casasRurales[0].titulo}}</h1>
+        </div>
 
-            <div class="row m-auto">
-                <div class="img-principal col-12 col-md-6 col-lg-4">
-                    Imagen 1
+        <div class="row m-auto">
+            <div class="img-principal col-12 col-md-6 col-lg-4">
+                Imagen 1
+            </div>
+            <div class="row d-none d-md-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between"
+                style="height: 400px;">
+                <div class="img">
+                    Imagen 2
                 </div>
-                <div class="row d-none d-md-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between"
-                    style="height: 400px;">
-                    <div class="img">
-                        Imagen 2
-                    </div>
-                    <div class="img">
-                        Imagen 3
-                    </div>
-                </div>
-                <div class="row d-none d-lg-flex col-4 m-auto mt-0 flex-column justify-content-between"
-                    style="height: 400px;">
-                    <div class="img">
-                        Imagen 4
-                    </div>
-                    <div class="img">
-                        Imagen 5
-                    </div>
+                <div class="img">
+                    Imagen 3
                 </div>
             </div>
-
-            <div class="row mt-5 b-bottom">
-                <h2 class="fw-bold">Precio</h2>
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Precio por noche - (En €)</mat-label>
-                    <input matInput placeholder="Introduzca precio por noche - (En €)" type="number" />
-                </mat-form-field>
-            </div>
-
-            <div class="col-12 mt-3 b-bottom">
-                <h2 class="fw-bold">Huéspedes</h2>
-                <mat-form-field class="col-5 col-md-3">
-                    <mat-label>Número mínimo</mat-label>
-                    <input matInput placeholder="Introduzca número mínimo de huéspedes" type="number" />
-                </mat-form-field>
-                <b style="font-size: 35px;" class="mx-4 mx-md-2">-</b>
-                <mat-form-field class="col-5 col-md-3">
-                    <mat-label>Número máximo</mat-label>
-                    <input matInput placeholder="Introduzca número máximo de huéspedes" type="number" />
-                </mat-form-field>
-            </div>
-
-            <div class="col-12 mt-5 b-bottom">
-                <h2 class="d-inline-flex me-4 fw-bold">Instalaciones</h2>
-                <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
-                <div class="col-9">
-                    @for (instalacion of instalaciones; track instalacion.length) {
-                    <div class="col-5 d-inline-flex flex-column-2 mb-3">
-                        <mat-icon
-                            class="d-inline-flex justify-content-center me-2 icon-pool">{{instalacion.icono}}</mat-icon>
-                        <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
-                    </div>
-                    }
+            <div class="row d-none d-lg-flex col-4 m-auto mt-0 flex-column justify-content-between"
+                style="height: 400px;">
+                <div class="img">
+                    Imagen 4
+                </div>
+                <div class="img">
+                    Imagen 5
                 </div>
             </div>
+        </div>
 
-            <div class="col-12 mt-5 b-bottom">
-                <h2 class="d-inline-flex me-4 fw-bold">Comodidades</h2>
-                <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
-                <div class="col-9">
-                    @for (instalacion of instalaciones; track instalacion.length) {
-                    <div class="col-5 d-inline-flex flex-column-2 mb-3">
-                        <mat-icon
-                            class="d-inline-flex justify-content-center me-2 icon-pool">{{instalacion.icono}}</mat-icon>
-                        <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
-                    </div>
-                    }
+        <div class="row mt-5 b-bottom">
+            <h2 class="fw-bold">Precio</h2>
+            <mat-form-field class="col-12 col-md-6">
+                <mat-label>Precio por noche - (En €)</mat-label>
+                <input matInput placeholder="Introduzca precio por noche - (En €)" type="number" />
+            </mat-form-field>
+        </div>
+
+        <div class="col-12 mt-3 b-bottom">
+            <h2 class="fw-bold">Huéspedes</h2>
+            <mat-form-field class="col-5 col-md-3">
+                <mat-label>Número mínimo</mat-label>
+                <input matInput placeholder="Introduzca número mínimo de huéspedes" type="number" />
+            </mat-form-field>
+            <b style="font-size: 35px;" class="mx-4 mx-md-2">-</b>
+            <mat-form-field class="col-5 col-md-3">
+                <mat-label>Número máximo</mat-label>
+                <input matInput placeholder="Introduzca número máximo de huéspedes" type="number" />
+            </mat-form-field>
+        </div>
+
+        <div class="col-12 mt-5 b-bottom">
+            <h2 class="d-inline-flex me-4 fw-bold">Instalaciones</h2>
+            <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
+            <div class="col-9">
+                @for (instalacion of instalaciones; track instalacion.length) {
+                <div class="col-5 d-inline-flex flex-column-2 mb-3">
+                    <mat-icon
+                        class="d-inline-flex justify-content-center me-2 icon-pool">{{instalacion.icono}}</mat-icon>
+                    <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
                 </div>
+                }
             </div>
+        </div>
 
-            <div class="row d-flex mt-4 justify-content-center mt-2">
-                <div class="col-12 valoraciones d-flex justify-content-center align-items-center">
-                    <img src="../../../assets/paginaRegistro/paz1.png">
-                    <h2 class="fw-bold mt-4 mx-2">Valoraciones</h2>
-                    <img class="d-inline-flex" src="../../../assets/paginaRegistro/paz.png">
-                    <div class="d-inline-flex mx-2 flex-column align-items-center mt-4">
-                        <strong>4,90</strong>
-                        <div>
+        <div class="col-12 mt-5 b-bottom">
+            <h2 class="d-inline-flex me-4 fw-bold">Comodidades</h2>
+            <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
+            <div class="col-9">
+                @for (instalacion of instalaciones; track instalacion.length) {
+                <div class="col-5 d-inline-flex flex-column-2 mb-3">
+                    <mat-icon
+                        class="d-inline-flex justify-content-center me-2 icon-pool">{{instalacion.icono}}</mat-icon>
+                    <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="row d-flex mt-4 justify-content-center mt-2">
+            <div class="col-12 valoraciones d-flex justify-content-center align-items-center">
+                <img src="../../../assets/paginaRegistro/paz1.png">
+                <h2 class="fw-bold mt-4 mx-2">Valoraciones</h2>
+                <img class="d-inline-flex" src="../../../assets/paginaRegistro/paz.png">
+                <div class="d-inline-flex mx-2 flex-column align-items-center mt-4">
+                    <strong>4,90</strong>
+                    <div>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill estrella"></i>
+                    </div>
+
+                </div>
+
+                <div class="contenedor-evaluaciones d-flex h-75 align-items-center justify-content-center ps-2">
+                    <strong>10</strong>
+                    <a class="texto-gray" href="#">evaluaciones</a>
+                </div>
+
+            </div>
+            <div class="col-12 mt-5 contenedor-b-bottom">
+                @if (ver) {
+                @for (comentario of comentarios ; track comentario.length) {
+                <div class="col-12 col-md-5 d-inline-flex flex-column">
+                    <div class="cabecera-comentarios">
+                        <img class="d-inline-flex perfil-usuario"
+                            src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                        <div class="d-inline-flex flex-column align-items-center ms-2">
+                            <strong>Nombre</strong>
+                            <p class="texto-gray">{{comentario.pais}}</p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="d-inline-flex">
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill estrella"></i>
+                            <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
                         </div>
-
+                        <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
+                        <p class="d-inline-flex texto-gray">Hace 2 semanas</p>
                     </div>
 
-                    <div class="contenedor-evaluaciones d-flex h-75 align-items-center justify-content-center ps-2">
-                        <strong>10</strong>
-                        <a class="texto-gray" href="#">evaluaciones</a>
-                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
+                        harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi
+                        suscipit earum provident.</p>
+
 
                 </div>
-                <div class="col-12 mt-5 contenedor-b-bottom">
-                    @if (ver) {
-                    @for (comentario of comentarios ; track comentario.length) {
-                    <div class="col-12 col-md-5 d-inline-flex flex-column">
-                        <div class="cabecera-comentarios">
-                            <img class="d-inline-flex perfil-usuario"
-                                src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-                            <div class="d-inline-flex flex-column align-items-center ms-2">
-                                <strong>Nombre</strong>
-                                <p class="texto-gray">{{comentario.pais}}</p>
-                            </div>
+                }
+
+                }@else {
+                @for (comentario of primerosComentarios; track comentario.length) {
+                <div class="col-12 col-md-5 d-inline-flex flex-column">
+                    <div class="cabecera-comentarios">
+                        <img class="d-inline-flex perfil-usuario"
+                            src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                        <div class="d-inline-flex flex-column align-items-center ms-2">
+                            <strong>Nombre</strong>
+                            <p class="texto-gray">{{comentario.pais}}</p>
                         </div>
-
-
-                        <div>
-                            <div class="d-inline-flex">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
-                            </div>
-                            <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
-                            <p class="d-inline-flex texto-gray">Hace 2 semanas</p>
-                        </div>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
-                            harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi
-                            suscipit earum provident.</p>
-
-
                     </div>
-                    }
 
-                    }@else {
-                    @for (comentario of primerosComentarios; track comentario.length) {
-                    <div class="col-12 col-md-5 d-inline-flex flex-column">
-                        <div class="cabecera-comentarios">
-                            <img class="d-inline-flex perfil-usuario"
-                                src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-                            <div class="d-inline-flex flex-column align-items-center ms-2">
-                                <strong>Nombre</strong>
-                                <p class="texto-gray">{{comentario.pais}}</p>
-                            </div>
+
+                    <div>
+                        <div class="d-inline-flex">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
                         </div>
-
-
-                        <div>
-                            <div class="d-inline-flex">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
-                            </div>
-                            <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
-                            <p class="d-inline-flex texto-gray">Hace 2 semanas</p>
-                        </div>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
-                            harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi
-                            suscipit earum provident.</p>
-
-
+                        <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
+                        <p class="d-inline-flex texto-gray">Hace 2 semanas</p>
                     </div>
-                    }
 
-                    <a class="d-flex mb-4 ver-mas" (click)="verMas()">Ver más</a>
-                    }
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
+                        harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi
+                        suscipit earum provident.</p>
+
 
                 </div>
-            </div>
+                }
 
-            <div class="row mt-3 mb-4">
-                <button class="col-8 col-md-5 col-lg-3  m-auto ms-md-0 boton-personalizado-a">GUARDAR</button>
+                <a class="d-flex mb-4 ver-mas" (click)="verMas()">Ver más</a>
+                }
+
             </div>
+        </div>
+
+        <div class="row mt-3 mb-4">
+            <button class="col-8 col-md-5 col-lg-3  m-auto ms-md-0 boton-personalizado-a">GUARDAR</button>
         </div>
     </div>
 </div>
