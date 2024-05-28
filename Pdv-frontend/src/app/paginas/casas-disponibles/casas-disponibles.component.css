@@ -14,15 +14,6 @@
     text-align: end;
 }
 
-.btn-anadir{
-    border-radius: 8px;
-    border: none;
-    background-color: blueviolet;
-    color: white;
-    padding: 10px;
-    width: 40%;    
-}
-
 .card{
     width: 18rem;
     height: 36rem;
