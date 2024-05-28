@@ -24,11 +24,15 @@ a{
     padding-bottom: 20px;
 }
 
-.logo{
+img{
     width: 80px;
     height: 80px;
     margin-left: 2%;
     margin-top: 2%;
+}
+
+img:hover{
+    cursor: pointer;
 }
 
 @media(max-width: 700px){
@@ -54,7 +58,7 @@ a{
         padding-bottom: 20px;
     }
     
-    .logo{
+    img{
         width: 70px;
         height: 70px;
         margin-left: 2%;

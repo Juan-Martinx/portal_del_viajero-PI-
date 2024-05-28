@@ -72,7 +72,7 @@ public class AuthorizationSecurityConfig {
         http.oauth2ResourceServer(oAuthResourceServer -> oAuthResourceServer.jwt(Customizer.withDefaults()));
 
         http.exceptionHandling(exceptions -> exceptions.defaultAuthenticationEntryPointFor(
-                new LoginUrlAuthenticationEntryPoint("/oauth2/authorization/google-idp"),
+                new LoginUrlAuthenticationEntryPoint("/login"),
                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
         )).oauth2ResourceServer(resource -> resource.jwt(Customizer.withDefaults()));
 

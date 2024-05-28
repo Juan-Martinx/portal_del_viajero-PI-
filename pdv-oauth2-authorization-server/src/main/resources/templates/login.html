@@ -1,9 +1,212 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Iniciar Sesión</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet"
+		crossorigin="anonymous" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<style>
+		body {
+			padding: 0px;
+			margin: 0px;
+		}
+
+		h1 {
+			font-size: 2.8em;
+			font-weight: bold;
+			line-height: 1em;
+		}
+
+		h2 {
+			font-size: 2.3em;
+		}
+
+		p {
+			color: rgb(162, 162, 162);
+		}
+
+		select {
+			width: auto;
+		}
+
+		select:hover {
+			cursor: pointer;
+		}
+
+		input:hover {
+			cursor: pointer;
+		}
+
+		a {
+			color: blueviolet;
+		}
+
+		span {
+			font-weight: normal;
+			padding-left: 10px;
+		}
+
+		.background-container {
+			width: 100%;
+			min-height: 100vh;
+			background-image: url(https://github.com/jmarcan286/portal_del_viajero-PI-/blob/main/Pdv-frontend/src/assets/paginaRegistro/imagenRegistro.jpg?raw=true);
+			background-size: cover;
+			background-position: center;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.registro-container {
+			max-width: 1100px;
+			max-height: 550px;
+			height: 95vh;
+			border-radius: 8px;
+			box-shadow: inset;
+		}
+
+
+		.bi-arrow-left {
+			font-size: 30px;
+		}
+
+		.imagen-registro {
+			background-image: url(https://github.com/jmarcan286/portal_del_viajero-PI-/blob/main/Pdv-frontend/src/assets/paginaRegistro/imagenRegistro.jpg?raw=true);
+			background-size: cover;
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			color: white;
+			border-bottom-left-radius: 8px;
+			border-top-left-radius: 8px;
+			height: 100%;
+		}
+
+		.formulario-registro {
+			background-color: white;
+			border-top-right-radius: 8px;
+			border-bottom-right-radius: 8px;
+			height: 100%;
+			overflow-x: hidden;
+			overflow-y: scroll;
+		}
+
+		.boton-personalizado-a {
+			min-width: 130px;
+			height: 40px;
+			color: #fff;
+			padding: 5px 10px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			position: relative;
+			display: inline-block;
+			outline: none;
+			border: 2px solid #212529;
+			border-radius: 4px;
+			background: blueviolet;
+		}
+
+		.boton-personalizado-a:hover,
+		.boton-personalizado-b:hover {
+			background: #fff;
+			color: #212529
+		}
+
+		.css-button-sharp--black {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-decoration: none;
+			min-width: 130px;
+			height: 40px;
+			color: #fff;
+			padding: 5px 10px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			position: relative;
+			outline: none;
+			border: 2px solid #212529;
+			border-radius: 4px;
+			background: #212529;
+		}
+
+		.css-button-sharp--black:hover {
+			background: #fff;
+			color: #212529
+		}
+
+		.css-button-sharp--black span {
+			font-weight: normal;
+			padding-left: 10px;
+		}
+		
+		.form-control{
+			width: 70% !important;
+		}
+			
+		@media (max-width: 734px){
+			.form-control{
+				width: 100% !important;
+			}
+		}
+	</style>
 </head>
+
 <body>
-<script>window.location.href = "http://localhost:4200";</script>
+	<div class="background-container">
+		<div class="row d-flex m-auto justify-content-center align-items-center registro-container">
+			<div
+				class="d-none d-md-flex col-md-6 imagen-registro justify-content-center align-items-center flex-column">
+				<h1>¿Listo para empezar tu aventura?</h1>
+				<img src="https://github.com/jmarcan286/portal_del_viajero-PI-/blob/main/Pdv-frontend/src/assets/paginaRegistro/logoAplicacion.jpg?raw=true"
+					class="logo">
+			</div>
+			<form class="col-xs-12 col-md-6 formulario-registro row" method="post" th:action="@{/login}">
+				<i class="material-icons d-flex justify-content-end pt-2 me-2 mt-2"
+					style="font-size: 30px; max-height: 30px;">arrow_forward</i>
+				<div th:if="${param.error}" class="alert alert-danger" role="alert">
+					Credenciales erróneas
+				</div>
+				<div th:if="${param.logout}" class="alert alert-success" role="alert">
+					Has cerrado sesión.
+				</div>
+				<div class="ms-3" style="max-height: 40px;">
+					<h2 class=" mb-2">Registrar</h2>
+					<p>¡Bienvenido! Por favor, regístrese</p>
+				</div>
+				<div class="ms-3" style="max-height: 25px;">
+					<label for="username" class="sr-only mb-1">Nombre de Usuario</label>
+					<input type="text" id="username" name="username" class="form-control" placeholder="Username"
+						required autofocus />
+				</div>
+				<div class="ms-3" style="max-height: 25px;">
+					<label for="password" class="sr-only mb-1">Contraseña</label>
+					<input type="password" id="password" name="password" class="form-control" placeholder="Password"
+						required />
+				</div>
+
+				<div class="ms-3" style="max-height: 50px;">
+					<button class="boton-personalizado-a col-12 col-md-8" type="submit">Iniciar Sesión</button>
+					<br>
+					<br>
+					<a role="link" class="css-button-sharp--black col-12 col-md-8" href="/oauth2/authorization/google-idp">
+						<img src="https://github.com/jmarcan286/portal_del_viajero-PI-/blob/desarrollo-frontend/Pdv-frontend/src/assets/paginaRegistro/google-icon.png?raw=true"
+							alt="Google logo" class="google-logo" width="25" />
+						<span>Inicia con Google</span>
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
 </body>
+
 </html>

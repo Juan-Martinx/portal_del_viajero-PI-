@@ -18,9 +18,4 @@ export class UsuarioService {
     return this.http.post<IGenericApiMessageDTO>(environment.oauth_api + "pdv-backend/auth/crear", usuario);
   }
 
-  login(usuario: IUsuarioDTO): Observable<IGenericApiMessageDTO> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    console.log(usuario);
-    return this.http.post<IGenericApiMessageDTO>("http://localhost:9999/login", usuario, { headers })
-  }
 }

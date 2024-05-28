@@ -8,7 +8,11 @@ import { BotonRegistroGoogleComponent } from '../../components/boton-registro-go
 import { IUsuarioDTO } from '../../../dto/IUsuarioDTO';
 import { CodPerfiles } from '../../../dto/enumCodPerfiles';
 import { UsuarioService } from '../../services/usuario.service';
-
+import { environment } from '../../../environments/environments';
+import { TokenService } from '../../services/token.service';
+import { HttpParams } from '@angular/common/http';
+import * as CryptoJS from 'crypto-js';
+const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 @Component({
   selector: 'app-pagina-registro',
@@ -20,7 +24,7 @@ import { UsuarioService } from '../../services/usuario.service';
 
 export class PaginaRegistroComponent {
 
-  constructor(private usuarioService: UsuarioService){}
+  constructor(private usuarioService: UsuarioService, private tokenService: TokenService){}
 
   // Formulario de Registro Controller
   formRegistro = new FormGroup({
@@ -64,5 +68,9 @@ export class PaginaRegistroComponent {
       alert("Debe rellenar todos los campos correctamente");
     }
     
+  }
+
+  onLogin(){
+    this.tokenService.onLogin();
   }
 }
