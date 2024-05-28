@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row m-auto m-auto">
             <div class="col-12">
-                <h1 class="d-inline-flex me-4"><strong>{{casasRurales[0].titulo}}</strong></h1>
+                <h1 class="d-inline-flex me-4 fw-bold">{{casasRurales[0].titulo}}</h1>
             </div>
 
             <div class="row m-auto">
@@ -30,7 +30,7 @@
             </div>
 
             <div class="row mt-5 b-bottom">
-                <h3><strong>Precio</strong></h3>
+                <h2 class="fw-bold">Precio</h2>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Precio por noche - (En €)</mat-label>
                     <input matInput placeholder="Introduzca precio por noche - (En €)" type="number" />
@@ -38,7 +38,7 @@
             </div>
 
             <div class="col-12 mt-3 b-bottom">
-                <h3><strong>Huéspedes</strong></h3>
+                <h2 class="fw-bold">Huéspedes</h2>
                 <mat-form-field class="col-5 col-md-3">
                     <mat-label>Número mínimo</mat-label>
                     <input matInput placeholder="Introduzca número mínimo de huéspedes" type="number" />
@@ -51,7 +51,7 @@
             </div>
 
             <div class="col-12 mt-5 b-bottom">
-                <h3 class="d-inline-flex me-4"><strong>Instalaciones</strong></h3>
+                <h2 class="d-inline-flex me-4 fw-bold">Instalaciones</h2>
                 <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
                 <div class="col-9">
                     @for (instalacion of instalaciones; track instalacion.length) {
@@ -65,7 +65,7 @@
             </div>
 
             <div class="col-12 mt-5 b-bottom">
-                <h3 class="d-inline-flex me-4"><strong>Comodidades</strong></h3>
+                <h2 class="d-inline-flex me-4 fw-bold">Comodidades</h2>
                 <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
                 <div class="col-9">
                     @for (instalacion of instalaciones; track instalacion.length) {
