@@ -1,14 +1,14 @@
-<div class="container">
+<div class="container contenedor-principal">
     <div class="row m-auto mt-5">
-        <div class="col-12 px-0">
+        <div class="col-12 ps-3">
             <h1 class="fw-bold">{{casasRurales[0].titulo}}</h1>
         </div>
 
-        <div class="row">
-            <div class="img-principal col-12 col-md-6 col-4">
+        <div class="row m-auto">
+            <div class="img-principal col-12 col-md-6 col-lg-4">
                 Imagen 1
             </div>
-            <div class="row d-none d-md-flex col-6 col-4 m-auto mt-0 d-flex flex-column justify-content-between"
+            <div class="row d-none d-md-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between"
                 style="height: 400px;">
                 <div class="img">
                     Imagen 2
@@ -17,7 +17,7 @@
                     Imagen 3
                 </div>
             </div>
-            <div class="row d-none d-flex col-4 d-flex m-auto mt-0 flex-column justify-content-between"
+            <div class="row d-none d-lg-flex col-4 m-auto mt-0 flex-column justify-content-between"
                 style="height: 400px;">
                 <div class="img">
                     Imagen 4
@@ -28,9 +28,9 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="row col-6 mt-3">
-                <div class="row instalaciones">
+        <div class="row d-flex flex-column flex-md-row m-auto">
+            <div class="row col-12 col-md-6 mt-3 order-2 order-md-1">
+                <div class="row b-bottom">
                     <h2 class="fw-bold px-0">Instalaciones</h2>
                     <div class="row">
                         @for (instalacion of instalaciones; track instalacion.length) {
@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-5 comodidades">
+                <div class="row mt-5 b-bottom">
                     <div class="row">
                         <h2 class="fw-bold px-0">Comodidades</h2>
                         <div class="col-12">
@@ -61,50 +61,38 @@
             </div>
 
             <!-- Formulario de Reservar -->
-            <form class="row col-6 ms-4 mt-4 reservar">
-                <div class="card p-4">
-                    <h3> <strong>124€</strong> noche</h3>
-                    <div class="col-12 d-flex">
-                        <div class="llegada">
-                            <form [formGroup]="reservar">
-                                <mat-form-field class="formulario-llegada">
-                                    <mat-label>Llegada</mat-label>
-                                    <input matInput [matDatepicker]="picker1" formControlName="llegada">
-                                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker1></mat-datepicker>
-                                </mat-form-field>
+            <form class="row col-12 col-md-6 ms-1 ms-md-4 mt-4 order-1 order-md-2">
+                <div class="card p-4 row">
+                    <h2 class="fw-bold">124€ noche</h2>
+                    <div class="row">
+                        <mat-form-field class="col-6">
+                            <mat-label>Llegada</mat-label>
+                            <input matInput type="date" [matDatepicker]="picker1" formControlName="llegada">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
 
-                            </form>
-                        </div>
-
-
-                        <div class="salida">
-                            <form [formGroup]="reservar">
-                                <mat-form-field class="formulario-salida">
-                                    <mat-label>Salida</mat-label>
-                                    <input matInput [matDatepicker]="picker1" formControlName="salida">
-                                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker1></mat-datepicker>
-                                </mat-form-field>
-
-                            </form>
-                        </div>
+                        <mat-form-field class="col-6">
+                            <mat-label>Salida</mat-label>
+                            <input matInput type="date" [matDatepicker]="picker1" formControlName="salida">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
                     </div>
-                    <div class="col-11 huespedes">
-                        <form [formGroup]="reservar">
-                            <mat-form-field class="col-12">
-                                <mat-label>HÚESPEDES</mat-label>
-                                <input matInput placeholder="Introduzca número de huéspedes"
-                                    formControlName="huespedes" />
-                            </mat-form-field>
 
-                        </form>
+                    <div class="row">
+                        <mat-form-field class="col-12">
+                            <mat-label>Nº de huéspedes</mat-label>
+                            <input type="number" matInput placeholder="Introduzca número de huéspedes"
+                                formControlName="huespedes" />
+                        </mat-form-field>
                     </div>
-                    <button class="w-100 mt-3 btn-reservar"> RESERVAR</button>
-                    <p class="text-center mt-2 texto">No se te cobrará nada aún</p>
+
+                    <button class="col-12 boton-personalizado-a"> RESERVAR</button>
+                    <p class="text-center mt-2 texto-gray">No se te cobrará nada aún</p>
                     <div class="d-flex justify-content-between">
-                        <p class="texto2">124€ x 5 noches</p>
-                        <p class="texto3">620€</p>
+                        <p class="texto-gray">124€ x 5 noches</p>
+                        <p class="texto-gray">620€</p>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between">
@@ -116,20 +104,20 @@
         </div>
 
         <!-- Ubicación -->
-        <div class="row ubicacion mt-3 pb-3">
+        <div class="row b-bottom mx-auto pt-2 pb-2">
             <h2 class="fw-bold px-0">Ubicación</h2>
             <div class="d-flex align-items-center px-0">
                 <i class="bi bi-geo-alt px-0 me-2"></i>
-                <p class="pt-2">Sevilla, Andalucía, España</p>
+                <p class="pt-1">Sevilla, Andalucía, España</p>
             </div>
         </div>
 
-        <div class="col-12 mt-5 resenas-comentarios">
-            <div class="col-6 px-5 pt-4 pb-2 valoraciones">
-                <img class="d-inline-flex paz1" src="../../../assets/paginaRegistro/paz1.png">
-                <h3 class="d-inline-flex"><strong>Recomendaciones</strong></h3>
-                <img class="d-inline-flex paz2" src="../../../assets/paginaRegistro/paz.png">
-                <div class="d-inline-flex ms-5 contenedor-estrellas">
+        <div class="row d-flex mt-4 justify-content-center mt-2">
+            <div class="col-12 valoraciones d-flex justify-content-center align-items-center">
+                <img class="paz" src="../../../assets/paginaRegistro/paz1.png">
+                <h2 class="fw-bold mt-4 mx-2">Valoraciones</h2>
+                <img class="d-inline-flex paz" src="../../../assets/paginaRegistro/paz.png">
+                <div class="d-inline-flex mx-2 flex-column align-items-center mt-4">
                     <strong>4,90</strong>
                     <div>
                         <i class="bi bi-star-fill"></i>
@@ -141,7 +129,7 @@
 
                 </div>
 
-                <div class="d-inline-flex contenedor ms-5 contenedor-evaluaciones px-4 pt-3 pb-2">
+                <div class="contenedor-evaluaciones d-flex h-75 align-items-center justify-content-center ps-2">
                     <strong>10</strong>
                     <a class="evaluaciones" href="#">evaluaciones</a>
                 </div>
@@ -150,13 +138,13 @@
             <div class="col-12 mt-5 contenedor-resenas-comentarios">
                 @if (ver) {
                 @for (comentario of comentarios ; track comentario.length) {
-                <div class="col-5 d-inline-flex flex-column">
+                <div class="col-12 col-md-5 d-inline-flex flex-column">
                     <div class="cabecera-comentarios">
                         <img class="d-inline-flex perfil-usuario"
                             src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-                        <div class="d-inline-flex contenedor-comentarios ms-2">
+                        <div class="d-inline-flex flex-column align-items-center ms-2">
                             <strong>Nombre</strong>
-                            <p class="pais">{{comentario.pais}}</p>
+                            <p class="texto-gray">{{comentario.pais}}</p>
                         </div>
                     </div>
 
@@ -170,7 +158,7 @@
                             <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
                         </div>
                         <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
-                        <p class="d-inline-flex semanas">Hace 2 semanas</p>
+                        <p class="d-inline-flex texto-gray">Hace 2 semanas</p>
                     </div>
 
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
@@ -183,13 +171,13 @@
 
                 }@else {
                 @for (comentario of primerosComentarios; track comentario.length) {
-                <div class="col-5 d-inline-flex flex-column">
+                <div class="col-12 col-md-5 d-inline-flex flex-column">
                     <div class="cabecera-comentarios">
                         <img class="d-inline-flex perfil-usuario"
                             src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-                        <div class="d-inline-flex contenedor-comentarios ms-2">
+                        <div class="d-inline-flex flex-column align-items-center ms-2">
                             <strong>Nombre</strong>
-                            <p class="pais">{{comentario.pais}}</p>
+                            <p class="texto-gray">{{comentario.pais}}</p>
                         </div>
                     </div>
 
@@ -203,7 +191,7 @@
                             <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
                         </div>
                         <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
-                        <p class="d-inline-flex semanas">Hace 2 semanas</p>
+                        <p class="d-inline-flex texto-gray">Hace 2 semanas</p>
                     </div>
 
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at

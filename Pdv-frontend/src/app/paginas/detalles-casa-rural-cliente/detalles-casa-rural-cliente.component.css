@@ -1,7 +1,7 @@
-.editar-usuario{
-    color:  rgb(162, 162, 162);
-    font-size: 15px;
-    cursor: pointer;
+.contenedor-principal{
+    min-height: 100vh;
+    box-shadow: 0px 0px 10px 5px #ccc;
+    overflow: hidden;
 }
 
 .img-principal{
@@ -13,7 +13,8 @@
     background-color: rgb(162, 162, 162, 0.5);
     height: 190px;
 }
-.instalaciones, .comodidades,.ubicacion{
+
+.b-bottom{
     border-bottom: 1px solid rgba(162, 162, 162, 0.6);
 }
 
@@ -24,22 +25,18 @@
 .valoraciones{
     border: 1px solid rgba(162, 162, 162, 0.8);
     border-radius: 8px;
+    max-width: 500px; 
+    height: 80px;
 }
 
-.paz1, .paz2{
+.valoraciones img{
     width: 50px;
     height: 50px;
 }
 
-.contenedor-estrellas, .contenedor-comentarios{
-    flex-direction: column;
-    align-items: center;
+.valoraciones h2{
+    font-size: 1.2rem;
 }
-
-.estrellas{
-    margin-top: 15px;
-}
-
 
 .contenedor-evaluaciones{
     flex-direction: column;
@@ -62,15 +59,6 @@
     height: 40px;
 }
 
-.contenedor-comentarios{
-    flex-direction: column;
-    align-items: start;
-}
-
-.pais, .semanas{
-    color: rgb(162, 162, 162);
-}
-
 .cabecera-comentarios{
     height: 40px;
 }
@@ -82,52 +70,21 @@
     cursor: pointer;
 }
 
-.btn-reservar{
-    border-radius: 8px;
-    border: none;
-    background-color: blueviolet;
-    color: white;
-    padding: 10px;
-    margin-right: 5%;
-    
-}
-
-.reservar{
-    /*width: calc(50% - 10px);*/
-    display: inline-block;
-    vertical-align: top;
-}
-
-.llegada{
-    border-top: 1px solid rgb(162, 162, 162);
-    border-right: 1px solid rgb(162, 162, 162);
-    border-left: 1px solid rgb(162, 162, 162); 
-    border-top-left-radius: 8px;
-    width: 164px;
-    box-sizing: content-box;
-}
-
-.formulario-llegada, .formulario-salida{
-    width: 100%;
-}
-
-.salida{
-    border-top: 1px solid rgb(162, 162, 162);
-    border-right: 1px solid rgb(162, 162, 162); 
-    border-top-right-radius: 8px; 
-    width: 164px;
-}
-
-.huespedes{
-    border: 1px solid rgb(162, 162, 162); 
-    border-bottom-left-radius: 8px; 
-    border-bottom-right-radius: 8px;
-}
-
-.texto, .texto2, .texto3{
+.texto-gray{
     color:rgb(162, 162, 162);
 }
 
-.texto2{
-    text-decoration: underline;
+@media(max-width: 490px){
+    .valoraciones{
+        font-size: 0.6rem;
+        max-width: 320px;
+    }
+    .valoraciones img{
+        width: 20px;
+        height: 20px;
+    }
+
+    .valoraciones h2{
+        font-size: 1rem;
+    }
 }
