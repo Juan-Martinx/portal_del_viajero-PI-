@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +34,7 @@ public class UsuarioController {
 		return ResponseEntity.ok().body(this.usuarioService.obtenerUsuarioLogueadoDto(authentication));
 	}
 	
+	@PreAuthorize("hasAuthority('PERFIL_ADMIN')")
 	@GetMapping("/buscar")
 	public ResponseEntity<List<UsuarioDTO>> obtenerUsuariosApp(@RequestParam("username") String username,
 			@RequestParam("txtDni") String txtDni, @RequestParam("txtEmail") String txtEmail, Pageable page){
@@ -40,6 +43,11 @@ public class UsuarioController {
 				.txtDni(txtDni)
 				.txtEmail(txtEmail);
 		return ResponseEntity.ok().body(this.usuarioService.buscarUsuariosAplicacion(dto.build(), page));
+	}
+	
+	@GetMapping("/public/{username}")
+	public ResponseEntity<UsuarioDTO> buscarUsuarioPorUsername(@PathVariable String username){
+		return ResponseEntity.ok().body(this.usuarioService.buscarUsuarioPorUsername(username));
 	}
 	
 	@PutMapping("/editar")

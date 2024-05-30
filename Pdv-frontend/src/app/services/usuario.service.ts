@@ -13,6 +13,7 @@ import { IPageableDTO } from '../../dto/IPageableDTO';
 
 export class UsuarioService {
 
+  usuariosAPI = "/usuarios";
 
   constructor(private http: HttpClient, private tokenService: TokenService) { }
 
@@ -21,18 +22,23 @@ export class UsuarioService {
   }
 
   buscarUsuarioLogueado(): Observable<IUsuarioDTO>{
-    return this.http.get<IUsuarioDTO>(environment.api + '/usuarios');
-  }
-
-  editarUsuario(usuario: IUsuarioDTO): Observable<IGenericApiMessageDTO>{
-    return this.http.put<IGenericApiMessageDTO>(environment.api + '/usuarios/editar', usuario);
-  }
-
-  convertirEnGestor(id: number): Observable<IGenericApiMessageDTO>{
-    return this.http.post<IGenericApiMessageDTO>(environment.api + '/usuarios/convertir-gestor?id=' + id, null);
+    return this.http.get<IUsuarioDTO>(environment.api + this.usuariosAPI);
   }
 
   buscarUsuariosApp(usuario: IUsuarioDTO, pageable: IPageableDTO): Observable<IUsuarioDTO[]>{
-    return this.http.get<IUsuarioDTO[]>(environment.api + `/usuarios/buscar?username=${usuario.username}&txtDni=${usuario.txtDni}&txtEmail=${usuario.txtEmail}&numTelefono=${usuario.numTelefono}&page=${pageable.page}&size=${pageable.size}`);
+    return this.http.get<IUsuarioDTO[]>(environment.api + `${this.usuariosAPI}/buscar?username=${usuario.username}&txtDni=${usuario.txtDni}&txtEmail=${usuario.txtEmail}&page=${pageable.page}&size=${pageable.size}`);
   }
+
+  buscarUsuarioPorUsername(username: string): Observable<IUsuarioDTO>{
+    return this.http.get<IUsuarioDTO>(environment.api + this.usuariosAPI + '/public/' + username);
+  }
+
+  editarUsuario(usuario: IUsuarioDTO): Observable<IGenericApiMessageDTO>{
+    return this.http.put<IGenericApiMessageDTO>(environment.api +  this.usuariosAPI + '/editar', usuario);
+  }
+
+  convertirEnGestor(id: number): Observable<IGenericApiMessageDTO>{
+    return this.http.post<IGenericApiMessageDTO>(environment.api + this.usuariosAPI + '/convertir-gestor?id=' + id, null);
+  }
+
 }

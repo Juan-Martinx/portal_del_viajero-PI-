@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.type.descriptor.jdbc.VarbinaryJdbcType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -55,6 +56,21 @@ public class UsuarioService {
 			});
 		}
 		return dtoList;
+	}
+	
+	public UsuarioDTO buscarUsuarioPorUsername(String username) {
+		var jpaOpt = this.usuarioRepository.findByUsername(username);
+		var dto = new UsuarioDTO();
+		if(jpaOpt.isPresent()) {
+			var jpa = jpaOpt.get();
+			dto = UsuarioDTO.builder()
+					.username(username)
+					.txtEmail(jpa.getTxtEmail())
+					.numTelefono(jpa.getNumTelefono())
+					.txtDescripcion(jpa.getTxtDescripcion())
+					.build();
+		}
+		return dto;
 	}
 	
 	/**
