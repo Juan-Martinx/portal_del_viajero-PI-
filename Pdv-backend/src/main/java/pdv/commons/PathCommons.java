@@ -3,7 +3,7 @@ package pdv.commons;
 public class PathCommons {
 
 	/*Path General del Backend*/
-	public static final String BACKEND = "/pdv-backend";
+	public static final String BACKEND = "/pdv-backend/resource";
 	
 	/*USUARIOS*/
 	public static final String USUARIOS = BACKEND + "/usuarios";

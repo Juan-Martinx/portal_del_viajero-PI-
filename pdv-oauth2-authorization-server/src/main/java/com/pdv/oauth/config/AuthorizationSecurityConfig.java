@@ -42,6 +42,7 @@ import com.pdv.oauth.commons.PathCommons;
 import com.pdv.oauth.federated.FederatedIdentityAuthenticationSuccessHandler;
 import com.pdv.oauth.federated.FederatedIdentityConfigurer;
 import com.pdv.oauth.federated.UserRepositoryOAuth2UserHandler;
+import com.pdv.oauth.model.Usuario;
 import com.pdv.oauth.repository.GoogleUserRepository;
 import com.pdv.oauth.service.ClientService;
 import com.pdv.oauth.service.UsuarioService;

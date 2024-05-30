@@ -64,6 +64,10 @@ export class TokenService {
     return this.tokenWithProfile('PERFIL_ADMIN');
   }
 
+  isGoogleUser(): boolean {
+    return this.tokenWithProfile('OIDC_USER');
+  }
+
   tokenWithProfile(profile: string): boolean {
     if (!this.isLogged()) {
       return false;
@@ -78,6 +82,18 @@ export class TokenService {
     }
     return true;
 
+  }
+
+  getInfoFromToken(infoSolicitada: string): string{
+    if (!this.isLogged()) {
+      return "";
+    }
+    const token = this.getAccessToken();
+    const payload = token?.split(".")[1] as string;
+    const payloadDecoded = atob(payload);
+    const values = JSON.parse(payloadDecoded);
+    const info = values[infoSolicitada];
+    return info;
   }
 
   setVerifier(code_verifier: string): void {

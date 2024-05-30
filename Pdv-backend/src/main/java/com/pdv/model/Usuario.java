@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,6 +19,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -64,6 +66,9 @@ public class Usuario implements UserDetails{
 	private boolean locked = false;
 	private boolean credentialsExpired = false;
 	private boolean disabled = false;
+	
+	@OneToOne(mappedBy = "appUser", cascade = CascadeType.ALL)
+	private GoogleUser googleAccount;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_perfiles", joinColumns = @JoinColumn(name = "id_usuario"), 

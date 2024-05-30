@@ -1,4 +1,4 @@
-package com.pdv.oauth.model;
+package com.pdv.model;
 
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -55,5 +55,4 @@ public class GoogleUser {
                 ", pictureUrl='" + pictureUrl + '\'' +
                 '}';
     }
-  
 }
