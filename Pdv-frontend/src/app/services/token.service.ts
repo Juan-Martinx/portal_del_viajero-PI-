@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { environment } from '../../environments/environments';
 import { HttpParams } from '@angular/common/http';
+import { CodPerfiles } from '../../dto/enumCodPerfiles';
 
 const ACCESS_TOKEN = 'access_token';
 const REFRESH_TOKEN = 'refresh_token';
@@ -53,19 +54,19 @@ export class TokenService {
   }
 
   isCliente(): boolean {
-    return this.tokenWithProfile('PERFIL_CLIENTE');
+    return this.tokenWithProfile(CodPerfiles.CLIENTE);
   }
 
   isGestor(): boolean {
-    return this.tokenWithProfile('PERFIL_GESTOR');
+    return this.tokenWithProfile(CodPerfiles.GESTOR);
   }
 
   isAdmin(): boolean {
-    return this.tokenWithProfile('PERFIL_ADMIN');
+    return this.tokenWithProfile(CodPerfiles.ADMIN);
   }
 
   isGoogleUser(): boolean {
-    return this.tokenWithProfile('OIDC_USER');
+    return this.tokenWithProfile(CodPerfiles.GOOGLE_USER);
   }
 
   tokenWithProfile(profile: string): boolean {
@@ -81,19 +82,6 @@ export class TokenService {
       return false;
     }
     return true;
-
-  }
-
-  getInfoFromToken(infoSolicitada: string): string{
-    if (!this.isLogged()) {
-      return "";
-    }
-    const token = this.getAccessToken();
-    const payload = token?.split(".")[1] as string;
-    const payloadDecoded = atob(payload);
-    const values = JSON.parse(payloadDecoded);
-    const info = values[infoSolicitada];
-    return info;
   }
 
   setVerifier(code_verifier: string): void {

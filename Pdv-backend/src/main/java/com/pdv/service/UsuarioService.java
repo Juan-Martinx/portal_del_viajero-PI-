@@ -40,12 +40,12 @@ public class UsuarioService {
 	private final PerfilService perfilService;
 	private final PasswordEncoder passwordEncoder;
 	
-	@Transactional
 	/**
 	 * Método que sirve para editar a un perfil de usuario dentro de la aplicación.
 	 * @param dto
 	 * @return
 	 */
+	@Transactional
 	public GenericAPIMessageDTO editarUsuario(UsuarioDTO dto) {
 
 		var jpaOpt = this.usuarioRepository.findById(dto.getId());
@@ -77,6 +77,43 @@ public class UsuarioService {
 					.build();
 		}
 
+		return mensaje;
+	}
+	
+	/**
+	 * Convierte a un usuario en Gestor según un id que se le pasa
+	 * @param id
+	 * @return
+	 */
+	public GenericAPIMessageDTO convertirUsuarioAGestor(Long id) {
+		
+		var mensaje = new GenericAPIMessageDTO();
+		mensaje.setFechaYHora(LocalDateTime.now());
+		var jpaOpt = this.usuarioRepository.findById(id);
+		if(jpaOpt.isPresent()) {
+			var jpa = jpaOpt.get();
+			var perfiles = jpa.getIdPerfiles();
+			var perfilGestor = perfilRepository.findByCodPerfil(CodPerfiles.PERFIL_GESTOR)
+					.orElseThrow(() -> new RuntimeException("Perfil no encontrado"));
+			
+			mensaje.setEstado(HttpStatus.OK);
+			
+			if(perfiles.contains(perfilGestor)) {
+				mensaje.setMensaje("Tu cuenta ya tenía asignado el perfil de gestor");
+
+			}else {
+				perfiles.add(perfilGestor);
+				jpa.setIdPerfiles(perfiles);
+				this.usuarioRepository.save(jpa);
+				mensaje.setMensaje("Operación realizada con éxito: ¡Ya podrá poner en alquiler sus alojamientos!");
+
+			}
+			
+		}else {
+			mensaje.setMensaje("Hubo un problema encontrando al usuario");
+			mensaje.setEstado(HttpStatus.NOT_FOUND);
+		}
+		
 		return mensaje;
 	}
 	

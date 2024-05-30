@@ -18,12 +18,16 @@ export class UsuarioService {
     return this.http.post<IGenericApiMessageDTO>(environment.oauth_api + "pdv-backend/auth/crear", usuario);
   }
 
-  buscarUsuarioPorNombre(): Observable<IUsuarioDTO>{
+  buscarUsuarioLogueado(): Observable<IUsuarioDTO>{
     return this.http.get<IUsuarioDTO>(environment.api + '/usuarios');
   }
 
   editarUsuario(usuario: IUsuarioDTO): Observable<IGenericApiMessageDTO>{
     return this.http.put<IGenericApiMessageDTO>(environment.api + '/usuarios/editar', usuario);
+  }
+
+  convertirEnGestor(id: number): Observable<IGenericApiMessageDTO>{
+    return this.http.post<IGenericApiMessageDTO>(environment.api + '/usuarios/convertir-gestor?id=' + id, null);
   }
 
 }

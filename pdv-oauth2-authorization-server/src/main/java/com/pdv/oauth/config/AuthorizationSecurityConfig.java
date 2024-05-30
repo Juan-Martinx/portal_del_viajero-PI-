@@ -39,6 +39,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.pdv.oauth.commons.PathCommons;
+import com.pdv.oauth.enums.CodPerfiles;
 import com.pdv.oauth.federated.FederatedIdentityAuthenticationSuccessHandler;
 import com.pdv.oauth.federated.FederatedIdentityConfigurer;
 import com.pdv.oauth.federated.UserRepositoryOAuth2UserHandler;
@@ -103,20 +104,33 @@ public class AuthorizationSecurityConfig {
 		return http.build();
 	}
     
-    @Bean
-    public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer(){
-        return context -> {
-            Authentication principal = context.getPrincipal();
-            if(context.getTokenType().getValue().equals("id_token")){
-                context.getClaims().claim("token_type", "id token");
-            }
-            if(context.getTokenType().getValue().equals("access_token")){
-                context.getClaims().claim("token_type", "access token");
-                Set<String> perfiles = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
-                context.getClaims().claim("perfiles", perfiles).claim("username", principal.getName());
-            }
-        };
-    }
+	@Bean
+	public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer() {
+		return context -> {
+			Authentication principal = context.getPrincipal();
+			if (context.getTokenType().getValue().equals("id_token")) {
+				context.getClaims().claim("token_type", "id token");
+			}
+			if (context.getTokenType().getValue().equals("access_token")) {
+				context.getClaims().claim("token_type", "access token");
+				Set<String> perfiles = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+						.collect(Collectors.toSet());
+				if (perfiles.contains(CodPerfiles.OIDC_USER.name())) {
+					var googUsr = this.googleUserRepository.findByEmail(principal.getName());
+					if (googUsr.isPresent()) {
+						var perfilesInternos = googUsr.get().getAppUser().getIdPerfiles();
+						perfilesInternos.forEach(perfil -> {
+							if (!perfiles.contains(perfil.getCodPerfil().name())) {
+								perfiles.add(perfil.getCodPerfil().name());
+							}
+						});
+					}
+
+				}
+				context.getClaims().claim("perfiles", perfiles).claim("username", principal.getName());
+			}
+		};
+	}
     
     @Bean
     public SessionRegistry sessionRegistry() {

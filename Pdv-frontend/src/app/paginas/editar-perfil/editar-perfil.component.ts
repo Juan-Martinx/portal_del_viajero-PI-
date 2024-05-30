@@ -23,7 +23,7 @@ export class EditarPerfilComponent implements OnInit {
 
   constructor(private tokenService: TokenService, private usuarioService: UsuarioService) { }
   ngOnInit(): void {
-    this.usuarioService.buscarUsuarioPorNombre().subscribe(usuario => {
+    this.usuarioService.buscarUsuarioLogueado().subscribe(usuario => {
       this.usuario = usuario;
       this.editarUsuarioForm.get('usuario')?.setValue(usuario.username as string);
       this.editarUsuarioForm.get('dni')?.setValue(usuario.txtDni as string);

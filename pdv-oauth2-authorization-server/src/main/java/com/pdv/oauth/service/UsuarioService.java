@@ -49,7 +49,7 @@ public class UsuarioService {
 		var perfiles = new HashSet<Perfil>();
 		dto.perfiles().forEach(p -> {
 			var perfil = perfilRepository.findByCodPerfil(CodPerfiles.valueOf(p))
-					.orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+					.orElseThrow(() -> new RuntimeException("Perfil no encontrado"));
 			perfiles.add(perfil);
 		});
 		
