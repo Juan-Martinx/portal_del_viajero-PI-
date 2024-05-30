@@ -17,12 +17,14 @@ import { ModificarComodidadComponent } from './paginas/modificar-comodidad/modif
 import { CasasDisponiblesComponent } from './paginas/casas-disponibles/casas-disponibles.component';
 import { CasasAlquilerComponent } from './paginas/casas-alquiler/casas-alquiler.component';
 import { ConvertirGestorComponent } from './paginas/convertir-gestor/convertir-gestor.component';
+import { VerPerfilComponent } from './paginas/ver-perfil/ver-perfil.component';
 
 export const routes: Routes = [
-    { path: '', component: PaginaRegistroComponent, title: 'Inicio'},
+    { path: '', component: BuscarUsuariosComponent, title: 'Inicio'},
     { path: 'registro', component: PaginaRegistroComponent, title: 'Inicio'},
     { path: 'convertir-gestor', component: ConvertirGestorComponent, title: 'Convertir en Gestor'},
     { path: 'editar-perfil', component: EditarPerfilComponent, title: 'Editar Perfil'},
+    { path: 'ver-perfil/:username', component: VerPerfilComponent, title: 'Ver Perfil'},
     { path: 'reservas-realizadas', component: VerReservasComponent, title: 'Ver Reservas Realizadas'},
     { path: 'buscador-comodidades', component: BuscarComodidadComponent, title: 'Buscar Comodidades y Administrarlas'},
     { path: 'usuarios-registrados', component: BuscarUsuariosComponent, title: 'Buscar Usuarios que están registrados'},

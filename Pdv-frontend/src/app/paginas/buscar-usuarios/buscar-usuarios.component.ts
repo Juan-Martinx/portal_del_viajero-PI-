@@ -1,60 +1,68 @@
 import { Component } from '@angular/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatIconModule} from '@angular/material/icon';
-import {FormsModule} from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UsuarioService } from '../../services/usuario.service';
+import { IUsuarioDTO } from '../../../dto/IUsuarioDTO';
+import { IPageableDTO } from '../../../dto/IPageableDTO';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-buscar-usuarios',
   standalone: true,
-  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule],
+  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './buscar-usuarios.component.html',
   styleUrl: './buscar-usuarios.component.css'
 })
 export class BuscarUsuariosComponent {
 
-  usuarios = new FormGroup({
+  usuarios: IUsuarioDTO[] = [];
+
+  paginaActual = 0;
+
+  constructor(private usuarioService: UsuarioService) { }
+
+  buscadorUsuarios = new FormGroup({
     nombre: new FormControl(''),
-    telefono: new FormControl(''),
     correoElectronico: new FormControl(''),
     dni: new FormControl('')
   });
 
-  numeroUsuario: any[] = [
-    {
-      usuario: "Usuario 1"
-    },
-    {
-      usuario: "Usuario 2"
-    },
-    {
-      usuario: "Usuario 3"
-    },
-    {
-      usuario: "Usuario 4"
-    },
-    {
-      usuario: "Usuario 5"
-    },
-    {
-      usuario: "Usuario 6"
-    },
-    {
-      usuario: "Usuario 7"
-    },
-    {
-      usuario: "Usuario 8"
-    },
-    {
-      usuario: "Usuario 9"
-    },
-    {
-      usuario: "Usuario 10"
-    },
-    {
-      usuario: "Usuario 11"
+  /**
+   * En caso de avanzar de página será true
+   */
+  buscarUsuarios(avanzarPagina: boolean) {
+    const usuario: IUsuarioDTO = {
+      username: this.buscadorUsuarios.value.nombre as string,
+      txtDni: this.buscadorUsuarios.value.dni as string,
+      txtEmail: this.buscadorUsuarios.value.correoElectronico as string,
     }
-  ]
+
+    const pageable: IPageableDTO = {
+      page: this.paginaActual,
+      size: 4
+    }
+
+    this.usuarioService.buscarUsuariosApp(usuario, pageable).subscribe(usuarios => {
+      if (usuarios.length == 0) {
+        this.paginaActual = avanzarPagina? --this.paginaActual : ++this.paginaActual;
+        alert("No hay resultados para mostrar");
+      } else {
+        this.usuarios = usuarios;
+      }
+    });
+  }
+
+  cambiarPage(page: number) {
+    if(this.paginaActual < page){
+      this.paginaActual = page;
+      this.buscarUsuarios(true);
+    }else{
+      this.paginaActual==0? 0 : this.paginaActual = page;
+      this.buscarUsuarios(false);
+    }
+  }
 
 }

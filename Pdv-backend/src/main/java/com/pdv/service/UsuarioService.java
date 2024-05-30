@@ -1,25 +1,20 @@
 package com.pdv.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import com.pdv.dto.GenericAPIMessageDTO;
 import com.pdv.dto.UsuarioDTO;
 import com.pdv.enums.CodPerfiles;
-import com.pdv.model.GoogleUser;
-import com.pdv.model.Perfil;
 import com.pdv.model.Usuario;
 import com.pdv.repository.GoogleUserRepository;
 import com.pdv.repository.PerfilRepository;
@@ -39,6 +34,28 @@ public class UsuarioService {
 	private final PerfilRepository perfilRepository;
 	private final PerfilService perfilService;
 	private final PasswordEncoder passwordEncoder;
+	
+	/**
+	 * Realiza una búsqueda páginada de los usuarios con la 
+	 * opción de filtrar por nombre de usuario, dni, email y teléfono.
+	 * @param dto
+	 * @param page
+	 * @return
+	 */
+	public List<UsuarioDTO> buscarUsuariosAplicacion(UsuarioDTO dto, Pageable page) {
+		var usuarios = this.usuarioRepository.findUsuariosFromBuscador(dto.getUsername(), dto.getTxtDni(), dto.getTxtEmail(), page).toList();
+		var dtoList = new ArrayList<UsuarioDTO>();
+		if(!usuarios.isEmpty()) {
+			usuarios.forEach(usuario -> {
+				var usuarioDto = UsuarioDTO.builder()
+						.id(usuario.getId())
+						.username(usuario.getUsername())
+						.build();
+				dtoList.add(usuarioDto);
+			});
+		}
+		return dtoList;
+	}
 	
 	/**
 	 * Método que sirve para editar a un perfil de usuario dentro de la aplicación.

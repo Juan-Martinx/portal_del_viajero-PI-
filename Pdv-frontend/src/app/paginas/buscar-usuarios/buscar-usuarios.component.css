@@ -30,8 +30,20 @@
     font-size: 30px;
 }
 
+.bi-search:hover{
+    cursor: pointer;
+}
+
+li:hover .page-link{
+    cursor: pointer;
+}
+
 .lista-usuarios{
     text-align: center;
+}
+
+.lista-usuarios:hover{
+    cursor: pointer;
 }
 
 .imagen-usuario{
@@ -39,4 +51,3 @@
     width: 40px; 
     height: 40px;
 }
-

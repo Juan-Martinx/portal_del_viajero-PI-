@@ -1,5 +1,8 @@
 package com.pdv.controller;
 
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +30,16 @@ public class UsuarioController {
 	@GetMapping
 	public ResponseEntity<UsuarioDTO> obtenerUsuarioLogueado(Authentication authentication){
 		return ResponseEntity.ok().body(this.usuarioService.obtenerUsuarioLogueadoDto(authentication));
+	}
+	
+	@GetMapping("/buscar")
+	public ResponseEntity<List<UsuarioDTO>> obtenerUsuariosApp(@RequestParam("username") String username,
+			@RequestParam("txtDni") String txtDni, @RequestParam("txtEmail") String txtEmail, Pageable page){
+		var dto = UsuarioDTO.builder()
+				.username(username)
+				.txtDni(txtDni)
+				.txtEmail(txtEmail);
+		return ResponseEntity.ok().body(this.usuarioService.buscarUsuariosAplicacion(dto.build(), page));
 	}
 	
 	@PutMapping("/editar")
