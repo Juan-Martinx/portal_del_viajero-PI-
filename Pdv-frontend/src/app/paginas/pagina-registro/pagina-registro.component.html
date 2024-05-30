@@ -14,6 +14,9 @@
             <mat-label>Usuario</mat-label>
             <input matInput placeholder="Introduzca nombre de usuario" formControlName="usuario" />
             <mat-hint></mat-hint>
+           @if(this.formRegistro.get('usuario')?.errors?.['maxlength']){
+            <mat-error>Longitud máxima 15 caracteres</mat-error>
+            } 
             @if (this.formRegistro.get('usuario')?.errors?.['required']){
             <mat-error>Usuario <strong>requerido</strong></mat-error>
             }
@@ -41,7 +44,7 @@
             <mat-error>Tiene que cumplir con el formato de
               <strong>DNI</strong></mat-error>
             } @if(this.formRegistro.get('dni')?.errors?.['required']){
-            <mat-error>DNI es <strong>requerido</strong></mat-error>
+            <mat-error>DNI <strong>requerido</strong></mat-error>
             }
           </mat-form-field>
 
@@ -52,7 +55,7 @@
             @if(this.formRegistro.get('telefono')?.errors?.['pattern']){
             <mat-error>Tiene que tener 9 dígitos</mat-error>
             } @if(this.formRegistro.get('telefono')?.errors?.['required']){
-            <mat-error>Teléfono es <strong>requerido</strong></mat-error>
+            <mat-error>Teléfono <strong>requerido</strong></mat-error>
             }
           </mat-form-field>
 
@@ -64,7 +67,7 @@
             @if(this.formRegistro.get('correoElectronico')?.errors?.['email']){
             <mat-error>Por favor, introduzca un email válido</mat-error>
             } @if(this.formRegistro.get('correoElectronico')?.errors?.['required']){
-            <mat-error>Email es <strong>requerido</strong></mat-error>
+            <mat-error>Email <strong>requerido</strong></mat-error>
             }
           </mat-form-field>
 
@@ -93,7 +96,7 @@
 
         <app-boton-registro-google class="ms-3 mt-2 mb-2"></app-boton-registro-google>
         
-        <p class="ms-4 texto-inicioSesion">¿Ya tienes cuenta? <a href="" (click)="onLogin()">Iniciar Sesión</a></p>
+        <p class="ms-4 texto-inicioSesion">¿Ya tienes cuenta? <a href="#" (click)="onLogin()">Iniciar Sesión</a></p>
       </div>
     </div>
   </div>

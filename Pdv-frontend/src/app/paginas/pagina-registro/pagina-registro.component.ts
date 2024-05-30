@@ -28,7 +28,7 @@ export class PaginaRegistroComponent {
 
   // Formulario de Registro Controller
   formRegistro = new FormGroup({
-    usuario: new FormControl('', Validators.required),
+    usuario: new FormControl('', [Validators.required, Validators.maxLength(12)]),
     contrasena: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]),
     dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{8}[A-Z]')]),
     telefono: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{9}')]),
@@ -58,6 +58,10 @@ export class PaginaRegistroComponent {
         this.usuarioService.crearUsuario(usuario).subscribe(
           genericApiMessage => {
             alert(genericApiMessage.mensaje + "\n\r Con fecha " + genericApiMessage.fechaYHora);
+            this.onLogin();
+          },
+          err => {
+            alert("Error al registrar usuario: Ya se encuentra registrado otro usuario con estas credenciales");
           }
         );
 

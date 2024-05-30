@@ -21,6 +21,7 @@ import com.pdv.oauth.repository.GoogleUserRepository;
 import com.pdv.oauth.repository.PerfilRepository;
 import com.pdv.oauth.repository.UsuarioRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,6 +35,7 @@ public class UsuarioService {
 	private final PerfilRepository perfilRepository;
 	private final PasswordEncoder passwordEncoder;
 	
+	@Transactional
 	public GenericAPIMessageDTO crearUsuario(AppUsuarioDTO dto) {
 		
 		var nuevoUsuario = Usuario.builder()
@@ -84,6 +86,7 @@ public class UsuarioService {
 				.build();
 	}
 	
+	@Transactional
     private Long obtenerIdUltimoUsuarioCreado() {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(0, 1, sort);
