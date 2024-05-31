@@ -20,11 +20,12 @@ import { ConvertirGestorComponent } from './paginas/convertir-gestor/convertir-g
 import { VerPerfilComponent } from './paginas/ver-perfil/ver-perfil.component';
 
 export const routes: Routes = [
-    { path: '', component: BuscarUsuariosComponent, title: 'Inicio'},
+    { path: '', component: ModificarComodidadComponent, title: 'Inicio'},
     { path: 'registro', component: PaginaRegistroComponent, title: 'Inicio'},
     { path: 'convertir-gestor', component: ConvertirGestorComponent, title: 'Convertir en Gestor'},
     { path: 'editar-perfil', component: EditarPerfilComponent, title: 'Editar Perfil'},
     { path: 'ver-perfil/:username', component: VerPerfilComponent, title: 'Ver Perfil'},
+    { path: 'modificar-comodidad', component: ModificarComodidadComponent, title: 'Modificar Comodidad'},
     { path: 'reservas-realizadas', component: VerReservasComponent, title: 'Ver Reservas Realizadas'},
     { path: 'buscador-comodidades', component: BuscarComodidadComponent, title: 'Buscar Comodidades y Administrarlas'},
     { path: 'usuarios-registrados', component: BuscarUsuariosComponent, title: 'Buscar Usuarios que están registrados'},

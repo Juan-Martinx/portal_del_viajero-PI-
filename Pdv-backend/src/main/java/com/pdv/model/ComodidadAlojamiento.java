@@ -38,6 +38,9 @@ public class ComodidadAlojamiento {
 	@Column(name = "txt_descripcion", nullable = false)
 	private String txtDescripcion;
 	
+	@Column(name = "icono_comodidad")
+	private String iconoComodidad;
+	
 	@ManyToOne(optional = false, targetEntity = TipoComodidad.class)
 	@JoinColumn(referencedColumnName = "id_tipo_comodidad", name = "id_tipo_comodidad", nullable = false)
 	private TipoComodidad idTipoComodidad;

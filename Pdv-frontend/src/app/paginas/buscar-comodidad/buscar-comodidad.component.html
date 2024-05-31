@@ -7,7 +7,7 @@
             </div>
         </div>
 
-        <form [formGroup]="comodidades" class="row mt-4">
+        <form [formGroup]="comodidadesForm" class="row mt-4">
             <mat-form-field class="col-12 col-sm-5 col-2 me-2">
                 <mat-label>Nombre de comodidad</mat-label>
                 <input matInput placeholder="Introduzca nombre de comodidad" formControlName="nombre" />
@@ -47,15 +47,15 @@
                 </thead>
 
                 <tbody>
-                    @for (comodidade of comodidad; track comodidad.length) {
+                    @for (comodidad of this.comodidades; track comodidad.id) {
                     <tr>
-                        <td><mat-icon class="d-flex justify-content-center icon-pool">{{comodidade.icono}}</mat-icon>
+                        <td><mat-icon class="d-flex justify-content-center icon-pool">{{comodidad.iconoComodidad}}</mat-icon>
                         </td>
-                        <td> {{comodidade.nombre}}</td>
-                        <td>{{comodidade.codigo}}</td>
-                        <td>{{comodidade.codigoTipoComodidad}}</td>
-                        <td>{{comodidade.nombreTipoComodidad}}</td>
-                        <td><i class="bi bi-pencil-fill d-flex justify-content-center"></i></td>
+                        <td> {{comodidad.txtNombre}}</td>
+                        <td>{{comodidad.codigoComodidad}}</td>
+                        <td>{{comodidad.idTipoComodidad?.codigoTipoComodidad}}</td>
+                        <td>{{comodidad.idTipoComodidad?.txtNombre}}</td>
+                        <td (click)="modificarComodidad(comodidad.codigoComodidad)"><i class="bi bi-pencil-fill d-flex justify-content-center"></i></td>
                         <td><i class="bi bi-trash d-flex justify-content-center"></i></td>
                     </tr>
                     }
