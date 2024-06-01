@@ -8,28 +8,26 @@
         </div>
 
         <form [formGroup]="comodidadesForm" class="row mt-4">
-            <mat-form-field class="col-12 col-sm-5 col-2 me-2">
+            <mat-form-field class="col-12 col-md-5 col-2 me-2">
                 <mat-label>Nombre de comodidad</mat-label>
                 <input matInput placeholder="Introduzca nombre de comodidad" formControlName="nombre" />
             </mat-form-field>
 
-            <mat-form-field class="col-12 col-sm-5 col-2 me-2">
+            <mat-form-field class="col-12 col-md-5 col-2 me-2">
                 <mat-label>Código de comodidad</mat-label>
                 <input matInput placeholder="Introduzca código de comodidad" formControlName="codigo" />
             </mat-form-field>
 
-            <mat-form-field class="col-12 col-sm-5 col-2 me-2">
-                <mat-label>Código de tipo de comodidad</mat-label>
-                <input matInput placeholder="Introduzca código de tipo de comodidad"
-                    formControlName="codigoTipoComodidad" />
-            </mat-form-field>
-
-            <mat-form-field class="col-10 col-sm-5 col-2 me-2">
-                <mat-label>Nombre de tipo de comodidad</mat-label>
-                <input matInput placeholder="Introduzca nombre de tipo de comodidad"
-                    formControlName="nombreTipoComodidad" />
-            </mat-form-field>
-            <i class="bi bi-search ms-md-2 mt-3 col-1"></i>
+            <mat-form-field class="col-10 col-md-5">
+                <mat-label>Tipo de Comodidad</mat-label>
+                <mat-select required="true" formControlName="nombreTipoComodidad">
+                    <mat-option [value]="-1"></mat-option>
+                  @for (tipoComodidad of tiposComodidades; track tiposComodidades) {
+                    <mat-option [value]="tipoComodidad.id">{{tipoComodidad.txtNombre}}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            <i (click)="cambiarPage(0)" class="bi bi-search ms-md-2 mt-3 col-1"></i>
         </form>
 
         <div class="col-12 mt-5" style="overflow-x: auto;">
@@ -59,9 +57,33 @@
                         <td (click)="eliminarComodidad(comodidad.codigoComodidad)"><i class="bi bi-trash d-flex justify-content-center"></i></td>
                     </tr>
                     }
-
                 </tbody>
             </table>
+            <nav class="d-flex justify-content-center w-100">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" aria-label="Previous" (click)="cambiarPage(this.paginaActual - 1)">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  @if(paginaActual <= 1){
+                    <li class="page-item" (click)="cambiarPage(0)"><a class="page-link">1</a></li>
+                    <li class="page-item" (click)="cambiarPage(1)"><a class="page-link">2</a></li>
+                    <li class="page-item" (click)="cambiarPage(2)"><a class="page-link">3</a></li>
+                  }@else {
+                    <li class="page-item" (click)="cambiarPage(this.paginaActual - 1)"><a class="page-link">{{paginaActual}}</a></li>
+                    <li class="page-item" (click)="cambiarPage(this.paginaActual)"><a class="page-link" >{{paginaActual + 1}}</a></li>
+                    <li class="page-item" (click)="cambiarPage(this.paginaActual + 1)"><a class="page-link" >{{paginaActual + 2}}</a></li>
+                  }
+                  <li class="page-item">
+                    <a class="page-link" aria-label="Next" (click)="cambiarPage(this.paginaActual + 1)">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
         </div>
 
     </div>

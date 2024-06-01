@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -99,8 +100,8 @@ public class ComodidadAlojamientoService {
 				.build();
 	}
 	
-	public List<ComodidadAlojamientoDTO> findAll() {
-		var jpaList = this.comodidadAlojamientoRepository.findAll();
+	public List<ComodidadAlojamientoDTO> findComodidadesFromBuscador(String txtNombre, String codigoComodidad, Integer tipoComodidadId, Pageable page) {
+		var jpaList = this.comodidadAlojamientoRepository.findComodidadesFromBuscador(txtNombre, codigoComodidad, tipoComodidadId, page);
 		var dtoList = new ArrayList<ComodidadAlojamientoDTO>();
 		if(!jpaList.isEmpty()) {
 			jpaList.forEach(jpa -> {

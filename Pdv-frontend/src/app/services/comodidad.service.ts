@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environments';
 import { IComodidadAlojamientoDTO } from '../../dto/IComodidadAlojamientoDTO';
 import { IGenericApiMessageDTO } from '../../dto/IGenericApiMessageDTO';
+import { IPageableDTO } from '../../dto/IPageableDTO';
 @Injectable({
   providedIn: 'root'
 })
@@ -30,7 +31,7 @@ export class ComodidadService {
     return this.http.get<IComodidadAlojamientoDTO>(environment.api + this.comodidadAPI + `/${codigo}`);
   }
 
-  buscarTodasComodidades(): Observable<IComodidadAlojamientoDTO[]> {
-    return this.http.get<IComodidadAlojamientoDTO[]>(environment.api + this.comodidadAPI);
+  buscarComodidades(comodidad: IComodidadAlojamientoDTO, page: IPageableDTO): Observable<IComodidadAlojamientoDTO[]> {
+    return this.http.get<IComodidadAlojamientoDTO[]>(environment.api + this.comodidadAPI + `?txtNombre=${comodidad.txtNombre}&codigoComodidad=${comodidad.codigoComodidad}&tipoComodidadId=${comodidad.idTipoComodidad?.id}&page=${page.page}&size=${page.size}`);
   }
 }

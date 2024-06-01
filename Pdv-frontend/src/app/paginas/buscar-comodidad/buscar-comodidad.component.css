@@ -42,6 +42,10 @@ th, td{
     font-size: 25px;
 }
 
-.bi-pencil-fill:hover{
+.bi:hover{
 cursor: pointer;
+}
+
+.page-item:hover{
+    cursor: pointer;
 }
