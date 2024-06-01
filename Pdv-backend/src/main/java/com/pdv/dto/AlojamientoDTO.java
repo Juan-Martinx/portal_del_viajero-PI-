@@ -1,5 +1,6 @@
 package com.pdv.dto;
 
+import java.util.List;
 import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
@@ -29,6 +30,8 @@ public class AlojamientoDTO {
 	private Double numPrecioNoche;
 	
 	private UsuarioDTO idUsuario;
+	
+	private List<Long> idComodidades;
 	
 	private Set<ValoracionAlojamientoDTO> idValoracionesAlojamiento;
 	

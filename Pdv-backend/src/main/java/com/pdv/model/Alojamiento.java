@@ -2,6 +2,7 @@ package com.pdv.model;
 
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -58,8 +59,8 @@ public class Alojamiento {
 	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ImagenAlojamiento.class)
 	private Set<ImagenAlojamiento> idImagenesAlojamiento;
 	
-	@OneToOne(mappedBy = "idAlojamiento", targetEntity = UbicacionAlojamiento.class, optional = false)
-	private UbicacionAlojamiento IdUbicacion;
+	@OneToOne(mappedBy = "idAlojamiento", targetEntity = UbicacionAlojamiento.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	private UbicacionAlojamiento idUbicacion;
 	
 	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class)
 	private Set<AlojamientoComodidadAlojamiento> idAlojamientoComodidades;

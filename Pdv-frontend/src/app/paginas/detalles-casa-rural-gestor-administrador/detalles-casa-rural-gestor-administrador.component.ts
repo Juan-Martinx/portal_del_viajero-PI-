@@ -10,6 +10,8 @@ import { CodTipoComodidad } from '../../../dto/enumCodTipoComodidad';
 import { ComodidadService } from '../../services/comodidad.service';
 import { IPageableDTO } from '../../../dto/IPageableDTO';
 import { computeMsgId } from '@angular/compiler';
+import { IAlojamientoDTO } from '../../../dto/IAlojamientoDTO';
+import { AlojamientoService } from '../../services/alojamiento.service';
 
 @Component({
   selector: 'app-detalles-casa-rural-gestor-administrador',
@@ -31,7 +33,7 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
   alojamientoComodidades: IComodidadAlojamientoDTO[] = [];
   alojamientoInstalaciones: IComodidadAlojamientoDTO[] = [];
 
-  constructor(private route: ActivatedRoute, private comodidadService: ComodidadService) { }
+  constructor(private route: ActivatedRoute, private comodidadService: ComodidadService, private alojamientoService: AlojamientoService) { }
 
   ngOnInit(): void {
 
@@ -44,10 +46,14 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
 
   alojamientoForm = new FormGroup({
     titulo: new FormControl('TÍTULO DE CASA RURAL', [Validators.required, Validators.maxLength(50)]),
+    descripcion: new FormControl('Descripción de la casa rural', [Validators.required]),
     precioNoche: new FormControl(10, [Validators.required, Validators.min(10)]),
     numeroMinimoHuespedes: new FormControl(1, [Validators.required, Validators.min(1)]),
     numeroMaximoHuespedes: new FormControl(2, [Validators.required, Validators.min(2)]),
-    selectedComodidadNombre: new FormControl('')
+    selectedComodidadNombre: new FormControl(''),
+    lineaDireccion: new FormControl('', [Validators.required]),
+    codigoPostal: new FormControl(0, [Validators.required]),
+    provincia: new FormControl('', [Validators.required])
   });
 
   buscarComodidades(avanzarPagina: boolean,codigoTipoComodidad: CodTipoComodidad){
@@ -88,6 +94,39 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     }else if(comodidad.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.INSTALACION && this.alojamientoInstalaciones.filter(comodidadAlojamiento => comodidadAlojamiento.id == comodidad.id).length == 0){
       this.alojamientoInstalaciones.push(comodidad);
     }
+  }
+
+  guardarAlojamiento(){
+    if(this.alojamientoForm.valid){
+      const alojamiento: IAlojamientoDTO = this.getAlojamiento();
+      this.alojamientoService.aniadirAlojamiento(alojamiento).subscribe(response => {
+        alert(response.mensaje);
+      });
+    }else{
+      alert("Rellene todos los campos obligatorios");
+    }
+  }
+
+  getAlojamiento(): IAlojamientoDTO{
+
+    const idComodidades: number[] = [];
+    this.alojamientoComodidades.forEach(comodidad => idComodidades.push(comodidad.id as number));
+    this.alojamientoInstalaciones.forEach(comodidad => idComodidades.push(comodidad.id as number));
+
+    const alojamiento: IAlojamientoDTO = {
+      txtNombre: this.alojamientoForm.get('titulo')?.value as string,
+      txtDescripcion: this.alojamientoForm.get('descripcion')?.value as string,
+      numPlazaMin: this.alojamientoForm.get('numeroMinimoHuespedes')?.value as number,
+      numPlazaMax: this.alojamientoForm.get('numeroMaximoHuespedes')?.value as number,
+      numPrecioNoche: this.alojamientoForm.get('precioNoche')?.value as number,
+      idUbicacion: {
+        lineaDireccion: this.alojamientoForm.get('lineaDireccion')?.value as string,
+        codigoPostal: this.alojamientoForm.get('codigoPostal')?.value as number,
+        provincia: this.alojamientoForm.get('provincia')?.value as string
+      },
+      idComodidades: idComodidades
+    }
+    return alojamiento;
   }
 
 }

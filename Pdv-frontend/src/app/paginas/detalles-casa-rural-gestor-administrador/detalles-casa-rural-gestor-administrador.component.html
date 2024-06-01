@@ -43,6 +43,17 @@
             </div>
 
             <div class="row mt-5 b-bottom">
+                <h2 class="fw-bold">Descripción</h2>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput placeholder="Descripción..." formControlName="descripcion" ></textarea>
+                    @if(this.alojamientoForm.get('descripcion')?.errors?.['required']){
+                    <mat-error>Descripción <strong>requerido</strong></mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <div class="row mt-3 b-bottom">
                 <h2 class="fw-bold">Precio</h2>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Precio por noche - (En €)</mat-label>
@@ -82,7 +93,7 @@
             </div>
 
             <!-- INSTALACIONES -->
-            <div class="col-12 mt-5 b-bottom">
+            <div class="col-12 mt-3 b-bottom">
                 <h2 class="d-inline-flex me-4 fw-bold">Instalaciones</h2>
                 <a class="d-inline-flex editar-usuario" href="#modal1"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
                 <div class="row">
@@ -163,7 +174,7 @@
             </div>
 
             <!-- COMODIDADES -->
-            <div class="col-12 mt-5 b-bottom">
+            <div class="col-12 mt-3 b-bottom">
                 <h2 class="d-inline-flex me-4 fw-bold">Comodidades</h2>
                 <a class="d-inline-flex editar-usuario" href="#modal2" (click)="comodidades=[]"> <i
                         class="bi bi-pencil-fill me-3"></i>Editar</a>
@@ -245,8 +256,33 @@
             </div>
             <!-- COMODIDADES MODAL FIN -->
 
+            <div class="row mt-3 b-bottom">
+                <h2 class="fw-bold">Ubicación</h2>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Línea Dirección</mat-label>
+                    <input matInput placeholder="Introduzca la línea de dirección del alojamiento..." formControlName="lineaDireccion" />
+                    @if(this.alojamientoForm.get('lineaDireccion')?.errors?.['required']){
+                    <mat-error>Línea Dirección <strong>requerido</strong></mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-2">
+                    <mat-label>Código Postal</mat-label>
+                    <input matInput placeholder="Introduzca el código postal..." formControlName="codigoPostal" />
+                    @if(this.alojamientoForm.get('codigoPostal')?.errors?.['required']){
+                    <mat-error>Código Postal <strong>requerido</strong></mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-2">
+                    <mat-label>Provincia</mat-label>
+                    <input matInput placeholder="Introduzca la provincia..." formControlName="provincia" />
+                    @if(this.alojamientoForm.get('provincia')?.errors?.['required']){
+                    <mat-error>Provincia <strong>requerido</strong></mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
             <div class="row mt-3 mb-4">
-                <button class="col-8 col-md-5 col-lg-3  m-auto ms-md-0 boton-personalizado-a">GUARDAR</button>
+                <button class="col-8 col-md-5 col-lg-3  m-auto ms-md-0 boton-personalizado-a" (click)="guardarAlojamiento()">GUARDAR</button>
             </div>
         </form>
     </div>

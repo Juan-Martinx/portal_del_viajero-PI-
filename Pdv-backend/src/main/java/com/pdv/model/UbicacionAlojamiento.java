@@ -1,5 +1,6 @@
 package com.pdv.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ public class UbicacionAlojamiento {
 	@Column(name = "codigo_postal", nullable = false)
 	private Integer codigoPostal;
 	
-	@Column(name = "ciudad", nullable = false, length = 60)
+	@Column(name = "ciudad", length = 60)
 	private String ciudad;
 	
 	@Column(name = "provincia", nullable = false, length = 60)
@@ -44,7 +45,7 @@ public class UbicacionAlojamiento {
 	@Column(name = "latitud")
 	private String latitud;
 	
-	@OneToOne(optional = false, targetEntity = Alojamiento.class)
+	@OneToOne(targetEntity = Alojamiento.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
 	private Alojamiento idAlojamiento;
 
