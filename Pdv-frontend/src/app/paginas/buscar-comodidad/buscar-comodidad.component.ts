@@ -6,11 +6,11 @@ import {FormsModule} from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IComodidadAlojamientoDTO } from '../../../dto/IComodidadAlojamientoDTO';
 import { ComodidadService } from '../../services/comodidad.service';
-import { Router} from '@angular/router';
+import { Router, RouterLink} from '@angular/router';
 @Component({
   selector: 'app-buscar-comodidad',
   standalone: true,
-  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule ],
+  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, RouterLink ],
   templateUrl: './buscar-comodidad.component.html',
   styleUrl: './buscar-comodidad.component.css'
 })
@@ -35,4 +35,12 @@ export class BuscarComodidadComponent implements OnInit{
     this.router.navigate(['/modificar-comodidad'], { queryParams: { codigo: codigo } });
   }
 
+  eliminarComodidad(codigo?: string){
+    if(confirm("¿Estas seguro de eliminar esta comodidad?")){
+      this.comodidadService.eliminarComodidad(codigo as string).subscribe(mensaje => {
+        alert(mensaje.mensaje);
+        location.reload();
+      });
+    }
+  }
 }

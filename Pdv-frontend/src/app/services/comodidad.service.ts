@@ -18,6 +18,14 @@ export class ComodidadService {
     return this.http.post<IGenericApiMessageDTO>(environment.api + this.comodidadAPI, comodidad);
   }
 
+  modificarComodidad(comodidad: IComodidadAlojamientoDTO): Observable<IGenericApiMessageDTO> {
+    return this.http.put<IGenericApiMessageDTO>(environment.api + this.comodidadAPI, comodidad);
+  }
+
+  eliminarComodidad(codigo: string): Observable<IGenericApiMessageDTO> {
+    return this.http.delete<IGenericApiMessageDTO>(environment.api + this.comodidadAPI + `/${codigo}`);
+  }
+
   buscarComodidadPorCodigo(codigo: string): Observable<IComodidadAlojamientoDTO> {
     return this.http.get<IComodidadAlojamientoDTO>(environment.api + this.comodidadAPI + `/${codigo}`);
   }

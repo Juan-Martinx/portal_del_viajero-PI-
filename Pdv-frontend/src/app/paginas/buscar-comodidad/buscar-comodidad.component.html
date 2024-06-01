@@ -3,7 +3,7 @@
         <div class="row titulo pb-2">
             <h1 class="col-7 col-sm-9 fw-bold">Buscador de Comodidades</h1>
             <div class="col-4 col-sm-3 contenedor-anadir">
-                <button class="col-12 boton-personalizado-a">AÑADIR</button>
+                <button class="col-12 boton-personalizado-a" routerLink="/modificar-comodidad" [queryParams]="{action: 'new'}">AÑADIR</button>
             </div>
         </div>
 
@@ -56,7 +56,7 @@
                         <td>{{comodidad.idTipoComodidad?.codigoTipoComodidad}}</td>
                         <td>{{comodidad.idTipoComodidad?.txtNombre}}</td>
                         <td (click)="modificarComodidad(comodidad.codigoComodidad)"><i class="bi bi-pencil-fill d-flex justify-content-center"></i></td>
-                        <td><i class="bi bi-trash d-flex justify-content-center"></i></td>
+                        <td (click)="eliminarComodidad(comodidad.codigoComodidad)"><i class="bi bi-trash d-flex justify-content-center"></i></td>
                     </tr>
                     }
 

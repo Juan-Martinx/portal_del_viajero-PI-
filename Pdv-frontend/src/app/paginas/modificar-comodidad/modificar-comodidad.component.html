@@ -54,10 +54,14 @@
     </form>
     <div class="row mt-3 mb-3">
       <div class="col-5 col-md-4">
-        <button class="col-12 boton-personalizado-a" (click)="aniadirComodidad()">GUARDAR</button>
+        @if(this.IsActionNew){
+          <button class="col-12 boton-personalizado-a" (click)="aniadirComodidad()">GUARDAR</button>
+        }@else {
+          <button class="col-12 boton-personalizado-a" (click)="modificarComodidad()">GUARDAR</button>
+        }
       </div>
       <div class="col-5 col-md-4">
-        <button class="col-12 boton-personalizado-b">CANCELAR</button>
+        <button class="col-12 boton-personalizado-b" routerLink="/buscador-comodidades">CANCELAR</button>
       </div>
     </div>
   </div>

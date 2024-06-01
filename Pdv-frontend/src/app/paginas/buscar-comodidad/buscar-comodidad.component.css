@@ -42,3 +42,6 @@ th, td{
     font-size: 25px;
 }
 
+.bi-pencil-fill:hover{
+cursor: pointer;
+}

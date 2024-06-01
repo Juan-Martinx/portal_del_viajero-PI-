@@ -46,6 +46,41 @@ public class ComodidadAlojamientoService {
 				.build();
 	}
 	
+	@Transactional
+	public GenericAPIMessageDTO modificarComodidad(ComodidadAlojamientoDTO dto) {
+		
+		var tipoComodidad = tipoComodidadRepository.findById(dto.getIdTipoComodidad().getId())
+			.orElseThrow(() -> new RuntimeException("Tipo de comodidad no encontrada"));
+		
+		var jpa = this.comodidadAlojamientoRepository.findById(dto.getId())
+				.orElseThrow(() -> new RuntimeException("Comodidad no encontrada"));
+
+		jpa.setIconoComodidad(dto.getIconoComodidad());
+		jpa.setTxtDescripcion(dto.getTxtDescripcion());
+		jpa.setTxtNombre(dto.getTxtNombre());
+		jpa.setIdTipoComodidad(tipoComodidad);
+		jpa.setCodigoComodidad(dto.getCodigoComodidad());
+		
+		this.comodidadAlojamientoRepository.save(jpa);
+		
+		return GenericAPIMessageDTO.builder()
+				.mensaje("¡Comodidad modificada con éxito!")
+				.estado(HttpStatus.OK)
+				.fechaYHora(LocalDateTime.now())
+				.build();
+	}
+	
+	@Transactional
+	public GenericAPIMessageDTO eliminarComodidad(String codigo) {
+		var comodidad = this.buscarComodidadAlojamientoPorCod(codigo);
+		this.comodidadAlojamientoRepository.deleteById(comodidad.getId());
+		return GenericAPIMessageDTO.builder()
+				.mensaje("¡Comodidad eliminada con éxito!")
+				.estado(HttpStatus.OK)
+				.fechaYHora(LocalDateTime.now())
+				.build();
+	}
+	
 	public ComodidadAlojamientoDTO buscarComodidadAlojamientoPorCod(String codigo) {
 		
 		var jpa = this.comodidadAlojamientoRepository.findByCodigoComodidad(codigo)
