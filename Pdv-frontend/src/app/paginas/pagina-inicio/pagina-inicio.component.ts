@@ -5,11 +5,12 @@ import { MatIconModule} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { FiltroComponent } from '../../components/filtro/filtro.component';
 
 @Component({
   selector: 'app-pagina-inicio',
   standalone: true,
-  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, RouterLink, FiltroComponent],
   templateUrl: './pagina-inicio.component.html',
   styleUrl: './pagina-inicio.component.css'
 })

@@ -1,3 +1,4 @@
+
 .contenedor-anadir{
     text-align: end;
 }
@@ -17,6 +18,7 @@
     border-radius: 0px;
     margin-left: 1%;
     margin-right: 10%;
+    margin-top: 50px;
 }
 
 .imagen-casa{
