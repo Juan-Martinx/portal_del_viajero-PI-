@@ -10,11 +10,19 @@ import { IAlojamientoDTO } from '../../dto/IAlojamientoDTO';
 })
 export class AlojamientoService {
 
-  comodidadAPI = "/alojamiento";
+  alojamientoAPI = "/alojamiento";
 
   constructor(private http: HttpClient) { }
 
+  buscarAlojamientosUsuario(): Observable<IAlojamientoDTO[]> {
+    return this.http.get<IAlojamientoDTO[]>(environment.api + this.alojamientoAPI);
+  }
+
+  buscarAlojamientoById(id:number): Observable<IAlojamientoDTO> {
+    return this.http.get<IAlojamientoDTO>(environment.api + this.alojamientoAPI + "/" + id);
+  }
+
   aniadirAlojamiento(comodidad: IAlojamientoDTO): Observable<IGenericApiMessageDTO> {
-    return this.http.post<IGenericApiMessageDTO>(environment.api + this.comodidadAPI, comodidad);
+    return this.http.post<IGenericApiMessageDTO>(environment.api + this.alojamientoAPI, comodidad);
   }
 }

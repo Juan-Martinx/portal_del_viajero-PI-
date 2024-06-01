@@ -46,7 +46,7 @@
                 <h2 class="fw-bold">Descripción</h2>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Descripción</mat-label>
-                    <textarea matInput placeholder="Descripción..." formControlName="descripcion" ></textarea>
+                    <textarea matInput placeholder="Descripción..." formControlName="descripcion"></textarea>
                     @if(this.alojamientoForm.get('descripcion')?.errors?.['required']){
                     <mat-error>Descripción <strong>requerido</strong></mat-error>
                     }
@@ -95,7 +95,13 @@
             <!-- INSTALACIONES -->
             <div class="col-12 mt-3 b-bottom">
                 <h2 class="d-inline-flex me-4 fw-bold">Instalaciones</h2>
-                <a class="d-inline-flex editar-usuario" href="#modal1"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
+                @if(this.isActionNew){
+                <a class="d-inline-flex editar-usuario" href="{{this.rutaActual}}?action=new#modal1"
+                    (click)="comodidades=[]"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
+                }@else {
+                <a class="d-inline-flex editar-usuario" href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal1" (click)="comodidades=[]"> <i
+                        class="bi bi-pencil-fill me-3"></i>Editar</a>
+                }
                 <div class="row">
                     @for (comodidad of alojamientoInstalaciones; track comodidad.id) {
                     <div class="col-6 flex-column-2 mb-3">
@@ -110,7 +116,12 @@
             <!-- INSTALACIONES MODAL -->
             <div id="modal1" class="modalmask">
                 <div class="modalbox movedown">
-                    <a href="#close" (click)="comodidades=[]" title="Close" class="close">X</a>
+                    @if(this.isActionNew){
+                    <a href="{{this.rutaActual}}?action=new#close" (click)="comodidades=[]" title="Close"
+                        class="close">X</a>
+                    }@else {
+                    <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#close" (click)="comodidades=[]" title="Close" class="close">X</a>
+                    }
                     <div class="row">
                         <h2>INSTALACIONES</h2>
                         <p class="b-bottom pb-2">Seleccione las instalaciones que desea añadir...</p>
@@ -176,8 +187,13 @@
             <!-- COMODIDADES -->
             <div class="col-12 mt-3 b-bottom">
                 <h2 class="d-inline-flex me-4 fw-bold">Comodidades</h2>
-                <a class="d-inline-flex editar-usuario" href="#modal2" (click)="comodidades=[]"> <i
+                @if(this.isActionNew){
+                <a class="d-inline-flex editar-usuario" href="{{this.rutaActual}}?action=new#modal2"
+                    (click)="comodidades=[]"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
+                }@else {
+                <a class="d-inline-flex editar-usuario" href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal2" (click)="comodidades=[]"> <i
                         class="bi bi-pencil-fill me-3"></i>Editar</a>
+                }
                 <div class="row">
                     @for (comodidad of alojamientoComodidades; track comodidad.id) {
                     <div class="col-6 flex-column-2 mb-3">
@@ -192,7 +208,12 @@
             <!-- COMODIDADES MODAL -->
             <div id="modal2" class="modalmask">
                 <div class="modalbox movedown">
-                    <a href="#close" (click)="comodidades=[]" title="Close" class="close">X</a>
+                    @if(this.isActionNew){
+                    <a href="{{this.rutaActual}}?action=new#close" (click)="comodidades=[]" title="Close"
+                        class="close">X</a>
+                    }@else {
+                    <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#close" (click)="comodidades=[]" title="Close" class="close">X</a>
+                    }
                     <div class="row">
                         <h2>COMODIDADES</h2>
                         <p class="b-bottom pb-2">Seleccione las comodidades que desea añadir...</p>
@@ -260,7 +281,8 @@
                 <h2 class="fw-bold">Ubicación</h2>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Línea Dirección</mat-label>
-                    <input matInput placeholder="Introduzca la línea de dirección del alojamiento..." formControlName="lineaDireccion" />
+                    <input matInput placeholder="Introduzca la línea de dirección del alojamiento..."
+                        formControlName="lineaDireccion" />
                     @if(this.alojamientoForm.get('lineaDireccion')?.errors?.['required']){
                     <mat-error>Línea Dirección <strong>requerido</strong></mat-error>
                     }
@@ -282,7 +304,8 @@
             </div>
 
             <div class="row mt-3 mb-4">
-                <button class="col-8 col-md-5 col-lg-3  m-auto ms-md-0 boton-personalizado-a" (click)="guardarAlojamiento()">GUARDAR</button>
+                <button class="col-8 col-md-5 col-lg-3  m-auto ms-md-0 boton-personalizado-a"
+                    (click)="guardarAlojamiento()">GUARDAR</button>
             </div>
         </form>
     </div>

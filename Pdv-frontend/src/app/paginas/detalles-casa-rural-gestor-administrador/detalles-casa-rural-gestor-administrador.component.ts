@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, NgModel } from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IComodidadAlojamientoDTO } from '../../../dto/IComodidadAlojamientoDTO';
 import { CodTipoComodidad } from '../../../dto/enumCodTipoComodidad';
 import { ComodidadService } from '../../services/comodidad.service';
@@ -23,9 +23,13 @@ import { AlojamientoService } from '../../services/alojamiento.service';
 
 export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
 
+  rutaActual = this.route.snapshot.url[0].path;
+  parametros = this.route.snapshot.queryParams;
+
   codTipoComodidadComodidad: CodTipoComodidad = CodTipoComodidad.COMODIDAD;
   codTipoComodidadInstalacion: CodTipoComodidad = CodTipoComodidad.INSTALACION;
 
+  alojamientoModificado: IAlojamientoDTO = {};
   isActionNew: boolean = false;
   paginaActual = 0;
   editarTituloEnable = false;
@@ -33,13 +37,34 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
   alojamientoComodidades: IComodidadAlojamientoDTO[] = [];
   alojamientoInstalaciones: IComodidadAlojamientoDTO[] = [];
 
-  constructor(private route: ActivatedRoute, private comodidadService: ComodidadService, private alojamientoService: AlojamientoService) { }
+  constructor(private route: ActivatedRoute, private comodidadService: ComodidadService, private alojamientoService: AlojamientoService, private router: Router) { }
 
   ngOnInit(): void {
 
     this.route.queryParams.subscribe(params => {
       if (params['action'] == 'new') {
         this.isActionNew = true;
+      }else{
+        this.alojamientoService.buscarAlojamientoById(params['id']).subscribe(alojamiento => {
+          console.log(alojamiento);
+          this.alojamientoModificado = alojamiento;
+          this.alojamientoForm.get('titulo')?.setValue(alojamiento.txtNombre as string);
+          this.alojamientoForm.get('descripcion')?.setValue(alojamiento.txtDescripcion as string);
+          this.alojamientoForm.get('precioNoche')?.setValue(alojamiento.numPrecioNoche as number);
+          this.alojamientoForm.get('numeroMinimoHuespedes')?.setValue(alojamiento.numPlazaMin as number);
+          this.alojamientoForm.get('numeroMaximoHuespedes')?.setValue(alojamiento.numPlazaMax as number);
+          this.alojamientoForm.get('lineaDireccion')?.setValue(alojamiento.idUbicacion?.lineaDireccion as string);
+          this.alojamientoForm.get('codigoPostal')?.setValue(alojamiento.idUbicacion?.codigoPostal as number);
+          this.alojamientoForm.get('provincia')?.setValue(alojamiento.idUbicacion?.provincia as string);
+          alojamiento.idAlojamientoComodidades?.forEach(comodidad => {
+            if(comodidad.idComodidadAlojamiento?.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.COMODIDAD){
+              console.log(comodidad.idComodidadAlojamiento);
+              this.alojamientoComodidades.push(comodidad.idComodidadAlojamiento);
+            }else if(comodidad.idComodidadAlojamiento?.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.INSTALACION){
+              this.alojamientoInstalaciones.push(comodidad.idComodidadAlojamiento);
+            }
+          });
+        });
       }
     });
   }
@@ -101,6 +126,10 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
       const alojamiento: IAlojamientoDTO = this.getAlojamiento();
       this.alojamientoService.aniadirAlojamiento(alojamiento).subscribe(response => {
         alert(response.mensaje);
+        this.router.navigate(['/casas-alquiler']);
+      }, err => {
+        alert("Se ha producido un error al guardar el alojamiento");
+      
       });
     }else{
       alert("Rellene todos los campos obligatorios");
@@ -127,6 +156,10 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
       idComodidades: idComodidades
     }
     return alojamiento;
+  }
+
+  cargarInfoAlojamiento(){
+
   }
 
 }

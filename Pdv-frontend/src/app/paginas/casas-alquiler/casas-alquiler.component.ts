@@ -1,38 +1,30 @@
-import { Component } from '@angular/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatIconModule} from '@angular/material/icon';
-import {FormsModule} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { IAlojamientoDTO } from '../../../dto/IAlojamientoDTO';
+import { AlojamientoService } from '../../services/alojamiento.service';
 
 @Component({
   selector: 'app-casas-alquiler',
   standalone: true,
-  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule],
+  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './casas-alquiler.component.html',
   styleUrl: './casas-alquiler.component.css'
 })
-export class CasasAlquilerComponent {
+export class CasasAlquilerComponent implements OnInit {
 
-  casasRurales: any[] = [
-    {
-      titulo: "Casa Rural en Málaga",
-      localizacion: "Málaga, Andalucía",
-      precio: "520",
-      detalles: "Es una casa Rural que cuenta con piscina, un restaurante cerca, la playa está situada a 5 minutos andando y además, cuenta con una gran tranquilidad alrededor",
-    },
-    {
-      titulo: "Urbanización privada",
-      localizacion: "Marbella, Andalucía",
-      precio: "700",
-      detalles: "Es una casa Rural que cuenta con piscina, un restaurante cerca, la playa está situada a 5 minutos andando y además, cuenta con una gran tranquilidad alrededor",
-    },
-    {
-      titulo: "Zona de despeje total",
-      localizacion: "Gran Alacant, Alicante",
-      precio: "350",
-      detalles: "Es una casa Rural que cuenta con piscina, un restaurante cerca, la playa está situada a 5 minutos andando y además, cuenta con una gran tranquilidad alrededor",
-    }
-  ]
+  constructor(private alojamientoService: AlojamientoService, private router: Router) { }
 
+  casasRurales: IAlojamientoDTO[] = [];
+
+  ngOnInit(): void {
+    this.alojamientoService.buscarAlojamientosUsuario().subscribe(alojamientos => {
+      this.casasRurales = alojamientos;
+    });
+  }
+  
 }

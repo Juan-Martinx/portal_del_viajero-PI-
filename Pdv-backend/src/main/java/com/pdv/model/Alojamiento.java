@@ -62,6 +62,6 @@ public class Alojamiento {
 	@OneToOne(mappedBy = "idAlojamiento", targetEntity = UbicacionAlojamiento.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private UbicacionAlojamiento idUbicacion;
 	
-	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class)
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Set<AlojamientoComodidadAlojamiento> idAlojamientoComodidades;
 }

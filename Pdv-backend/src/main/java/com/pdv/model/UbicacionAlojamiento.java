@@ -7,11 +7,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -19,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude="idAlojamiento")
 @Table(name = "ubicacion_alojamiento")
 public class UbicacionAlojamiento {
 		
@@ -45,7 +48,8 @@ public class UbicacionAlojamiento {
 	@Column(name = "latitud")
 	private String latitud;
 	
-	@OneToOne(targetEntity = Alojamiento.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(targetEntity = Alojamiento.class)
+	@MapsId
 	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
 	private Alojamiento idAlojamiento;
 
