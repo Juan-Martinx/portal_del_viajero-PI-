@@ -7,8 +7,12 @@
       <h1 class="fw-bold">Añadir Comodidad</h1>
       }
     </div>
-    <form [formGroup]="comodidadesForm" class="col-12 mt-5">
+    <form [formGroup]="comodidadesForm" class="col-12 mt-3 mb-2">
       <div class="row">
+        <ol class="col-12 ms-4">
+          <li>Para añadir un icono bastaría con poner el nombre del icono.</li>
+          <li>Los iconos disponibles y sus nombres se pueden consultar aquí: <a href="https://klarsys.github.io/angular-material-icons/" target="_blank">https://klarsys.github.io/angular-material-icons/</a></li>
+        </ol>
         <mat-form-field class="col-10 col-md-5">
           <mat-label>Icono Comodidad</mat-label>
           <input matInput placeholder="Introduzca icono de comodidad" formControlName="icono" />

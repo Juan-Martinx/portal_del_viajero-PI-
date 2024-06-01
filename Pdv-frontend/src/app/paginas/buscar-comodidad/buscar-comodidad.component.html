@@ -47,8 +47,7 @@
                 <tbody>
                     @for (comodidad of this.comodidades; track comodidad.id) {
                     <tr>
-                        <td><mat-icon class="d-flex justify-content-center icon-pool">{{comodidad.iconoComodidad}}</mat-icon>
-                        </td>
+                        <td><mat-icon class="d-flex justify-content-center">{{comodidad.iconoComodidad}}</mat-icon></td>
                         <td> {{comodidad.txtNombre}}</td>
                         <td>{{comodidad.codigoComodidad}}</td>
                         <td>{{comodidad.idTipoComodidad?.codigoTipoComodidad}}</td>

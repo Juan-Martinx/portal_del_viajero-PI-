@@ -3,19 +3,20 @@
         <form [formGroup]="alojamientoForm">
             <div class="col-12">
                 @if(this.editarTituloEnable){
-                    <mat-form-field class="col-6 me-3">
-                        <mat-label>Título Casa Rural</mat-label>
-                        <input matInput placeholder="Introduzca el titulo de su casa rural" formControlName="titulo"/>
-                        @if(this.alojamientoForm.get('titulo')?.errors?.['required']){
-                            <mat-error>Título <strong>requerido</strong></mat-error>
-                        }@else if(this.alojamientoForm.get('titulo')?.errors?.['maxlength']){
-                            <mat-error>El Título <strong>no puede superar los 50 carácteres</strong></mat-error>
-                        }
-                    </mat-form-field>
+                <mat-form-field class="col-6 me-3">
+                    <mat-label>Título Casa Rural</mat-label>
+                    <input matInput placeholder="Introduzca el titulo de su casa rural" formControlName="titulo" />
+                    @if(this.alojamientoForm.get('titulo')?.errors?.['required']){
+                    <mat-error>Título <strong>requerido</strong></mat-error>
+                    }@else if(this.alojamientoForm.get('titulo')?.errors?.['maxlength']){
+                    <mat-error>El Título <strong>no puede superar los 50 carácteres</strong></mat-error>
+                    }
+                </mat-form-field>
                 }@else{
-                    <h1 class="d-inline-flex me-4 fw-bold">{{this.alojamientoForm.get('titulo')?.value}}</h1>
+                <h1 class="d-inline-flex me-4 fw-bold">{{this.alojamientoForm.get('titulo')?.value}}</h1>
                 }
-                <a class="d-inline-flex editar-usuario" (click)="editarTituloEnable = !editarTituloEnable"><i class="bi bi-pencil-fill me-3"></i>Editar</a>
+                <a class="d-inline-flex editar-usuario" (click)="editarTituloEnable = !editarTituloEnable"><i
+                        class="bi bi-pencil-fill me-3"></i>Editar</a>
             </div>
             <div class="row m-auto">
                 <div class="img-principal col-12 col-md-6 col-lg-4">
@@ -45,11 +46,12 @@
                 <h2 class="fw-bold">Precio</h2>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Precio por noche - (En €)</mat-label>
-                    <input matInput placeholder="Introduzca precio por noche - (En €)" type="number" min="10" formControlName="precioNoche"/>
+                    <input matInput placeholder="Introduzca precio por noche - (En €)" type="number" min="10"
+                        formControlName="precioNoche" />
                     @if(this.alojamientoForm.get('precioNoche')?.errors?.['required']){
-                        <mat-error>Precio por noche <strong>requerido</strong></mat-error>
+                    <mat-error>Precio por noche <strong>requerido</strong></mat-error>
                     }@else if(this.alojamientoForm.get('precioNoche')?.errors?.['min']){
-                        <mat-error>El Precio por noche <strong>debe superar los 10€</strong></mat-error>
+                    <mat-error>El Precio por noche <strong>debe superar los 10€</strong></mat-error>
                     }
                 </mat-form-field>
             </div>
@@ -58,148 +60,190 @@
                 <h2 class="fw-bold">Huéspedes</h2>
                 <mat-form-field class="col-5 col-md-3">
                     <mat-label>Número mínimo</mat-label>
-                    <input matInput placeholder="Introduzca número mínimo de huéspedes" type="number" min="1" formControlName="numeroMinimoHuespedes"/>
+                    <input matInput placeholder="Introduzca número mínimo de huéspedes" type="number" min="1"
+                        formControlName="numeroMinimoHuespedes" />
                     @if(this.alojamientoForm.get('numeroMinimoHuespedes')?.errors?.['required']){
-                        <mat-error>Número mínimo de Huéspedes <strong>requerido</strong></mat-error>
+                    <mat-error>Número mínimo de Huéspedes <strong>requerido</strong></mat-error>
                     }@else if(this.alojamientoForm.get('numeroMinimoHuespedes')?.errors?.['min']){
-                        <mat-error>El número de Huéspedes <strong>debe ser como mínimo 1</strong></mat-error>
+                    <mat-error>El número de Huéspedes <strong>debe ser como mínimo 1</strong></mat-error>
                     }
                 </mat-form-field>
                 <b style="font-size: 35px;" class="mx-4 mx-md-2">-</b>
                 <mat-form-field class="col-5 col-md-3">
                     <mat-label>Número máximo</mat-label>
-                    <input matInput placeholder="Introduzca número máximo de huéspedes" type="number" min="2" formControlName="numeroMaximoHuespedes"/>
+                    <input matInput placeholder="Introduzca número máximo de huéspedes" type="number" min="2"
+                        formControlName="numeroMaximoHuespedes" />
                     @if(this.alojamientoForm.get('numeroMaximoHuespedes')?.errors?.['required']){
-                        <mat-error>Número máximo de Huéspedes <strong>requerido</strong></mat-error>
+                    <mat-error>Número máximo de Huéspedes <strong>requerido</strong></mat-error>
                     }@else if(this.alojamientoForm.get('numeroMaximoHuespedes')?.errors?.['min']){
-                        <mat-error>El número máximo de Huéspedes <strong>debe ser como mínimo 2</strong></mat-error>
+                    <mat-error>El número máximo de Huéspedes <strong>debe ser como mínimo 2</strong></mat-error>
                     }
                 </mat-form-field>
             </div>
 
+            <!-- INSTALACIONES -->
             <div class="col-12 mt-5 b-bottom">
                 <h2 class="d-inline-flex me-4 fw-bold">Instalaciones</h2>
-                <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
-                <div class="col-9">
-                    @for (instalacion of instalaciones; track instalacion.length) {
-                    <div class="col-5 d-inline-flex flex-column-2 mb-3">
+                <a class="d-inline-flex editar-usuario" href="#modal1"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
+                <div class="row">
+                    @for (comodidad of alojamientoInstalaciones; track comodidad.id) {
+                    <div class="col-6 flex-column-2 mb-3">
                         <mat-icon
-                            class="d-inline-flex justify-content-center me-2 icon-pool">{{instalacion.icono}}</mat-icon>
-                        <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
+                            class="d-inline-flex justify-content-center me-2 icon-pool">{{comodidad.iconoComodidad}}</mat-icon>
+                        <p class="d-inline-flex align-items-center">{{comodidad.txtNombre}}</p>
                     </div>
                     }
                 </div>
             </div>
 
+            <!-- INSTALACIONES MODAL -->
+            <div id="modal1" class="modalmask">
+                <div class="modalbox movedown">
+                    <a href="#close" (click)="comodidades=[]" title="Close" class="close">X</a>
+                    <div class="row">
+                        <h2>INSTALACIONES</h2>
+                        <p class="b-bottom pb-2">Seleccione las instalaciones que desea añadir...</p>
+                        <mat-form-field class="col-10">
+                            <mat-label>Nombre de instalación</mat-label>
+                            <input matInput placeholder="Introduzca el nombre de la instalación..." type="text"
+                                formControlName="selectedComodidadNombre" />
+                        </mat-form-field>
+                        <i class="bi bi-search ms-md-2 mt-3 col-1"
+                            (click)="cambiarPage(codTipoComodidadInstalacion,0)"></i>
+
+                        @for (comodidad of comodidades; track comodidad.id) {
+                        <div class="row mb-2 justify-content-center d-flex">
+                            <mat-icon
+                                class="d-inline-flex justify-content-center me-2 icon-pool col-2">{{comodidad.iconoComodidad}}</mat-icon>
+                            <p class="d-inline-flex align-items-center col-7">{{comodidad.txtNombre}}</p>
+                            <a (click)="aniadirComodidad(comodidad)"
+                                class="d-inline-flex justify-content-center col-2 add-icon">
+                                <mat-icon>add</mat-icon>
+                            </a>
+                        </div>
+                        }
+
+                        <nav class="d-flex justify-content-center w-100">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" aria-label="Previous"
+                                        (click)="cambiarPage(codTipoComodidadInstalacion,this.paginaActual - 1)">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                @if(paginaActual <= 1){ <li class="page-item"
+                                    (click)="cambiarPage(codTipoComodidadInstalacion,0)"><a class="page-link">1</a></li>
+                                    <li class="page-item" (click)="cambiarPage(codTipoComodidadInstalacion,1)"><a
+                                            class="page-link">2</a></li>
+                                    <li class="page-item" (click)="cambiarPage(codTipoComodidadInstalacion,2)"><a
+                                            class="page-link">3</a></li>
+                                    }@else {
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadInstalacion,this.paginaActual - 1)"><a
+                                            class="page-link">{{paginaActual}}</a></li>
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadInstalacion,this.paginaActual)"><a
+                                            class="page-link">{{paginaActual + 1}}</a></li>
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadInstalacion,this.paginaActual + 1)"><a
+                                            class="page-link">{{paginaActual + 2}}</a></li>
+                                    }
+                                    <li class="page-item">
+                                        <a class="page-link" aria-label="Next"
+                                            (click)="cambiarPage(codTipoComodidadInstalacion,this.paginaActual + 1)">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMODIDADES -->
             <div class="col-12 mt-5 b-bottom">
                 <h2 class="d-inline-flex me-4 fw-bold">Comodidades</h2>
-                <a class="d-inline-flex editar-usuario"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
-                <div class="col-9">
-                    @for (instalacion of instalaciones; track instalacion.length) {
-                    <div class="col-5 d-inline-flex flex-column-2 mb-3">
+                <a class="d-inline-flex editar-usuario" href="#modal2" (click)="comodidades=[]"> <i
+                        class="bi bi-pencil-fill me-3"></i>Editar</a>
+                <div class="row">
+                    @for (comodidad of alojamientoComodidades; track comodidad.id) {
+                    <div class="col-6 flex-column-2 mb-3">
                         <mat-icon
-                            class="d-inline-flex justify-content-center me-2 icon-pool">{{instalacion.icono}}</mat-icon>
-                        <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
+                            class="d-inline-flex justify-content-center me-2 icon-pool">{{comodidad.iconoComodidad}}</mat-icon>
+                        <p class="d-inline-flex align-items-center">{{comodidad.txtNombre}}</p>
                     </div>
                     }
                 </div>
             </div>
 
-            <div class="row d-flex mt-4 justify-content-center mt-2">
-                <div class="col-12 valoraciones d-flex justify-content-center align-items-center">
-                    <img src="../../../assets/paginaRegistro/paz1.png">
-                    <h2 class="fw-bold mt-4 mx-2">Valoraciones</h2>
-                    <img class="d-inline-flex" src="../../../assets/paginaRegistro/paz.png">
-                    <div class="d-inline-flex mx-2 flex-column align-items-center mt-4">
-                        <strong>4,90</strong>
-                        <div>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill estrella"></i>
-                        </div>
+            <!-- COMODIDADES MODAL -->
+            <div id="modal2" class="modalmask">
+                <div class="modalbox movedown">
+                    <a href="#close" (click)="comodidades=[]" title="Close" class="close">X</a>
+                    <div class="row">
+                        <h2>COMODIDADES</h2>
+                        <p class="b-bottom pb-2">Seleccione las comodidades que desea añadir...</p>
+                        <mat-form-field class="col-10">
+                            <mat-label>Nombre de comodidad</mat-label>
+                            <input matInput placeholder="Introduzca el nombre de la comodidad" type="text"
+                                formControlName="selectedComodidadNombre" />
+                        </mat-form-field>
+                        <i class="bi bi-search ms-md-2 mt-3 col-1"
+                            (click)="cambiarPage(codTipoComodidadComodidad,0)"></i>
 
+                        @for (comodidad of comodidades; track comodidad.id) {
+                        <div class="row mb-2 justify-content-center d-flex">
+                            <mat-icon
+                                class="d-inline-flex justify-content-center me-2 icon-pool col-2">{{comodidad.iconoComodidad}}</mat-icon>
+                            <p class="d-inline-flex align-items-center col-7">{{comodidad.txtNombre}}</p>
+                            <a (click)="aniadirComodidad(comodidad)"
+                                class="d-inline-flex justify-content-center col-2 add-icon">
+                                <mat-icon>add</mat-icon>
+                            </a>
+                        </div>
+                        }
+
+                        <nav class="d-flex justify-content-center w-100">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" aria-label="Previous"
+                                        (click)="cambiarPage(codTipoComodidadComodidad,this.paginaActual - 1)">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                @if(paginaActual <= 1){ <li class="page-item"
+                                    (click)="cambiarPage(codTipoComodidadComodidad,0)"><a class="page-link">1</a></li>
+                                    <li class="page-item" (click)="cambiarPage(codTipoComodidadComodidad,1)"><a
+                                            class="page-link">2</a></li>
+                                    <li class="page-item" (click)="cambiarPage(codTipoComodidadComodidad,2)"><a
+                                            class="page-link">3</a></li>
+                                    }@else {
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadComodidad,this.paginaActual - 1)"><a
+                                            class="page-link">{{paginaActual}}</a></li>
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadComodidad,this.paginaActual)"><a
+                                            class="page-link">{{paginaActual + 1}}</a></li>
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadComodidad,this.paginaActual + 1)"><a
+                                            class="page-link">{{paginaActual + 2}}</a></li>
+                                    }
+                                    <li class="page-item">
+                                        <a class="page-link" aria-label="Next"
+                                            (click)="cambiarPage(codTipoComodidadComodidad,this.paginaActual + 1)">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
                     </div>
-
-                    <div class="contenedor-evaluaciones d-flex h-75 align-items-center justify-content-center ps-2">
-                        <strong>10</strong>
-                        <a class="texto-gray" href="#">evaluaciones</a>
-                    </div>
-
-                </div>
-                <div class="col-12 mt-5 contenedor-b-bottom">
-                    @if (ver) {
-                    @for (comentario of comentarios ; track comentario.length) {
-                    <div class="col-12 col-md-5 d-inline-flex flex-column">
-                        <div class="cabecera-comentarios">
-                            <img class="d-inline-flex perfil-usuario"
-                                src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-                            <div class="d-inline-flex flex-column align-items-center ms-2">
-                                <strong>Nombre</strong>
-                                <p class="texto-gray">{{comentario.pais}}</p>
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <div class="d-inline-flex">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
-                            </div>
-                            <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
-                            <p class="d-inline-flex texto-gray">Hace 2 semanas</p>
-                        </div>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
-                            harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi
-                            suscipit earum provident.</p>
-
-
-                    </div>
-                    }
-
-                    }@else {
-                    @for (comentario of primerosComentarios; track comentario.length) {
-                    <div class="col-12 col-md-5 d-inline-flex flex-column">
-                        <div class="cabecera-comentarios">
-                            <img class="d-inline-flex perfil-usuario"
-                                src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-                            <div class="d-inline-flex flex-column align-items-center ms-2">
-                                <strong>Nombre</strong>
-                                <p class="texto-gray">{{comentario.pais}}</p>
-                            </div>
-                        </div>
-
-
-                        <div>
-                            <div class="d-inline-flex">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
-                            </div>
-                            <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
-                            <p class="d-inline-flex texto-gray">Hace 2 semanas</p>
-                        </div>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
-                            harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi
-                            suscipit earum provident.</p>
-
-
-                    </div>
-                    }
-
-                    <a class="d-flex mb-4 ver-mas" (click)="verMas()">Ver más</a>
-                    }
-
                 </div>
             </div>
+            <!-- COMODIDADES MODAL FIN -->
 
             <div class="row mt-3 mb-4">
                 <button class="col-8 col-md-5 col-lg-3  m-auto ms-md-0 boton-personalizado-a">GUARDAR</button>

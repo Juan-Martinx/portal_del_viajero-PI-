@@ -30,8 +30,9 @@ public class ComodidadAlojamientoController {
 	
 	@GetMapping
 	public ResponseEntity<List<ComodidadAlojamientoDTO>> buscarComodidadesAlojamientos(@RequestParam("txtNombre") String txtNombre,
-			@RequestParam("codigoComodidad") String codigoComodidad, @RequestParam("tipoComodidadId") Integer tipoComodidadId, Pageable page){
-		return ResponseEntity.ok().body(comodidadAlojamientoService.findComodidadesFromBuscador(txtNombre, codigoComodidad, tipoComodidadId, page));
+			@RequestParam(name = "codigoComodidad", required = false) String codigoComodidad, @RequestParam(name = "tipoComodidadId", required = false, defaultValue = "-1") Integer tipoComodidadId, 
+			@RequestParam(name = "codigoTipoComodidad", required = false) String codigoTipoComodidad,Pageable page){
+		return ResponseEntity.ok().body(comodidadAlojamientoService.findComodidadesFromBuscador(txtNombre, codigoComodidad, tipoComodidadId, codigoTipoComodidad, page));
 	}
 	
 	@GetMapping("/{codigo}")

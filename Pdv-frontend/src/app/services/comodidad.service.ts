@@ -32,6 +32,10 @@ export class ComodidadService {
   }
 
   buscarComodidades(comodidad: IComodidadAlojamientoDTO, page: IPageableDTO): Observable<IComodidadAlojamientoDTO[]> {
-    return this.http.get<IComodidadAlojamientoDTO[]>(environment.api + this.comodidadAPI + `?txtNombre=${comodidad.txtNombre}&codigoComodidad=${comodidad.codigoComodidad}&tipoComodidadId=${comodidad.idTipoComodidad?.id}&page=${page.page}&size=${page.size}`);
+    if(comodidad.idTipoComodidad?.id){
+      return this.http.get<IComodidadAlojamientoDTO[]>(environment.api + this.comodidadAPI + `?txtNombre=${comodidad.txtNombre}&codigoComodidad=${comodidad.codigoComodidad}&codigoTipoComodidad=&tipoComodidadId=${comodidad.idTipoComodidad?.id}&page=${page.page}&size=${page.size}`);
+    }else{
+      return this.http.get<IComodidadAlojamientoDTO[]>(environment.api + this.comodidadAPI + `?txtNombre=${comodidad.txtNombre}&codigoComodidad=&codigoTipoComodidad=${comodidad.idTipoComodidad?.codigoTipoComodidad}&page=${page.page}&size=${page.size}`);
+    }
   }
 }

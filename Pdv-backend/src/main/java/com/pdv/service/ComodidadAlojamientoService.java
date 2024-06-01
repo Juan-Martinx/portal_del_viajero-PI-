@@ -32,6 +32,7 @@ public class ComodidadAlojamientoService {
 			.orElseThrow(() -> new RuntimeException("Tipo de comodidad no encontrada"));
 		
 		var jpa = ComodidadAlojamiento.builder()
+				.iconoComodidad(dto.getIconoComodidad())
 				.codigoComodidad(dto.getCodigoComodidad())
 				.txtNombre(dto.getTxtNombre())
 				.txtDescripcion(dto.getTxtDescripcion())
@@ -100,8 +101,8 @@ public class ComodidadAlojamientoService {
 				.build();
 	}
 	
-	public List<ComodidadAlojamientoDTO> findComodidadesFromBuscador(String txtNombre, String codigoComodidad, Integer tipoComodidadId, Pageable page) {
-		var jpaList = this.comodidadAlojamientoRepository.findComodidadesFromBuscador(txtNombre, codigoComodidad, tipoComodidadId, page);
+	public List<ComodidadAlojamientoDTO> findComodidadesFromBuscador(String txtNombre, String codigoComodidad, Integer tipoComodidadId, String codigoTipoComodidad, Pageable page) {
+		var jpaList = this.comodidadAlojamientoRepository.findComodidadesFromBuscador(txtNombre, codigoComodidad, tipoComodidadId, codigoTipoComodidad, page);
 		var dtoList = new ArrayList<ComodidadAlojamientoDTO>();
 		if(!jpaList.isEmpty()) {
 			jpaList.forEach(jpa -> {

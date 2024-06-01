@@ -19,6 +19,7 @@ public interface ComodidadAlojamientoRepository extends JpaRepository<ComodidadA
 	@Query(" SELECT ca FROM ComodidadAlojamiento ca "
 			+ " WHERE ( :txtNombre = '' OR ca.txtNombre LIKE %:txtNombre% ) "
 			+ " AND ( :codigoComodidad = '' OR ca.codigoComodidad LIKE %:codigoComodidad% ) "
+			+ " AND ( :codigoTipoComodidad = '' OR ca.idTipoComodidad.codigoTipoComodidad LIKE %:codigoTipoComodidad% ) "
 			+ " AND ( :tipoComodidadId = -1 OR ca.idTipoComodidad.id = :tipoComodidadId ) ")
-	public Page<ComodidadAlojamiento> findComodidadesFromBuscador(String txtNombre, String codigoComodidad, Integer tipoComodidadId, Pageable page);
+	public Page<ComodidadAlojamiento> findComodidadesFromBuscador(String txtNombre, String codigoComodidad, Integer tipoComodidadId, String codigoTipoComodidad, Pageable page);
 }

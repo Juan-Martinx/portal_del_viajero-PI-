@@ -76,6 +76,27 @@
     color:rgb(162, 162, 162);
 }
 
+.bi:hover{
+    cursor: pointer;
+}
+
+.bi-search{
+    font-size: 24px;
+}
+
+.add-icon{
+    padding: 15px;
+    padding-bottom: 20px;
+    border-radius: 999px;
+    width: 50px;
+}
+
+.add-icon:hover{
+    transition: all 0.3s ease;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
 @media(max-width: 490px){
     .valoraciones{
         font-size: 0.6rem;

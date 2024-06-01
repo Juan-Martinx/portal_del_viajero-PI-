@@ -28,6 +28,8 @@ public class ComodidadAlojamientoDTO {
 	private String iconoComodidad;
 
 	private TipoComodidadDTO idTipoComodidad;
+	
+	private String codigoTipoComodidad;
 
 	private Set<AlojamientoComodidadAlojamientoDTO> idAlojamientoComodidades;
 }

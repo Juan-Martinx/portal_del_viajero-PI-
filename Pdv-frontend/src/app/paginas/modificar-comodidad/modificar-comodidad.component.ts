@@ -99,6 +99,7 @@ export class ModificarComodidadComponent implements OnInit{
     let comodidad: IComodidadAlojamientoDTO = {};
     if(this.IsActionNew){
       comodidad = {
+        iconoComodidad: this.comodidadesForm.get('icono')?.value as string,
         codigoComodidad: this.comodidadesForm.get('codigo')?.value as string,
         txtDescripcion: this.comodidadesForm.get('descripcion')?.value as string,
         txtNombre: this.comodidadesForm.get('nombre')?.value as string,
@@ -107,6 +108,7 @@ export class ModificarComodidadComponent implements OnInit{
     }else{
       comodidad = {
         id: this.comodidadModificada?.id as number,
+        iconoComodidad: this.comodidadesForm.get('icono')?.value as string,
         codigoComodidad: this.comodidadesForm.get('codigo')?.value as string,
         txtDescripcion: this.comodidadesForm.get('descripcion')?.value as string,
         txtNombre: this.comodidadesForm.get('nombre')?.value as string,
