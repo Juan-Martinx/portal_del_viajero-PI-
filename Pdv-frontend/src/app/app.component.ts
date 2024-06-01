@@ -4,6 +4,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { filter } from 'rxjs/operators';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',
