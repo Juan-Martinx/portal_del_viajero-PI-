@@ -4,6 +4,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detalles-casa-rural-gestor-administrador',
@@ -15,8 +16,32 @@ import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Valida
 export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
  
 
-
+  isActionNew: boolean = false;
+  editarTituloEnable = false;
+  
   ver: boolean = false;
+
+  constructor(private route: ActivatedRoute){}
+
+  ngOnInit(): void {
+  
+    this.route.queryParams.subscribe(params => {
+      if(params['action'] == 'new'){
+        this.isActionNew = true;
+      }
+    });
+
+  /**QUITAR LO DE ABAJO */
+  this.ver = false;
+  this.cogerPrimerosComentarios();
+}
+
+  alojamientoForm = new FormGroup({
+    titulo: new FormControl('TÍTULO DE CASA RURAL', [Validators.required, Validators.maxLength(50)]),
+    precioNoche: new FormControl(10, [Validators.required, Validators.min(10)]),
+    numeroMinimoHuespedes: new FormControl(1, [Validators.required, Validators.min(1)]),
+    numeroMaximoHuespedes: new FormControl(2, [Validators.required, Validators.min(2)]),
+  });
 
   casasRurales: any[] = [
     {
@@ -75,10 +100,7 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
 
 primerosComentarios: any[] = [];
 
-ngOnInit(): void {
-  this.ver = false;
-  this.cogerPrimerosComentarios();
-}
+
 
 cogerPrimerosComentarios(){
   this.primerosComentarios = this.comentarios.slice(-2);
