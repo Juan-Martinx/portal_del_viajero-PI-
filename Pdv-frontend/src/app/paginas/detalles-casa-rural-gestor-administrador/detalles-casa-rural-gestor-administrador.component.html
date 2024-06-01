@@ -46,10 +46,10 @@
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Precio por noche - (En €)</mat-label>
                     <input matInput placeholder="Introduzca precio por noche - (En €)" type="number" min="10" formControlName="precioNoche"/>
-                    @if(this.alojamientoForm.get('titulo')?.errors?.['required']){
-                        <mat-error>Título <strong>requerido</strong></mat-error>
-                    }@else if(this.alojamientoForm.get('titulo')?.errors?.['maxlength']){
-                        <mat-error>El Título <strong>no puede superar los 50 carácteres</strong></mat-error>
+                    @if(this.alojamientoForm.get('precioNoche')?.errors?.['required']){
+                        <mat-error>Precio por noche <strong>requerido</strong></mat-error>
+                    }@else if(this.alojamientoForm.get('precioNoche')?.errors?.['min']){
+                        <mat-error>El Precio por noche <strong>debe superar los 10€</strong></mat-error>
                     }
                 </mat-form-field>
             </div>
@@ -58,12 +58,22 @@
                 <h2 class="fw-bold">Huéspedes</h2>
                 <mat-form-field class="col-5 col-md-3">
                     <mat-label>Número mínimo</mat-label>
-                    <input matInput placeholder="Introduzca número mínimo de huéspedes" type="number" formControlName="numeroMinimoHuespedes"/>
+                    <input matInput placeholder="Introduzca número mínimo de huéspedes" type="number" min="1" formControlName="numeroMinimoHuespedes"/>
+                    @if(this.alojamientoForm.get('numeroMinimoHuespedes')?.errors?.['required']){
+                        <mat-error>Número mínimo de Huéspedes <strong>requerido</strong></mat-error>
+                    }@else if(this.alojamientoForm.get('numeroMinimoHuespedes')?.errors?.['min']){
+                        <mat-error>El número de Huéspedes <strong>debe ser como mínimo 1</strong></mat-error>
+                    }
                 </mat-form-field>
                 <b style="font-size: 35px;" class="mx-4 mx-md-2">-</b>
                 <mat-form-field class="col-5 col-md-3">
                     <mat-label>Número máximo</mat-label>
-                    <input matInput placeholder="Introduzca número máximo de huéspedes" type="number" formControlName="numeroMaximoHuespedes"/>
+                    <input matInput placeholder="Introduzca número máximo de huéspedes" type="number" min="2" formControlName="numeroMaximoHuespedes"/>
+                    @if(this.alojamientoForm.get('numeroMaximoHuespedes')?.errors?.['required']){
+                        <mat-error>Número máximo de Huéspedes <strong>requerido</strong></mat-error>
+                    }@else if(this.alojamientoForm.get('numeroMaximoHuespedes')?.errors?.['min']){
+                        <mat-error>El número máximo de Huéspedes <strong>debe ser como mínimo 2</strong></mat-error>
+                    }
                 </mat-form-field>
             </div>
 
