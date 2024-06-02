@@ -27,7 +27,7 @@
                 <p class="mt-4 card-text">{{ casaRural.txtDescripcion }}</p>
                 <div class="row">
                     <button class="col-4 ms-2 mt-2 boton-personalizado-a" routerLink="/detalles-casas-gestor" [queryParams]="{id: casaRural.id}">EDITAR</button>
-                    <button class="col-4 ms-2 mt-2 boton-personalizado-b">ELIMINAR</button>
+                    <button class="col-4 ms-2 mt-2 boton-personalizado-b" (click)="eliminarCasaRural(casaRural.id)">ELIMINAR</button>
                 </div>
 
             </div>

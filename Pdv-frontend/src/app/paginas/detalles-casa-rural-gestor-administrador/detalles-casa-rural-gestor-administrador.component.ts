@@ -46,7 +46,6 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
         this.isActionNew = true;
       }else{
         this.alojamientoService.buscarAlojamientoById(params['id']).subscribe(alojamiento => {
-          console.log(alojamiento);
           this.alojamientoModificado = alojamiento;
           this.alojamientoForm.get('titulo')?.setValue(alojamiento.txtNombre as string);
           this.alojamientoForm.get('descripcion')?.setValue(alojamiento.txtDescripcion as string);
@@ -58,7 +57,6 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
           this.alojamientoForm.get('provincia')?.setValue(alojamiento.idUbicacion?.provincia as string);
           alojamiento.idAlojamientoComodidades?.forEach(comodidad => {
             if(comodidad.idComodidadAlojamiento?.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.COMODIDAD){
-              console.log(comodidad.idComodidadAlojamiento);
               this.alojamientoComodidades.push(comodidad.idComodidadAlojamiento);
             }else if(comodidad.idComodidadAlojamiento?.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.INSTALACION){
               this.alojamientoInstalaciones.push(comodidad.idComodidadAlojamiento);
@@ -121,6 +119,14 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     }
   }
 
+  eliminarComodidad(comodidad: IComodidadAlojamientoDTO){
+    if(comodidad.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.COMODIDAD && this.alojamientoComodidades.filter(comodidadAlojamiento => comodidadAlojamiento.id == comodidad.id).length > 0){
+      this.alojamientoComodidades = this.alojamientoComodidades.filter(comodidadAlojamiento => comodidadAlojamiento.id != comodidad.id);
+    }else if(comodidad.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.INSTALACION && this.alojamientoInstalaciones.filter(comodidadAlojamiento => comodidadAlojamiento.id == comodidad.id).length > 0){
+      this.alojamientoInstalaciones = this.alojamientoInstalaciones.filter(comodidadAlojamiento => comodidadAlojamiento.id != comodidad.id);
+    }
+  }
+
   guardarAlojamiento(){
     if(this.alojamientoForm.valid){
       const alojamiento: IAlojamientoDTO = this.getAlojamiento();
@@ -130,6 +136,21 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
       }, err => {
         alert("Se ha producido un error al guardar el alojamiento");
       
+      });
+    }else{
+      alert("Rellene todos los campos obligatorios");
+    }
+  }
+
+  modficarAlojamiento(){
+    if(this.alojamientoForm.valid){
+      const alojamiento: IAlojamientoDTO = this.getAlojamiento();
+      alojamiento.id = this.alojamientoModificado.id;
+      this.alojamientoService.modificarAlojamiento(alojamiento).subscribe(response => {
+        alert(response.mensaje);
+        this.router.navigate(['/casas-alquiler']);
+      }, err => {
+        alert("Se ha producido un error al guardar el alojamiento");
       });
     }else{
       alert("Rellene todos los campos obligatorios");

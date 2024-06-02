@@ -97,6 +97,20 @@
     cursor: pointer;
 }
 
+.remove-icon{
+    padding: 15px;
+    padding-bottom: 20px;
+    border-radius: 999px;
+    width: 50px;
+    color: red;
+}
+
+.remove-icon:hover{
+    transition: all 0.3s ease;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
 @media(max-width: 490px){
     .valoraciones{
         font-size: 0.6rem;

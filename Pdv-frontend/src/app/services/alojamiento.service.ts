@@ -22,7 +22,16 @@ export class AlojamientoService {
     return this.http.get<IAlojamientoDTO>(environment.api + this.alojamientoAPI + "/" + id);
   }
 
-  aniadirAlojamiento(comodidad: IAlojamientoDTO): Observable<IGenericApiMessageDTO> {
-    return this.http.post<IGenericApiMessageDTO>(environment.api + this.alojamientoAPI, comodidad);
+  aniadirAlojamiento(alojamiento: IAlojamientoDTO): Observable<IGenericApiMessageDTO> {
+    return this.http.post<IGenericApiMessageDTO>(environment.api + this.alojamientoAPI, alojamiento);
   }
+
+  modificarAlojamiento(alojamiento: IAlojamientoDTO): Observable<IGenericApiMessageDTO> {
+    return this.http.put<IGenericApiMessageDTO>(environment.api + this.alojamientoAPI, alojamiento);
+  }
+  
+  eliminarAlojamiento(id:number): Observable<IGenericApiMessageDTO> {
+    return this.http.delete<IGenericApiMessageDTO>(environment.api + this.alojamientoAPI + "/" + id);
+  }
+
 }

@@ -26,5 +26,16 @@ export class CasasAlquilerComponent implements OnInit {
       this.casasRurales = alojamientos;
     });
   }
+
+  eliminarCasaRural(id?: number){
+    if(confirm("¿Estás seguro de que quieres eliminar esta casa rural?")){
+      this.alojamientoService.eliminarAlojamiento(id as number).subscribe(mensaje => {
+        alert(mensaje.mensaje);
+        this.casasRurales = this.casasRurales.filter(casa => casa.id != id);
+      }, err => {
+        alert("Hubo un error al eliminar la casa rural");
+      });
+    }
+  }
   
 }

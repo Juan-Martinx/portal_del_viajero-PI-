@@ -2,6 +2,8 @@ package com.pdv.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -50,18 +52,19 @@ public class Alojamiento {
 	@JoinColumn(referencedColumnName = "id_usuario", name = "id_usuario", nullable = false)
 	private Usuario idUsuario;
 	
-	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ValoracionAlojamiento.class)
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ValoracionAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<ValoracionAlojamiento> idValoracionesAlojamiento;
 	
-	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlquilerAlojamiento.class)
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlquilerAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<AlquilerAlojamiento> idAlquileresAlojamiento;
 	
-	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ImagenAlojamiento.class)
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ImagenAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<ImagenAlojamiento> idImagenesAlojamiento;
 	
-	@OneToOne(mappedBy = "idAlojamiento", targetEntity = UbicacionAlojamiento.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(mappedBy = "idAlojamiento", targetEntity = UbicacionAlojamiento.class, cascade = CascadeType.ALL)
 	private UbicacionAlojamiento idUbicacion;
 	
-	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@JsonManagedReference
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<AlojamientoComodidadAlojamiento> idAlojamientoComodidades;
 }

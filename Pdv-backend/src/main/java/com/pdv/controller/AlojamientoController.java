@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,5 +40,15 @@ public class AlojamientoController {
 	@PostMapping
 	public ResponseEntity<GenericAPIMessageDTO> aniadirAlojamiento(@RequestBody AlojamientoDTO dto, Authentication autenticacion){
 		return ResponseEntity.ok().body(this.alojamientoService.aniadirAlojamiento(dto, autenticacion));
+	}
+	
+	@PutMapping
+	public ResponseEntity<GenericAPIMessageDTO> modificarAlojamiento(@RequestBody AlojamientoDTO dto){
+		return ResponseEntity.ok().body(this.alojamientoService.modificarAlojamiento(dto));
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<GenericAPIMessageDTO> eliminarAlojamiento(@PathVariable("id") Long id){
+		return ResponseEntity.ok().body(this.alojamientoService.eliminarAlojamiento(id));
 	}
 }

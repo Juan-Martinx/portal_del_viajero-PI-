@@ -34,6 +34,7 @@ public class AlojamientoComodidadAlojamiento {
 	private ComodidadAlojamiento idComodidadAlojamiento;
 	
 	@ManyToOne(targetEntity = Alojamiento.class)
-	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
+	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento")
 	private Alojamiento idAlojamiento;
+
 }
