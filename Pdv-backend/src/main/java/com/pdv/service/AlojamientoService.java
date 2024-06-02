@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.pdv.dto.AlojamientoComodidadAlojamientoDTO;
 import com.pdv.dto.AlojamientoDTO;
+import com.pdv.dto.AlquilerAlojamientoDTO;
 import com.pdv.dto.GenericAPIMessageDTO;
 import com.pdv.dto.UbicacionAlojamientoDTO;
 import com.pdv.model.Alojamiento;
 import com.pdv.model.AlojamientoComodidadAlojamiento;
+import com.pdv.model.AlquilerAlojamiento;
 import com.pdv.model.UbicacionAlojamiento;
 import com.pdv.repository.AlojamientoComodidadAlojamientoRepository;
 import com.pdv.repository.AlojamientoRepository;
@@ -31,7 +33,6 @@ public class AlojamientoService {
 	private final AlojamientoRepository alojamientoRepository;
 	private final UsuarioService usuarioService;
 	private final ComodidadAlojamientoRepository comodidadAlojamientoRepository;
-	private final UbicacionAlojamientoRepository ubicacionAlojamientoRepository;
 	private final AlojamientoComodidadAlojamientoRepository alojamientoComodidadAlojamientoRepository;
 	private final AlojamientoComodidadAlojamientoService alojamientoComodidadAlojamientoService;
 

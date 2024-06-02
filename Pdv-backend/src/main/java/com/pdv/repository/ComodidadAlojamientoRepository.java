@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.pdv.model.ComodidadAlojamiento;
-import com.pdv.model.Usuario;
 
 @Repository
 public interface ComodidadAlojamientoRepository extends JpaRepository<ComodidadAlojamiento, Long> {

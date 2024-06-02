@@ -27,6 +27,6 @@ public class AlquilerAlojamientoDTO {
 	
 	private UsuarioDTO idUsuario;
 	
-	private AlojamientoDTO idAlojamiento;
+	private Long idAlojamiento;
 	
 }

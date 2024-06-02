@@ -67,4 +67,8 @@ public class Alojamiento {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<AlojamientoComodidadAlojamiento> idAlojamientoComodidades;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoDiasOcupados.class, cascade = CascadeType.ALL)
+	private Set<AlojamientoDiasOcupados> idAlojamientoDiasOcupados;
 }

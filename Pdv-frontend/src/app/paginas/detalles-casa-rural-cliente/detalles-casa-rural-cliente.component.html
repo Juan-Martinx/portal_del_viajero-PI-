@@ -1,7 +1,7 @@
 <div class="container contenedor-principal">
     <div class="row m-auto mt-5">
         <div class="col-12 ps-3">
-            <h1 class="fw-bold">{{casasRurales[0].titulo}}</h1>
+            <h1 class="fw-bold">{{this.alojamiento.txtNombre}}</h1>
         </div>
 
         <div class="row m-auto">
@@ -33,25 +33,25 @@
                 <div class="row b-bottom">
                     <h2 class="fw-bold px-0">Instalaciones</h2>
                     <div class="row">
-                        @for (instalacion of instalaciones; track instalacion.length) {
+                        @for (comodidad of alojamientoInstalaciones; track comodidad.id) {
                         <div class="col-6 d-inline-flex flex-column-2 mb-3">
                             <mat-icon
-                                class="d-inline-flex justify-content-center me-2 icon-pool">{{instalacion.icono}}</mat-icon>
-                            <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
+                                class="d-inline-flex justify-content-center me-2 icon-pool">{{comodidad.iconoComodidad}}</mat-icon>
+                            <p class="d-inline-flex align-items-center">{{comodidad.txtNombre}}</p>
                         </div>
                         }
                     </div>
                 </div>
-
+                <!-- COMODIDADES -->
                 <div class="row mt-5 b-bottom">
                     <div class="row">
                         <h2 class="fw-bold px-0">Comodidades</h2>
                         <div class="col-12">
-                            @for (instalacion of instalaciones; track instalacion.length) {
+                            @for (comodidad of alojamientoComodidades; track comodidad.id) {
                             <div class="col-6 d-inline-flex flex-column-2 mb-3">
                                 <mat-icon
-                                    class="d-inline-flex justify-content-center me-2 icon-pool">{{instalacion.icono}}</mat-icon>
-                                <p class="d-inline-flex align-items-center">{{instalacion.nombre}}</p>
+                                    class="d-inline-flex justify-content-center me-2 icon-pool">{{comodidad.iconoComodidad}}</mat-icon>
+                                <p class="d-inline-flex align-items-center">{{comodidad.txtNombre}}</p>
                             </div>
                             }
                         </div>
@@ -61,22 +61,30 @@
             </div>
 
             <!-- Formulario de Reservar -->
-            <form class="row col-12 col-md-6 ms-1 ms-md-4 mt-4 order-1 order-md-2">
+            <form class="row col-12 col-md-6 ms-1 ms-md-4 mt-4 order-1 order-md-2" [formGroup]="reservar">
                 <div class="card p-4 row">
-                    <h2 class="fw-bold">124€ noche</h2>
+                    <h2 class="fw-bold">{{alojamiento.numPrecioNoche}}€/Noche</h2>
                     <div class="row">
                         <mat-form-field class="col-6">
                             <mat-label>Llegada</mat-label>
-                            <input matInput type="date" [matDatepicker]="picker1" formControlName="llegada">
+                            <input [disabled]="true" matInput type="text" [matDatepicker]="picker1"
+                                formControlName="llegada" [matDatepickerFilter]="salidaFilter">
                             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
+                            <mat-datepicker disabled="false" #picker1 (closed)="getDaysDifference()"></mat-datepicker>
+                            @if(this.reservar.get('llegada')?.errors?.['required']){
+                                <mat-error>Debe rellenar <strong>con la fecha de llegada</strong></mat-error>
+                            }
                         </mat-form-field>
 
                         <mat-form-field class="col-6">
                             <mat-label>Salida</mat-label>
-                            <input matInput type="date" [matDatepicker]="picker1" formControlName="salida">
-                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
+                            <input [disabled]="true" matInput type="text" [matDatepicker]="picker2"
+                                formControlName="salida" [matDatepickerFilter]="salidaFilter" [disabled]="true">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker disabled="false" #picker2 (closed)="getDaysDifference()"></mat-datepicker>
+                            @if(this.reservar.get('salida')?.errors?.['required']){
+                                <mat-error>Debe rellenar <strong>con la fecha de salida</strong></mat-error>
+                            }
                         </mat-form-field>
                     </div>
 
@@ -84,20 +92,28 @@
                         <mat-form-field class="col-12">
                             <mat-label>Nº de huéspedes</mat-label>
                             <input type="number" matInput placeholder="Introduzca número de huéspedes"
-                                formControlName="huespedes" />
+                                formControlName="huespedes" min="{{alojamiento.numPlazaMin}}"
+                                max="{{alojamiento.numPlazaMax}}"/>
+                            @if(this.reservar.get('huespedes')?.errors?.['required']){
+                            <mat-error>Número de Huéspedes <strong>requerido</strong></mat-error>
+                            }@else if(this.reservar.get('huespedes')?.errors?.['min']){
+                            <mat-error>Para reservar debe haber al menos <strong>{{this.alojamiento.numPlazaMin}} huéspedes</strong></mat-error>
+                            }@else if(this.reservar.get('huespedes')?.errors?.['max']){
+                                <mat-error>El número máximo de huespedes en este alojamiento es de <strong>{{this.alojamiento.numPlazaMax}} huéspedes</strong></mat-error>
+                            }
                         </mat-form-field>
                     </div>
 
-                    <button class="col-12 boton-personalizado-a"> RESERVAR</button>
+                    <button class="col-12 boton-personalizado-a" (click)="realizarReserva()"> RESERVAR</button>
                     <p class="text-center mt-2 texto-gray">No se te cobrará nada aún</p>
                     <div class="d-flex justify-content-between">
-                        <p class="texto-gray">124€ x 5 noches</p>
-                        <p class="texto-gray">620€</p>
+                        <p class="texto-gray">{{alojamiento.numPrecioNoche}}€ x {{this.diasDiferencia}} noches</p>
+                        <p class="texto-gray">{{this.precioTotal}}€</p>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between">
                         <strong>Total</strong>
-                        <strong>620€</strong>
+                        <strong>{{this.precioTotal}}€</strong>
                     </div>
                 </div>
             </form>
@@ -108,7 +124,8 @@
             <h2 class="fw-bold px-0">Ubicación</h2>
             <div class="d-flex align-items-center px-0">
                 <i class="bi bi-geo-alt px-0 me-2"></i>
-                <p class="pt-1">Sevilla, Andalucía, España</p>
+                <p class="pt-1">{{alojamiento.idUbicacion?.lineaDireccion}}, {{alojamiento.idUbicacion?.codigoPostal}},
+                    {{alojamiento.idUbicacion?.provincia}}</p>
             </div>
         </div>
 
@@ -136,15 +153,14 @@
 
             </div>
             <div class="col-12 mt-5 contenedor-resenas-comentarios">
-                @if (ver) {
-                @for (comentario of comentarios ; track comentario.length) {
+                @for (comentario of valoraciones ; track comentario.id) {
                 <div class="col-12 col-md-5 d-inline-flex flex-column">
                     <div class="cabecera-comentarios">
                         <img class="d-inline-flex perfil-usuario"
                             src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
                         <div class="d-inline-flex flex-column align-items-center ms-2">
-                            <strong>Nombre</strong>
-                            <p class="texto-gray">{{comentario.pais}}</p>
+                            <strong>{{comentario.idUsuario?.username}}</strong>
+                            <p class="texto-gray">{{comentario.idUsuario?.numTelefono}}</p>
                         </div>
                     </div>
 
@@ -168,46 +184,7 @@
 
                 </div>
                 }
-
-                }@else {
-                @for (comentario of primerosComentarios; track comentario.length) {
-                <div class="col-12 col-md-5 d-inline-flex flex-column">
-                    <div class="cabecera-comentarios">
-                        <img class="d-inline-flex perfil-usuario"
-                            src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-                        <div class="d-inline-flex flex-column align-items-center ms-2">
-                            <strong>Nombre</strong>
-                            <p class="texto-gray">{{comentario.pais}}</p>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <div class="d-inline-flex">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
-                        </div>
-                        <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
-                        <p class="d-inline-flex texto-gray">Hace 2 semanas</p>
-                    </div>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
-                        harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi
-                        suscipit earum provident.</p>
-
-
-                </div>
-                }
-
-                <a class="d-flex mb-4 ver-mas" (click)="verMas()">Ver más</a>
-                }
-
             </div>
         </div>
-
-
     </div>
 </div>

@@ -15,7 +15,7 @@ import { CasasDisponiblesComponent } from './paginas/casas-disponibles/casas-dis
 import { CasasAlquilerComponent } from './paginas/casas-alquiler/casas-alquiler.component';
 
 export const routes: Routes = [
-    { path: '', component: CasasAlquilerComponent, title: 'Inicio'},
+    { path: '', component: DetallesCasaRuralClienteComponent, title: 'Inicio'},
     { path: 'registro', component: PaginaRegistroComponent, title: 'Inicio'},
     { path: 'convertir-gestor', component: ConvertirGestorComponent, title: 'Convertir en Gestor'},
     { path: 'editar-perfil', component: EditarPerfilComponent, title: 'Editar Perfil'},
@@ -25,7 +25,7 @@ export const routes: Routes = [
     { path: 'buscador-comodidades', component: BuscarComodidadComponent, title: 'Buscar Comodidades y Administrarlas'},
     { path: 'usuarios-registrados', component: BuscarUsuariosComponent, title: 'Buscar Usuarios que están registrados'},
     { path: 'detalles-casas-gestor', component: DetallesCasaRuralGestorAdministradorComponent, title: 'Detalles de las Casas Rurales de los Gestores y Administradores'},
-    { path: 'detalles-casas-cliente', component: DetallesCasaRuralClienteComponent, title: 'Detalles de las Casas Rurales para los Clientes'},
+    { path: 'detalles-casas', component: DetallesCasaRuralClienteComponent, title: 'Detalles de las Casas Rurales para los Clientes'},
     { path: 'casas-alquiler', component: CasasAlquilerComponent, title: 'Tus Casas en Alquiler'},
     { path: 'authorized', component: AuthorizedComponent },
     { path: 'logout', component: LogoutComponent, title: 'Logout'},
