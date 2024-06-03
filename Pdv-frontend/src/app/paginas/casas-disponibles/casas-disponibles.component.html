@@ -14,7 +14,7 @@
                 <h2 class="card-title fw-bold">{{ alojamiento.txtNombre }}</h2>
                 <div class="localizacion d-inline-flex">
                     <i class="bi bi-geo-alt-fill d-inline-flex me-1 pt-1"></i>
-                    <h3 class="d-inline-flex"> {{ alojamiento.idUbicacion?.provincia }}, {{alojamiento.idUbicacion?.codigoPostal}}, {{alojamiento.idUbicacion?.provincia}} </h3>
+                    <h3 class="d-inline-flex"> {{ alojamiento.idUbicacion?.lineaDireccion }}, {{alojamiento.idUbicacion?.codigoPostal}}, {{alojamiento.idUbicacion?.provincia}} </h3>
                 </div>
                 <div class="precio-noche d-flex justify-content-between pt-3">
                     <p class="d-inline-block"><strong>Precio/noche</strong></p>
@@ -22,8 +22,8 @@
                 </div>
 
                 <p class="mt-4 card-text">{{ alojamiento.txtDescripcion }}</p>
-                <div class="row">
-                    <button class="col-4 ms-2 mt-2 boton-personalizado-a" routerLink="/detalles-casas" [queryParams]="{id: alojamiento.id}">DETALLES</button>
+                <div class="row botones-personalizados">
+                    <button class="col-4 ms-2 mt-1 boton-personalizado-a" routerLink="/detalles-casas" [queryParams]="{id: alojamiento.id}">DETALLES</button>
                 </div>
 
             </div>

@@ -71,10 +71,6 @@
 
     }
 
-    .busqueda-destino{
-        
-    }
-
     .busqueda-salida, .busqueda-llegada{
        margin-left: 10px;
     }
@@ -126,14 +122,14 @@ a{
     padding-bottom: 20px;
 }
 
-img{
+.logo{
     width: 80px;
     height: 80px;
     margin-left: 2%;
     margin-top: 2%;
 }
 
-img:hover{
+.logo:hover{
     cursor: pointer;
 }
 
@@ -160,7 +156,7 @@ img:hover{
         padding-bottom: 20px;
     }
     
-    img{
+    .logo{
         width: 70px;
         height: 70px;
         margin-left: 2%;
@@ -169,14 +165,16 @@ img:hover{
     }
 }
 
+  /* FILTROS */
+
 .contenido-principal{
     position: absolute;
     z-index: 1000;
-    margin-top: 70px;
+    margin-top: 140px;
   }
   
   .filtros{
-      width: 450px;
+      width: 99vw;
       border-right: 1px solid rgba(162, 162, 162, 0.6);
       min-height: 100vh;
       height: 100%;
@@ -185,8 +183,7 @@ img:hover{
       padding-right: 1%;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
       position: relative;
-      overflow-y: scroll;
-      overflow-x: none;
+      overflow: hidden;
   }
   
   .closes{
@@ -299,10 +296,8 @@ img:hover{
   @media(max-width: 700px){
     
   .filtros{
-    width: 100%;
-    height: 100vh;
+    width: 99vw;
     border-right: 1px solid rgba(162, 162, 162, 0.6);
-    /*height: fit-content;*/
     margin: 0;
     padding-left: 1%;
     padding-right: 1%;
@@ -395,9 +390,15 @@ img:hover{
   margin-left: 2%;
   margin-right: 2%;
   }
-  }
+}
 .contenedor-anadir{
     text-align: end;
+}
+
+.contenedor-principal{
+  min-height: 100vh;
+  box-shadow: 0px 0px 10px 5px #ccc;
+  overflow: hidden;
 }
 
 .btn-anadir{
@@ -431,27 +432,11 @@ h5{
     border-bottom: 1px solid rgba(162, 162, 162, 0.4);
 }
 
-.btn-detalles{
-    border-radius: 8px;
-    border: none;
-    background-color: blueviolet;
-    color: white;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 25px;
-    padding-right: 25px;
-}
 
-@media(max-width: 700px){
-    .card{
-        margin-left: 10%;
-        margin-bottom: 5%;
-    }
-}
 
 .card-text{
-    max-height: 58px;
-    height: 58px;
+    max-height: 120px;
+    height: 120px;
     overflow: hidden;
 }
 
@@ -462,6 +447,17 @@ h5{
     overflow: hidden;
 }
 
-.btn-detalles{
-    margin-top: 20%;
+.relative{
+  position: relative;
+}
+
+.menu-filter-open{
+  background-color: white;
+  padding-right: 20px;
+  box-shadow: 0px 0px 4px 0px black;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.menu-filter-open:hover{
+  cursor: pointer;
 }

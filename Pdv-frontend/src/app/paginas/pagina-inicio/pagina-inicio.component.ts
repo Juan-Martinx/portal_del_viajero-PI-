@@ -38,9 +38,9 @@ export class PaginaInicioComponent {
   usuario: string = "Pepe123";
 
   busqueda = new FormGroup({
-    destino: new FormControl(),
-    llegada: new FormControl(),
-    salida: new FormControl()
+    destino: new FormControl(''),
+    llegada: new FormControl((new Date(new Date().setDate(new Date().getDate() + 1)))),
+    salida: new FormControl((new Date(new Date().setDate(new Date().getDate() + 1))))
   });
 
   casasRurales: any[] = [

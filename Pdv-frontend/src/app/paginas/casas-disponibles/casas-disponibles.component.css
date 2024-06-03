@@ -44,11 +44,7 @@ h3{
 }
 
 .card-text{
-    max-height: 58px;
-    height: 58px;
+    max-height: 120px;
+    height: 120px;
     overflow: hidden;
-}
-
-.boton-personalizado-a{
-    margin-top: 20%;
 }

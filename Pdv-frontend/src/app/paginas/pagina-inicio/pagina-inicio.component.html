@@ -1,165 +1,177 @@
-<div class="cabecera">    
+<div class="relative">
+  <div class="cabecera">
     <div class="d-flex justify-content-between align-items-end menu">
-        <img src="../../../assets/paginaRegistro/logoAplicacion.jpg" routerLink="/inicio">
-        <div class="d-flex justify-content-end align-items-end">
-            @if(!isGestor() && isLogged()){
-                <a routerLink="convertir-gestor"  class="enlace">¿Quieres poner en alquiler tu casa?</a>
-            }
-            <app-menu class="menu-perfil"></app-menu>
-        </div>
+      <img class="logo" src="../../../assets/paginaRegistro/logoAplicacion.jpg" routerLink="/inicio">
+      <div class="d-flex justify-content-end align-items-end">
+        @if(!isGestor() && isLogged()){
+        <a routerLink="convertir-gestor" class="enlace">¿Quieres poner en alquiler tu casa?</a>
+        }
+        <app-menu class="menu-perfil"></app-menu>
+      </div>
 
     </div>
+    <!-- Buscador de la página de inicio -->
     <div class="panel">
-        <form [formGroup]="busqueda" class="d-flex justify-content-center">
-            <div class="col-8 panel-busqueda mt-2">
-                <div class="d-inline-flex align-items-center">
-                    <div class="d-inline-flex busqueda-destino">
-                        <label class="busqueda-label mb-1" for="destino"><strong>Destino</strong></label>
-                        <input class="busqueda-input" type="text" id="destino" formControlName="destino" placeholder="Buscar destinos">
-                    </div>
-                    <div class="d-inline-flex busqueda-llegada">
-                        <label class="busqueda-label mb-1" for="llegada"><strong>Llegada</strong></label>
-                        <input class="busqueda-input" type="date" id="llegada" formControlName="llegada" placeholder="Fecha Llegada">
-                    </div>
-                    <div class="d-inline-flex  busqueda-salida">
-                        <label class="busqueda-label mb-1" for="salida"><strong>Salida</strong></label>
-                        <input class="busqueda-input" type="date" id="salida" formControlName="salida" placeholder="Fecha Salida">
-                    </div>
-                    <button class="boton-busqueda  ms-2 align-items-center justify-content-center">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-        
+      <form [formGroup]="busqueda" class="d-flex justify-content-center">
+        <div class="col-8 panel-busqueda mt-2">
+          <div class="d-inline-flex align-items-center">
+            <div class="d-inline-flex busqueda-destino">
+              <label class="busqueda-label mb-1" for="destino"><strong>Provincia</strong></label>
+              <input class="busqueda-input" type="text" id="destino" formControlName="destino"
+                placeholder="Buscar destinos">
             </div>
-        </form>
-        
-        
-    </div>
-    
-</div>
-
-<div>
-    <div class="contenido-principal">
-        @if(menu == false){
-          <div class="d-inline-flex example-button-row pt-lg-2">
-            <button class="btn" (click)="mostrarMenu()">
-              <mat-icon class="d-inline-flex me-lg-2 lines">dehaze</mat-icon>
+            <div class="d-inline-flex busqueda-llegada">
+              <label class="busqueda-label mb-1" for="llegada"><strong>Llegada</strong></label>
+              <input class="busqueda-input" type="date" id="llegada" formControlName="llegada"
+                placeholder="Fecha Llegada">
+            </div>
+            <div class="d-inline-flex  busqueda-salida">
+              <label class="busqueda-label mb-1" for="salida"><strong>Salida</strong></label>
+              <input class="busqueda-input" type="date" id="salida" formControlName="salida" placeholder="Fecha Salida">
+            </div>
+            <button class="boton-busqueda  ms-2 align-items-center justify-content-center">
+              <i class="bi bi-search"></i>
             </button>
-            <a class="d-inline-flex align-items-center pt-2 mb-3 link-body-emphasis text-decoration-none titulo-filtros" (click)="mostrarMenu()">
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Menú de Filtros -->
+  <div>
+    <div class="contenido-principal">
+      @if(menu == false){
+      <div class="d-inline-flex pt-lg-2 menu-filter-open" (click)="mostrarMenu()">
+        <button class="btn">
+          <mat-icon class="d-inline-flex me-lg-2 lines">dehaze</mat-icon>
+        </button>
+        <a class="d-inline-flex align-items-center pt-2 mb-3 link-body-emphasis text-decoration-none titulo-filtros"
+          (click)="mostrarMenu()">
+          <span class="fs-5 fw-semibold">Filtros</span>
+        </a>
+      </div>
+      }@else {
+      <form [formGroup]="filtros">
+        <div id="filtros" class="flex-shrink-0 filtros" style="background-color: white;">
+          <button class="btn closes" (click)="mostrarMenu()">
+            <mat-icon>clear</mat-icon>
+          </button>
+          <div class="d-flex justify-content-between border-bottom">
+            <a href="/" class="d-inline-flex align-items-center pt-4 mb-3 link-body-emphasis text-decoration-none">
               <span class="fs-5 fw-semibold">Filtros</span>
             </a>
+            <button class="d-inline-flex pt-4 resetear" (click)="resetearMenu()">Resetear</button>
           </div>
-        }@else {
-          <form [formGroup]="filtros">
-            <div id="filtros" class="flex-shrink-0 filtros" style="background-color: white;">
-              <button class="btn closes" (click)="mostrarMenu()">
-                <mat-icon>clear</mat-icon>
+
+          <ul class="list-unstyled">
+            <li class="mb-1">
+              <button
+                class="btn btn-toggle d-inline-flex align-items-center justify-content-between rounded border-0 collapsed"
+                data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                Precio por día
               </button>
-              <div class="d-flex justify-content-between border-bottom">
-                <a href="/" class="d-inline-flex align-items-center pt-4 mb-3 link-body-emphasis text-decoration-none">
-                  <span class="fs-5 fw-semibold">Filtros</span>
-                </a>
-                <button class="d-inline-flex pt-4 resetear" (click)="resetearMenu()">Resetear</button>
+              <div class="collapse show" id="home-collapse">
+                <mat-slider min="0" max="2500" discrete [color]="'primary'" [displayWith]="formatLabel">
+                  <input matSliderStartThumb formControlName="precioMin">
+                  <input matSliderEndThumb formControlName="precioMax">
+                </mat-slider>
               </div>
-            
-                <ul class="list-unstyled">
-                  <li class="mb-1">
-                    <button class="btn btn-toggle d-inline-flex align-items-center justify-content-between rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                      Precio por día
-                    </button>
-                    <div class="collapse show" id="home-collapse">
-                      <mat-slider  min="0" max="5000" discrete [color]="'primary'" [displayWith]="formatLabel">
-                        <input matSliderStartThumb formControlName="precioMin">
-                        <input matSliderEndThumb formControlName="precioMax">
-                      </mat-slider>
-                    </div>
+            </li>
+            <li class="border-top my-3"></li>
+            <li class="mb-1">
+              <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                Fechas de estancia
+              </button>
+              <div class="collapse" id="dashboard-collapse">
+                <div class="fecha-estancia">
+                  <mat-form-field class="fecha-llegada">
+                    <mat-label>Fecha de llegada</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="fechaLlegada">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                  <b style="font-size: 35px;" class="mx-4 mx-md-2">-</b>
+                  <mat-form-field class="fecha-salida">
+                    <mat-label>Fecha de salida</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="fechaSalida">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+            </li>
+            <li class="border-top my-3"></li>
+            <li class="mb-1">
+              <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                Instalaciones
+              </button>
+              <div class="collapse" id="orders-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                  @for (instalacion of instalaciones; track instalacion.length) {
+                  <li><input type="checkbox" class="checkbox" formControlName="instalaciones">{{instalacion.nombre}}
                   </li>
-                  <li class="border-top my-3"></li>
-                  <li class="mb-1">
-                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                      Fechas de estancia
-                    </button>
-                    <div class="collapse" id="dashboard-collapse">
-                        <div class="fecha-estancia">
-                            <mat-form-field class="fecha-llegada">
-                                <mat-label>Fecha de llegada</mat-label>
-                                <input matInput [matDatepicker]="picker1" formControlName="fechaLlegada">
-                                <mat-datepicker-toggle matIconSuffix [for]="picker1" ></mat-datepicker-toggle>
-                                <mat-datepicker #picker1></mat-datepicker>
-                            </mat-form-field>
-                            <b style="font-size: 35px;" class="mx-4 mx-md-2">-</b>
-                            <mat-form-field class="fecha-salida">
-                                <mat-label>Fecha de salida</mat-label>
-                                <input matInput [matDatepicker]="picker2" formControlName="fechaSalida">
-                                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
-                                <mat-datepicker #picker2></mat-datepicker>
-                              </mat-form-field>
-                          </div>
-                    </div>
-                  </li>
-                  <li class="border-top my-3"></li>
-                  <li class="mb-1">
-                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                      Instalaciones
-                    </button>
-                    <div class="collapse" id="orders-collapse">
-                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        @for (instalacion of instalaciones; track instalacion.length) {
-                          <li><input type="checkbox" class="checkbox" formControlName="instalaciones">{{instalacion.nombre}}</li>
-                        }
-                        <button class="pt-4 ver-mas">Ver más</button>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="border-top my-3"></li>
-                  <li class="mb-1">
-                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-                      Comodidades
-                    </button>
-                    <div class="collapse" id="account-collapse">
-                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        @for (comodidad of comodidades; track comodidad.length) {
-                          <li><input type="checkbox" class="checkbox" formControlName="comodidades">{{comodidad.nombre}}</li>
-                        }
-                        <button class="pt-4 ver-mas">Ver más</button>
-                      </ul>
-                    </div>
-                  </li>
-                  <li class="border-bottom mt-3"></li>
+                  }
+                  <button class="pt-4 ver-mas">Ver más</button>
                 </ul>
+              </div>
+            </li>
+            <li class="border-top my-3"></li>
+            <li class="mb-1">
+              <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                Comodidades
+              </button>
+              <div class="collapse" id="account-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                  @for (comodidad of comodidades; track comodidad.length) {
+                  <li><input type="checkbox" class="checkbox" formControlName="comodidades">{{comodidad.nombre}}</li>
+                  }
+                  <button class="pt-4 ver-mas">Ver más</button>
+                </ul>
+              </div>
+            </li>
+            <li class="border-bottom mt-3"></li>
+          </ul>
+        </div>
+      </form>
+
+      }
+    </div>
+
+    <div class="container contenedor-principal">
+      <div class="row col-lg-12 m-auto">
+        <h1 class="titulo fw-bold mt-3">¡Elige entre miles de opciones de casas rurales!</h1>
+        @for (casaRural of casasRurales; track casasRurales.length) {
+        <div class="card px-0 m-auto mt-3 pb-3">
+          <img class="ms-0 me-0 imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg"
+            alt="Card image cap">
+          <div class="card-body">
+            <h2 class="card-title fw-bold">{{ casaRural.txtNombre }}</h2>
+            <div class="localizacion d-inline-flex">
+              <i class="bi bi-geo-alt-fill d-inline-flex me-1 pt-1"></i>
+              <h3 class="d-inline-flex"> {{ casaRural.idUbicacion?.lineaDireccion }},
+                {{casaRural.idUbicacion?.codigoPostal}}, {{casaRural.idUbicacion?.provincia}} </h3>
             </div>
-          </form>
-          
+            <div class="precio-noche d-flex justify-content-between pt-3">
+              <p class="d-inline-flex"><strong>Precio/noche</strong></p>
+              <p class="d-inline-flex"><strong>{{casaRural.numPrecioNoche}}€</strong></p>
+            </div>
+
+            <p class="mt-4 card-text">{{ casaRural.txtDescripcion }}</p>
+            <div class="row mt-1">
+              <button class="col-4 ms-2 boton-personalizado-a" routerLink="/detalles-casas-gestor"
+                [queryParams]="{id: casaRural.id}">EDITAR</button>
+              <button class="col-4 ms-2 boton-personalizado-b">ELIMINAR</button>
+            </div>
+
+          </div>
+        </div>
         }
       </div>
-      
-    <div class="container">
-        <div class="row col-lg-12 m-lg-auto">
-            <h1 class="titulo fw-bold">¡Elige entre miles de opciones de casas rurales!</h1>
-            @for (casaRural of casasRurales; track casasRurales.length) {
-                <div class="card px-0 mb-lg-4">
-                    <img class="ms-lg-0 me-lg-0 imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h3 class="card-title"><strong>{{ casaRural.titulo }}</strong></h3>
-                        <div class="localizacion d-inline-flex">
-                            <i class="bi bi-geo-alt-fill d-inline-flex me-lg-1 pt-1"></i>
-                            <h5 class="d-inline-flex"> {{ casaRural.localizacion }} </h5>
-                        </div>
-                        <div class="precio-noche d-flex justify-content-between pt-3">
-                            <p class="d-inline-flex"><strong>Precio/noche</strong></p>
-                            <p class="d-inline-flex"><strong>{{casaRural.precio}}€</strong></p>
-                        </div>
-                        
-                        <p class="mt-lg-4 card-text">{{ casaRural.detalles }}</p>
-                        <div class="" style="text-align: end;">
-                            <button class=" me-lg-1 btn-detalles" routerLink="detalles-casas-cliente">DETALLES</button>
-                        </div>
-
-                    </div>
-                </div>
-            }
-           
-
-        </div>
     </div>
+  </div>
 </div>

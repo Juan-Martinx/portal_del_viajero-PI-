@@ -38,11 +38,7 @@
 }
 
 .card-text{
-    max-height: 58px;
-    height: 58px;
+    max-height: 120px;
+    height: 120px;
     overflow: hidden;
-}
-
-.botones-personalizados{
-    margin-top: 20%;
 }

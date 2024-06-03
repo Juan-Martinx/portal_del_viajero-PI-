@@ -14,7 +14,7 @@
                 <h2 class="card-title fw-bold">{{ reserva.alojamiento?.txtNombre }}</h2>
                 <div class="localizacion d-inline-flex">
                     <i class="bi bi-geo-alt-fill d-inline-flex me-1 pt-1"></i>
-                    <h3 class="d-inline-flex justify-content-center align-content-center"> {{ reserva.alojamiento?.idUbicacion?.provincia }},
+                    <h3 class="d-inline-flex justify-content-center align-content-center"> {{ reserva.alojamiento?.idUbicacion?.lineaDireccion }},
                         {{reserva.alojamiento?.idUbicacion?.codigoPostal}},
                         {{reserva.alojamiento?.idUbicacion?.provincia}}</h3>
                 </div>
@@ -34,8 +34,6 @@
                         <p><strong>Fecha Salida:</strong></p>
                         <p><strong>{{reserva.fechaFinAlquiler}}</strong></p>
                     </div>
-                    <!-- <p class="d-inline-block me-5 mt-3"><strong>Precio Total:</strong></p>
-                    <p class="d-inline-block ms-2"><strong>{{reserva.precioTotalAlquiler}}</strong></p> -->
                 </div>
 
                 <p class="mt-2 card-text">{{ reserva.alojamiento?.txtDescripcion }}</p>
