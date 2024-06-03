@@ -18,8 +18,10 @@
     overflow-x: none;
 }
 
-.close{
-  z-index: 1001;
+.closes{
+  border: none;
+  background: none;
+  margin-top: 2%;
 }
 
 .titulo-filtros{
@@ -134,10 +136,6 @@ mat-slider{
   padding-left: 1%;
   padding-right: 1%;
   position: relative;
-}
-
-.close{
-  z-index: 1000;
 }
 
 .filtros ul{

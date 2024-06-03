@@ -11,11 +11,9 @@
   }@else {
     <form [formGroup]="filtros">
       <div id="filtros" class="flex-shrink-0 filtros" style="background-color: white;">
-        <div class="d-inline-flex example-button-row pt-lg-2">
-          <button id="close" class="btn  close" (click)="mostrarMenu()">
-            <mat-icon class="d-inline-flex me-lg-2">clear</mat-icon>
-          </button>
-        </div>
+        <button class="btn closes" (click)="mostrarMenu()">
+          <mat-icon>clear</mat-icon>
+        </button>
         <div class="d-flex justify-content-between border-bottom">
           <a href="/" class="d-inline-flex align-items-center pt-4 mb-3 link-body-emphasis text-decoration-none">
             <span class="fs-5 fw-semibold">Filtros</span>

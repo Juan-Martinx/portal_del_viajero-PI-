@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
         this.menu.getLogged();
       }
       
-      if(this.router.url.indexOf("registro") > 0 || this.router.url.indexOf('inicio-sesion') > 0  ||this.router.url.indexOf('authorized') > 0){
+      if(this.router.url.indexOf("registro") > 0 || this.router.url.indexOf('inicio-sesion') > 0  || this.router.url.indexOf('authorized') > 0 ||this.router.url.indexOf('inicio') > 0){
         this.mostrarNavbar = false;
       }else{
         this.mostrarNavbar = true;
