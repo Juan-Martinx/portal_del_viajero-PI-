@@ -50,14 +50,14 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
   }
 
   reservar = new FormGroup({
-    llegada: new FormControl(new Date(), [Validators.required]),
-    salida: new FormControl(new Date(), [Validators.required]),
+    llegada: new FormControl(new Date(new Date().setDate(new Date().getDate() + 1)), [Validators.required]),
+    salida: new FormControl(new Date(new Date().setDate(new Date().getDate() + 2)), [Validators.required]),
     huespedes: new FormControl(this.alojamiento.numPlazaMin, [Validators.required, Validators.min(this.alojamiento.numPlazaMin as number), Validators.max(this.alojamiento.numPlazaMax as number)])
   });
 
   // Filtro para la fecha de salida
   salidaFilter = (d: Date | null): boolean => {
-    return !d || d >= new Date();
+    return !d || d > new Date();
   }
 
   // Método para calcular la diferencia de días
@@ -82,7 +82,8 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
         if (llegada && salida) {
           const llegadaDate = new Date(llegada);
           const salidaDate = new Date(salida);
-          if(llegadaDate > salidaDate){
+          console.log(llegadaDate);
+          if(llegadaDate >= salidaDate){
             alert("La fecha de llegada no puede ser posterior a la fecha de salida");
           }else{
             const alquilerAlojamiento: IAlquilerAlojamientoDTO = {

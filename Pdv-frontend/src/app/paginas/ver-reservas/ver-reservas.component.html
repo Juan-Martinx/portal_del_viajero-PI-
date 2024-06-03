@@ -1,38 +1,45 @@
 <div class="container contenedor-principal">
-    <div class="row mt-5">
-        <div class="col-12 titulo mb-5">
-            <h1 class="fw-bold"><strong>Tus Reservas</strong></h1>
+    <div class="row col-12 m-auto">
+        <div class="col-12 d-inline-block mt-5 pb-5">
+            <div class="row titulo pb-2">
+                <h1 class="col-12 col-sm-9 fw-bold">Reservas realizadas</h1>
+            </div>
         </div>
-        <div class="row">
-            @for (casaRural of casasRurales; track casasRurales.length) {
-            <div class="card px-0 m-auto mx-md-none mb-4">
-                <img class="imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h2 class="card-title"><strong>{{ casaRural.titulo }}</strong></h2>
-                    <div>
-                        <i class="bi bi-geo-alt-fill d-inline-block me-1"></i>
-                        <h3 class="d-inline-block"> {{ casaRural.localizacion }} </h3>
-                    </div>
-                    <div class="precio-noche px-1 pt-2">
-                        <p class="d-inline-block"><strong>Precio/noche</strong></p>
-                        <p class="d-inline-block"><strong>{{casaRural.precio}}€</strong></p>
-                    </div>
 
-                    <ul class="px-3 pt-2">
-                        @for (detalle of casaRural.detalles; track detalle) {
-                        <li class="mt-1">{{detalle.descripcion}}</li>
-                        }
+        @for (reserva of reservas; track reserva.id) {
+        <div class="card px-0 m-auto mt-3 pb-3">
+            <img class="ms-0 me-0 imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg"
+                alt="Card image cap">
+            <div class="card-body">
+                <h2 class="card-title fw-bold">{{ reserva.alojamiento?.txtNombre }}</h2>
+                <div class="localizacion">
+                    <i class="bi bi-geo-alt-fill d-inline-block me-1"></i>
+                    <h3 class="d-inline-block"> {{ reserva.alojamiento?.idUbicacion?.provincia }},
+                        {{reserva.alojamiento?.idUbicacion?.codigoPostal}},
+                        {{reserva.alojamiento?.idUbicacion?.provincia}} </h3>
+                </div>
+                <div class="precio-noche">
+                    <p class="d-inline-block me-2 mt-3"><strong>Precio Total del Alquiler</strong></p>
+                    <p class="d-inline-block ms-5"><strong>{{reserva.precioTotalAlquiler}}€</strong></p>
+                    <p class="d-inline-block me-5 mt-3"><strong>Fecha Llegada:</strong></p>
+                    <p class="d-inline-block ms-2"><strong>{{reserva.fechaInicioAlquiler}}</strong></p>
+                    <p class="d-inline-block me-5 mt-3"><strong>Fecha Salida:</strong></p>
+                    <p class="d-inline-block ms-2"><strong>{{reserva.fechaFinAlquiler}}</strong></p>
+                    <!-- <p class="d-inline-block me-5 mt-3"><strong>Precio Total:</strong></p>
+                    <p class="d-inline-block ms-2"><strong>{{reserva.precioTotalAlquiler}}</strong></p> -->
+                </div>
 
-                    </ul>
+                <p class="mt-4 card-text">{{ reserva.alojamiento?.txtDescripcion }}</p>
+                <div class="row">
 
-                    <div class="row mt-3 ">
-                        <button class="boton-personalizado-a ms-1 col-5">DETALLES</button>
-                        <button class="boton-personalizado-b ms-2 col-5">CANCELAR</button>
-                    </div>
+                    <button class="col-4 ms-2 mt-2 boton-personalizado-a" routerLink="/detalles-casas"
+                        [queryParams]="{id: reserva.alojamiento?.id}">DETALLES</button>
+                    <button class="col-4 ms-2 mt-2 boton-personalizado-b" (click)="cancelarReserva(reserva.id)">CANCELAR</button>
 
                 </div>
+
             </div>
-            }
         </div>
+        }
     </div>
 </div>

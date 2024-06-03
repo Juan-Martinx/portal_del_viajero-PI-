@@ -2,11 +2,17 @@ package com.pdv.dto;
 
 import java.time.LocalDate;
 
+import com.pdv.model.Alojamiento;
+
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
+@Builder
 public class AlquilerAlojamientoDTO {
 	
 	private Long id;
@@ -29,4 +35,5 @@ public class AlquilerAlojamientoDTO {
 	
 	private Long idAlojamiento;
 	
+	private AlojamientoDTO alojamiento;
 }

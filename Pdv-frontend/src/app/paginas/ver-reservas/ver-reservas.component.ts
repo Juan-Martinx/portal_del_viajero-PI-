@@ -1,97 +1,38 @@
-import { Component } from '@angular/core';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatIconModule} from '@angular/material/icon';
-import {FormsModule} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AlquilerAlojamientoService } from '../../services/alquiler-alojamiento.service';
+import { IAlquilerAlojamientoDTO } from '../../../dto/IAlquilerAlojamientoDTO';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ver-reservas',
   standalone: true,
-  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule],
+  imports: [MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './ver-reservas.component.html',
   styleUrl: './ver-reservas.component.css'
 })
-export class VerReservasComponent {
+export class VerReservasComponent implements OnInit {
 
-  casasRurales: any[] = [
-    {
-      titulo: "Casa Rural en Málaga",
-      localizacion: "Málaga, Andalucía",
-      precio: "520",
-      detalles:[
-        {
-          descripcion: "Cuenta con piscina"
-        },
-        {
-          descripcion: "Restaurante cerca"
-        },
-        {
-          descripcion: "Playa a 5 minutos andando"
-        },
-        {
-          descripcion: "Gran tranquilidad alrededor"
-        }
-      ] 
-    },
-    {
-      titulo: "Urbanización privada",
-      localizacion: "Marbella, Andalucía",
-      precio: "700",
-      detalles:[
-        {
-          descripcion: "Cuenta con piscina"
-        },
-        {
-          descripcion: "Restaurante cerca"
-        },
-        {
-          descripcion: "Playa a 5 minutos andando"
-        },
-        {
-          descripcion: "Gran tranquilidad alrededor"
-        }
-      ] 
+  constructor(private alquilerAlojamientoService: AlquilerAlojamientoService) { }
 
-    },
-    {
-      titulo: "Zona de despeje total",
-      localizacion: "Gran Alacant, Alicante",
-      precio: "350",
-      detalles:[
-        {
-          descripcion: "Cuenta con piscina"
-        },
-        {
-          descripcion: "Restaurante cerca"
-        },
-        {
-          descripcion: "Playa a 5 minutos andando"
-        },
-        {
-          descripcion: "Gran tranquilidad alrededor"
-        }
-      ] 
-    },
-    {
-      titulo: "Casa Rural en Málaga",
-      localizacion: "Málaga, Andalucía",
-      precio: "520",
-      detalles:[
-        {
-          descripcion: "Cuenta con piscina"
-        },
-        {
-          descripcion: "Restaurante cerca"
-        },
-        {
-          descripcion: "Playa a 5 minutos andando"
-        },
-        {
-          descripcion: "Gran tranquilidad alrededor"
-        }
-      ] 
+  reservas: IAlquilerAlojamientoDTO[] = [];
+
+  ngOnInit(): void {
+    this.alquilerAlojamientoService.buscarReservasUsuario().subscribe(reservas => {
+      this.reservas = reservas;
+    });
+  }
+
+  cancelarReserva(id?: number): void {
+    if(confirm("¿Está seguro de que desea cancelar la reserva?")){
+      console.log(id);
+      this.alquilerAlojamientoService.cancelarReserva(id as number).subscribe(response => {
+        alert(response.mensaje);
+      });
     }
-  ]
-
+  }
 }

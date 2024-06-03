@@ -9,4 +9,5 @@ export interface IAlquilerAlojamientoDTO {
     numPlazasReservadas?: number;
     idUsuario?: IUsuarioDTO;
     idAlojamiento?: number;
+    alojamiento?: IAlojamientoDTO;
 }
