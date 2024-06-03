@@ -13,9 +13,11 @@ import { ConvertirGestorComponent } from './paginas/convertir-gestor/convertir-g
 import { VerPerfilComponent } from './paginas/ver-perfil/ver-perfil.component';
 import { CasasDisponiblesComponent } from './paginas/casas-disponibles/casas-disponibles.component';
 import { CasasAlquilerComponent } from './paginas/casas-alquiler/casas-alquiler.component';
+import { PaginaInicioComponent } from './paginas/pagina-inicio/pagina-inicio.component';
 
 export const routes: Routes = [
-    { path: '', component: DetallesCasaRuralClienteComponent, title: 'Inicio'},
+    { path: '', component: PaginaInicioComponent, title: 'Inicio'},
+    { path: 'inicio', component: PaginaInicioComponent, title: 'Inicio'},
     { path: 'registro', component: PaginaRegistroComponent, title: 'Inicio'},
     { path: 'convertir-gestor', component: ConvertirGestorComponent, title: 'Convertir en Gestor'},
     { path: 'editar-perfil', component: EditarPerfilComponent, title: 'Editar Perfil'},
