@@ -7,4 +7,5 @@ export interface IValoracionAlojamientoDTO {
     puntuacion?: number;
     idUsuario?: IUsuarioDTO;
     idAlojamiento?: IAlojamientoDTO;
+    alojamientoId?: number;
 }

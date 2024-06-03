@@ -24,6 +24,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -32,6 +33,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Table(name = "usuario")
+@EqualsAndHashCode(exclude = {"googleAccount", "idAlojamiento", "idAlquileres"})
 public class Usuario implements UserDetails{
 
 	@Id

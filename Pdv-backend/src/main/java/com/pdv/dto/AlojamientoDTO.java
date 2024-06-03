@@ -33,6 +33,10 @@ public class AlojamientoDTO {
 	@NotNull
 	private Double numPrecioNoche;
 	
+	private Double valoracionPromedio;
+	
+	private Integer numValoraciones;
+		
 	private UsuarioDTO idUsuario;
 	
 	private List<Long> idComodidades;

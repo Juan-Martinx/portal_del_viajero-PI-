@@ -52,6 +52,7 @@ public class Alojamiento {
 	@JoinColumn(referencedColumnName = "id_usuario", name = "id_usuario", nullable = false)
 	private Usuario idUsuario;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ValoracionAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<ValoracionAlojamiento> idValoracionesAlojamiento;
 	

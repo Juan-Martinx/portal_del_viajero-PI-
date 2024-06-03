@@ -6,26 +6,26 @@
 </button>
 <mat-menu #menu="matMenu" class="menu-panel">
   @if(!this.isLogged){
-  <button mat-menu-item routerLink="registro">
+  <button mat-menu-item routerLink="/registro">
     <strong><span>Regístrate</span></strong>
   </button>
-  <button mat-menu-item class="inicio-sesion" (click)="onLogin()">
+  <button mat-menu-item class="/inicio-sesion" (click)="onLogin()">
     <span>Iniciar Sesión</span>
   </button>
   }@else {
-    <button mat-menu-item routerLink="editar-perfil">
+    <button mat-menu-item routerLink="/editar-perfil">
       <span>Editar Perfil</span>
     </button>
-    <button mat-menu-item routerLink="reservas-realizadas">
+    <button mat-menu-item routerLink="/reservas-realizadas">
       <span>Ver reservas realizadas</span>
     </button>
-    <button mat-menu-item class="cerrar-sesion" (click)="onLogout()">
+    <button mat-menu-item class="/cerrar-sesion" (click)="onLogout()">
       <span>Cerrar Sesión</span>
     </button>
-    <button mat-menu-item routerLink="buscador-comodidades">
+    <button mat-menu-item routerLink="/buscador-comodidades">
       <span>Administrar comodidades</span>
     </button>
-    <button mat-menu-item routerLink="usuarios-registrados">
+    <button mat-menu-item routerLink="/usuarios-registrados">
       <span>Ver usuarios registrados</span>
     </button>
   }

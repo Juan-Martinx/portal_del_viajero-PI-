@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"idAlojamiento", "idUsuario"})
 @Table(name = "valoracion_alojamiento")
 public class ValoracionAlojamiento {
 
@@ -29,7 +31,7 @@ public class ValoracionAlojamiento {
 	@Column(name = "txt_mensaje", nullable = false)
 	private String txtMensaje;
 	
-	@Column(name = "txt_asunto", nullable = false, length = 50)
+	@Column(name = "txt_asunto", length = 50)
 	private String txtAsunto;
 	
 	

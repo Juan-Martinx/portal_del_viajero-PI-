@@ -53,8 +53,8 @@ public class AlojamientoController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<GenericAPIMessageDTO> modificarAlojamiento(@RequestBody AlojamientoDTO dto){
-		return ResponseEntity.ok().body(this.alojamientoService.modificarAlojamiento(dto));
+	public ResponseEntity<GenericAPIMessageDTO> modificarAlojamiento(@RequestBody AlojamientoDTO dto, Authentication autenticacion){
+		return ResponseEntity.ok().body(this.alojamientoService.modificarAlojamiento(dto, autenticacion));
 	}
 	
 	@DeleteMapping("/{id}")

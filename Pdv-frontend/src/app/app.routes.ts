@@ -32,5 +32,5 @@ export const routes: Routes = [
     { path: 'casas-disponibles/:username', component: CasasDisponiblesComponent, title: 'Tus Casas en Alquiler'},
     { path: 'authorized', component: AuthorizedComponent },
     { path: 'logout', component: LogoutComponent, title: 'Logout'},
-    { path: '**', redirectTo: '', pathMatch: 'full' }
+    { path: '**', redirectTo: 'inicio', pathMatch: 'full' }
 ];

@@ -74,6 +74,10 @@
     color:rgb(162, 162, 162);
 }
 
+.cabecera-comentarios:hover{
+    cursor: pointer;
+}
+
 @media(max-width: 490px){
     .valoraciones{
         font-size: 0.6rem;

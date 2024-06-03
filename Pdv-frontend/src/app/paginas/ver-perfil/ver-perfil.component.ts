@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
-import { Route, ActivatedRoute } from '@angular/router';
+import { Route, ActivatedRoute, RouterLink } from '@angular/router';
 import { IUsuarioDTO } from '../../../dto/IUsuarioDTO';
 @Component({
   selector: 'app-ver-perfil',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './ver-perfil.component.html',
   styleUrl: './ver-perfil.component.css'
 })

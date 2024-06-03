@@ -17,4 +17,6 @@ export interface IAlojamientoDTO {
     idUbicacion?: IUbicacionAlojamientoDTO;
     idAlojamientoComodidades?: IAlojamientoComodidadAlojamientoDTO[];
     idComodidades?: number[];
+    numValoraciones?: number;
+    valoracionPromedio?: number;
 }

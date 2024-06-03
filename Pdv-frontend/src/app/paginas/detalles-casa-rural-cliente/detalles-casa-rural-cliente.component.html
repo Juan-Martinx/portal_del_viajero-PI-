@@ -129,58 +129,212 @@
             </div>
         </div>
 
+        <form class="row mt-3" [formGroup]="valorar">
+            <div class="col-12 ">
+                <h2 class="fw-bold">¡Cuéntanos cómo ha sido tu experiencia!</h2>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field class="w-100">
+                    <mat-label>Puntuación del 1 al 5</mat-label>
+                    <input type="number" matInput placeholder="Puntuación del 1 al 5"
+                        formControlName="puntuacion" min="0" max="5"/>
+                    @if(this.valorar.get('puntuacion')?.errors?.['required']){
+                    <mat-error>Puntuación <strong>requerido</strong></mat-error>
+                    }@else if(this.valorar.get('puntuacion')?.errors?.['min']){
+                    <mat-error>La puntuación <strong>no puede ser menor a 0</strong></mat-error>
+                    }@else if(this.valorar.get('puntuacion')?.errors?.['max']){
+                        <mat-error>La puntuación <strong>no puede ser mayor a 5</strong></mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            
+            <mat-form-field class="col-md-9">
+                <mat-label>Comentario</mat-label>
+                <textarea matInput placeholder="Escribe aquí tu comentario..."
+                    formControlName="comentario"></textarea>
+                @if(this.valorar.get('comentario')?.errors?.['required']){
+                <mat-error>Comentario <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+
+            <div class="col-md-4">
+                <button class="w-100 boton-personalizado-a" (click)="realizarComentario()"> Enviar</button>
+            </div>
+        </form>
+
         <div class="row d-flex mt-4 justify-content-center mt-2">
             <div class="col-12 valoraciones d-flex justify-content-center align-items-center">
                 <img class="paz" src="../../../assets/paginaRegistro/paz1.png">
                 <h2 class="fw-bold mt-4 mx-2">Valoraciones</h2>
                 <img class="d-inline-flex paz" src="../../../assets/paginaRegistro/paz.png">
                 <div class="d-inline-flex mx-2 flex-column align-items-center mt-4">
-                    <strong>4,90</strong>
+                    <strong>{{this.valoracionPromedio}}</strong>
                     <div>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill estrella"></i>
-                    </div>
-
-                </div>
-
-                <div class="contenedor-evaluaciones d-flex h-75 align-items-center justify-content-center ps-2">
-                    <strong>10</strong>
-                    <a class="evaluaciones">evaluaciones</a>
-                </div>
-
-            </div>
-            <div class="col-12 mt-5 contenedor-resenas-comentarios">
-                @for (comentario of valoraciones ; track comentario.id) {
-                <div class="col-12 col-md-5 d-inline-flex flex-column">
-                    <div class="cabecera-comentarios">
-                        <img class="d-inline-flex perfil-usuario"
-                            src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-                        <div class="d-inline-flex flex-column align-items-center ms-2">
-                            <strong>{{comentario.idUsuario?.username}}</strong>
-                            <p class="texto-gray">{{comentario.idUsuario?.numTelefono}}</p>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <div class="d-inline-flex">
+                        @if(this.valoracionPromedio < 0.5){
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 0.5 && this.valoracionPromedio < 1){
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 1 && this.valoracionPromedio < 1.5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 1.5 && this.valoracionPromedio < 2){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 2 && this.valoracionPromedio < 2.5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 2.5 && this.valoracionPromedio < 3){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 3 && this.valoracionPromedio < 3.5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 3.5 && this.valoracionPromedio < 4){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 4 && this.valoracionPromedio < 4.5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 4.5 && this.valoracionPromedio < 5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 5){
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
-                        </div>
-                        <p class="d-inline-flex me-2" style="font-size: 40px; color: gray;">.</p>
-                        <p class="d-inline-flex texto-gray">Hace 2 semanas</p>
+                        }
                     </div>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt sit maxime ipsam, nesciunt at
-                        harum quas sed magni expedita quam, voluptatum eius aut officiis eum reiciendis animi
-                        suscipit earum provident.</p>
+                </div>
 
+                <div class="contenedor-evaluaciones d-flex h-75 align-items-center justify-content-center ps-4">
+                    <strong>{{this.numValoraciones}}</strong>
+                    <a class="evaluaciones">evaluaciones</a>
+                </div>
+
+            </div>
+            
+            <div class="col-12 mt-5 contenedor-resenas-comentarios">
+                @for (valoracion of this.valoraciones ; track valoracion.id) {
+                <div class="col-12 col-md-5 d-inline-flex flex-column">
+                    <div class="cabecera-comentarios" routerLink="/ver-perfil/{{valoracion.idUsuario?.username}}">
+                        <img class="d-inline-flex perfil-usuario"
+                            src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                        <div class="d-inline-flex flex-column align-items-center ms-2">
+                            <strong>{{valoracion.idUsuario?.username}}</strong>
+                            <p class="texto-gray">{{valoracion.idUsuario?.numTelefono}}</p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="d-inline-flex mt-2">
+                            <!-- ESTRELLAS VALORACIÓN -->
+                            @if(valoracion.puntuacion && valoracion.puntuacion < 0.5){
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 0.5 && valoracion.puntuacion < 1){
+                                <i class="bi bi-star-half"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 1 && valoracion.puntuacion < 1.5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 1.5 && valoracion.puntuacion < 2){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 2 && valoracion.puntuacion < 2.5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 2.5 && valoracion.puntuacion < 3){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 3 && valoracion.puntuacion < 3.5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 3.5 && valoracion.puntuacion < 4){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 4 && valoracion.puntuacion < 4.5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 4.5 && valoracion.puntuacion < 5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
+                            }
+
+                        </div>
+                    </div>
+                    <p>{{valoracion.txtMensaje}}</p>
 
                 </div>
                 }

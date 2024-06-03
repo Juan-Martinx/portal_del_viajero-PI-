@@ -10,16 +10,17 @@ import { IComodidadAlojamientoDTO } from '../../../dto/IComodidadAlojamientoDTO'
 import { IValoracionAlojamientoDTO } from '../../../dto/IValoracionAlojamientoDTO';
 import { IAlojamientoDTO } from '../../../dto/IAlojamientoDTO';
 import { AlojamientoService } from '../../services/alojamiento.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CodTipoComodidad } from '../../../dto/enumCodTipoComodidad';
 import { AlquilerAlojamientoService } from '../../services/alquiler-alojamiento.service';
 import { IAlquilerAlojamientoDTO } from '../../../dto/IAlquilerAlojamientoDTO';
+import { ValoracionAlojamientoService } from '../../services/valoracion-alojamiento.service';
 
 @Component({
   selector: 'app-detalles-casa-rural-cliente',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [MatDatepickerModule, MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule],
+  imports: [MatDatepickerModule, MatInputModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './detalles-casa-rural-cliente.component.html',
   styleUrl: './detalles-casa-rural-cliente.component.css'
 })
@@ -31,13 +32,18 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
   valoraciones: IValoracionAlojamientoDTO[] = [];
   diasDiferencia: number = 0;
   precioTotal: number = 0;
+  valoracionPromedio = 0;
+  numValoraciones = 0;
 
-  constructor(private alojamientoService: AlojamientoService, private route: ActivatedRoute, private alquilerAlojamientoService: AlquilerAlojamientoService) { }
+  constructor(private alojamientoService: AlojamientoService, private route: ActivatedRoute, private alquilerAlojamientoService: AlquilerAlojamientoService, private valoracionAlojamientoService: ValoracionAlojamientoService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.alojamientoService.buscarAlojamientoById(params['id']).subscribe(alojamiento => {
         this.alojamiento = alojamiento;
+        this.valoraciones = alojamiento.idValoracionesAlojamiento as IValoracionAlojamientoDTO[];
+        this.valoracionPromedio = alojamiento.valoracionPromedio as number;
+        this.numValoraciones = alojamiento.numValoraciones as number;
         alojamiento.idAlojamientoComodidades?.forEach(comodidad => {
           if (comodidad.idComodidadAlojamiento?.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.COMODIDAD) {
             this.alojamientoComodidades.push(comodidad.idComodidadAlojamiento);
@@ -51,8 +57,13 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
 
   reservar = new FormGroup({
     llegada: new FormControl(new Date(new Date().setDate(new Date().getDate() + 1)), [Validators.required]),
-    salida: new FormControl(new Date(new Date().setDate(new Date().getDate() + 2)), [Validators.required]),
+    salida: new FormControl(new Date(new Date().setDate(new Date().getDate() + 1)), [Validators.required]),
     huespedes: new FormControl(this.alojamiento.numPlazaMin, [Validators.required, Validators.min(this.alojamiento.numPlazaMin as number), Validators.max(this.alojamiento.numPlazaMax as number)])
+  });
+
+  valorar = new FormGroup({
+    puntuacion: new FormControl(0, [Validators.required, Validators.min(0), Validators.max(5)]),
+    comentario: new FormControl('', [Validators.required])
   });
 
   // Filtro para la fecha de salida
@@ -102,6 +113,21 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
       alert("Por favor, rellene todos los campos para realizar la reserva");
     }
 
+  }
+
+  realizarComentario(){
+    if(this.valorar.valid){
+        const valoracion: IValoracionAlojamientoDTO = {
+          puntuacion: this.valorar.get('puntuacion')?.value as number,
+          txtMensaje: this.valorar.get('comentario')?.value as string,
+          alojamientoId: this.alojamiento.id
+        }
+        this.valoracionAlojamientoService.realizarReserva(valoracion).subscribe(response => {
+          alert(response.mensaje);
+        });
+      }else{
+      alert("Por favor, rellene todos los campos para realizar la valoración");
+    }
   }
 
 }

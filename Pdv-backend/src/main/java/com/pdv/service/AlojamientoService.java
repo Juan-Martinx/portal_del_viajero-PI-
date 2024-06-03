@@ -4,24 +4,27 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import com.pdv.dto.AlojamientoComodidadAlojamientoDTO;
 import com.pdv.dto.AlojamientoDTO;
-import com.pdv.dto.AlquilerAlojamientoDTO;
 import com.pdv.dto.GenericAPIMessageDTO;
 import com.pdv.dto.UbicacionAlojamientoDTO;
+import com.pdv.dto.ValoracionAlojamientoDTO;
+import com.pdv.enums.CodPerfiles;
 import com.pdv.model.Alojamiento;
 import com.pdv.model.AlojamientoComodidadAlojamiento;
-import com.pdv.model.AlquilerAlojamiento;
 import com.pdv.model.UbicacionAlojamiento;
 import com.pdv.repository.AlojamientoComodidadAlojamientoRepository;
 import com.pdv.repository.AlojamientoRepository;
+import com.pdv.repository.AlquilerAlojamientoRepository;
 import com.pdv.repository.ComodidadAlojamientoRepository;
-import com.pdv.repository.UbicacionAlojamientoRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +38,9 @@ public class AlojamientoService {
 	private final ComodidadAlojamientoRepository comodidadAlojamientoRepository;
 	private final AlojamientoComodidadAlojamientoRepository alojamientoComodidadAlojamientoRepository;
 	private final AlojamientoComodidadAlojamientoService alojamientoComodidadAlojamientoService;
-
+	private final ValoracionAlojamientoService valoracionAlojamientoService;
+	private final AlquilerAlojamientoRepository alquilerAlojamientoRepository;
+	
 	public List<AlojamientoDTO> buscarAlojamientoUsuario(Authentication autenticacion) {
 		var usuario = this.usuarioService.obtenerUsuarioApp(autenticacion);
 		var alojamientosList = this.alojamientoRepository.findByIdUsuarioId(usuario.getId());
@@ -108,10 +113,21 @@ public class AlojamientoService {
 	}
 
 	@Transactional
-	public GenericAPIMessageDTO modificarAlojamiento(AlojamientoDTO dto) {
+	public GenericAPIMessageDTO modificarAlojamiento(AlojamientoDTO dto, Authentication autenticacion) {
 		var jpa = this.alojamientoRepository.findById(dto.getId())
 				.orElseThrow(() -> new RuntimeException("Alojamiento no encontrado"));
-
+		
+		var usuarioAutenticado = usuarioService.obtenerUsuarioApp(autenticacion);
+		
+        boolean isAdmin =  autenticacion.getAuthorities()
+        		.stream().map(GrantedAuthority::getAuthority)
+        		.anyMatch(authority -> CodPerfiles.PERFIL_ADMIN.name().equals(authority));
+        
+		if(usuarioAutenticado.getId() != jpa.getIdUsuario().getId() || !isAdmin) {
+			return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("¡No debes modificar el alojamiento de otro usuario!")
+					.fechaYHora(LocalDateTime.now()).build();
+		}
+		
 		// MODIFICAR ATRIBUTOS DEL JPA
 		jpa.setTxtNombre(dto.getTxtNombre());
 		jpa.setTxtDescripcion(dto.getTxtDescripcion());
@@ -165,9 +181,32 @@ public class AlojamientoService {
 	
 	public AlojamientoDTO toDto(Alojamiento jpa) {
 		var comodidadesList = new HashSet<AlojamientoComodidadAlojamientoDTO>();
+		
 		jpa.getIdAlojamientoComodidades().forEach(comodidad -> {
 			comodidadesList.add(alojamientoComodidadAlojamientoService.toDtoWithoutAlojamiento(comodidad));
 		});
+		
+		var valoracionesList = new HashSet<ValoracionAlojamientoDTO>();
+        AtomicReference<Double> valorPromedio = new AtomicReference<>(0.00);
+        AtomicReference<Integer> numValoraciones = new AtomicReference<>(0);
+        AtomicInteger index = new AtomicInteger(0);
+
+        if(jpa.getIdValoracionesAlojamiento().isEmpty()) {
+            valorPromedio.updateAndGet(v -> (v + 5.00));
+        }else{
+    		jpa.getIdValoracionesAlojamiento().forEach(valoracion -> {
+    			if(index.get() == 0) {
+                    valorPromedio.updateAndGet(v -> (v + valoracion.getPuntuacion()));
+                    index.updateAndGet(i -> i+1);
+    			}else {
+                    valorPromedio.updateAndGet(v -> (v + valoracion.getPuntuacion()) / 2);
+                    index.updateAndGet(i -> i+1);
+    			}
+    			numValoraciones.updateAndGet(v -> (v + 1));
+    			valoracionesList.add(valoracionAlojamientoService.toDto(valoracion));
+    		});
+        }
+				
 		var dto = AlojamientoDTO.builder().id(jpa.getId()).txtNombre(jpa.getTxtNombre())
 				.txtDescripcion(jpa.getTxtDescripcion()).numPlazaMin(jpa.getNumPlazaMin())
 				.numPlazaMax(jpa.getNumPlazaMax()).numPrecioNoche(jpa.getNumPrecioNoche())
@@ -175,6 +214,9 @@ public class AlojamientoService {
 						.provincia(jpa.getIdUbicacion().getProvincia())
 						.lineaDireccion(jpa.getIdUbicacion().getLineaDireccion())
 						.codigoPostal(jpa.getIdUbicacion().getCodigoPostal()).build())
+				.idValoracionesAlojamiento(valoracionesList)
+				.valoracionPromedio(valorPromedio.get())
+				.numValoraciones(numValoraciones.get())
 				.idAlojamientoComodidades(comodidadesList).build();
 		return dto;
 	}
