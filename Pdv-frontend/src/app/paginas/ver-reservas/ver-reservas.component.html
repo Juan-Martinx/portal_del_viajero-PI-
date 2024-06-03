@@ -12,24 +12,33 @@
                 alt="Card image cap">
             <div class="card-body">
                 <h2 class="card-title fw-bold">{{ reserva.alojamiento?.txtNombre }}</h2>
-                <div class="localizacion">
-                    <i class="bi bi-geo-alt-fill d-inline-block me-1"></i>
-                    <h3 class="d-inline-block"> {{ reserva.alojamiento?.idUbicacion?.provincia }},
+                <div class="localizacion d-inline-flex">
+                    <i class="bi bi-geo-alt-fill d-inline-flex me-1 pt-1"></i>
+                    <h3 class="d-inline-flex justify-content-center align-content-center"> {{ reserva.alojamiento?.idUbicacion?.provincia }},
                         {{reserva.alojamiento?.idUbicacion?.codigoPostal}},
-                        {{reserva.alojamiento?.idUbicacion?.provincia}} </h3>
+                        {{reserva.alojamiento?.idUbicacion?.provincia}}</h3>
                 </div>
-                <div class="precio-noche">
-                    <p class="d-inline-block me-2 mt-3"><strong>Precio Total del Alquiler</strong></p>
-                    <p class="d-inline-block ms-5"><strong>{{reserva.precioTotalAlquiler}}€</strong></p>
-                    <p class="d-inline-block me-5 mt-3"><strong>Fecha Llegada:</strong></p>
-                    <p class="d-inline-block ms-2"><strong>{{reserva.fechaInicioAlquiler}}</strong></p>
-                    <p class="d-inline-block me-5 mt-3"><strong>Fecha Salida:</strong></p>
-                    <p class="d-inline-block ms-2"><strong>{{reserva.fechaFinAlquiler}}</strong></p>
+                <div class="precio-noche d-flex justify-content-between flex-column">
+                    <div class="d-flex justify-content-between mt-1">
+                        <p ><strong>Precio Total:</strong></p>
+                        <p ><strong>{{reserva.precioTotalAlquiler}}€</strong></p>
+                    </div>
+                    <div class="d-flex mt-1 justify-content-between">
+
+                        <p><strong>Fecha Llegada:</strong></p>
+                        <p><strong>{{reserva.fechaInicioAlquiler}}</strong></p>
+
+                    </div>
+                    <div class="d-flex justify-content-between mt-1" >
+
+                        <p><strong>Fecha Salida:</strong></p>
+                        <p><strong>{{reserva.fechaFinAlquiler}}</strong></p>
+                    </div>
                     <!-- <p class="d-inline-block me-5 mt-3"><strong>Precio Total:</strong></p>
                     <p class="d-inline-block ms-2"><strong>{{reserva.precioTotalAlquiler}}</strong></p> -->
                 </div>
 
-                <p class="mt-4 card-text">{{ reserva.alojamiento?.txtDescripcion }}</p>
+                <p class="mt-2 card-text">{{ reserva.alojamiento?.txtDescripcion }}</p>
                 <div class="row">
 
                     <button class="col-4 ms-2 mt-2 boton-personalizado-a" routerLink="/detalles-casas"

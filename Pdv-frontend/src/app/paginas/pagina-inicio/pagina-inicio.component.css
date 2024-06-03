@@ -448,3 +448,20 @@ h5{
         margin-bottom: 5%;
     }
 }
+
+.card-text{
+    max-height: 58px;
+    height: 58px;
+    overflow: hidden;
+}
+
+
+.localizacion{
+    max-height: 30px;
+    height: 30px;
+    overflow: hidden;
+}
+
+.btn-detalles{
+    margin-top: 20%;
+}
