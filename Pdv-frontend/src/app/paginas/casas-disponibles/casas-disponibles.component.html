@@ -1,33 +1,33 @@
 <div class="container contenedor-principal">
-    <div class="row m-auto">
-        <div class="col-12 titulo pt-3">
-            <h1 class="fw-bold">Casas Rurales de {{ usuario }}</h1>
+    <div class="row col-12 m-auto">
+        <div class="col-12 d-inline-block mt-5 pb-5">
+            <div class="row titulo pb-2">
+                <h1 class="col-12 col-sm-9 fw-bold">Casas en Alquiler de {{this.usuario}}</h1>
+            </div>
         </div>
 
-        @for (casaRural of casasRurales; track casasRurales.length) {
-        <div class="card px-0 m-auto mt-4 pb-3">
+        @for (alojamiento of alojamientos; track alojamiento.id) {
+        <div class="card px-0 m-auto mt-3 pb-3">
             <img class="ms-0 me-0 imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg"
                 alt="Card image cap">
             <div class="card-body">
-                <h2 class="card-title fw-bold">{{ casaRural.titulo }}</h2>
+                <h2 class="card-title fw-bold">{{ alojamiento.txtNombre }}</h2>
                 <div class="localizacion">
                     <i class="bi bi-geo-alt-fill d-inline-block me-1"></i>
-                    <h3 class="d-inline-block"> {{ casaRural.localizacion }} </h3>
+                    <h3 class="d-inline-block"> {{ alojamiento.idUbicacion?.provincia }}, {{alojamiento.idUbicacion?.codigoPostal}}, {{alojamiento.idUbicacion?.provincia}} </h3>
                 </div>
                 <div class="precio-noche">
                     <p class="d-inline-block me-5 mt-3"><strong>Precio/noche</strong></p>
-                    <p class="d-inline-block ms-5"><strong>{{casaRural.precio}}€</strong></p>
+                    <p class="d-inline-block ms-5"><strong>{{alojamiento.numPrecioNoche}}€</strong></p>
                 </div>
 
-                <p class="mt-4 card-text">{{ casaRural.detalles }}</p>
+                <p class="mt-4 card-text">{{ alojamiento.txtDescripcion }}</p>
                 <div class="row">
-                    <button class="col-8 ms-2 mt-2 boton-personalizado-a">DETALLES</button>
+                    <button class="col-4 ms-2 mt-2 boton-personalizado-a" routerLink="/detalles-casas" [queryParams]="{id: alojamiento.id}">DETALLES</button>
                 </div>
 
             </div>
         </div>
         }
-
-
     </div>
 </div>

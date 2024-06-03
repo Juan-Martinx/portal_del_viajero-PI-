@@ -12,4 +12,6 @@ import com.pdv.model.Alojamiento;
 public interface AlojamientoRepository extends JpaRepository<Alojamiento, Long> {
 	
 	public Optional<List<Alojamiento>> findByIdUsuarioId(Long id);
+	
+	public Optional<List<Alojamiento>> findByIdUsuarioUsername(String username);
 }

@@ -26,6 +26,7 @@ export class AuthorizedComponent implements OnInit {
       const code_verifier = this.tokenService.getVerifier();
       this.tokenService.deleteVerifier();
       this.getToken(this.code, code_verifier);
+      setTimeout(() => this.router.navigate(['/']),1000);
     });
   }
 

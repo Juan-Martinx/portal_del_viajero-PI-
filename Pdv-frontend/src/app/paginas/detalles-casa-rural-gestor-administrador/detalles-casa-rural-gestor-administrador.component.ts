@@ -12,6 +12,7 @@ import { IPageableDTO } from '../../../dto/IPageableDTO';
 import { computeMsgId } from '@angular/compiler';
 import { IAlojamientoDTO } from '../../../dto/IAlojamientoDTO';
 import { AlojamientoService } from '../../services/alojamiento.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-detalles-casa-rural-gestor-administrador',
@@ -37,15 +38,19 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
   alojamientoComodidades: IComodidadAlojamientoDTO[] = [];
   alojamientoInstalaciones: IComodidadAlojamientoDTO[] = [];
 
-  constructor(private route: ActivatedRoute, private comodidadService: ComodidadService, private alojamientoService: AlojamientoService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private comodidadService: ComodidadService, private alojamientoService: AlojamientoService, private router: Router, private tokenService: TokenService) { }
 
   ngOnInit(): void {
 
     this.route.queryParams.subscribe(params => {
+      if(!this.tokenService.isGestor()){
+        this.router.navigate(['/']);
+      }
+
       if (params['action'] == 'new') {
         this.isActionNew = true;
       }else{
-        this.alojamientoService.buscarAlojamientoById(params['id']).subscribe(alojamiento => {
+        this.alojamientoService.buscarAlojamientoByIdForGestion(params['id']).subscribe(alojamiento => {
           this.alojamientoModificado = alojamiento;
           this.alojamientoForm.get('titulo')?.setValue(alojamiento.txtNombre as string);
           this.alojamientoForm.get('descripcion')?.setValue(alojamiento.txtDescripcion as string);

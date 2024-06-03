@@ -37,6 +37,16 @@ public class AlojamientoController {
 		return ResponseEntity.ok().body(this.alojamientoService.buscarAlojamientoById(id));
 	}
 	
+	@GetMapping("/gestion/{id}")
+	public ResponseEntity<AlojamientoDTO> buscarAlojamientoByIdForGestion(@PathVariable("id") Long id, Authentication autenticacion){
+		return ResponseEntity.ok().body(this.alojamientoService.buscarAlojamientoByIdForGestion(id, autenticacion));
+	}
+	
+	@GetMapping("/public/username/{username}")
+	public ResponseEntity<List<AlojamientoDTO>> buscarAlojamientoByUsername(@PathVariable("username") String username){
+		return ResponseEntity.ok().body(this.alojamientoService.buscarAlojamientoByUsername(username));
+	}
+	
 	@PostMapping
 	public ResponseEntity<GenericAPIMessageDTO> aniadirAlojamiento(@RequestBody AlojamientoDTO dto, Authentication autenticacion){
 		return ResponseEntity.ok().body(this.alojamientoService.aniadirAlojamiento(dto, autenticacion));

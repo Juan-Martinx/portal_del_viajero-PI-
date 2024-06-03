@@ -27,6 +27,7 @@ export const routes: Routes = [
     { path: 'detalles-casas-gestor', component: DetallesCasaRuralGestorAdministradorComponent, title: 'Detalles de las Casas Rurales de los Gestores y Administradores'},
     { path: 'detalles-casas', component: DetallesCasaRuralClienteComponent, title: 'Detalles de las Casas Rurales para los Clientes'},
     { path: 'casas-alquiler', component: CasasAlquilerComponent, title: 'Tus Casas en Alquiler'},
+    { path: 'casas-disponibles/:username', component: CasasDisponiblesComponent, title: 'Tus Casas en Alquiler'},
     { path: 'authorized', component: AuthorizedComponent },
     { path: 'logout', component: LogoutComponent, title: 'Logout'},
     { path: '**', redirectTo: '', pathMatch: 'full' }

@@ -53,6 +53,26 @@ public class AlojamientoService {
 				.orElseThrow(() -> new RuntimeException("Alojamiento no encontrado"));
 		return this.toDto(jpa);
 	}
+	
+	public AlojamientoDTO buscarAlojamientoByIdForGestion(Long id, Authentication autenticacion) {
+		var jpa = this.alojamientoRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Alojamiento no encontrado"));
+		if(jpa.getIdUsuario().getId() == usuarioService.obtenerUsuarioApp(autenticacion).getId()) {
+			return this.toDto(jpa);
+		}
+		return null;
+	}
+	
+	public List<AlojamientoDTO> buscarAlojamientoByUsername(String username) {
+		var jpaList = this.alojamientoRepository.findByIdUsuarioUsername(username);
+		var dtoList = new ArrayList<AlojamientoDTO>();
+		if(jpaList.isPresent() && !jpaList.get().isEmpty()) {
+			jpaList.get().forEach(jpa -> {
+				dtoList.add(this.toDto(jpa));
+			});
+		}
+		return dtoList;
+	}
 
 	@Transactional
 	public GenericAPIMessageDTO aniadirAlojamiento(AlojamientoDTO dto, Authentication autenticacion) {

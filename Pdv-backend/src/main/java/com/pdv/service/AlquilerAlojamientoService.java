@@ -43,6 +43,12 @@ public class AlquilerAlojamientoService {
 		long numDiasReservados = ChronoUnit.DAYS.between(dto.getFechaInicioAlquiler(), dto.getFechaFinAlquiler()) - 1;
 		Double precioTotal = (numDiasReservados+1) * alojamiento.getNumPrecioNoche();
 		
+		//Comprobar que el usuario no sea el mismo
+		if(usuario.getId() == alojamiento.getIdUsuario().getId()) {
+    		return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("ERROR: ¡No puedes alquilarte una casa a ti mismo!")
+    				.fechaYHora(LocalDateTime.now()).build();
+		}
+		
 		//Comprobar que la fecha de salida no sea anterior a la de llegada
 		if(dto.getFechaFinAlquiler().isBefore(dto.getFechaInicioAlquiler())) {
     		return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("ERROR: ¡La fecha de llegada debe ser anterior a la de salida!")

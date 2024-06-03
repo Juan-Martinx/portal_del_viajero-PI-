@@ -18,8 +18,16 @@ export class AlojamientoService {
     return this.http.get<IAlojamientoDTO[]>(environment.api + this.alojamientoAPI);
   }
 
+  buscarAloajmientoByUsername(username: string): Observable<IAlojamientoDTO[]> {
+    return this.http.get<IAlojamientoDTO[]>(environment.api + this.alojamientoAPI + "/public/username/" + username);
+  }
+
   buscarAlojamientoById(id:number): Observable<IAlojamientoDTO> {
     return this.http.get<IAlojamientoDTO>(environment.api + this.alojamientoAPI + "/" + id);
+  }
+
+  buscarAlojamientoByIdForGestion(id:number): Observable<IAlojamientoDTO> {
+    return this.http.get<IAlojamientoDTO>(environment.api + this.alojamientoAPI + "/gestion/" + id);
   }
 
   aniadirAlojamiento(alojamiento: IAlojamientoDTO): Observable<IGenericApiMessageDTO> {
