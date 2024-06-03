@@ -12,13 +12,13 @@
                 alt="Card image cap">
             <div class="card-body">
                 <h2 class="card-title fw-bold">{{ alojamiento.txtNombre }}</h2>
-                <div class="localizacion">
-                    <i class="bi bi-geo-alt-fill d-inline-block me-1"></i>
-                    <h3 class="d-inline-block"> {{ alojamiento.idUbicacion?.provincia }}, {{alojamiento.idUbicacion?.codigoPostal}}, {{alojamiento.idUbicacion?.provincia}} </h3>
+                <div class="localizacion d-inline-flex">
+                    <i class="bi bi-geo-alt-fill d-inline-flex me-1 pt-1"></i>
+                    <h3 class="d-inline-flex"> {{ alojamiento.idUbicacion?.provincia }}, {{alojamiento.idUbicacion?.codigoPostal}}, {{alojamiento.idUbicacion?.provincia}} </h3>
                 </div>
-                <div class="precio-noche">
-                    <p class="d-inline-block me-5 mt-3"><strong>Precio/noche</strong></p>
-                    <p class="d-inline-block ms-5"><strong>{{alojamiento.numPrecioNoche}}€</strong></p>
+                <div class="precio-noche d-flex justify-content-between pt-3">
+                    <p class="d-inline-block"><strong>Precio/noche</strong></p>
+                    <p class="d-inline-block"><strong>{{alojamiento.numPrecioNoche}}€</strong></p>
                 </div>
 
                 <p class="mt-4 card-text">{{ alojamiento.txtDescripcion }}</p>

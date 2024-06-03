@@ -10,6 +10,12 @@
     text-align: start;
 }
 
+.localizacion{
+    max-height: 30px;
+    height: 30px;
+    overflow: hidden;
+}
+
 .contenedor-anadir{
     text-align: end;
 }
@@ -29,4 +35,14 @@
 .precio-noche{
     border-top: 1px solid rgba(162, 162, 162, 0.4);
     border-bottom: 1px solid rgba(162, 162, 162, 0.4);
+}
+
+.card-text{
+    max-height: 58px;
+    height: 58px;
+    overflow: hidden;
+}
+
+.botones-personalizados{
+    margin-top: 20%;
 }

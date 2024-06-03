@@ -141,18 +141,18 @@
                     <img class="ms-lg-0 me-lg-0 imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg" alt="Card image cap">
                     <div class="card-body">
                         <h3 class="card-title"><strong>{{ casaRural.titulo }}</strong></h3>
-                        <div class="localizacion">
-                            <i class="bi bi-geo-alt-fill d-inline-block me-lg-1"></i>
-                            <h5 class="d-inline-block"> {{ casaRural.localizacion }} </h5>
+                        <div class="localizacion d-inline-flex">
+                            <i class="bi bi-geo-alt-fill d-inline-flex me-lg-1 pt-1"></i>
+                            <h5 class="d-inline-flex"> {{ casaRural.localizacion }} </h5>
                         </div>
-                        <div class="precio-noche">
-                            <p class="d-inline-block me-lg-5 mt-lg-3"><strong>Precio/noche</strong></p>
-                            <p class="d-inline-block ms-lg-5"><strong>{{casaRural.precio}}€</strong></p>
+                        <div class="precio-noche d-flex justify-content-between pt-3">
+                            <p class="d-inline-flex"><strong>Precio/noche</strong></p>
+                            <p class="d-inline-flex"><strong>{{casaRural.precio}}€</strong></p>
                         </div>
                         
                         <p class="mt-lg-4 card-text">{{ casaRural.detalles }}</p>
                         <div class="" style="text-align: end;">
-                            <button class="mt-lg-3 me-lg-1 btn-detalles" routerLink="detalles-casas-cliente">DETALLES</button>
+                            <button class=" me-lg-1 btn-detalles" routerLink="detalles-casas-cliente">DETALLES</button>
                         </div>
 
                     </div>

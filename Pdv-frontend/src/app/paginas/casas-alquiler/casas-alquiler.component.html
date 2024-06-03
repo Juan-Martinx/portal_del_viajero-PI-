@@ -15,17 +15,17 @@
                 alt="Card image cap">
             <div class="card-body">
                 <h2 class="card-title fw-bold">{{ casaRural.txtNombre }}</h2>
-                <div class="localizacion">
-                    <i class="bi bi-geo-alt-fill d-inline-block me-1"></i>
-                    <h3 class="d-inline-block"> {{ casaRural.idUbicacion?.provincia }}, {{casaRural.idUbicacion?.codigoPostal}}, {{casaRural.idUbicacion?.provincia}} </h3>
+                <div class="localizacion d-inline-flex">
+                    <i class="bi bi-geo-alt-fill d-inline-flex me-1 pt-1"></i>
+                    <h3 class="d-inline-flex"> {{ casaRural.idUbicacion?.provincia }}, {{casaRural.idUbicacion?.codigoPostal}}, {{casaRural.idUbicacion?.provincia}} </h3>
                 </div>
-                <div class="precio-noche">
-                    <p class="d-inline-block me-5 mt-3"><strong>Precio/noche</strong></p>
-                    <p class="d-inline-block ms-5"><strong>{{casaRural.numPrecioNoche}}€</strong></p>
+                <div class="precio-noche d-flex justify-content-between pt-3">
+                    <p class="d-inline-flex"><strong>Precio/noche</strong></p>
+                    <p class="d-inline-flex"><strong>{{casaRural.numPrecioNoche}}€</strong></p>
                 </div>
 
                 <p class="mt-4 card-text">{{ casaRural.txtDescripcion }}</p>
-                <div class="row">
+                <div class="row botones-personalizados">
                     <button class="col-4 ms-2 mt-2 boton-personalizado-a" routerLink="/detalles-casas-gestor" [queryParams]="{id: casaRural.id}">EDITAR</button>
                     <button class="col-4 ms-2 mt-2 boton-personalizado-b" (click)="eliminarCasaRural(casaRural.id)">ELIMINAR</button>
                 </div>
