@@ -9,11 +9,12 @@ import { TokenService } from '../../services/token.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { IUsuarioDTO } from '../../../dto/IUsuarioDTO';
 import { catchError } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-editar-perfil',
   standalone: true,
-  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatIconModule, FormsModule],
+  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatIconModule, FormsModule, RouterLink],
   templateUrl: './editar-perfil.component.html',
   styleUrl: './editar-perfil.component.css'
 })
