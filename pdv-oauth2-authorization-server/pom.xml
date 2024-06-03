@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.pdv.oauth</groupId>
-	<artifactId>Pdv-backend</artifactId>
+	<artifactId>Pdv-oauth2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PortalDelViajero</name>
 	<properties>
