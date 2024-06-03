@@ -38,7 +38,7 @@ public class ValoracionAlojamientoService {
 		var reservasOpt = this.alquilerAlojamientoRepository.findByIdUsuarioIdAndIdAlojamientoId(usuario.getId(), alojamiento.getId());
 		var valoracionesOpt = this.valoracionAlojamientoRepository.findByIdUsuarioIdAndIdAlojamientoId(usuario.getId(), alojamiento.getId());
 		
-		if(!reservasOpt.isPresent()) {
+		if(reservasOpt.get().isEmpty()) {
 			return GenericAPIMessageDTO.builder()
 					.mensaje("¡No puedes valorar el alojamiento sin siquiera haber hecho una reserva!")
 					.estado(HttpStatus.OK)
@@ -46,7 +46,7 @@ public class ValoracionAlojamientoService {
 					.build();
 		}
 		
-		if(valoracionesOpt.isPresent()) {
+		if(!valoracionesOpt.get().isEmpty()) {
 			return GenericAPIMessageDTO.builder()
 					.mensaje("¡No puedes valorar dos veces el mismo alojamiento!")
 					.estado(HttpStatus.OK)

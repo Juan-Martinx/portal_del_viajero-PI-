@@ -10,7 +10,7 @@ import { IComodidadAlojamientoDTO } from '../../../dto/IComodidadAlojamientoDTO'
 import { IValoracionAlojamientoDTO } from '../../../dto/IValoracionAlojamientoDTO';
 import { IAlojamientoDTO } from '../../../dto/IAlojamientoDTO';
 import { AlojamientoService } from '../../services/alojamiento.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CodTipoComodidad } from '../../../dto/enumCodTipoComodidad';
 import { AlquilerAlojamientoService } from '../../services/alquiler-alojamiento.service';
 import { IAlquilerAlojamientoDTO } from '../../../dto/IAlquilerAlojamientoDTO';
@@ -35,7 +35,7 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
   valoracionPromedio = 0;
   numValoraciones = 0;
 
-  constructor(private alojamientoService: AlojamientoService, private route: ActivatedRoute, private alquilerAlojamientoService: AlquilerAlojamientoService, private valoracionAlojamientoService: ValoracionAlojamientoService) { }
+  constructor(private alojamientoService: AlojamientoService, private route: ActivatedRoute, private alquilerAlojamientoService: AlquilerAlojamientoService, private valoracionAlojamientoService: ValoracionAlojamientoService, private router: Router) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -105,6 +105,7 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
             };
             this.alquilerAlojamientoService.realizarReserva(alquilerAlojamiento).subscribe(response => {
               alert(response.mensaje);
+              window.location.reload();
             });
           }
         }
@@ -124,6 +125,7 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
         }
         this.valoracionAlojamientoService.realizarReserva(valoracion).subscribe(response => {
           alert(response.mensaje);
+          window.location.reload();
         });
       }else{
       alert("Por favor, rellene todos los campos para realizar la valoración");
