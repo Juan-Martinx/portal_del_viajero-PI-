@@ -71,7 +71,7 @@ export class BuscarComodidadComponent implements OnInit{
     this.comodidadService.buscarComodidades(comodidad, pageable).subscribe(comodidades => {
       if (comodidades.length == 0) {
         this.paginaActual = avanzarPagina? --this.paginaActual : ++this.paginaActual;
-        alert("No hay resultados para mostrar");
+        alert("No hay alojamientos para mostrar");
       } else {
         this.comodidades = comodidades;
       }

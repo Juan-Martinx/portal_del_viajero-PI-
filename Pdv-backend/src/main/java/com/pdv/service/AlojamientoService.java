@@ -1,12 +1,16 @@
 package com.pdv.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +27,6 @@ import com.pdv.model.AlojamientoComodidadAlojamiento;
 import com.pdv.model.UbicacionAlojamiento;
 import com.pdv.repository.AlojamientoComodidadAlojamientoRepository;
 import com.pdv.repository.AlojamientoRepository;
-import com.pdv.repository.AlquilerAlojamientoRepository;
 import com.pdv.repository.ComodidadAlojamientoRepository;
 
 import jakarta.transaction.Transactional;
@@ -39,7 +42,6 @@ public class AlojamientoService {
 	private final AlojamientoComodidadAlojamientoRepository alojamientoComodidadAlojamientoRepository;
 	private final AlojamientoComodidadAlojamientoService alojamientoComodidadAlojamientoService;
 	private final ValoracionAlojamientoService valoracionAlojamientoService;
-	private final AlquilerAlojamientoRepository alquilerAlojamientoRepository;
 	
 	public List<AlojamientoDTO> buscarAlojamientoUsuario(Authentication autenticacion) {
 		var usuario = this.usuarioService.obtenerUsuarioApp(autenticacion);
@@ -50,6 +52,23 @@ public class AlojamientoService {
 				dtoList.add(this.toDto(jpa));
 			});
 		}
+		return dtoList;
+	}
+	
+	public List<AlojamientoDTO> buscarAlojamientoWithFilters(String provincia,List<Long> idComodidades, Double numPrecioNocheMin,
+			Double numPrecioNocheMax, LocalDate fechaLlegada, LocalDate fechaSalida, Pageable page){
+		
+		//INICIALIZAMOS LOS DATOS EN CASO DE SER NULOS
+		fechaLlegada = (fechaLlegada != null)? fechaLlegada : LocalDate.now();
+		fechaSalida = (fechaSalida != null)? fechaSalida : LocalDate.now();
+		idComodidades = idComodidades != null ? idComodidades : new ArrayList<>(Collections.singletonList(-1L));
+		
+		var idAlojamientosList = this.alojamientoRepository.findWithFilters(provincia,numPrecioNocheMin, numPrecioNocheMax, fechaLlegada, fechaSalida, idComodidades, idComodidades.size(), page);
+		var jpaList = this.alojamientoRepository.findAllById(idAlojamientosList);
+		var dtoList = new ArrayList<AlojamientoDTO>();
+		jpaList.forEach(jpa -> {
+			dtoList.add(this.toDto(jpa));
+		});
 		return dtoList;
 	}
 

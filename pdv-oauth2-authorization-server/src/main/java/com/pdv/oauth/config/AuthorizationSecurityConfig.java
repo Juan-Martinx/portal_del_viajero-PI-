@@ -128,6 +128,8 @@ public class AuthorizationSecurityConfig {
 
 				}
 				context.getClaims().claim("perfiles", perfiles).claim("username", principal.getName());
+	            // Eliminar la reclamación exp - TOKEN NO CADUCA
+	            context.getClaims().claims(claims -> claims.remove("exp"));
 			}
 		};
 	}

@@ -14,23 +14,14 @@
     <div class="panel">
       <form [formGroup]="busqueda" class="d-flex justify-content-center">
         <div class="col-8 panel-busqueda mt-2">
-          <div class="d-inline-flex align-items-center">
-            <div class="d-inline-flex busqueda-destino">
+          <div class="d-inline-flex align-items-center w-100">
+            <div class="d-inline-flex busqueda-destino col-12">
               <label class="busqueda-label mb-1" for="destino"><strong>Provincia</strong></label>
               <input class="busqueda-input" type="text" id="destino" formControlName="destino"
                 placeholder="Buscar destinos">
             </div>
-            <div class="d-inline-flex busqueda-llegada">
-              <label class="busqueda-label mb-1" for="llegada"><strong>Llegada</strong></label>
-              <input class="busqueda-input" type="date" id="llegada" formControlName="llegada"
-                placeholder="Fecha Llegada">
-            </div>
-            <div class="d-inline-flex  busqueda-salida">
-              <label class="busqueda-label mb-1" for="salida"><strong>Salida</strong></label>
-              <input class="busqueda-input" type="date" id="salida" formControlName="salida" placeholder="Fecha Salida">
-            </div>
             <button class="boton-busqueda  ms-2 align-items-center justify-content-center">
-              <i class="bi bi-search"></i>
+              <i class="bi bi-search" (click)="cambiarPage(0)"></i>
             </button>
           </div>
 
@@ -70,7 +61,7 @@
               <button
                 class="btn btn-toggle d-inline-flex align-items-center justify-content-between rounded border-0 collapsed"
                 data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                Precio por día
+                Precio por noche
               </button>
               <div class="collapse show" id="home-collapse">
                 <mat-slider min="0" max="2500" discrete [color]="'primary'" [displayWith]="formatLabel">
@@ -89,14 +80,14 @@
                 <div class="fecha-estancia">
                   <mat-form-field class="fecha-llegada">
                     <mat-label>Fecha de llegada</mat-label>
-                    <input matInput [matDatepicker]="picker1" formControlName="fechaLlegada">
+                    <input matInput [matDatepicker]="picker1" formControlName="fechaLlegada" [matDatepickerFilter]="salidaFilter">
                     <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                   </mat-form-field>
                   <b style="font-size: 35px;" class="mx-4 mx-md-2">-</b>
                   <mat-form-field class="fecha-salida">
                     <mat-label>Fecha de salida</mat-label>
-                    <input matInput [matDatepicker]="picker2" formControlName="fechaSalida">
+                    <input matInput [matDatepicker]="picker2" formControlName="fechaSalida" [matDatepickerFilter]="salidaFilter">
                     <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                   </mat-form-field>
@@ -109,14 +100,15 @@
                 data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
                 Instalaciones
               </button>
-              <div class="collapse" id="orders-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  @for (instalacion of instalaciones; track instalacion.length) {
-                  <li><input type="checkbox" class="checkbox" formControlName="instalaciones">{{instalacion.nombre}}
-                  </li>
-                  }
-                  <button class="pt-4 ver-mas">Ver más</button>
-                </ul>
+              <div class="row collapse pt-2" id="orders-collapse">
+                @for (instalacion of instalaciones; track instalacion.id) {
+                <div class="col-6 col-md-3">
+                  <input type="checkbox" class="checkbox d-inline-flex" (change)="filtroCheckboxComodidadEvent(instalacion, $event)">
+                  <mat-icon class="d-inline-flex ms-1 me-1">{{instalacion.iconoComodidad}}</mat-icon>
+                  <p class="d-inline-flex">{{instalacion.txtNombre}}</p>
+                </div>
+                }
+                <button class="pt-4 ver-mas" (click)="buscarComodidades(true)">Ver más</button>
               </div>
             </li>
             <li class="border-top my-3"></li>
@@ -125,13 +117,15 @@
                 data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
                 Comodidades
               </button>
-              <div class="collapse" id="account-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                  @for (comodidad of comodidades; track comodidad.length) {
-                  <li><input type="checkbox" class="checkbox" formControlName="comodidades">{{comodidad.nombre}}</li>
-                  }
-                  <button class="pt-4 ver-mas">Ver más</button>
-                </ul>
+              <div class="row collapse pt-2" id="account-collapse">
+                @for (comodidad of comodidades; track comodidad.id) {
+                <div class="col-6 col-md-3">
+                  <input type="checkbox" class="checkbox d-inline-flex" (change)="filtroCheckboxComodidadEvent(comodidad, $event)">
+                  <mat-icon class="d-inline-flex ms-1 me-1">{{comodidad.iconoComodidad}}</mat-icon>
+                  <p class="d-inline-flex">{{comodidad.txtNombre}}</p>
+                </div>
+                }
+                <button class="pt-4 ver-mas" (click)="buscarComodidades(false)">Ver más</button>
               </div>
             </li>
             <li class="border-bottom mt-3"></li>
@@ -142,7 +136,7 @@
       }
     </div>
 
-    <div class="container contenedor-principal">
+    <div class="container contenedor-principal pb-3">
       <div class="row col-lg-12 m-auto">
         <h1 class="titulo fw-bold mt-3">¡Elige entre miles de opciones de casas rurales!</h1>
         @for (casaRural of casasRurales; track casasRurales.length) {
@@ -163,14 +157,40 @@
 
             <p class="mt-4 card-text">{{ casaRural.txtDescripcion }}</p>
             <div class="row mt-1">
-              <button class="col-4 ms-2 boton-personalizado-a" routerLink="/detalles-casas-gestor"
-                [queryParams]="{id: casaRural.id}">EDITAR</button>
-              <button class="col-4 ms-2 boton-personalizado-b">ELIMINAR</button>
+              <button class="col-11 ms-2 boton-personalizado-a" routerLink="/detalles-casas"
+                [queryParams]="{id: casaRural.id}">DETALLES</button>
+
             </div>
 
           </div>
         </div>
         }
+
+        <nav class="d-flex justify-content-center w-100 mt-3">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" aria-label="Previous" (click)="cambiarPage(this.paginaActual - 1)">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            @if(paginaActual <= 1){
+              <li class="page-item" (click)="cambiarPage(0)"><a class="page-link">1</a></li>
+              <li class="page-item" (click)="cambiarPage(1)"><a class="page-link">2</a></li>
+              <li class="page-item" (click)="cambiarPage(2)"><a class="page-link">3</a></li>
+            }@else {
+              <li class="page-item" (click)="cambiarPage(this.paginaActual - 1)"><a class="page-link">{{paginaActual}}</a></li>
+              <li class="page-item" (click)="cambiarPage(this.paginaActual)"><a class="page-link" >{{paginaActual + 1}}</a></li>
+              <li class="page-item" (click)="cambiarPage(this.paginaActual + 1)"><a class="page-link" >{{paginaActual + 2}}</a></li>
+            }
+            <li class="page-item">
+              <a class="page-link" aria-label="Next" (click)="cambiarPage(this.paginaActual + 1)">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
