@@ -10,14 +10,88 @@
     cursor: pointer;
 }
 
+.anadir-photo{
+    visibility: hidden;
+    z-index: 1000;
+}
+
+.anadir-photo1{
+    visibility: hidden;
+}
+
+.anadir-photo2{
+    visibility: hidden;
+}
+
+.anadir-photo3{
+    visibility: hidden;
+}
+
+.anadir-photo4{
+    visibility: hidden;
+}
+
+
 .img-principal{
     background-color: rgb(162, 162, 162, 0.5);
     height: 400px;
 }
 
+.modal-imagenes{
+    height: 50vh;
+    overflow: scroll;
+}
+
+.modal-img{
+    background-color: rgb(162, 162, 162, 0.5); height: 15vh; width: 15vh;
+}
+
+.img-principal img{
+    height: 100%;
+    width: 100%;
+}
+
+.img-principal:hover img{
+    opacity: 0.5;
+}
+
+.img-principal:hover .anadir-photo{
+    opacity: 1;
+    visibility: visible;
+}
+
 .img{
     background-color: rgb(162, 162, 162, 0.5);
     height: 190px;
+}
+
+.img img{
+    height: 100%;
+    width: 100%;
+}
+
+.img:hover img{
+    opacity: 0.5;
+}
+
+.img:hover .anadir-photo1{
+    opacity: 1;
+    visibility: visible;
+}
+
+.img:hover .anadir-photo2{
+    opacity: 1;
+    visibility: visible;
+}
+
+.img:hover .anadir-photo3{
+    opacity: 1;
+    visibility: visible;
+}
+
+.img:hover .anadir-photo4{
+    opacity: 1;
+    visibility: visible;
 }
 
 .b-bottom{
@@ -124,4 +198,16 @@
     .valoraciones h2{
         font-size: 1rem;
     }
+
+    .anadir-photo{
+        visibility: hidden;
+        position: absolute;
+        z-index: 10;
+        top: 68%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    
+    
 }

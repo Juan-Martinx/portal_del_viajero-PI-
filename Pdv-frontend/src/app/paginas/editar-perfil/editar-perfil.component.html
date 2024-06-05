@@ -4,9 +4,32 @@
       <a class="casas-alquiler" routerLink="/casas-alquiler"> <i class="bi bi-house-door me-3"></i>Casas en alquiler</a>
     </div>
 
-    <div class="col-12 d-flex justify-content-center mt-3">
-      <img class="imagen-usuario" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+    <div class="col-12 d-flex justify-content-center mt-3 ">
+      
+      <a href="{{this.rutaActual}}#modal3" class="position-relative img-principal" >
+        <img class="imagen-usuario" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+        <div class="anadir-photo d-flex justify-content-center align-items-center">
+                <mat-icon>add_a_photo</mat-icon>
+        </div>
+    </a>
     </div>
+
+    <!-- IMAGEN PRINCIPAL MODAL -->
+    <div id="modal3" class="modalmask">
+      <div class="modalbox movedown modal-imagenes">
+          
+          <a href="{{this.rutaActual}}#close"
+              title="Close" class="close">X</a>
+          
+              <div class="row">
+                  <h2>IMAGENES</h2>
+
+                  <div class="row mb-2 justify-content-center d-flex ms-4 me-3 mb-3 mt-3 modal-img">
+                      Imagen 1
+                  </div>
+              </div>
+          </div>
+      </div>
 
     <h1 class="col-12 d-flex justify-content-center mt-3 fw-bold">{{usuario?.username}}</h1>
 

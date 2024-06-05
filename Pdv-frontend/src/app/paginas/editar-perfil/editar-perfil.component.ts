@@ -9,7 +9,7 @@ import { TokenService } from '../../services/token.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { IUsuarioDTO } from '../../../dto/IUsuarioDTO';
 import { catchError } from 'rxjs';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -22,7 +22,8 @@ export class EditarPerfilComponent implements OnInit {
 
   usuario?: IUsuarioDTO;
 
-  constructor(private tokenService: TokenService, private usuarioService: UsuarioService) { }
+  rutaActual = this.route.snapshot.url[0].path;
+  constructor(private tokenService: TokenService, private usuarioService: UsuarioService, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.usuarioService.buscarUsuarioLogueado().subscribe(usuario => {
       this.usuario = usuario;

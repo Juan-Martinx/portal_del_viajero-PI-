@@ -55,3 +55,26 @@
     font-size: 15px;
     cursor: pointer;
 }
+
+.anadir-photo{
+    visibility: hidden;
+    z-index: 1000;
+}
+
+.img-principal:hover img{
+    opacity: 0.5;
+}
+
+.img-principal:hover .anadir-photo{
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-imagenes{
+    height: 50vh;
+    overflow: scroll;
+}
+
+.modal-img{
+    background-color: rgb(162, 162, 162, 0.5); height: 15vh; width: 15vh;
+}
