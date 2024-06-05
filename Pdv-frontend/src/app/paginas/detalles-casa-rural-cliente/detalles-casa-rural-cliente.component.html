@@ -30,10 +30,15 @@
 
         <div class="row d-flex flex-column flex-md-row m-auto">
             <div class="row col-12 col-md-6 mt-3 order-2 order-md-1">
+
+                <!-- INSTALACIONES -->
                 <div class="row b-bottom">
-                    <h2 class="fw-bold px-0">Instalaciones</h2>
+                    <div class="d-inline-flex">
+                        <h2 class="fw-bold d-inline-flex px-0 me-3">Instalaciones</h2>
+                        <a class="d-inline-flex editar-usuario pt-1" href="{{this.rutaActual}}?id={{this.alojamiento.id}}#modal1" (click)="alojamientoInstalaciones=[]"> <mat-icon>open_in_new</mat-icon>Ver más</a>
+                    </div>
                     <div class="row">
-                        @for (comodidad of alojamientoInstalaciones; track comodidad.id) {
+                        @for (comodidad of primerasInstalaciones.slice(0,4); track comodidad.id) {
                         <div class="col-6 d-inline-flex flex-column-2 mb-3">
                             <mat-icon
                                 class="d-inline-flex justify-content-center me-2 icon-pool">{{comodidad.iconoComodidad}}</mat-icon>
@@ -42,12 +47,37 @@
                         }
                     </div>
                 </div>
+
+                <!-- INSTALACIONES MODAL -->
+            <div id="modal1" class="modalmask">
+                <div class="modalbox movedown">
+                    
+                    <a href="{{this.rutaActual}}?id={{this.alojamiento.id}}#close" (click)="alojamientoInstalaciones=[]"
+                        title="Close" class="close">X</a>
+                    
+                    <div class="row">
+                        <h2>INSTALACIONES</h2>
+
+                        @for (comodidad of primerasInstalaciones; track comodidad.id) {
+                        <div class="row mb-2 justify-content-center d-flex">
+                            <mat-icon
+                                class="d-inline-flex justify-content-center me-2 icon-pool col-2">{{comodidad.iconoComodidad}}</mat-icon>
+                            <p class="d-inline-flex align-items-center col-7">{{comodidad.txtNombre}}</p>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
                 <!-- COMODIDADES -->
                 <div class="row mt-5 b-bottom">
-                    <div class="row">
-                        <h2 class="fw-bold px-0">Comodidades</h2>
-                        <div class="col-12">
-                            @for (comodidad of alojamientoComodidades; track comodidad.id) {
+                    <div class="d-inline-flex">
+                        <h2 class="d-inline-flex fw-bold px-0 me-3">Comodidades</h2>
+                        <a class="d-inline-flex editar-usuario pt-1" href="{{this.rutaActual}}?id={{this.alojamiento.id}}#modal2" (click)="alojamientoInstalaciones=[]"> <mat-icon>open_in_new</mat-icon>Ver más</a>
+                    </div>
+
+                        <div class="row">
+                            @for (comodidad of primerasComodidades.slice(0,4); track comodidad.id) {
                             <div class="col-6 d-inline-flex flex-column-2 mb-3">
                                 <mat-icon
                                     class="d-inline-flex justify-content-center me-2 icon-pool">{{comodidad.iconoComodidad}}</mat-icon>
@@ -55,9 +85,29 @@
                             </div>
                             }
                         </div>
-                    </div>
                 </div>
 
+            </div>
+
+            <!-- COMODIDADES MODAL -->
+            <div id="modal2" class="modalmask">
+                <div class="modalbox movedown">
+                    
+                    <a href="{{this.rutaActual}}?id={{this.alojamiento.id}}#close" (click)="alojamientoComodidades=[]"
+                        title="Close" class="close">X</a>
+                    
+                    <div class="row">
+                        <h2>COMODIDADES</h2>
+
+                        @for (comodidad of primerasComodidades; track comodidad.id) {
+                        <div class="row mb-2 justify-content-center d-flex">
+                            <mat-icon
+                                class="d-inline-flex justify-content-center me-2 icon-pool col-2">{{comodidad.iconoComodidad}}</mat-icon>
+                            <p class="d-inline-flex align-items-center col-7">{{comodidad.txtNombre}}</p>
+                        </div>
+                        }
+                    </div>
+                </div>
             </div>
 
             <!-- Formulario de Reservar -->

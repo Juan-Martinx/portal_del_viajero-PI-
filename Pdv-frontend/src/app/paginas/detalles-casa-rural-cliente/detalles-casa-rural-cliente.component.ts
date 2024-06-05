@@ -26,6 +26,9 @@ import { ValoracionAlojamientoService } from '../../services/valoracion-alojamie
 })
 export class DetallesCasaRuralClienteComponent implements OnInit {
 
+  rutaActual = this.route.snapshot.url[0].path;
+
+  isActionNew: boolean = false;
   alojamiento: IAlojamientoDTO = {};
   alojamientoComodidades: IComodidadAlojamientoDTO[] = [];
   alojamientoInstalaciones: IComodidadAlojamientoDTO[] = [];
@@ -34,25 +37,34 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
   precioTotal: number = 0;
   valoracionPromedio = 0;
   numValoraciones = 0;
+  primerasInstalaciones: IComodidadAlojamientoDTO[] = [];
+  primerasComodidades: IComodidadAlojamientoDTO[] = [];
 
   constructor(private alojamientoService: AlojamientoService, private route: ActivatedRoute, private alquilerAlojamientoService: AlquilerAlojamientoService, private valoracionAlojamientoService: ValoracionAlojamientoService, private router: Router) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.alojamientoService.buscarAlojamientoById(params['id']).subscribe(alojamiento => {
-        this.alojamiento = alojamiento;
-        this.valoraciones = alojamiento.idValoracionesAlojamiento as IValoracionAlojamientoDTO[];
-        this.valoracionPromedio = alojamiento.valoracionPromedio as number;
-        this.numValoraciones = alojamiento.numValoraciones as number;
-        alojamiento.idAlojamientoComodidades?.forEach(comodidad => {
-          if (comodidad.idComodidadAlojamiento?.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.COMODIDAD) {
-            this.alojamientoComodidades.push(comodidad.idComodidadAlojamiento);
-          } else if (comodidad.idComodidadAlojamiento?.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.INSTALACION) {
-            this.alojamientoInstalaciones.push(comodidad.idComodidadAlojamiento);
-          }
+
+      if (params['action'] == 'new') {
+        this.isActionNew = true;
+      }else{
+        this.alojamientoService.buscarAlojamientoById(params['id']).subscribe(alojamiento => {
+          this.alojamiento = alojamiento;
+          this.valoraciones = alojamiento.idValoracionesAlojamiento as IValoracionAlojamientoDTO[];
+          this.valoracionPromedio = alojamiento.valoracionPromedio as number;
+          this.numValoraciones = alojamiento.numValoraciones as number;
+          alojamiento.idAlojamientoComodidades?.forEach(comodidad => {
+            if (comodidad.idComodidadAlojamiento?.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.COMODIDAD) {
+              this.alojamientoComodidades.push(comodidad.idComodidadAlojamiento);
+            } else if (comodidad.idComodidadAlojamiento?.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.INSTALACION) {
+              this.alojamientoInstalaciones.push(comodidad.idComodidadAlojamiento);
+            }
+          });
         });
-      });
+      }
     });
+    this.primerasInstalaciones = this.alojamientoInstalaciones;
+    this.primerasComodidades = this.alojamientoComodidades;
   }
 
   reservar = new FormGroup({
@@ -131,5 +143,4 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
       alert("Por favor, rellene todos los campos para realizar la valoración");
     }
   }
-
 }
