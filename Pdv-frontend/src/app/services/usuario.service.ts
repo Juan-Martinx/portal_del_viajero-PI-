@@ -17,6 +17,10 @@ export class UsuarioService {
 
   constructor(private http: HttpClient, private tokenService: TokenService) { }
 
+  subirFotoPerfil(url: string): Observable<IGenericApiMessageDTO> {
+    return this.http.post<IGenericApiMessageDTO>(environment.api + this.usuariosAPI + "/foto-perfil", {url: url});
+  }
+  
   crearUsuario(usuario: IUsuarioDTO): Observable<IGenericApiMessageDTO> {
     return this.http.post<IGenericApiMessageDTO>(environment.oauth_api + "pdv-backend/auth/crear", usuario);
   }

@@ -4,13 +4,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.type.descriptor.jdbc.VarbinaryJdbcType;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pdv.dto.GenericAPIMessageDTO;
@@ -34,7 +32,6 @@ public class UsuarioService {
 	private final GoogleUserRepository googleUserRepository;
 	private final PerfilRepository perfilRepository;
 	private final PerfilService perfilService;
-	private final PasswordEncoder passwordEncoder;
 	
 	/**
 	 * Realiza una búsqueda páginada de los usuarios con la 
@@ -65,6 +62,7 @@ public class UsuarioService {
 			var jpa = jpaOpt.get();
 			dto = UsuarioDTO.builder()
 					.username(username)
+					.urlImagenUsuario(jpa.getUrlImagenUsuario())
 					.txtEmail(jpa.getTxtEmail())
 					.numTelefono(jpa.getNumTelefono())
 					.txtDescripcion(jpa.getTxtDescripcion())
@@ -150,6 +148,19 @@ public class UsuarioService {
 		return mensaje;
 	}
 	
+	public GenericAPIMessageDTO subirFotoPerfil(String url, Authentication autenticacion) {
+		
+		var usuario = this.obtenerUsuarioApp(autenticacion);
+		usuario.setUrlImagenUsuario(url);
+		this.usuarioRepository.save(usuario);
+		
+		return GenericAPIMessageDTO.builder()
+				.mensaje("Imágen subida con éxito")
+				.estado(HttpStatus.OK)
+				.fechaYHora(LocalDateTime.now())
+				.build();
+	}
+	
 	/**
 	 * Devuelve el usuario en su versión DTO.
 	 * @param autentificacion
@@ -161,6 +172,7 @@ public class UsuarioService {
 		
 		var usuarioDto = UsuarioDTO.builder()
 				.id(usuarioJpa.getId())
+				.urlImagenUsuario(usuarioJpa.getUrlImagenUsuario())
 				.username(usuarioJpa.getUsername())
 				.txtDni(usuarioJpa.getTxtDni())
 				.txtDescripcion(usuarioJpa.getTxtDescripcion())

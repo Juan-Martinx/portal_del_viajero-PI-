@@ -10,6 +10,7 @@ import { UsuarioService } from '../../services/usuario.service';
 import { IUsuarioDTO } from '../../../dto/IUsuarioDTO';
 import { catchError } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { MediaService } from '../../services/media.service';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -20,10 +21,10 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 })
 export class EditarPerfilComponent implements OnInit {
 
-  usuario?: IUsuarioDTO;
+  usuario: IUsuarioDTO = {};
 
   rutaActual = this.route.snapshot.url[0].path;
-  constructor(private tokenService: TokenService, private usuarioService: UsuarioService, private route: ActivatedRoute) { }
+  constructor(private tokenService: TokenService, private usuarioService: UsuarioService, private route: ActivatedRoute, private mediaService: MediaService) { }
   ngOnInit(): void {
     this.usuarioService.buscarUsuarioLogueado().subscribe(usuario => {
       this.usuario = usuario;
@@ -51,12 +52,12 @@ export class EditarPerfilComponent implements OnInit {
 
     if (this.editarUsuarioForm.valid){
       const usuarioEditado: IUsuarioDTO = {
-        id: this.usuario?.id,
+        id: this.usuario.id,
         username: this.editarUsuarioForm.get('usuario')?.value as string,
         txtDescripcion: this.editarUsuarioForm.get('descripcion')?.value as string,
         txtDni: this.editarUsuarioForm.get('dni')?.value as string,
         numTelefono: parseInt(this.editarUsuarioForm.get('telefono')?.value as string),
-        txtEmail: this.usuario?.txtEmail
+        txtEmail: this.usuario.txtEmail
       };
 
       this.usuarioService.editarUsuario(usuarioEditado).subscribe(mensaje => {
@@ -77,4 +78,24 @@ export class EditarPerfilComponent implements OnInit {
   isGoogleUser(): boolean {
     return this.tokenService.isGoogleUser();
   }
+
+  uploadFile(event: any) {
+    const file = event.target.files[0];
+
+    if(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      this.mediaService.uploadFile(formData).subscribe(res => {
+        this.usuarioService.subirFotoPerfil(res.url).subscribe(mensaje => {
+          alert(mensaje.mensaje);
+          location.reload();
+        });
+      },
+      error => {
+        alert('No se ha podido subir la imagen');
+      })
+    }
+  }
+
 }

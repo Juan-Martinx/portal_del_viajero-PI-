@@ -7,7 +7,8 @@
     <div class="col-12 d-flex justify-content-center mt-3 ">
       
       <a href="{{this.rutaActual}}#modal3" class="position-relative img-principal" >
-        <img class="imagen-usuario" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+        <img class="imagen-usuario" [src]="usuario.urlImagenUsuario">
+
         <div class="anadir-photo d-flex justify-content-center align-items-center">
                 <mat-icon>add_a_photo</mat-icon>
         </div>
@@ -27,11 +28,13 @@
                   <div class="row mb-2 justify-content-center d-flex ms-4 me-3 mb-3 mt-3 modal-img">
                       Imagen 1
                   </div>
+                  <input type="file" id="image" class="form-control" accept="image/*" (change)="uploadFile($event)">
+
               </div>
           </div>
       </div>
 
-    <h1 class="col-12 d-flex justify-content-center mt-3 fw-bold">{{usuario?.username}}</h1>
+    <h1 class="col-12 d-flex justify-content-center mt-3 fw-bold">{{usuario.username}}</h1>
 
     <div class="col-12 mt-1 d-flex justify-content-center mb-3">
       <a class="d-flex justify-content-center editar-usuario" (click)="editarUsuario()"> <i
@@ -41,27 +44,27 @@
     @if(isUsuarioEnEdicion !== true){
     <div class="col-12">
       <h2 class="titulo">Nombre:</h2>
-      <p class="ms-3"><strong>{{usuario?.username}}</strong></p>
+      <p class="ms-3"><strong>{{usuario.username}}</strong></p>
     </div>
 
     <div class="col-12">
       <h2 class="titulo">Dni:</h2>
-      <p class="ms-3"><strong>{{usuario?.txtDni}}</strong></p>
+      <p class="ms-3"><strong>{{usuario.txtDni}}</strong></p>
     </div>
 
     <div class="col-12">
       <h2 class="titulo">Descripción:</h2>
-      <p class="ms-3"><strong>{{usuario?.txtDescripcion}}</strong></p>
+      <p class="ms-3"><strong>{{usuario.txtDescripcion}}</strong></p>
     </div>
 
     <div class="col-12">
       <h2 class="titulo">Teléfono:</h2>
-      <p class="ms-3"><strong>{{usuario?.numTelefono}}</strong></p>
+      <p class="ms-3"><strong>{{usuario.numTelefono}}</strong></p>
     </div>
 
     <div class="col-12">
       <h2 class="titulo">Correo electrónico:</h2>
-      <p class="ms-3"><strong>{{usuario?.txtEmail}}</strong></p>
+      <p class="ms-3"><strong>{{usuario.txtEmail}}</strong></p>
     </div>
     } @else {
     <div class="col-11 col-md-9 col-lg-8 col-xl-6">

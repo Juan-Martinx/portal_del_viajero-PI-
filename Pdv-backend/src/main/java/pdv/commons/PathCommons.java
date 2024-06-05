@@ -44,5 +44,8 @@ public class PathCommons {
 
 	/*URL DE LA API*/
 	public static final String API_URL = "http://localhost:8080";
+	
+	/*MEDIA RESOURCES*/
+	public static final String MEDIA_RESOURCES = BACKEND + "/media";
 
 }

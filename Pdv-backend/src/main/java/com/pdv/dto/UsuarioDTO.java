@@ -43,7 +43,7 @@ public class UsuarioDTO {
 	@Email
 	private String txtEmail;
 	
-	private Byte[] datosImagenUsuario;
+	private String urlImagenUsuario;
 
 	private List<String> perfiles;
 	

@@ -26,7 +26,7 @@ public class ResourceServerConfig {
     	http.cors(Customizer.withDefaults());
 
         return http
-                .authorizeHttpRequests(auth -> auth.requestMatchers(PathCommons.USUARIOS + "/public/**", PathCommons.ALOJAMIENTO + "/public/**").permitAll()
+                .authorizeHttpRequests(auth -> auth.requestMatchers(PathCommons.USUARIOS + "/public/**", PathCommons.ALOJAMIENTO + "/public/**", PathCommons.MEDIA_RESOURCES + "/public/**").permitAll()
                 		.anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.decoder(JwtDecoders.fromIssuerLocation(issuerUri))))

@@ -8,6 +8,6 @@ export interface IUsuarioDTO {
     numTelefono?: number;
     txtEmail?: string;
     password?: string;
-    datosImagenUsuario?: Uint8Array;
+    urlImagenUsuario?: string;
     perfiles?: CodPerfiles[];
 }

@@ -1,6 +1,7 @@
 package com.pdv.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,11 @@ public class UsuarioController {
 	@PostMapping("convertir-gestor")
 	public ResponseEntity<GenericAPIMessageDTO> convertirUsuarioAGestor(@RequestParam("id") Long id){
 		return ResponseEntity.ok().body(this.usuarioService.convertirUsuarioAGestor(id));
+	}
+	
+	@PostMapping("/foto-perfil")
+	public ResponseEntity<GenericAPIMessageDTO> subirFotoPerfil(@RequestBody Map<String, String> params, Authentication autenticacion){
+		return ResponseEntity.ok().body(this.usuarioService.subirFotoPerfil(params.get("url"), autenticacion));
 	}
 	
 }

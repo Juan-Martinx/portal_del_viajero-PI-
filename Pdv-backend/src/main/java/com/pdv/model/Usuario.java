@@ -59,10 +59,8 @@ public class Usuario implements UserDetails{
 	@Column(name = "password", nullable = false)
 	private String password;
 	
-	@Column(name = "datos_imagen_usuario")
-	@Basic(fetch = FetchType.EAGER)
-	@Lob
-	private Byte[] datosImagenUsuario;
+	@Column(name = "url_imagen_usuario")
+	private String urlImagenUsuario;
 	
 	private boolean expired = false;
 	private boolean locked = false;
