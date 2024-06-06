@@ -5,28 +5,59 @@
         </div>
 
         <div class="row m-auto">
-            <div class="img-principal col-12 col-md-6 col-lg-4">
-                Imagen 1
+            <div class="img-principal col-12 col-md-6 col-lg-4 px-0 position-relative m-auto">
+                <a href="{{this.rutaActual}}?id={{this.alojamiento.id}}#modal3" class="position-relative">
+                    @if(this.alojamiento.idImagenesAlojamiento && this.alojamiento.idImagenesAlojamiento[0]){
+                    <img [src]="alojamiento.idImagenesAlojamiento[0].urlDatosImagen" class="img-fluid" id="img-0" />
+                    <div class="anadir-photo d-flex justify-content-center align-items-center">
+                        <mat-icon>remove_red_eye</mat-icon>
+                    </div>
+                    }
+                </a>
             </div>
-            <div class="row d-none d-md-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between"
-                style="height: 400px;">
-                <div class="img">
-                    Imagen 2
+            <div class="row d-none d-md-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between m-auto">
+                @if(this.alojamiento.idImagenesAlojamiento && this.alojamiento.idImagenesAlojamiento[1]){
+                <div class="img px-0 object-fit">
+                    <img [src]="alojamiento.idImagenesAlojamiento[1].urlDatosImagen" id="img-1" />
                 </div>
-                <div class="img">
-                    Imagen 3
+                }
+                @if(this.alojamiento.idImagenesAlojamiento && this.alojamiento.idImagenesAlojamiento[2]){
+                <div class="img px-0 mt-4 object-fit">
+                    <img [src]="alojamiento.idImagenesAlojamiento[2].urlDatosImagen" id="img-2" />
                 </div>
+                }
             </div>
-            <div class="row d-none d-lg-flex col-4 m-auto mt-0 flex-column justify-content-between"
-                style="height: 400px;">
-                <div class="img">
-                    Imagen 4
-                </div>
-                <div class="img">
-                    Imagen 5
-                </div>
+
+            <div class="row d-none d-lg-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between m-auto">
+                @if(this.alojamiento.idImagenesAlojamiento && this.alojamiento.idImagenesAlojamiento[3]){
+                    <div class="img px-0 object-fit">
+                        <img [src]="alojamiento.idImagenesAlojamiento[3].urlDatosImagen" id="img-3" />
+                    </div>
+                    }
+                    @if(this.alojamiento.idImagenesAlojamiento && this.alojamiento.idImagenesAlojamiento[4]){
+                    <div class="img px-0 mt-4 object-fit">
+                        <img [src]="alojamiento.idImagenesAlojamiento[4].urlDatosImagen" id="img-4" />
+                    </div>
+                    }
             </div>
+           
         </div>
+
+        
+            <!-- IMAGEN PRINCIPAL MODAL -->
+            <div id="modal3" class="modalmask">
+                <div class="modalbox movedown modal-imagenes">   
+                    <a href="{{this.rutaActual}}?id={{this.alojamiento.id}}#close" title="Close" class="close">X</a>
+            
+                    <div class="row" id="contenedor-imagenes">
+                        <h2>IMAGENES</h2>
+                        @for (imagen of this.alojamiento.idImagenesAlojamiento; track imagen.id) {
+                            <img [src]="imagen.urlDatosImagen"
+                            class="img-fluid col-md-3 ms-1 mb-2 d-flex justify-content-center  modal-img align-items-center m-auto px-0" />
+                        }
+                    </div>
+                </div>
+            </div>
 
         <div class="row d-flex flex-column flex-md-row m-auto">
             <div class="row col-12 col-md-6 mt-3 order-2 order-md-1">

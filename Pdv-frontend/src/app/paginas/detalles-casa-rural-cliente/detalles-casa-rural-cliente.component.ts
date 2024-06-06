@@ -49,6 +49,7 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
         this.isActionNew = true;
       }else{
         this.alojamientoService.buscarAlojamientoById(params['id']).subscribe(alojamiento => {
+          alojamiento.idImagenesAlojamiento = alojamiento.idImagenesAlojamiento?.filter((imagen) => imagen != null);
           this.alojamiento = alojamiento;
           this.valoraciones = alojamiento.idValoracionesAlojamiento as IValoracionAlojamientoDTO[];
           this.valoracionPromedio = alojamiento.valoracionPromedio as number;

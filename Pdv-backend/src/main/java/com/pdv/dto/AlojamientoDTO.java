@@ -45,7 +45,7 @@ public class AlojamientoDTO {
 	
 	private Set<AlquilerAlojamientoDTO> idAlquileresAlojamiento;
 	
-	private Set<ImagenAlojamientoDTO> idImagenesAlojamiento;
+	private List<ImagenAlojamientoDTO> idImagenesAlojamiento;
 	
 	private UbicacionAlojamientoDTO idUbicacion;
 	

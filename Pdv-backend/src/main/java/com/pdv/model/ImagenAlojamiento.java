@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "imagen_alojamiento")
 @EqualsAndHashCode(exclude = "idAlojamiento")
+@Table(name = "imagen_alojamiento")
 public class ImagenAlojamiento {
 		
 	@Id
@@ -31,16 +31,14 @@ public class ImagenAlojamiento {
 	@Column(name = "id_imagen_alojamiento")
 	private Long id;
 	
-	@Column(name = "datos_imagen", nullable = false)
-	@Basic(optional = false, fetch = FetchType.LAZY)
-	@Lob
+	@Column(name = "url_datos_imagen", nullable = false)
 	private String urlDatosImagen;
 	
 	@Column(name = "num_orden", nullable = false)
 	private Integer numOrden;
 	
 	@ManyToOne(optional = false, targetEntity = Alojamiento.class)
-	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
+	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento")
 	private Alojamiento idAlojamiento;
 
 }

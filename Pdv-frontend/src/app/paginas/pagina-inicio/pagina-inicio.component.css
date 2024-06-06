@@ -456,3 +456,10 @@ input[type = "checkbox"]:hover{
 .page-link:hover{
   cursor: pointer;
 }
+
+.card-title{
+  font-size: 1.1rem;
+  max-height: 30px;
+  height: 30px;
+  overflow: hidden;
+}

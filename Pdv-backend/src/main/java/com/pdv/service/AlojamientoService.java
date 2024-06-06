@@ -3,13 +3,13 @@ package com.pdv.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -19,15 +19,18 @@ import org.springframework.stereotype.Service;
 import com.pdv.dto.AlojamientoComodidadAlojamientoDTO;
 import com.pdv.dto.AlojamientoDTO;
 import com.pdv.dto.GenericAPIMessageDTO;
+import com.pdv.dto.ImagenAlojamientoDTO;
 import com.pdv.dto.UbicacionAlojamientoDTO;
 import com.pdv.dto.ValoracionAlojamientoDTO;
 import com.pdv.enums.CodPerfiles;
 import com.pdv.model.Alojamiento;
 import com.pdv.model.AlojamientoComodidadAlojamiento;
+import com.pdv.model.ImagenAlojamiento;
 import com.pdv.model.UbicacionAlojamiento;
 import com.pdv.repository.AlojamientoComodidadAlojamientoRepository;
 import com.pdv.repository.AlojamientoRepository;
 import com.pdv.repository.ComodidadAlojamientoRepository;
+import com.pdv.repository.ImagenAlojamientoRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +45,9 @@ public class AlojamientoService {
 	private final AlojamientoComodidadAlojamientoRepository alojamientoComodidadAlojamientoRepository;
 	private final AlojamientoComodidadAlojamientoService alojamientoComodidadAlojamientoService;
 	private final ValoracionAlojamientoService valoracionAlojamientoService;
-	
+	private final ImagenAlojamientoService imagenAlojamientoService;
+	private final ImagenAlojamientoRepository imagenAlojamientoRepository;
+
 	public List<AlojamientoDTO> buscarAlojamientoUsuario(Authentication autenticacion) {
 		var usuario = this.usuarioService.obtenerUsuarioApp(autenticacion);
 		var alojamientosList = this.alojamientoRepository.findByIdUsuarioId(usuario.getId());
@@ -54,16 +59,18 @@ public class AlojamientoService {
 		}
 		return dtoList;
 	}
-	
-	public List<AlojamientoDTO> buscarAlojamientoWithFilters(String provincia,List<Long> idComodidades, Double numPrecioNocheMin,
-			Double numPrecioNocheMax, LocalDate fechaLlegada, LocalDate fechaSalida, Pageable page){
-		
-		//INICIALIZAMOS LOS DATOS EN CASO DE SER NULOS
-		fechaLlegada = (fechaLlegada != null)? fechaLlegada : LocalDate.now();
-		fechaSalida = (fechaSalida != null)? fechaSalida : LocalDate.now();
+
+	public List<AlojamientoDTO> buscarAlojamientoWithFilters(String provincia, List<Long> idComodidades,
+			Double numPrecioNocheMin, Double numPrecioNocheMax, LocalDate fechaLlegada, LocalDate fechaSalida,
+			Pageable page) {
+
+		// INICIALIZAMOS LOS DATOS EN CASO DE SER NULOS
+		fechaLlegada = (fechaLlegada != null) ? fechaLlegada : LocalDate.now();
+		fechaSalida = (fechaSalida != null) ? fechaSalida : LocalDate.now();
 		idComodidades = idComodidades != null ? idComodidades : new ArrayList<>(Collections.singletonList(-1L));
-		
-		var idAlojamientosList = this.alojamientoRepository.findWithFilters(provincia,numPrecioNocheMin, numPrecioNocheMax, fechaLlegada, fechaSalida, idComodidades, idComodidades.size(), page);
+
+		var idAlojamientosList = this.alojamientoRepository.findWithFilters(provincia, numPrecioNocheMin,
+				numPrecioNocheMax, fechaLlegada, fechaSalida, idComodidades, idComodidades.size(), page);
 		var jpaList = this.alojamientoRepository.findAllById(idAlojamientosList);
 		var dtoList = new ArrayList<AlojamientoDTO>();
 		jpaList.forEach(jpa -> {
@@ -77,20 +84,20 @@ public class AlojamientoService {
 				.orElseThrow(() -> new RuntimeException("Alojamiento no encontrado"));
 		return this.toDto(jpa);
 	}
-	
+
 	public AlojamientoDTO buscarAlojamientoByIdForGestion(Long id, Authentication autenticacion) {
 		var jpa = this.alojamientoRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Alojamiento no encontrado"));
-		if(jpa.getIdUsuario().getId() == usuarioService.obtenerUsuarioApp(autenticacion).getId()) {
+		if (jpa.getIdUsuario().getId() == usuarioService.obtenerUsuarioApp(autenticacion).getId()) {
 			return this.toDto(jpa);
 		}
 		return null;
 	}
-	
+
 	public List<AlojamientoDTO> buscarAlojamientoByUsername(String username) {
 		var jpaList = this.alojamientoRepository.findByIdUsuarioUsername(username);
 		var dtoList = new ArrayList<AlojamientoDTO>();
-		if(jpaList.isPresent() && !jpaList.get().isEmpty()) {
+		if (jpaList.isPresent() && !jpaList.get().isEmpty()) {
 			jpaList.get().forEach(jpa -> {
 				dtoList.add(this.toDto(jpa));
 			});
@@ -122,8 +129,28 @@ public class AlojamientoService {
 			alojamientoComodidadesSet.add(alojamientoComodidadAlojamiento);
 		});
 
+		// Crear imagenes de alojamiento
+		var imagenesAlojamientosSet = new HashSet<ImagenAlojamiento>();
+		//Controla si se ha seleccionado una imagen principal
+		AtomicReference<Boolean> isNumOrdenSelected = new AtomicReference<>(false);
+
+		dto.getIdImagenesAlojamiento().forEach(imagenDto -> {
+			if (imagenDto != null && imagenDto.getNumOrden() != null & imagenDto.getUrlDatosImagen() != null) {
+				var jpaImagen = ImagenAlojamiento.builder().idAlojamiento(jpa)
+						.urlDatosImagen(imagenDto.getUrlDatosImagen()).numOrden(imagenDto.getNumOrden()).build();
+				isNumOrdenSelected.set(isNumOrdenSelected.get() || jpaImagen.getNumOrden() == 0 ? true : false);
+				imagenesAlojamientosSet.add(jpaImagen);
+			}
+		});
+		
+		if(!isNumOrdenSelected.get()) {
+			return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("¡No puedes crear un alojamiento sin asignarle la imágen principal!")
+					.fechaYHora(LocalDateTime.now()).build();
+		}
+		
 		jpa.setIdUbicacion(ubicacionJpa);
 		jpa.setIdAlojamientoComodidades(alojamientoComodidadesSet);
+		jpa.setIdImagenesAlojamiento(imagenesAlojamientosSet);
 
 		this.alojamientoRepository.save(jpa);
 
@@ -135,18 +162,18 @@ public class AlojamientoService {
 	public GenericAPIMessageDTO modificarAlojamiento(AlojamientoDTO dto, Authentication autenticacion) {
 		var jpa = this.alojamientoRepository.findById(dto.getId())
 				.orElseThrow(() -> new RuntimeException("Alojamiento no encontrado"));
-		
+
 		var usuarioAutenticado = usuarioService.obtenerUsuarioApp(autenticacion);
-		
-        boolean isAdmin =  autenticacion.getAuthorities()
-        		.stream().map(GrantedAuthority::getAuthority)
-        		.anyMatch(authority -> CodPerfiles.PERFIL_ADMIN.name().equals(authority));
-        
-		if(usuarioAutenticado.getId() != jpa.getIdUsuario().getId() || !isAdmin) {
-			return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("¡No debes modificar el alojamiento de otro usuario!")
-					.fechaYHora(LocalDateTime.now()).build();
+
+		boolean isAdmin = autenticacion.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+				.anyMatch(authority -> CodPerfiles.PERFIL_ADMIN.name().equals(authority));
+
+		if (usuarioAutenticado.getId() != jpa.getIdUsuario().getId() || !isAdmin) {
+			return GenericAPIMessageDTO.builder().estado(HttpStatus.OK)
+					.mensaje("¡No debes modificar el alojamiento de otro usuario!").fechaYHora(LocalDateTime.now())
+					.build();
 		}
-		
+
 		// MODIFICAR ATRIBUTOS DEL JPA
 		jpa.setTxtNombre(dto.getTxtNombre());
 		jpa.setTxtDescripcion(dto.getTxtDescripcion());
@@ -164,68 +191,92 @@ public class AlojamientoService {
 		var alojamientoComodidadesEliminarSet = new HashSet<AlojamientoComodidadAlojamiento>();
 
 		jpa.getIdAlojamientoComodidades().forEach(alojamientoComodidadAlojamiento -> {
-			if(!dto.getIdComodidades().contains(alojamientoComodidadAlojamiento.getIdComodidadAlojamiento().getId())) {
+			if (!dto.getIdComodidades().contains(alojamientoComodidadAlojamiento.getIdComodidadAlojamiento().getId())) {
 				this.alojamientoComodidadAlojamientoRepository.delete(alojamientoComodidadAlojamiento);
 				alojamientoComodidadesEliminarSet.add(alojamientoComodidadAlojamiento);
 			}
 		});
-		
+
 		alojamientoComodidadesSet.removeAll(alojamientoComodidadesEliminarSet);
-		
+
 		dto.getIdComodidades().forEach(comodidadId -> {
-			if(!this.alojamientoComodidadAlojamientoRepository.findByIdAlojamientoIdAndIdComodidadAlojamientoId(jpa.getId(), comodidadId).isPresent()) {
+			if (!this.alojamientoComodidadAlojamientoRepository
+					.findByIdAlojamientoIdAndIdComodidadAlojamientoId(jpa.getId(), comodidadId).isPresent()) {
 				var jpaComodidad = this.comodidadAlojamientoRepository.findById(comodidadId)
 						.orElseThrow(() -> new RuntimeException("Comodidad no encontrada"));
-				var alojamientoComodidadAlojamiento = AlojamientoComodidadAlojamiento.builder()
-						.idAlojamiento(jpa)
+				var alojamientoComodidadAlojamiento = AlojamientoComodidadAlojamiento.builder().idAlojamiento(jpa)
 						.idComodidadAlojamiento(jpaComodidad).build();
 				alojamientoComodidadesSet.add(alojamientoComodidadAlojamiento);
 			}
 		});
-		
+
 		jpa.setIdAlojamientoComodidades(alojamientoComodidadesSet);
-		
+
+		// MODIFICAR IMAGENES ALOJAMIENTO
+		var imagenesList = new HashSet<ImagenAlojamiento>();
+		dto.getIdImagenesAlojamiento().forEach(imagen -> {
+			if (imagen != null) {
+				var imagenJpa = new ImagenAlojamiento();
+				if (imagen.getId() != null) {
+					imagenJpa = this.imagenAlojamientoRepository.findById(imagen.getId())
+							.orElseThrow(() -> new RuntimeException("Imagen no encontrada"));
+					imagenJpa.setNumOrden(imagen.getNumOrden());
+					imagenJpa.setUrlDatosImagen(imagen.getUrlDatosImagen());
+				} else {
+					imagenJpa = ImagenAlojamiento.builder().urlDatosImagen(imagen.getUrlDatosImagen())
+							.numOrden(imagen.getNumOrden()).idAlojamiento(jpa).build();
+				}
+				imagenesList.add(imagenJpa);
+			}
+		});
+		jpa.setIdImagenesAlojamiento(imagenesList);
+
 		this.alojamientoRepository.save(jpa);
 
 		return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("¡Alojamiento modificado con éxito!")
 				.fechaYHora(LocalDateTime.now()).build();
 	}
-	
+
 	public GenericAPIMessageDTO eliminarAlojamiento(Long id) {
 		this.alojamientoRepository.delete(this.alojamientoRepository.getReferenceById(id));
 		return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("¡Alojamiento eliminado con éxito!")
 				.fechaYHora(LocalDateTime.now()).build();
 
 	}
-	
+
 	public AlojamientoDTO toDto(Alojamiento jpa) {
 		var comodidadesList = new HashSet<AlojamientoComodidadAlojamientoDTO>();
-		
+		ImagenAlojamientoDTO[] imagenesArr = new ImagenAlojamientoDTO[10];
+
 		jpa.getIdAlojamientoComodidades().forEach(comodidad -> {
 			comodidadesList.add(alojamientoComodidadAlojamientoService.toDtoWithoutAlojamiento(comodidad));
 		});
-		
-		var valoracionesList = new HashSet<ValoracionAlojamientoDTO>();
-        AtomicReference<Double> valorPromedio = new AtomicReference<>(0.00);
-        AtomicReference<Integer> numValoraciones = new AtomicReference<>(0);
-        AtomicInteger index = new AtomicInteger(0);
 
-        if(jpa.getIdValoracionesAlojamiento().isEmpty()) {
-            valorPromedio.updateAndGet(v -> (v + 5.00));
-        }else{
-    		jpa.getIdValoracionesAlojamiento().forEach(valoracion -> {
-    			if(index.get() == 0) {
-                    valorPromedio.updateAndGet(v -> (v + valoracion.getPuntuacion()));
-                    index.updateAndGet(i -> i+1);
-    			}else {
-                    valorPromedio.updateAndGet(v -> (v + valoracion.getPuntuacion()) / 2);
-                    index.updateAndGet(i -> i+1);
-    			}
-    			numValoraciones.updateAndGet(v -> (v + 1));
-    			valoracionesList.add(valoracionAlojamientoService.toDto(valoracion));
-    		});
-        }
-				
+		jpa.getIdImagenesAlojamiento().forEach(imagen -> {
+			imagenesArr[imagen.getNumOrden()] = this.imagenAlojamientoService.toDto(imagen);
+		});
+
+		var valoracionesList = new HashSet<ValoracionAlojamientoDTO>();
+		AtomicReference<Double> valorPromedio = new AtomicReference<>(0.00);
+		AtomicReference<Integer> numValoraciones = new AtomicReference<>(0);
+		AtomicInteger index = new AtomicInteger(0);
+
+		if (jpa.getIdValoracionesAlojamiento().isEmpty()) {
+			valorPromedio.updateAndGet(v -> (v + 5.00));
+		} else {
+			jpa.getIdValoracionesAlojamiento().forEach(valoracion -> {
+				if (index.get() == 0) {
+					valorPromedio.updateAndGet(v -> (v + valoracion.getPuntuacion()));
+					index.updateAndGet(i -> i + 1);
+				} else {
+					valorPromedio.updateAndGet(v -> (v + valoracion.getPuntuacion()) / 2);
+					index.updateAndGet(i -> i + 1);
+				}
+				numValoraciones.updateAndGet(v -> (v + 1));
+				valoracionesList.add(valoracionAlojamientoService.toDto(valoracion));
+			});
+		}
+
 		var dto = AlojamientoDTO.builder().id(jpa.getId()).txtNombre(jpa.getTxtNombre())
 				.txtDescripcion(jpa.getTxtDescripcion()).numPlazaMin(jpa.getNumPlazaMin())
 				.numPlazaMax(jpa.getNumPlazaMax()).numPrecioNoche(jpa.getNumPrecioNoche())
@@ -233,10 +284,9 @@ public class AlojamientoService {
 						.provincia(jpa.getIdUbicacion().getProvincia())
 						.lineaDireccion(jpa.getIdUbicacion().getLineaDireccion())
 						.codigoPostal(jpa.getIdUbicacion().getCodigoPostal()).build())
-				.idValoracionesAlojamiento(valoracionesList)
-				.valoracionPromedio(valorPromedio.get())
-				.numValoraciones(numValoraciones.get())
-				.idAlojamientoComodidades(comodidadesList).build();
+				.idValoracionesAlojamiento(valoracionesList).valoracionPromedio(valorPromedio.get())
+				.numValoraciones(numValoraciones.get()).idAlojamientoComodidades(comodidadesList)
+				.idImagenesAlojamiento(Arrays.asList(imagenesArr)).build();
 		return dto;
 	}
 

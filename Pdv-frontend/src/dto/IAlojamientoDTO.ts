@@ -1,5 +1,6 @@
 import { IAlojamientoComodidadAlojamientoDTO } from "./IAlojamientoComodidadAlojamientoDTO";
 import { IAlquilerAlojamientoDTO } from "./IAlquilerAlojamientoDTO";
+import { IImagenAlojamientoDTO } from "./IImagenAlojamientoDTO";
 import { IUbicacionAlojamientoDTO } from "./IUbicacionAlojamientoDTO";
 import { IUsuarioDTO } from "./IUsuarioDTO";
 import { IValoracionAlojamientoDTO } from "./IValoracionAlojamientoDTO";
@@ -16,6 +17,7 @@ export interface IAlojamientoDTO {
     idAlquileresAlojamiento?: IAlquilerAlojamientoDTO[];
     idUbicacion?: IUbicacionAlojamientoDTO;
     idAlojamientoComodidades?: IAlojamientoComodidadAlojamientoDTO[];
+    idImagenesAlojamiento?: IImagenAlojamientoDTO[];
     idComodidades?: number[];
     numValoraciones?: number;
     valoracionPromedio?: number;

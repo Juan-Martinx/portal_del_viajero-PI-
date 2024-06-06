@@ -52,6 +52,7 @@ public class Alojamiento {
 	@JoinColumn(referencedColumnName = "id_usuario", name = "id_usuario", nullable = false)
 	private Usuario idUsuario;
 	
+	//Los CascadeType.ALL son debido a que todo lo que le ocurra al alojamiento le ocurrirá también a sus clases hijas
 	@JsonManagedReference
 	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ValoracionAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<ValoracionAlojamiento> idValoracionesAlojamiento;
@@ -59,6 +60,7 @@ public class Alojamiento {
 	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlquilerAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<AlquilerAlojamiento> idAlquileresAlojamiento;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ImagenAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<ImagenAlojamiento> idImagenesAlojamiento;
 	

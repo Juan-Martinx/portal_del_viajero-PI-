@@ -18,54 +18,99 @@
                 <a class="d-inline-flex editar-usuario" (click)="editarTituloEnable = !editarTituloEnable"><i
                         class="bi bi-pencil-fill me-3"></i>Editar</a>
             </div>
-            <div class="row m-auto">
+            <div class="row m-auto position-relative">
                 <div class="img-principal col-12 col-md-6 col-lg-4 px-0 position-relative">
-                    <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal3" class="position-relative">
-                        <img src="../../../assets/paginaRegistro/imagenCasaRural.jpg" class="img-fluid"/>
+                    @if(this.isActionNew){
+                    <a href="{{this.rutaActual}}?action=new#modal3" class="position-relative">
+                        <img src="../../../assets/fondo-transparente.jpg" class="img-fluid" id="img-0" />
                         <div class="anadir-photo d-flex justify-content-center align-items-center">
-                                <mat-icon>add_a_photo</mat-icon>
+                            <mat-icon>add_a_photo</mat-icon>
                         </div>
                     </a>
-                    
-                    
-                </div>
-                <div class="row d-none d-md-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between"
-                    style="height: 400px;">
-                    <div class="img px-0">
-                        <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal3">
-                            <img src="../../../assets/paginaRegistro/imagenCasaRural.jpg"/>
-                            <div class="anadir-photo1 d-flex align-items-center justify-content-center ">
-                                    <mat-icon>add_a_photo</mat-icon>
+                    }@else {
+                    <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal3" class="position-relative">
+                        @if(alojamientoModificado.idImagenesAlojamiento && alojamientoModificado.idImagenesAlojamiento[0]){
+                            <img [src]="alojamientoModificado.idImagenesAlojamiento[0].urlDatosImagen" class="img-fluid" id="img-0" />
+                            <div class="anadir-photo d-flex justify-content-center align-items-center">
+                                <mat-icon>add_a_photo</mat-icon>
                             </div>
-                        </a>
+                        }@else {
+                            <img src="../../../assets/paginaRegistro/imagenCasaRural.jpg" class="img-fluid" id="img-0" />
+                            <div class="anadir-photo d-flex justify-content-center align-items-center">
+                                <mat-icon>add_a_photo</mat-icon>
+                            </div>
+                        }
 
-                    </div>
-                    <div class="img px-0">
-                        <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal3">
-                            <img src="../../../assets/paginaRegistro/imagenCasaRural.jpg"/>
-                            <div class="anadir-photo2 d-flex justify-content-center align-items-center">
-                                    <mat-icon>add_a_photo</mat-icon>
-                            </div>
-                        </a>
-                    </div>
+                    </a>
+                    }
                 </div>
-                <div class="row d-none d-lg-flex col-4 m-auto mt-0 flex-column justify-content-between"
+                <div class="object-fit row d-none d-md-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between"
                     style="height: 400px;">
-                    <div class="img px-0" >
-                        <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal3">
-                            <img src="../../../assets/paginaRegistro/imagenCasaRural.jpg"/>
-                            <div class="anadir-photo3 d-flex justify-content-center align-items-center">
-                                <mat-icon>add_a_photo</mat-icon>
-                            </div>
-                        </a>
-                    </div>
+                    @for (index of [1,2]; track index) {
+                    @if(!isActionNew && alojamientoModificado.idImagenesAlojamiento &&
+                    alojamientoModificado.idImagenesAlojamiento[index]){
                     <div class="img px-0">
-                        <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal3">
-                            <img src="../../../assets/paginaRegistro/imagenCasaRural.jpg"/>
-                            <div class="anadir-photo4 d-flex justify-content-center align-items-center">
-                                <mat-icon>add_a_photo</mat-icon>
-                            </div>
-                        </a>
+                        <img [src]="alojamientoModificado.idImagenesAlojamiento[index].urlDatosImagen"
+                            id="img-{{index}}" />
+                    </div>
+                    }@else {
+                    <div class="img px-0">
+                        <img src="../../../assets/fondo-transparente.jpg" id="img-{{index}}" />
+                    </div>
+                    }
+                    }
+                </div>
+                <div class="object-fit row d-none d-lg-flex col-md-4 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between"
+                    style="height: 400px;">
+                    @for (index of [3,4]; track index) {
+                        @if(!isActionNew && alojamientoModificado.idImagenesAlojamiento &&
+                        alojamientoModificado.idImagenesAlojamiento[index]){
+                        <div class="img px-0">
+                            <img [src]="alojamientoModificado.idImagenesAlojamiento[index].urlDatosImagen"
+                                id="img-{{index}}" />
+                        </div>
+                        }@else {
+                        <div class="img px-0">
+                            <img src="../../../assets/fondo-transparente.jpg" id="img-{{index}}" />
+                        </div>
+                        }
+                        }
+                </div>
+            </div>
+
+            <!-- IMAGEN PRINCIPAL MODAL -->
+            <div id="modal3" class="modalmask">
+                <div class="modalbox movedown modal-imagenes">
+
+                    @if(this.isActionNew){
+                    <a href="{{this.rutaActual}}?action=new#close" (click)="comodidades=[]" title="Close"
+                        class="close">X</a>
+                    }@else {
+                    <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#close" (click)="comodidades=[]"
+                        title="Close" class="close">X</a>
+                    }
+
+                    <div class="row" id="contenedor-imagenes">
+                        <h2>IMAGENES</h2>
+                        @for (index of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; track index) {
+                        @if(alojamientoModificado.idImagenesAlojamiento &&
+                        alojamientoModificado.idImagenesAlojamiento[index]
+                        && alojamientoModificado.idImagenesAlojamiento[index].urlDatosImagen){
+                            <img  (click)="onImageClick(index)" id="imagen-alojamiento-{{index}}" [src]="alojamientoModificado.idImagenesAlojamiento[index].urlDatosImagen"
+                            class="img-fluid col-md-3 ms-1 mb-2 d-flex justify-content-center  modal-img align-items-center m-auto px-0" />
+                        }@else {
+                            <img style="display: none !important;" (click)="onImageClick(index)" id="imagen-alojamiento-{{index}}" [src]=""
+                            class="img-fluid col-md-3 ms-1 mb-2 d-flex justify-content-center  modal-img align-items-center m-auto px-0" />
+                        <div id="div-image-{{index}}" (click)="onImageClick(index)"
+                            class="col-md-3 ms-1 mb-2 d-flex justify-content-center  modal-img align-items-center m-auto">
+
+                            Seleccione Imagen {{index + 1}}
+
+                        </div>
+                        }
+                        <input type="file" id="image-input-{{index}}" class="form-control" accept="image/*"
+                        (change)="uploadFile($event, index)" style="display: none;">
+                        }
                     </div>
                 </div>
             </div>
@@ -120,25 +165,6 @@
                 </mat-form-field>
             </div>
 
-              <!-- IMAGEN PRINCIPAL MODAL -->
-              <div id="modal3" class="modalmask">
-                <div class="modalbox movedown modal-imagenes">
-                    
-                    <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#close"
-                        title="Close" class="close">X</a>
-                    
-                        <div class="row">
-                            <h2>IMAGENES</h2>
-
-                            @for (comodidad of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; track comodidad) {
-                            <div class="row mb-2 justify-content-center d-flex ms-4 me-3 mb-3 mt-3 modal-img">
-                                Imagen {{comodidad}}
-                            </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-
             <!-- INSTALACIONES -->
             <div class="col-12 mt-3 b-bottom">
                 <h2 class="d-inline-flex me-4 fw-bold">Instalaciones</h2>
@@ -156,7 +182,8 @@
                         <mat-icon
                             class="d-inline-flex justify-content-center me-2">{{comodidad.iconoComodidad}}</mat-icon>
                         <p class="d-inline-flex align-items-center">{{comodidad.txtNombre}}</p>
-                        <a (click)="eliminarComodidad(comodidad)" class="d-inline-flex justify-content-center remove-icon">
+                        <a (click)="eliminarComodidad(comodidad)"
+                            class="d-inline-flex justify-content-center remove-icon">
                             <mat-icon>close</mat-icon>
                         </a>
                     </div>
@@ -254,9 +281,9 @@
                             class="d-inline-flex justify-content-center me-2 icon-pool">{{comodidad.iconoComodidad}}</mat-icon>
                         <p class="d-inline-flex align-items-center">{{comodidad.txtNombre}}</p>
                         <a (click)="eliminarComodidad(comodidad)"
-                        class="d-inline-flex justify-content-center ms-2 remove-icon">
-                        <mat-icon>close</mat-icon>
-                    </a>
+                            class="d-inline-flex justify-content-center ms-2 remove-icon">
+                            <mat-icon>close</mat-icon>
+                        </a>
                     </div>
                     }
                 </div>

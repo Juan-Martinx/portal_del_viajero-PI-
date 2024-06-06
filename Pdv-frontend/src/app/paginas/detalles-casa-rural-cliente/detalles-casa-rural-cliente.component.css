@@ -103,3 +103,51 @@
         font-size: 1rem;
     }
 }
+
+.anadir-photo{
+    position: absolute;
+    visibility: hidden;
+    top: 47.5%;
+    left: 47.5%;
+    z-index: 1000;
+}
+
+.img-principal img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.img-principal:hover img{
+    opacity: 0.5;
+}
+
+.img-principal:hover .anadir-photo{
+    visibility: visible;
+}
+
+.img{
+    background-color: rgb(162, 162, 162, 0.5);
+    height: 190px;
+}
+
+.img img{
+    height: 100%;
+    width: 100%;
+}
+
+.modal-img{
+    aspect-ratio: 1/1;
+    background-color: rgb(162, 162, 162, 0.5);
+}
+
+.modal-imagenes{
+    display: flex;
+    width: 80%;
+    height: 500px;
+    overflow: scroll;
+}
+
+.object-fit img{
+    object-fit: cover;
+}

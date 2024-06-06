@@ -11,26 +11,12 @@
 }
 
 .anadir-photo{
+    position: absolute;
     visibility: hidden;
+    top: 47.5%;
+    left: 47.5%;
     z-index: 1000;
 }
-
-.anadir-photo1{
-    visibility: hidden;
-}
-
-.anadir-photo2{
-    visibility: hidden;
-}
-
-.anadir-photo3{
-    visibility: hidden;
-}
-
-.anadir-photo4{
-    visibility: hidden;
-}
-
 
 .img-principal{
     background-color: rgb(162, 162, 162, 0.5);
@@ -38,17 +24,26 @@
 }
 
 .modal-imagenes{
-    height: 50vh;
+    display: flex;
+    width: 80%;
+    height: 500px;
     overflow: scroll;
 }
 
 .modal-img{
-    background-color: rgb(162, 162, 162, 0.5); height: 15vh; width: 15vh;
+    aspect-ratio: 1/1;
+    background-color: rgb(162, 162, 162, 0.5);
+}
+
+.modal-img:hover{
+    cursor: pointer;
+    background-color: rgba(205, 205, 205, 0.5);
 }
 
 .img-principal img{
     height: 100%;
     width: 100%;
+    object-fit: cover;
 }
 
 .img-principal:hover img{
@@ -68,30 +63,6 @@
 .img img{
     height: 100%;
     width: 100%;
-}
-
-.img:hover img{
-    opacity: 0.5;
-}
-
-.img:hover .anadir-photo1{
-    opacity: 1;
-    visibility: visible;
-}
-
-.img:hover .anadir-photo2{
-    opacity: 1;
-    visibility: visible;
-}
-
-.img:hover .anadir-photo3{
-    opacity: 1;
-    visibility: visible;
-}
-
-.img:hover .anadir-photo4{
-    opacity: 1;
-    visibility: visible;
 }
 
 .b-bottom{
@@ -185,6 +156,10 @@
     cursor: pointer;
 }
 
+.position-relative{
+    position: relative;
+}
+
 @media(max-width: 490px){
     .valoraciones{
         font-size: 0.6rem;
@@ -198,16 +173,9 @@
     .valoraciones h2{
         font-size: 1rem;
     }
+    
+}
 
-    .anadir-photo{
-        visibility: hidden;
-        position: absolute;
-        z-index: 10;
-        top: 68%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-    
-    
-    
+.object-fit img{
+    object-fit: cover;
 }
