@@ -4,14 +4,16 @@
       <a class="casas-alquiler" routerLink="/casas-alquiler"> <i class="bi bi-house-door me-3"></i>Casas en alquiler</a>
     </div>
 
-    <div class="col-12 d-flex justify-content-center mt-3 ">
+    <div class="col-12 d-flex justify-content-center mt-3 position-relative">
       
-      <a href="{{this.rutaActual}}#modal3" class="position-relative img-principal" >
-        <img class="imagen-usuario" [src]="usuario.urlImagenUsuario">
+      <a href="{{this.rutaActual}}#modal3" class="img-principal" >
+        @if (usuario.urlImagenUsuario) {
+          <img class="imagen-usuario" [src]="usuario.urlImagenUsuario">
+        }@else {
+          <img class="imagen-usuario" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+        }
 
-        <div class="anadir-photo d-flex justify-content-center align-items-center">
-                <mat-icon>add_a_photo</mat-icon>
-        </div>
+        <mat-icon class="anadir-photo">add_a_photo</mat-icon>
     </a>
     </div>
 
@@ -22,13 +24,15 @@
           <a href="{{this.rutaActual}}#close"
               title="Close" class="close">X</a>
           
-              <div class="row">
-                  <h2>IMAGENES</h2>
-
-                  <div class="row mb-2 justify-content-center d-flex ms-4 me-3 mb-3 mt-3 modal-img">
-                      Imagen 1
-                  </div>
-                  <input type="file" id="image" class="form-control" accept="image/*" (change)="uploadFile($event)">
+              <div class="row d-flex justify-content-center align-items-center">
+                  <h2>FOTO DE PERFIL</h2>
+                @if(usuario.urlImagenUsuario){
+                  <img class="imagen-perfil-edit" [src]="usuario.urlImagenUsuario">
+                }@else {
+                  <img class="imagen-perfil-edit" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                }
+                <label class="mt-3" for="image">Seleccione su nueva foto de perfil:</label>
+                <input type="file" id="image" class="form-control" accept="image/*" (change)="uploadFile($event)" >
 
               </div>
           </div>
