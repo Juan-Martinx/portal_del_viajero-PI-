@@ -14,6 +14,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -22,6 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "imagen_alojamiento")
+@EqualsAndHashCode(exclude = "idAlojamiento")
 public class ImagenAlojamiento {
 		
 	@Id
@@ -32,7 +34,7 @@ public class ImagenAlojamiento {
 	@Column(name = "datos_imagen", nullable = false)
 	@Basic(optional = false, fetch = FetchType.LAZY)
 	@Lob
-	private Byte[] datosImagen;
+	private String urlDatosImagen;
 	
 	@Column(name = "num_orden", nullable = false)
 	private Integer numOrden;
