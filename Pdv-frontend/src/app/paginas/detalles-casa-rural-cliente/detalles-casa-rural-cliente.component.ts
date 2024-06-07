@@ -15,6 +15,7 @@ import { CodTipoComodidad } from '../../../dto/enumCodTipoComodidad';
 import { AlquilerAlojamientoService } from '../../services/alquiler-alojamiento.service';
 import { IAlquilerAlojamientoDTO } from '../../../dto/IAlquilerAlojamientoDTO';
 import { ValoracionAlojamientoService } from '../../services/valoracion-alojamiento.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-detalles-casa-rural-cliente',
@@ -40,7 +41,7 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
   primerasInstalaciones: IComodidadAlojamientoDTO[] = [];
   primerasComodidades: IComodidadAlojamientoDTO[] = [];
 
-  constructor(private alojamientoService: AlojamientoService, private route: ActivatedRoute, private alquilerAlojamientoService: AlquilerAlojamientoService, private valoracionAlojamientoService: ValoracionAlojamientoService, private router: Router) { }
+  constructor(private tokenService: TokenService ,private alojamientoService: AlojamientoService, private route: ActivatedRoute, private alquilerAlojamientoService: AlquilerAlojamientoService, private valoracionAlojamientoService: ValoracionAlojamientoService, private router: Router) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -132,6 +133,7 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
 
   realizarComentario(){
     if(this.valorar.valid){
+      if(this.tokenService.isLogged()){
         const valoracion: IValoracionAlojamientoDTO = {
           puntuacion: this.valorar.get('puntuacion')?.value as number,
           txtMensaje: this.valorar.get('comentario')?.value as string,
@@ -141,6 +143,9 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
           alert(response.mensaje);
           window.location.reload();
         });
+      }else{
+        alert("Debes iniciar sesión para realizar una valoración");
+      }
       }else{
       alert("Por favor, rellene todos los campos para realizar la valoración");
     }

@@ -7,9 +7,11 @@
         </div>
 
         @for (reserva of reservas; track reserva.id) {
-        <div class="card px-0 m-auto mt-3 pb-3">
-            <img class="ms-0 me-0 imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg"
+        <div class="card px-0 m-auto mt-3 pb-3 mb-3">
+            @if (reserva.alojamiento && reserva.alojamiento.idImagenesAlojamiento) {
+                <img class="ms-0 me-0 imagen-casa" [src]="reserva.alojamiento.idImagenesAlojamiento[0].urlDatosImagen"
                 alt="Card image cap">
+              }
             <div class="card-body">
                 <h2 class="card-title fw-bold">{{ reserva.alojamiento?.txtNombre }}</h2>
                 <div class="localizacion d-inline-flex">

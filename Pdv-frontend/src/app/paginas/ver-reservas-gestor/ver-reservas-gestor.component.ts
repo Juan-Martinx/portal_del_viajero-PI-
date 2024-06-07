@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AlquilerAlojamientoService } from '../../services/alquiler-alojamiento.service';
 import { IAlquilerAlojamientoDTO } from '../../../dto/IAlquilerAlojamientoDTO';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-ver-reservas-gestor',
@@ -12,11 +13,14 @@ import { RouterLink } from '@angular/router';
 })
 export class VerReservasGestorComponent {
 
-  constructor(private alquilerAlojamientoService: AlquilerAlojamientoService) { }
+  constructor(private alquilerAlojamientoService: AlquilerAlojamientoService, private tokenService: TokenService, private router: Router) { }
 
   reservas: IAlquilerAlojamientoDTO[] = [];
 
   ngOnInit(): void {
+    if(!this.tokenService.isGestor()){
+      this.router.navigate(['/']);
+    }
     this.alquilerAlojamientoService.buscarReservasGestor().subscribe(reservas => {
       this.reservas = reservas;
     });

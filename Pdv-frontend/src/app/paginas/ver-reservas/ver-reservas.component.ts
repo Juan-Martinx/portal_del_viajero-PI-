@@ -6,7 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AlquilerAlojamientoService } from '../../services/alquiler-alojamiento.service';
 import { IAlquilerAlojamientoDTO } from '../../../dto/IAlquilerAlojamientoDTO';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-ver-reservas',
@@ -17,11 +18,14 @@ import { RouterLink } from '@angular/router';
 })
 export class VerReservasComponent implements OnInit {
 
-  constructor(private alquilerAlojamientoService: AlquilerAlojamientoService) { }
+  constructor(private tokenService: TokenService,private alquilerAlojamientoService: AlquilerAlojamientoService, private router: Router) { }
 
   reservas: IAlquilerAlojamientoDTO[] = [];
 
   ngOnInit(): void {
+    if(!this.tokenService.isLogged()){
+      this.router.navigate(['/']);
+    }
     this.alquilerAlojamientoService.buscarReservasUsuario().subscribe(reservas => {
       this.reservas = reservas;
     });

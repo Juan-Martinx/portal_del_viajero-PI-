@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,16 +63,19 @@ public class AlojamientoController {
 		return ResponseEntity.ok().body(this.alojamientoService.buscarAlojamientoByUsername(username));
 	}
 	
+	@PreAuthorize("hasAuthority('PERFIL_GESTOR')")
 	@PostMapping
 	public ResponseEntity<GenericAPIMessageDTO> aniadirAlojamiento(@RequestBody AlojamientoDTO dto, Authentication autenticacion){
 		return ResponseEntity.ok().body(this.alojamientoService.aniadirAlojamiento(dto, autenticacion));
 	}
 	
+	@PreAuthorize("hasAuthority('PERFIL_GESTOR')")
 	@PutMapping
 	public ResponseEntity<GenericAPIMessageDTO> modificarAlojamiento(@RequestBody AlojamientoDTO dto, Authentication autenticacion){
 		return ResponseEntity.ok().body(this.alojamientoService.modificarAlojamiento(dto, autenticacion));
 	}
 	
+	@PreAuthorize("hasAuthority('PERFIL_GESTOR')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<GenericAPIMessageDTO> eliminarAlojamiento(@PathVariable("id") Long id){
 		return ResponseEntity.ok().body(this.alojamientoService.eliminarAlojamiento(id));

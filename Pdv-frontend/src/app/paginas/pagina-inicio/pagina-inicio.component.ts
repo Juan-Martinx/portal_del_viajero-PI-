@@ -86,6 +86,7 @@ export class PaginaInicioComponent implements OnInit{
 
   resetearMenu(){
     this.filtros.reset();
+    this.mostrarMenu();
   }
 
   /**
@@ -149,7 +150,6 @@ export class PaginaInicioComponent implements OnInit{
     }
 
     buscarAlojamientoWithFilters(avanzarPagina: boolean){
-      this.mostrarMenu();
       const fechaLlegada = this.filtros.get('fechaLlegada')?.value;
       const fechaSalida = this.filtros.get('fechaSalida')?.value;
       const precioMin = this.filtros.get('precioMin')?.value;
@@ -181,6 +181,9 @@ export class PaginaInicioComponent implements OnInit{
           alert("No hay resultados para mostrar");
         }else{
           this.casasRurales = alojamientos;
+          if(this.menu){
+            this.mostrarMenu();
+          }
         }
       });
     }

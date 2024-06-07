@@ -65,7 +65,7 @@ public class UsuarioController {
 	
 	@PreAuthorize("hasAuthority('PERFIL_ADMIN')")
 	@PutMapping("/editar-otro/{username}")
-	public ResponseEntity<GenericAPIMessageDTO> editarPerfilUsuario(@PathVariable("username") String username,@RequestBody UsuarioDTO dto){
+	public ResponseEntity<GenericAPIMessageDTO> editarPerfilUsuarioOtro(@PathVariable("username") String username,@RequestBody UsuarioDTO dto){
 		return ResponseEntity.ok().body(usuarioService.editarUsuarioByUsername(username,dto));
 	}
 	

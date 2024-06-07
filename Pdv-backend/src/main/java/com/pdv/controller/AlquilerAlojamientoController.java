@@ -3,6 +3,7 @@ package com.pdv.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class AlquilerAlojamientoController {
 		return ResponseEntity.ok().body(this.alquilerAlojamientoService.buscarReservasUsuario(autenticacion));
 	}
 	
+	@PreAuthorize("hasAuthority('PERFIL_GESTOR')")
 	@GetMapping("/gestor")
 	public ResponseEntity<List<AlquilerAlojamientoDTO>> buscarReservasGestor(Authentication autenticacion){
 		return ResponseEntity.ok().body(this.alquilerAlojamientoService.buscarReservasGestor(autenticacion));

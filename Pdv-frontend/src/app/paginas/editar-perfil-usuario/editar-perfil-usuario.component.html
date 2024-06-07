@@ -1,104 +1,105 @@
 <div class="container contenedor-principal">
-    <div class="row m-auto mb-4">
-      <div class="col-12 me-3 mt-4 d-flex justify-content-between">
-        @if(isGestor()){
+  <div class="row m-auto mb-4">
+    <div class="col-12 me-3 mt-4 d-flex justify-content-between">
+      @if(isGestor()){
 
-          <a class="casas-alquiler d-flex align-items-center" routerLink="/casas-disponibles/{{usuario.username}}" > <i class="bi bi-house-door me-3"></i>Casas en alquiler</a>
-          <a class="casas-alquiler d-flex align-items-center" (click)="eliminarUsuario()"> <i class="bi bi-trash me-3"></i>Eliminar Usuario</a>
-        }
-      </div>
-  
-      <div class="col-12 d-flex justify-content-center mt-3 position-relative">
-        
-        <div class="img-principal" >
-          @if (this.urlFotoPerfil != "") {
-            <img class="imagen-usuario" [src]="this.urlFotoPerfil">
-          }@else {
-            <img class="imagen-usuario" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
-          }
-        </div>
-      </div>
-
-      <h1 class="col-12 d-flex justify-content-center mt-3 fw-bold">{{usuario.username}}</h1>
-  
-      <div class="col-12 mt-1 d-flex justify-content-center mb-3">
-        <a class="d-flex justify-content-center editar-usuario" (click)="editarUsuario()"> <i
-            class="bi bi-pencil-fill me-3"></i>Editar Usuario</a>
-      </div>
-  
-      @if(isUsuarioEnEdicion !== true){
-      <div class="col-12">
-        <h2 class="titulo">Nombre:</h2>
-        <p class="ms-3"><strong>{{usuario.username}}</strong></p>
-      </div>
-  
-      <div class="col-12">
-        <h2 class="titulo">Dni:</h2>
-        <p class="ms-3"><strong>{{usuario.txtDni}}</strong></p>
-      </div>
-  
-      <div class="col-12">
-        <h2 class="titulo">Descripción:</h2>
-        <p class="ms-3"><strong>{{usuario.txtDescripcion}}</strong></p>
-      </div>
-  
-      <div class="col-12">
-        <h2 class="titulo">Teléfono:</h2>
-        <p class="ms-3"><strong>{{usuario.numTelefono}}</strong></p>
-      </div>
-  
-      <div class="col-12">
-        <h2 class="titulo">Correo electrónico:</h2>
-        <p class="ms-3"><strong>{{usuario.txtEmail}}</strong></p>
-      </div>
-      } @else {
-      <div class="col-11 col-md-9 col-lg-8 col-xl-6">
-        <form [formGroup]="editarUsuarioForm" class="row mb-2">
-          @if(isGoogleUser()){
-            <mat-form-field class="col-12">
-              <mat-label>Nombre de usuario</mat-label>
-              <input matInput placeholder="Introduzca nombre de usuario" formControlName="usuario" type="text" />
-              <mat-hint />
-              @if (this.editarUsuarioForm.get('usuario')?.errors?.['required']){
-              <mat-error>Usuario <strong>requerido</strong></mat-error>
-              }@else if(this.editarUsuarioForm.get('usuario')?.errors?.['required']){
-                <mat-error>Usuario <strong>no puede superar los 15 carácteres</strong></mat-error>
-              }
-            </mat-form-field>
-          }
-          <mat-form-field class="col-12">
-            <mat-label>DNI</mat-label>
-            <input matInput placeholder="Introduzca contraseña" formControlName="dni" type="text" />
-            <mat-hint />
-            @if(this.editarUsuarioForm.get('dni')?.errors?.['pattern'] &&
-            !this.editarUsuarioForm.get('dni')?.errors?.['required']){
-            <mat-error>No cumple con los requisitos del <strong>DNI</strong></mat-error>
-            } @if(this.editarUsuarioForm.get('dni')?.errors?.['required']){
-            <mat-error>DNI <strong>requerido</strong></mat-error>
-            }
-          </mat-form-field>
-  
-          <mat-form-field class="col-12">
-            <mat-label>Descripción</mat-label>
-            <textarea matInput placeholder="Introduzca Descripción" formControlName="descripcion"></textarea>
-          </mat-form-field>
-  
-          <mat-form-field class="col-12">
-            <mat-label>Teléfono</mat-label>
-            <input matInput type="tel" placeholder="Introduzca Teléfono" formControlName="telefono" />
-            <mat-hint />
-            @if(this.editarUsuarioForm.get('telefono')?.errors?.['pattern']){
-            <mat-error>El teléfono debe tener 9 dígitos</mat-error>
-            }
-            @if(this.editarUsuarioForm.get('telefono')?.errors?.['required']){
-            <mat-error>Teléfono <strong>requerido</strong></mat-error>
-            }
-          </mat-form-field>
-  
-        </form>
-        <button class="col-5 boton-personalizado-a me-3" (click)="guardarCambios()">Guardar</button>
-        <button class="col-5 boton-personalizado-b" (click)="editarUsuario()">Cancelar</button>
-      </div>
+      <a class="casas-alquiler d-flex align-items-center" routerLink="/casas-disponibles/{{usuario.username}}"> <i
+          class="bi bi-house-door me-3"></i>Casas en alquiler</a>
+      <a class="casas-alquiler d-flex align-items-center" (click)="eliminarUsuario()"> <i
+          class="bi bi-trash me-3"></i>Eliminar Usuario</a>
       }
     </div>
+
+    <div class="col-12 d-flex justify-content-center mt-3 position-relative">
+
+      <div class="img-principal">
+        @if (this.urlFotoPerfil != "") {
+        <img class="imagen-usuario" [src]="this.urlFotoPerfil">
+        }@else {
+        <img class="imagen-usuario" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+        }
+      </div>
+    </div>
+
+    <h1 class="col-12 d-flex justify-content-center mt-3 fw-bold">{{usuario.username}}</h1>
+
+    <div class="col-12 mt-1 d-flex justify-content-center mb-3">
+      <a class="d-flex justify-content-center editar-usuario" (click)="editarUsuario()"> <i
+          class="bi bi-pencil-fill me-3"></i>Editar Usuario</a>
+    </div>
+
+    @if(isUsuarioEnEdicion !== true){
+    <div class="col-12">
+      <h2 class="titulo">Nombre:</h2>
+      <p class="ms-3"><strong>{{usuario.username}}</strong></p>
+    </div>
+
+    <div class="col-12">
+      <h2 class="titulo">Dni:</h2>
+      <p class="ms-3"><strong>{{usuario.txtDni}}</strong></p>
+    </div>
+
+    <div class="col-12">
+      <h2 class="titulo">Descripción:</h2>
+      <p class="ms-3"><strong>{{usuario.txtDescripcion}}</strong></p>
+    </div>
+
+    <div class="col-12">
+      <h2 class="titulo">Teléfono:</h2>
+      <p class="ms-3"><strong>{{usuario.numTelefono}}</strong></p>
+    </div>
+
+    <div class="col-12">
+      <h2 class="titulo">Correo electrónico:</h2>
+      <p class="ms-3"><strong>{{usuario.txtEmail}}</strong></p>
+    </div>
+    } @else {
+    <div class="col-11 col-md-9 col-lg-8 col-xl-6">
+      <form [formGroup]="editarUsuarioForm" class="row mb-2">
+        <mat-form-field class="col-12">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput placeholder="Introduzca nombre de usuario" formControlName="usuario" type="text" />
+          <mat-hint />
+          @if (this.editarUsuarioForm.get('usuario')?.errors?.['required']){
+          <mat-error>Usuario <strong>requerido</strong></mat-error>
+          }@else if(this.editarUsuarioForm.get('usuario')?.errors?.['required']){
+          <mat-error>Usuario <strong>no puede superar los 15 carácteres</strong></mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+          <mat-label>DNI</mat-label>
+          <input matInput placeholder="Introduzca contraseña" formControlName="dni" type="text" />
+          <mat-hint />
+          @if(this.editarUsuarioForm.get('dni')?.errors?.['pattern'] &&
+          !this.editarUsuarioForm.get('dni')?.errors?.['required']){
+          <mat-error>No cumple con los requisitos del <strong>DNI</strong></mat-error>
+          } @if(this.editarUsuarioForm.get('dni')?.errors?.['required']){
+          <mat-error>DNI <strong>requerido</strong></mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput placeholder="Introduzca Descripción" formControlName="descripcion"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+          <mat-label>Teléfono</mat-label>
+          <input matInput type="tel" placeholder="Introduzca Teléfono" formControlName="telefono" />
+          <mat-hint />
+          @if(this.editarUsuarioForm.get('telefono')?.errors?.['pattern']){
+          <mat-error>El teléfono debe tener 9 dígitos</mat-error>
+          }
+          @if(this.editarUsuarioForm.get('telefono')?.errors?.['required']){
+          <mat-error>Teléfono <strong>requerido</strong></mat-error>
+          }
+        </mat-form-field>
+
+      </form>
+      <button class="col-5 boton-personalizado-a me-3" (click)="guardarCambios()">Guardar</button>
+      <button class="col-5 boton-personalizado-b" (click)="editarUsuario()">Cancelar</button>
+    </div>
+    }
   </div>
+</div>

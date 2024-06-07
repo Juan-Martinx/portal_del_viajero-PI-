@@ -7,6 +7,7 @@ import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Valida
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IAlojamientoDTO } from '../../../dto/IAlojamientoDTO';
 import { AlojamientoService } from '../../services/alojamiento.service';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-casas-alquiler',
@@ -17,11 +18,14 @@ import { AlojamientoService } from '../../services/alojamiento.service';
 })
 export class CasasAlquilerComponent implements OnInit {
 
-  constructor(private alojamientoService: AlojamientoService, private router: Router) { }
+  constructor(private alojamientoService: AlojamientoService, private router: Router, private tokenService: TokenService) { }
 
   casasRurales: IAlojamientoDTO[] = [];
 
   ngOnInit(): void {
+    if(!this.tokenService.isGestor()){
+      this.router.navigate(['/']);
+    }
     this.alojamientoService.buscarAlojamientosUsuario().subscribe(alojamientos => {
       this.casasRurales = alojamientos;
     });

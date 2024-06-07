@@ -69,8 +69,8 @@ export class EditarPerfilUsuarioComponent {
       this.usuarioService.editarUsuarioOtro(this.username, usuarioEditado).subscribe(mensaje => {
         alert(mensaje.mensaje);
         if (mensaje.estado == "OK") {
-          this.usuario = usuarioEditado;
-          this.isUsuarioEnEdicion = !this.isUsuarioEnEdicion;
+          this.router.navigate(['/editar-perfil-usuario/' + usuarioEditado.username]);
+          this.isUsuarioEnEdicion = false;
         }
       }, error => {
         alert('No se puede editar el usuario debido a que los datos introducidos corresponden ya otro usuario distinto');
