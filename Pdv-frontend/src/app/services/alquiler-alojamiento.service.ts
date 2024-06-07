@@ -22,6 +22,10 @@ export class AlquilerAlojamientoService {
     return this.http.get<IAlquilerAlojamientoDTO[]>(environment.api + this.alquilerAlojamientoAPI);
   }
 
+  buscarReservasGestor(): Observable<IAlquilerAlojamientoDTO[]> {
+    return this.http.get<IAlquilerAlojamientoDTO[]>(environment.api + this.alquilerAlojamientoAPI + "/gestor");
+  }
+
   cancelarReserva(id: number): Observable<IGenericApiMessageDTO> {
     return this.http.delete<IGenericApiMessageDTO>(environment.api + this.alquilerAlojamientoAPI + "/" + id);
   }

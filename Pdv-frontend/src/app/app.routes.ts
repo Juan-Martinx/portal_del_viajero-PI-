@@ -14,6 +14,8 @@ import { VerPerfilComponent } from './paginas/ver-perfil/ver-perfil.component';
 import { CasasDisponiblesComponent } from './paginas/casas-disponibles/casas-disponibles.component';
 import { CasasAlquilerComponent } from './paginas/casas-alquiler/casas-alquiler.component';
 import { PaginaInicioComponent } from './paginas/pagina-inicio/pagina-inicio.component';
+import { VerReservasGestorComponent } from './paginas/ver-reservas-gestor/ver-reservas-gestor.component';
+import { EditarPerfilUsuarioComponent } from './paginas/editar-perfil-usuario/editar-perfil-usuario.component';
 
 export const routes: Routes = [
     { path: '', redirectTo:"/inicio", pathMatch: 'full'},
@@ -21,9 +23,11 @@ export const routes: Routes = [
     { path: 'registro', component: PaginaRegistroComponent, title: 'Inicio'},
     { path: 'convertir-gestor', component: ConvertirGestorComponent, title: 'Convertir en Gestor'},
     { path: 'editar-perfil', component: EditarPerfilComponent, title: 'Editar Perfil'},
+    { path: 'editar-perfil-usuario/:username', component: EditarPerfilUsuarioComponent, title: 'Editar Perfil'},
     { path: 'ver-perfil/:username', component: VerPerfilComponent, title: 'Ver Perfil'},
     { path: 'modificar-comodidad', component: ModificarComodidadComponent, title: 'Modificar Comodidad'},
     { path: 'reservas-realizadas', component: VerReservasComponent, title: 'Ver Reservas Realizadas'},
+    { path: 'reservas-gestion', component: VerReservasGestorComponent, title: 'Gestionar Reservas Alojamientos'},
     { path: 'buscador-comodidades', component: BuscarComodidadComponent, title: 'Buscar Comodidades y Administrarlas'},
     { path: 'usuarios-registrados', component: BuscarUsuariosComponent, title: 'Buscar Usuarios que están registrados'},
     { path: 'detalles-casas-gestor', component: DetallesCasaRuralGestorAdministradorComponent, title: 'Detalles de las Casas Rurales de los Gestores y Administradores'},

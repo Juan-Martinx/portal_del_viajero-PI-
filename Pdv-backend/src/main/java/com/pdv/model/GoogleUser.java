@@ -2,6 +2,8 @@ package com.pdv.model;
 
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -31,6 +34,7 @@ public class GoogleUser {
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_usuario")
+    @JsonBackReference
     private Usuario appUser;
     
     public static GoogleUser fromOauth2User(OAuth2User user){

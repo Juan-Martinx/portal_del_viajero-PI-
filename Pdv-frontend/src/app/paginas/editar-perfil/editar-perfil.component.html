@@ -1,7 +1,9 @@
 <div class="container contenedor-principal">
   <div class="row m-auto mb-4">
     <div class="col-12 me-3 mt-4 d-inline-block">
-      <a class="casas-alquiler" routerLink="/casas-alquiler"> <i class="bi bi-house-door me-3"></i>Casas en alquiler</a>
+      @if(isGestor()){
+        <a class="casas-alquiler" routerLink="/casas-alquiler"> <i class="bi bi-house-door me-3"></i>Casas en alquiler</a>
+      }
     </div>
 
     <div class="col-12 d-flex justify-content-center mt-3 position-relative">
@@ -115,8 +117,8 @@
         </mat-form-field>
 
       </form>
-      <button class="col-5 btn-guardar" (click)="guardarCambios()">Guardar</button>
-      <button class="col-5 btn-cancelar" (click)="editarUsuario()">Cancelar</button>
+      <button class="col-5 boton-personalizado-a me-3" (click)="guardarCambios()">Guardar</button>
+      <button class="col-5 boton-personalizado-b" (click)="editarUsuario()">Cancelar</button>
     </div>
     }
   </div>

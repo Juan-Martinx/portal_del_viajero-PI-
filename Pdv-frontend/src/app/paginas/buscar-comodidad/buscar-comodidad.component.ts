@@ -11,6 +11,7 @@ import { iTipoComodidadDTO } from '../../../dto/ITipoComodidadDTO';
 import { MatSelectModule } from '@angular/material/select';
 import { TipoComodidadService } from '../../services/tipo-comodidad.service';
 import { IPageableDTO } from '../../../dto/IPageableDTO';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-buscar-comodidad',
@@ -21,13 +22,16 @@ import { IPageableDTO } from '../../../dto/IPageableDTO';
 })
 export class BuscarComodidadComponent implements OnInit{
 
-  constructor(private comodidadService: ComodidadService, private router: Router, private tipoComodidadesService: TipoComodidadService){}
+  constructor(private comodidadService: ComodidadService, private router: Router, private tipoComodidadesService: TipoComodidadService, private tokenService: TokenService){}
   comodidades: IComodidadAlojamientoDTO[] = [];
   tiposComodidades: iTipoComodidadDTO[] = [];
   paginaActual = 0;
 
   ngOnInit(): void {
       this.cargarTiposComodidades();
+      if(!this.tokenService.isAdmin()){
+        this.router.navigate(['/']);
+      }
   }
 
   comodidadesForm = new FormGroup({
@@ -71,7 +75,7 @@ export class BuscarComodidadComponent implements OnInit{
     this.comodidadService.buscarComodidades(comodidad, pageable).subscribe(comodidades => {
       if (comodidades.length == 0) {
         this.paginaActual = avanzarPagina? --this.paginaActual : ++this.paginaActual;
-        alert("No hay alojamientos para mostrar");
+        alert("No hay comodidades para mostrar");
       } else {
         this.comodidades = comodidades;
       }

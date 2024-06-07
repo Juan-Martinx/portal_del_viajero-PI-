@@ -56,3 +56,7 @@ li{
 .bi-arrow-left{
     font-size: 30px;
 }
+
+i:hover{
+    cursor: pointer;
+}

@@ -106,7 +106,6 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
         if (llegada && salida) {
           const llegadaDate = new Date(llegada);
           const salidaDate = new Date(salida);
-          console.log(llegadaDate);
           if(llegadaDate >= salidaDate){
             alert("La fecha de llegada no puede ser posterior a la fecha de salida");
           }else{
@@ -119,6 +118,8 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
             this.alquilerAlojamientoService.realizarReserva(alquilerAlojamiento).subscribe(response => {
               alert(response.mensaje);
               window.location.reload();
+            }, err => {
+              alert("No se puede realizar la reserva");
             });
           }
         }

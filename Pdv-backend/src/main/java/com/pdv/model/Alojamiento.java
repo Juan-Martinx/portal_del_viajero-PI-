@@ -18,6 +18,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -26,6 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "alojamiento")
+@EqualsAndHashCode(exclude = "idUsuario")
 public class Alojamiento {
 
 	@Id
@@ -58,6 +60,7 @@ public class Alojamiento {
 	private Set<ValoracionAlojamiento> idValoracionesAlojamiento;
 	
 	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlquilerAlojamiento.class, cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private Set<AlquilerAlojamiento> idAlquileresAlojamiento;
 	
 	@JsonManagedReference

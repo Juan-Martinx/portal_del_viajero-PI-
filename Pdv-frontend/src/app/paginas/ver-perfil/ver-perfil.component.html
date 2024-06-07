@@ -8,9 +8,12 @@
             </div>
 
             <div class="col-12 d-flex justify-content-center align-items-center mt-3">
+                @if(usuario?.urlImagenUsuario){
+                <img src="{{usuario?.urlImagenUsuario}}" style="border-radius: 50%; width: 150px; height: 150px;">
+                }@else {
                 <img src="../../../assets/paginaRegistro/perfil-de-usuario.jpg"
                     style="border-radius: 50%; width: 150px; height: 150px;">
-
+                }
             </div>
 
             <h1 class="col-12 d-flex justify-content-center mt-3 fw-bold">{{usuario?.username}}</h1>

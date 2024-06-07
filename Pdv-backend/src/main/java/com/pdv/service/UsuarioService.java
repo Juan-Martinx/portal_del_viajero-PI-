@@ -2,6 +2,8 @@ package com.pdv.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,10 +16,14 @@ import org.springframework.stereotype.Service;
 import com.pdv.dto.GenericAPIMessageDTO;
 import com.pdv.dto.UsuarioDTO;
 import com.pdv.enums.CodPerfiles;
+import com.pdv.model.Perfil;
 import com.pdv.model.Usuario;
+import com.pdv.repository.AlojamientoRepository;
+import com.pdv.repository.AlquilerAlojamientoRepository;
 import com.pdv.repository.GoogleUserRepository;
 import com.pdv.repository.PerfilRepository;
 import com.pdv.repository.UsuarioRepository;
+import com.pdv.repository.ValoracionAlojamientoRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +38,9 @@ public class UsuarioService {
 	private final GoogleUserRepository googleUserRepository;
 	private final PerfilRepository perfilRepository;
 	private final PerfilService perfilService;
+	private final ValoracionAlojamientoRepository valoracionAlojamientoRepository;
+	private final AlquilerAlojamientoRepository alquilerAlojamientoRepository;
+	private final AlojamientoRepository alojamientoRepository;
 	
 	/**
 	 * Realiza una búsqueda páginada de los usuarios con la 
@@ -47,6 +56,7 @@ public class UsuarioService {
 			usuarios.forEach(usuario -> {
 				var usuarioDto = UsuarioDTO.builder()
 						.id(usuario.getId())
+						.urlImagenUsuario(usuario.getUrlImagenUsuario())
 						.username(usuario.getUsername())
 						.build();
 				dtoList.add(usuarioDto);
@@ -71,6 +81,54 @@ public class UsuarioService {
 		return dto;
 	}
 	
+	public UsuarioDTO buscarUsuarioPorUsernameByAdmin(String username) {
+		var jpaOpt = this.usuarioRepository.findByUsername(username);
+		var dto = new UsuarioDTO();
+		if(jpaOpt.isPresent()) {
+			var jpa = jpaOpt.get();
+			dto = UsuarioDTO.builder()
+					.username(username)
+					.txtDni(jpa.getTxtDni())
+					.urlImagenUsuario(jpa.getUrlImagenUsuario())
+					.txtEmail(jpa.getTxtEmail())
+					.numTelefono(jpa.getNumTelefono())
+					.txtDescripcion(jpa.getTxtDescripcion())
+					.build();
+		}
+		return dto;
+	}
+	
+	@Transactional
+	public GenericAPIMessageDTO eliminarUsuario(String username) {
+		var jpa = this.usuarioRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+		
+		this.usuarioRepository.deleteAllPerfilesRelationshipByIdUsuario(jpa.getId());
+		
+		jpa.getIdAlojamiento().forEach(alojamiento -> {
+			alojamientoRepository.deleteById(alojamiento.getId());
+		});
+		jpa.setIdAlojamiento(null);
+		
+		jpa.getIdAlquileres().forEach(alquiler -> {
+			alquilerAlojamientoRepository.deleteById(alquiler.getId());
+		});
+		jpa.setIdAlquileres(null);
+		
+		this.valoracionAlojamientoRepository.deleteByIdUsuario(jpa.getId());
+		
+		jpa.setIdValoracionesAlojamientos(null);
+
+		this.usuarioRepository.deleteById(jpa.getId());
+		return GenericAPIMessageDTO
+				.builder()
+				.mensaje("Usuario eliminado con éxito")
+				.estado(HttpStatus.OK)
+				.fechaYHora(LocalDateTime.now())
+				.build();
+	}
+	
+	
 	/**
 	 * Método que sirve para editar a un perfil de usuario dentro de la aplicación.
 	 * @param dto
@@ -91,7 +149,50 @@ public class UsuarioService {
 				jpa.setTxtDni(dto.getTxtDni());
 				jpa.setTxtDescripcion(dto.getTxtDescripcion());
 				jpa.setNumTelefono(dto.getNumTelefono());
-				
+				this.usuarioRepository.save(jpa);
+			}catch(DataIntegrityViolationException e) {
+				e.printStackTrace();
+			}		
+
+			mensaje = GenericAPIMessageDTO.builder()
+					.mensaje("Usuario Editado con éxito")
+					.estado(HttpStatus.OK)
+					.fechaYHora(LocalDateTime.now()).build();
+		} else {
+			mensaje = GenericAPIMessageDTO.builder()
+					.mensaje("Hubo un problema encontrando al usuario")
+					.estado(HttpStatus.NOT_FOUND)
+					.fechaYHora(LocalDateTime.now())
+					.build();
+		}
+
+		return mensaje;
+	}
+	
+	
+	/**
+	 * Método que sirve para editar un perfil de otros usuarios dentro de la aplicación.
+	 * Este método solo puede ser iniciado por alguien con perfil de admin.
+	 * @param username
+	 * @param dto
+	 * @return
+	 */
+	@Transactional
+	public GenericAPIMessageDTO editarUsuarioByUsername(String username, UsuarioDTO dto) {
+
+		var jpaOpt = this.usuarioRepository.findByUsername(username);
+		var mensaje = new GenericAPIMessageDTO();
+
+		if (jpaOpt.isPresent()) {
+
+			var jpa = jpaOpt.get();
+			
+			try {
+				jpa.setUsername(dto.getUsername());
+				jpa.setTxtDni(dto.getTxtDni());
+				jpa.setTxtDescripcion(dto.getTxtDescripcion());
+				jpa.setNumTelefono(dto.getNumTelefono());
+				this.usuarioRepository.save(jpa);
 			}catch(DataIntegrityViolationException e) {
 				e.printStackTrace();
 			}		

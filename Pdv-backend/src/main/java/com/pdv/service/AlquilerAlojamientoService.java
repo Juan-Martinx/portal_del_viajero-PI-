@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 import com.pdv.dto.AlojamientoDTO;
 import com.pdv.dto.AlquilerAlojamientoDTO;
 import com.pdv.dto.GenericAPIMessageDTO;
+import com.pdv.dto.UsuarioDTO;
 import com.pdv.model.AlojamientoDiasOcupados;
 import com.pdv.model.AlquilerAlojamiento;
+import com.pdv.model.Usuario;
 import com.pdv.repository.AlojamientoDiasOcupadosRepository;
 import com.pdv.repository.AlojamientoRepository;
 import com.pdv.repository.AlquilerAlojamientoRepository;
@@ -97,10 +99,10 @@ public class AlquilerAlojamientoService {
 	
 	@Transactional
 	public GenericAPIMessageDTO cancelarReserva(Long idAlquilerAlojamiento) {
-
-		var jpa = this.alquilerAlojamientoRepository.findById(idAlquilerAlojamiento)
-				.orElseThrow(() -> new RuntimeException("Alquiler no encontrado"));
 		
+		var jpa = this.alquilerAlojamientoRepository.findById(idAlquilerAlojamiento)
+				.orElseThrow(() -> new RuntimeException("Alquiñer no encontrado"));
+
 		// Comprueba que la fecha Actual no es anterior a 7 días, igual o posterior a la
 		// del inicio del alquiler
 		if (LocalDate.now().isAfter(jpa.getFechaInicioAlquiler().minusDays(7))) {
@@ -110,8 +112,6 @@ public class AlquilerAlojamientoService {
 		}
 
 		long numDiasReservados = ChronoUnit.DAYS.between(jpa.getFechaInicioAlquiler(), jpa.getFechaFinAlquiler()) - 1;
-
-
 		
 		//Eliminar los días que ese alojamiento esta ocupado
 		for (long i = 0; i <= numDiasReservados; i++) {
@@ -120,11 +120,11 @@ public class AlquilerAlojamientoService {
 					.findByDiaAndMesAndAnyoAndIdAlojamientoId(fechaDiaReserva.getDayOfMonth(),
 							fechaDiaReserva.getMonthValue(), fechaDiaReserva.getYear(), jpa.getIdAlojamiento().getId());
 			if (diaOcupadoOpt.isPresent()) {
-				this.alojamientoDiasOcupadosRepository.delete(diaOcupadoOpt.get());
+				this.alojamientoDiasOcupadosRepository.deleteById(diaOcupadoOpt.get().getId());
 			}
 		}
 		
-		this.alquilerAlojamientoRepository.delete(jpa);
+		this.alquilerAlojamientoRepository.deleteById(jpa.getId());;
 		
 		return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("¡Reserva cancelada con éxito!")
 				.fechaYHora(LocalDateTime.now()).build();
@@ -139,12 +139,22 @@ public class AlquilerAlojamientoService {
 		return dtoList;
 	}
 	
+	public List<AlquilerAlojamientoDTO> buscarReservasGestor(Authentication autenticacion){
+		var alquileres = this.alquilerAlojamientoRepository.findByIdAlojamientoIdUsuarioId(this.usuarioService.obtenerUsuarioApp(autenticacion).getId());
+		var dtoList = new  ArrayList<AlquilerAlojamientoDTO>();
+		alquileres.forEach(jpa -> {
+			dtoList.add(this.toDto(jpa));
+		});
+		return dtoList;
+	}
+	
 	public AlquilerAlojamientoDTO toDto(AlquilerAlojamiento jpa) {
 		return AlquilerAlojamientoDTO.builder()
 				.id(jpa.getId())
 				.fechaInicioAlquiler(jpa.getFechaInicioAlquiler())
 				.fechaFinAlquiler(jpa.getFechaFinAlquiler())
 				.alojamiento(this.alojamientoService.toDto(jpa.getIdAlojamiento()))
+				.idUsuario(UsuarioDTO.builder().username(jpa.getIdUsuario().getUsername()).build())
 				.numPlazasReservadas(jpa.getNumPlazasReservadas())
 				.precioTotalAlquiler(jpa.getPrecioTotalAlquiler())
 				.build();

@@ -4,7 +4,7 @@
       <img class="logo" src="../../../assets/paginaRegistro/logoAplicacion.jpg" routerLink="/inicio">
       <div class="d-flex justify-content-end align-items-end">
         @if(!isGestor() && isLogged()){
-        <a routerLink="convertir-gestor" class="enlace">¿Quieres poner en alquiler tu casa?</a>
+        <a routerLink="/convertir-gestor" class="enlace">¿Quieres poner en alquiler tu casa?</a>
         }
         <app-menu class="menu-perfil"></app-menu>
       </div>
@@ -139,10 +139,12 @@
     <div class="container contenedor-principal pb-3">
       <div class="row col-lg-12 m-auto">
         <h1 class="titulo fw-bold mt-3">¡Elige entre miles de opciones de casas rurales!</h1>
-        @for (casaRural of casasRurales; track casasRurales.length) {
+        @for (casaRural of casasRurales; track casaRural.id) {
         <div class="card px-0 m-auto mt-3 pb-3">
-          <img class="ms-0 me-0 imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg"
+          @if (casaRural.idImagenesAlojamiento) {
+            <img class="ms-0 me-0 imagen-casa" [src]="casaRural.idImagenesAlojamiento[0].urlDatosImagen"
             alt="Card image cap">
+          }
           <div class="card-body">
             <h2 class="card-title fw-bold">{{ casaRural.txtNombre }}</h2>
             <div class="localizacion d-inline-flex">

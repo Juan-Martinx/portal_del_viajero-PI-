@@ -47,7 +47,7 @@ public class AlojamientoController {
 		return ResponseEntity.ok().body(this.alojamientoService.buscarAlojamientoWithFilters(provincia, idComodidades, numPrecioNocheMin, numPrecioNocheMax, fechaLlegada, fechaSalida, page));
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/public/{id}")
 	public ResponseEntity<AlojamientoDTO> buscarAlojamientoById(@PathVariable("id") Long id){
 		return ResponseEntity.ok().body(this.alojamientoService.buscarAlojamientoById(id));
 	}

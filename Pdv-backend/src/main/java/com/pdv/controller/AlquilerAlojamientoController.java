@@ -36,8 +36,13 @@ public class AlquilerAlojamientoController {
 		return ResponseEntity.ok().body(this.alquilerAlojamientoService.buscarReservasUsuario(autenticacion));
 	}
 	
+	@GetMapping("/gestor")
+	public ResponseEntity<List<AlquilerAlojamientoDTO>> buscarReservasGestor(Authentication autenticacion){
+		return ResponseEntity.ok().body(this.alquilerAlojamientoService.buscarReservasGestor(autenticacion));
+	}
+	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<GenericAPIMessageDTO> realizarReserva(@PathVariable("id") Long idAlquilerAlojamiento){
+	public ResponseEntity<GenericAPIMessageDTO> cancelarReserva(@PathVariable("id") Long idAlquilerAlojamiento){
 		return ResponseEntity.ok().body(this.alquilerAlojamientoService.cancelarReserva(idAlquilerAlojamiento));
 	}
 }

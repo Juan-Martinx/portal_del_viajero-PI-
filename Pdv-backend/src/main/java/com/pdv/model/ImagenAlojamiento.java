@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "idAlojamiento")
 @Table(name = "imagen_alojamiento")
+@EqualsAndHashCode(exclude = "idAlojamiento")
 public class ImagenAlojamiento {
 		
 	@Id

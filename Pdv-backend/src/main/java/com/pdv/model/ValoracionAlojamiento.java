@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"idAlojamiento", "idUsuario"})
 @Table(name = "valoracion_alojamiento")
+@EqualsAndHashCode(exclude = {"idAlojamiento", "idUsuario"})
 public class ValoracionAlojamiento {
 
 	@Id
@@ -45,5 +45,4 @@ public class ValoracionAlojamiento {
 	@ManyToOne(targetEntity = Alojamiento.class)
 	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
 	private Alojamiento idAlojamiento;
-	
 }

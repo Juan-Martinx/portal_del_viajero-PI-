@@ -210,6 +210,24 @@
             </div>
         </div>
 
+        <!-- Propietario del alojamiento -->
+        <div class="row b-bottom mx-auto pt-2" style="height: 130px;">
+            <h2 class="fw-bold px-0">Propietario del Alojamiento</h2>
+            <div class="col-12 col-md-5 d-inline-flex flex-column propietario">
+                <div class="d-flex" routerLink="/ver-perfil/{{alojamiento.idUsuario?.username}}">
+                    @if(alojamiento.idUsuario?.urlImagenUsuario){
+                    <img class="d-inline-flex perfil-usuario" src="{{alojamiento.idUsuario?.urlImagenUsuario}}">
+                    }@else{
+                    <img class="d-inline-flex perfil-usuario" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                    }
+                    <div class="flex-column align-items-center ms-2">
+                        <strong>{{alojamiento.idUsuario?.username}}</strong>
+                        <p class="texto-gray">{{alojamiento.idUsuario?.txtDescripcion}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <form class="row mt-3" [formGroup]="valorar">
             <div class="col-12 ">
                 <h2 class="fw-bold">¡Cuéntanos cómo ha sido tu experiencia!</h2>
@@ -333,8 +351,13 @@
                 @for (valoracion of this.valoraciones ; track valoracion.id) {
                 <div class="col-12 col-md-5 d-inline-flex flex-column">
                     <div class="cabecera-comentarios" routerLink="/ver-perfil/{{valoracion.idUsuario?.username}}">
-                        <img class="d-inline-flex perfil-usuario"
+                        @if(valoracion.idUsuario?.urlImagenUsuario){
+                            <img class="d-inline-flex perfil-usuario"
+                                src="{{valoracion.idUsuario?.urlImagenUsuario}}">
+                        }@else{
+                            <img class="d-inline-flex perfil-usuario"
                             src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                        }
                         <div class="d-inline-flex flex-column align-items-center ms-2">
                             <strong>{{valoracion.idUsuario?.username}}</strong>
                             <p class="texto-gray">{{valoracion.idUsuario?.numTelefono}}</p>

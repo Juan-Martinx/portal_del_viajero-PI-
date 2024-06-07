@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,7 +7,8 @@ import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Valida
 import { UsuarioService } from '../../services/usuario.service';
 import { IUsuarioDTO } from '../../../dto/IUsuarioDTO';
 import { IPageableDTO } from '../../../dto/IPageableDTO';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-buscar-usuarios',
@@ -16,13 +17,20 @@ import { RouterLink } from '@angular/router';
   templateUrl: './buscar-usuarios.component.html',
   styleUrl: './buscar-usuarios.component.css'
 })
-export class BuscarUsuariosComponent {
+export class BuscarUsuariosComponent implements OnInit{
 
   usuarios: IUsuarioDTO[] = [];
 
   paginaActual = 0;
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private tokenService: TokenService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.cambiarPage(0);
+    if(!this.tokenService.isAdmin()){
+      this.router.navigate(['/']);
+    }
+  }
 
   buscadorUsuarios = new FormGroup({
     nombre: new FormControl(''),

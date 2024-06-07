@@ -21,6 +21,7 @@ import com.pdv.dto.AlojamientoDTO;
 import com.pdv.dto.GenericAPIMessageDTO;
 import com.pdv.dto.ImagenAlojamientoDTO;
 import com.pdv.dto.UbicacionAlojamientoDTO;
+import com.pdv.dto.UsuarioDTO;
 import com.pdv.dto.ValoracionAlojamientoDTO;
 import com.pdv.enums.CodPerfiles;
 import com.pdv.model.Alojamiento;
@@ -122,11 +123,13 @@ public class AlojamientoService {
 		// Crear AlojamientoComodidadAlojamiento
 		var alojamientoComodidadesSet = new HashSet<AlojamientoComodidadAlojamiento>();
 		dto.getIdComodidades().forEach(comodidadId -> {
-			var jpaComodidad = this.comodidadAlojamientoRepository.findById(comodidadId)
-					.orElseThrow(() -> new RuntimeException("Comodidad no encontrada"));
-			var alojamientoComodidadAlojamiento = AlojamientoComodidadAlojamiento.builder().idAlojamiento(jpa)
-					.idComodidadAlojamiento(jpaComodidad).build();
-			alojamientoComodidadesSet.add(alojamientoComodidadAlojamiento);
+		    var jpaComodidad = this.comodidadAlojamientoRepository.findById(comodidadId)
+		            .orElseThrow(() -> new RuntimeException("Comodidad no encontrada"));
+		    var alojamientoComodidadAlojamiento = AlojamientoComodidadAlojamiento.builder()
+		            .idAlojamiento(jpa)
+		            .idComodidadAlojamiento(jpaComodidad)
+		            .build();
+		    alojamientoComodidadesSet.add(alojamientoComodidadAlojamiento);
 		});
 
 		// Crear imagenes de alojamiento
@@ -262,7 +265,7 @@ public class AlojamientoService {
 		AtomicInteger index = new AtomicInteger(0);
 
 		if (jpa.getIdValoracionesAlojamiento().isEmpty()) {
-			valorPromedio.updateAndGet(v -> (v + 5.00));
+			valorPromedio.updateAndGet(v -> (v + 0));
 		} else {
 			jpa.getIdValoracionesAlojamiento().forEach(valoracion -> {
 				if (index.get() == 0) {
@@ -286,7 +289,12 @@ public class AlojamientoService {
 						.codigoPostal(jpa.getIdUbicacion().getCodigoPostal()).build())
 				.idValoracionesAlojamiento(valoracionesList).valoracionPromedio(valorPromedio.get())
 				.numValoraciones(numValoraciones.get()).idAlojamientoComodidades(comodidadesList)
-				.idImagenesAlojamiento(Arrays.asList(imagenesArr)).build();
+				.idImagenesAlojamiento(Arrays.asList(imagenesArr))
+				.idUsuario(UsuarioDTO.builder().username(jpa.getIdUsuario().getUsername())
+						.urlImagenUsuario(jpa.getIdUsuario().getUrlImagenUsuario())
+						.txtDescripcion(jpa.getIdUsuario().getTxtDescripcion())
+						.build())
+				.build();
 		return dto;
 	}
 

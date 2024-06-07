@@ -48,7 +48,7 @@ export class AlojamientoService {
   }
 
   buscarAlojamientoById(id:number): Observable<IAlojamientoDTO> {
-    return this.http.get<IAlojamientoDTO>(environment.api + this.alojamientoAPI + "/" + id);
+    return this.http.get<IAlojamientoDTO>(environment.api + this.alojamientoAPI + "/public/" + id);
   }
 
   buscarAlojamientoByIdForGestion(id:number): Observable<IAlojamientoDTO> {

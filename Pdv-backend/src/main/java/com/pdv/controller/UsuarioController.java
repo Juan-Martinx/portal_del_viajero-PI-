@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,9 +52,21 @@ public class UsuarioController {
 		return ResponseEntity.ok().body(this.usuarioService.buscarUsuarioPorUsername(username));
 	}
 	
+	@PreAuthorize("hasAuthority('PERFIL_ADMIN')")
+	@GetMapping("/admin/{username}")
+	public ResponseEntity<UsuarioDTO> buscarUsuarioPorUsernameByAdmin(@PathVariable String username){
+		return ResponseEntity.ok().body(this.usuarioService.buscarUsuarioPorUsernameByAdmin(username));
+	}
+	
 	@PutMapping("/editar")
 	public ResponseEntity<GenericAPIMessageDTO> editarPerfilUsuario(@RequestBody UsuarioDTO dto){
 		return ResponseEntity.ok().body(usuarioService.editarUsuario(dto));
+	}
+	
+	@PreAuthorize("hasAuthority('PERFIL_ADMIN')")
+	@PutMapping("/editar-otro/{username}")
+	public ResponseEntity<GenericAPIMessageDTO> editarPerfilUsuario(@PathVariable("username") String username,@RequestBody UsuarioDTO dto){
+		return ResponseEntity.ok().body(usuarioService.editarUsuarioByUsername(username,dto));
 	}
 	
 	@PostMapping("convertir-gestor")
@@ -66,4 +79,9 @@ public class UsuarioController {
 		return ResponseEntity.ok().body(this.usuarioService.subirFotoPerfil(params.get("url"), autenticacion));
 	}
 	
+	@PreAuthorize("hasAuthority('PERFIL_ADMIN')")
+	@DeleteMapping("/{username}")
+	public ResponseEntity<GenericAPIMessageDTO> eliminarUsuario(@PathVariable("username") String username){
+		return ResponseEntity.ok().body(this.usuarioService.eliminarUsuario(username));
+	}
 }

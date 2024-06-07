@@ -26,6 +26,7 @@ export class MenuComponent implements OnInit {
 
   isLogged?: boolean;
   isAdmin?: boolean;
+  isGestor?: boolean;
 
   params: any = {
     client_id: environment.client_id,
@@ -55,6 +56,7 @@ export class MenuComponent implements OnInit {
   getLogged(): void {
     this.isLogged = this.tokenService.isLogged();
     this.isAdmin = this.tokenService.isAdmin();
+    this.isGestor = this.tokenService.isGestor();
   }
   /*  OAUTH CONFIGURATION END */
 }

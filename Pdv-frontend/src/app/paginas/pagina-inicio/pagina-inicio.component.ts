@@ -77,10 +77,11 @@ export class PaginaInicioComponent implements OnInit{
     fechaSalida: new FormControl("" as string | Date)
   });
 
-  menu: boolean = false;
+  menu: boolean = true;
 
   mostrarMenu(){
     this.menu = !this.menu;
+    this.comodidadesSelected = [];
   }
 
   resetearMenu(){
@@ -148,9 +149,7 @@ export class PaginaInicioComponent implements OnInit{
     }
 
     buscarAlojamientoWithFilters(avanzarPagina: boolean){
-      if(this.menu){
-        this.menu = false;
-      }
+      this.mostrarMenu();
       const fechaLlegada = this.filtros.get('fechaLlegada')?.value;
       const fechaSalida = this.filtros.get('fechaSalida')?.value;
       const precioMin = this.filtros.get('precioMin')?.value;

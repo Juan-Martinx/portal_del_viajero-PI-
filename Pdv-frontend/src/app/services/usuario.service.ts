@@ -37,8 +37,20 @@ export class UsuarioService {
     return this.http.get<IUsuarioDTO>(environment.api + this.usuariosAPI + '/public/' + username);
   }
 
+  buscarUsuarioByAdmin(username: string): Observable<IUsuarioDTO>{
+    return this.http.get<IUsuarioDTO>(environment.api + this.usuariosAPI + '/admin/' + username);
+  }
+
   editarUsuario(usuario: IUsuarioDTO): Observable<IGenericApiMessageDTO>{
     return this.http.put<IGenericApiMessageDTO>(environment.api +  this.usuariosAPI + '/editar', usuario);
+  }
+
+  editarUsuarioOtro(username: string,usuario: IUsuarioDTO): Observable<IGenericApiMessageDTO>{
+    return this.http.put<IGenericApiMessageDTO>(environment.api +  this.usuariosAPI + '/editar-otro/' + username, usuario);
+  }
+
+  eliminarUsuario(username: string): Observable<IGenericApiMessageDTO>{
+    return this.http.delete<IGenericApiMessageDTO>(environment.api +  this.usuariosAPI + "/" + username);
   }
 
   convertirEnGestor(id: number): Observable<IGenericApiMessageDTO>{

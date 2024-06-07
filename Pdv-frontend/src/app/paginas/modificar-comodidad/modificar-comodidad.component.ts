@@ -12,6 +12,7 @@ import { iTipoComodidadDTO } from '../../../dto/ITipoComodidadDTO';
 import { ComodidadService } from '../../services/comodidad.service';
 import { IComodidadAlojamientoDTO } from '../../../dto/IComodidadAlojamientoDTO';
 import { Router } from '@angular/router';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-modificar-comodidad',
@@ -27,18 +28,21 @@ export class ModificarComodidadComponent implements OnInit{
   comodidadModificada?: IComodidadAlojamientoDTO;
   selectedTipoComodidadId = 0;
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private tipoComodidadesService: TipoComodidadService, private comodidadService: ComodidadService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private titleService: Title, private tipoComodidadesService: TipoComodidadService, private comodidadService: ComodidadService, private router: Router, private tokenService: TokenService) { }
 
   ngOnInit(): void {
-      this.route.queryParams.subscribe(params => {
-        if(params['action'] == 'new'){
-          this.IsActionNew = true;
-          this.titleService.setTitle('Añadir Comodidad');
-        }else{
-          this.buscarComodidadByCodigo(params['codigo']);
-        }
-      });
-      this.cargarTiposComodidades();
+    if (!this.tokenService.isAdmin()) {
+      this.router.navigate(['/']);
+    }
+    this.route.queryParams.subscribe(params => {
+      if (params['action'] == 'new') {
+        this.IsActionNew = true;
+        this.titleService.setTitle('Añadir Comodidad');
+      } else {
+        this.buscarComodidadByCodigo(params['codigo']);
+      }
+    });
+    this.cargarTiposComodidades();
   }
 
   comodidadesForm = new FormGroup({

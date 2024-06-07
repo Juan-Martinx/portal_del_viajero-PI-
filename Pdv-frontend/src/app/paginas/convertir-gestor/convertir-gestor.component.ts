@@ -6,11 +6,12 @@ import {FormsModule} from '@angular/forms';
 import { FormGroupDirective, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
 import { environment } from '../../../environments/environments';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-convertir-gestor',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, RouterLink],
   templateUrl: './convertir-gestor.component.html',
   styleUrl: './convertir-gestor.component.css'
 })

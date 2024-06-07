@@ -168,8 +168,8 @@
 					class="logo">
 			</div>
 			<form class="col-xs-12 col-md-6 formulario-registro row" method="post" th:action="@{/login}">
-				<i class="material-icons d-flex justify-content-end pt-2 me-2 mt-2"
-					style="font-size: 30px; max-height: 30px;">arrow_forward</i>
+				<a href="http://portaldelviajero.com/inicio" style="text-decoration: none;"><i class="material-icons d-flex justify-content-end pt-2 me-2 mt-2"
+					style="font-size: 30px; max-height: 30px;">arrow_forward</i></a>
 				<div th:if="${param.error}" class="alert alert-danger" role="alert">
 					Credenciales erróneas
 				</div>
@@ -177,8 +177,8 @@
 					Has cerrado sesión.
 				</div>
 				<div class="ms-3" style="max-height: 40px;">
-					<h2 class=" mb-2">Registrar</h2>
-					<p>¡Bienvenido! Por favor, regístrese</p>
+					<h2 class=" mb-2">Inicio de sesión</h2>
+					<p>¡Bienvenido! Por favor, inicie sesión</p>
 				</div>
 				<div class="ms-3" style="max-height: 25px;">
 					<label for="username" class="sr-only mb-1">Nombre de Usuario</label>

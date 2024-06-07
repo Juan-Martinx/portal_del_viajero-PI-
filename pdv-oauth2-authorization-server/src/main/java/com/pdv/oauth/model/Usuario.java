@@ -6,7 +6,6 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,13 +15,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -31,6 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Table(name = "usuario")
+@EqualsAndHashCode(exclude = "googleAccount")
 public class Usuario implements UserDetails{
 
 	@Id
@@ -56,10 +56,8 @@ public class Usuario implements UserDetails{
 	@Column(name = "password", nullable = false)
 	private String password;
 	
-	@Column(name = "datos_imagen_usuario")
-	@Basic(fetch = FetchType.EAGER)
-	@Lob
-	private Byte[] datosImagenUsuario;
+	@Column(name = "url_imagen_usuario")
+	private String urlImagenUsuario;
 	
 	private boolean expired = false;
 	private boolean locked = false;

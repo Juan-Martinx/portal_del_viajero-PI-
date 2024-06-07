@@ -6,6 +6,8 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,7 +33,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Table(name = "usuario")
-@EqualsAndHashCode(exclude = {"googleAccount", "idAlojamiento", "idAlquileres"})
 public class Usuario implements UserDetails{
 
 	@Id
@@ -65,7 +66,8 @@ public class Usuario implements UserDetails{
 	private boolean credentialsExpired = false;
 	private boolean disabled = false;
 	
-	@OneToOne(mappedBy = "appUser", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private GoogleUser googleAccount;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -73,13 +75,13 @@ public class Usuario implements UserDetails{
 		inverseJoinColumns = @JoinColumn(name = "id_perfil"))
 	private Set<Perfil> idPerfiles;
 	
-	@OneToMany(mappedBy = "idUsuario", targetEntity = AlquilerAlojamiento.class, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "idUsuario", targetEntity = AlquilerAlojamiento.class, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<AlquilerAlojamiento> idAlquileres;
 	
-	@OneToMany(mappedBy = "idUsuario", targetEntity = Alojamiento.class, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "idUsuario", targetEntity = Alojamiento.class, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<Alojamiento> idAlojamiento;
 	
-	@OneToMany(mappedBy = "idUsuario", targetEntity = ValoracionAlojamiento.class, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "idUsuario", targetEntity = ValoracionAlojamiento.class, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<ValoracionAlojamiento> idValoracionesAlojamientos;
 
 	@Override

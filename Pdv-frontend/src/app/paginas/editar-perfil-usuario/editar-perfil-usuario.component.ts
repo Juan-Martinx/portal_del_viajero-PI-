@@ -1,37 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { TokenService } from '../../services/token.service';
+import { UsuarioService } from '../../services/usuario.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { MediaService } from '../../services/media.service';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IUsuarioDTO } from '../../../dto/IUsuarioDTO';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { TokenService } from '../../services/token.service';
-import { UsuarioService } from '../../services/usuario.service';
-import { IUsuarioDTO } from '../../../dto/IUsuarioDTO';
-import { catchError } from 'rxjs';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { MediaService } from '../../services/media.service';
 
 @Component({
-  selector: 'app-editar-perfil',
+  selector: 'app-editar-perfil-usuario',
   standalone: true,
   imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatIconModule, FormsModule, RouterLink],
-  templateUrl: './editar-perfil.component.html',
-  styleUrl: './editar-perfil.component.css'
+  templateUrl: './editar-perfil-usuario.component.html',
+  styleUrl: './editar-perfil-usuario.component.css'
 })
-export class EditarPerfilComponent implements OnInit {
-
+export class EditarPerfilUsuarioComponent {
   usuario: IUsuarioDTO = {};
-
+  username = "";
+  urlFotoPerfil = "";
   rutaActual = this.route.snapshot.url[0].path;
-  constructor(private tokenService: TokenService, private usuarioService: UsuarioService, private route: ActivatedRoute, private mediaService: MediaService) { }
+  constructor(private tokenService: TokenService, private usuarioService: UsuarioService, private route: ActivatedRoute, private mediaService: MediaService, private router: Router) { }
   ngOnInit(): void {
-    this.usuarioService.buscarUsuarioLogueado().subscribe(usuario => {
-      this.usuario = usuario;
-      this.editarUsuarioForm.get('usuario')?.setValue(usuario.username as string);
-      this.editarUsuarioForm.get('dni')?.setValue(usuario.txtDni as string);
-      this.editarUsuarioForm.get('descripcion')?.setValue(usuario.txtDescripcion as string);
-      this.editarUsuarioForm.get('telefono')?.setValue(usuario.numTelefono?.toString() as string);
+    if(!this.tokenService.isAdmin()){
+      this.router.navigate(['/']);
+    }
+    this.route.paramMap.subscribe(params => {
+      this.username = params.get('username') as string;
+      if (typeof this.username === 'string' && this.username.length > 0) {
+        this.usuarioService.buscarUsuarioByAdmin(this.username).subscribe(usuario => {
+          this.usuario = usuario;
+          this.urlFotoPerfil = usuario.urlImagenUsuario as string;
+          this.editarUsuarioForm.get('usuario')?.setValue(usuario.username as string);
+          this.editarUsuarioForm.get('dni')?.setValue(usuario.txtDni as string);
+          this.editarUsuarioForm.get('descripcion')?.setValue(usuario.txtDescripcion as string);
+          this.editarUsuarioForm.get('telefono')?.setValue(usuario.numTelefono?.toString() as string);
+        });
+      }
     });
   }
 
@@ -60,10 +66,11 @@ export class EditarPerfilComponent implements OnInit {
         txtEmail: this.usuario.txtEmail
       };
 
-      this.usuarioService.editarUsuario(usuarioEditado).subscribe(mensaje => {
+      this.usuarioService.editarUsuarioOtro(this.username, usuarioEditado).subscribe(mensaje => {
         alert(mensaje.mensaje);
         if (mensaje.estado == "OK") {
-          location.reload();
+          this.usuario = usuarioEditado;
+          this.isUsuarioEnEdicion = !this.isUsuarioEnEdicion;
         }
       }, error => {
         alert('No se puede editar el usuario debido a que los datos introducidos corresponden ya otro usuario distinto');
@@ -101,4 +108,12 @@ export class EditarPerfilComponent implements OnInit {
     }
   }
 
+  eliminarUsuario(){
+    if(confirm("¿Estas seguro de eliminar este usuario?")){
+      this.usuarioService.eliminarUsuario(this.username).subscribe(mensaje => {
+        alert(mensaje.mensaje);
+        this.router.navigate(['/buscar-usuarios']);
+      });
+  }
+}
 }

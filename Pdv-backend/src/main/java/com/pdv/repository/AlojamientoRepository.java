@@ -6,10 +6,13 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.pdv.model.Alojamiento;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface AlojamientoRepository extends JpaRepository<Alojamiento, Long> {
@@ -36,4 +39,5 @@ public interface AlojamientoRepository extends JpaRepository<Alojamiento, Long> 
     			+ " ) "
     		+ " ) ", nativeQuery = true)
 	public List<Long> findWithFilters(String provincia,Double numPrecioNocheMin, Double numPrecioNocheMax , LocalDate fechaLlegada, LocalDate fechaSalida, List<Long> idComodidades, Integer numComodidades, Pageable page);
+
 }

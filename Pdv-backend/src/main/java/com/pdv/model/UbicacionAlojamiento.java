@@ -20,8 +20,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude="idAlojamiento")
 @Table(name = "ubicacion_alojamiento")
+@EqualsAndHashCode(exclude = "idAlojamiento")
 public class UbicacionAlojamiento {
 		
 	@Id
@@ -48,7 +48,6 @@ public class UbicacionAlojamiento {
 	private String latitud;
 	
 	@OneToOne(targetEntity = Alojamiento.class)
-	@MapsId
 	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
 	private Alojamiento idAlojamiento;
 

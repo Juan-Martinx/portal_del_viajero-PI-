@@ -2,16 +2,14 @@
     <div class="row col-12 m-auto">
         <div class="col-12 d-inline-block mt-5 pb-5">
             <div class="row titulo pb-2">
-                <h1 class="col-12 col-sm-9 fw-bold">Reservas realizadas</h1>
+                <h1 class="col-12 col-sm-9 fw-bold">Gestiona las reservas de tus alojamientos</h1>
             </div>
         </div>
 
         @for (reserva of reservas; track reserva.id) {
         <div class="card px-0 m-auto mt-3 pb-3">
-            @if (reserva.alojamiento && reserva.alojamiento.idImagenesAlojamiento) {
-                <img class="ms-0 me-0 imagen-casa" [src]="reserva.alojamiento.idImagenesAlojamiento[0].urlDatosImagen"
+            <img class="ms-0 me-0 imagen-casa" src="../../../assets/paginaRegistro/imagenCasaRural.jpg"
                 alt="Card image cap">
-              }
             <div class="card-body">
                 <h2 class="card-title fw-bold">{{ reserva.alojamiento?.txtNombre }}</h2>
                 <div class="localizacion d-inline-flex">
@@ -41,8 +39,7 @@
                 <p class="mt-2 card-text">{{ reserva.alojamiento?.txtDescripcion }}</p>
                 <div class="row">
 
-                    <button class="col-4 ms-2 mt-2 boton-personalizado-a" routerLink="/detalles-casas"
-                        [queryParams]="{id: reserva.alojamiento?.id}">DETALLES</button>
+                    <button class="col-4 ms-2 mt-2 boton-personalizado-a" routerLink="/ver-perfil/{{reserva.idUsuario?.username}}">INFO USUARIO</button>
                     <button class="col-4 ms-2 mt-2 boton-personalizado-b" (click)="cancelarReserva(reserva.id)">CANCELAR</button>
 
                 </div>

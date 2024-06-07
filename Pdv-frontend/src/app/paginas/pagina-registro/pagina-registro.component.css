@@ -87,3 +87,7 @@ span{
 .checkbox{
     box-shadow: 0 0 0 black;
 }
+
+.bi-arrow-left:hover{
+    cursor: pointer;
+}

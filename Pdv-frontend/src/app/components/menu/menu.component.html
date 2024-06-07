@@ -13,6 +13,22 @@
     <span>Iniciar Sesión</span>
   </button>
   }@else {
+    @if(this.isLogged && this.isAdmin){
+      <button mat-menu-item routerLink="/buscador-comodidades">
+        <span>Administrar comodidades</span>
+      </button>
+      <button mat-menu-item routerLink="/usuarios-registrados">
+        <span>Ver usuarios registrados</span>
+      </button>
+    }
+    @if(this.isLogged && this.isGestor){
+      <button mat-menu-item routerLink="/casas-alquiler">
+        <span>Tus casas en alquiler</span>
+      </button>
+      <button mat-menu-item routerLink="/reservas-gestion">
+        <span>Gestionar Reservas</span>
+      </button>
+    }
     <button mat-menu-item routerLink="/editar-perfil">
       <span>Editar Perfil</span>
     </button>
@@ -21,12 +37,6 @@
     </button>
     <button mat-menu-item class="/cerrar-sesion" (click)="onLogout()">
       <span>Cerrar Sesión</span>
-    </button>
-    <button mat-menu-item routerLink="/buscador-comodidades">
-      <span>Administrar comodidades</span>
-    </button>
-    <button mat-menu-item routerLink="/usuarios-registrados">
-      <span>Ver usuarios registrados</span>
     </button>
   }
 </mat-menu>

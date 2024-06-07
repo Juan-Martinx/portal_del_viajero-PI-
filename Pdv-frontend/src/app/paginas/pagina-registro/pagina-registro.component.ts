@@ -12,12 +12,13 @@ import { environment } from '../../../environments/environments';
 import { TokenService } from '../../services/token.service';
 import { HttpParams } from '@angular/common/http';
 import * as CryptoJS from 'crypto-js';
+import { RouterLink } from '@angular/router';
 const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 @Component({
   selector: 'app-pagina-registro',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, BotonRegistroGoogleComponent],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, BotonRegistroGoogleComponent, RouterLink],
   templateUrl: './pagina-registro.component.html',
   styleUrl: './pagina-registro.component.css'
 })

@@ -78,6 +78,7 @@ public class ValoracionAlojamientoService {
 						.id(jpa.getIdUsuario().getId())
 						.username(jpa.getIdUsuario().getUsername())
 						.numTelefono(jpa.getIdUsuario().getNumTelefono())
+						.urlImagenUsuario(jpa.getIdUsuario().getUrlImagenUsuario())
 						.build())
 				.puntuacion(jpa.getPuntuacion())
 				.txtAsunto(jpa.getTxtAsunto())

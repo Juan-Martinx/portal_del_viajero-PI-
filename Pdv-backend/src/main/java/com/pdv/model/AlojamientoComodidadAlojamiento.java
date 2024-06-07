@@ -17,10 +17,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "alojamiento_comodidad_alojamiento")
-@EqualsAndHashCode(exclude="idAlojamiento")
+@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"idAlojamiento"})
 public class AlojamientoComodidadAlojamiento {
 	
 	@Id
