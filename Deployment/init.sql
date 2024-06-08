@@ -2,7 +2,7 @@
 -- Base de datos: `bdpdv`
 --
 -- --------------------------------------------------------
-
+USE bdpdv;
 --
 -- Estructura de tabla para la tabla `usuario`
 --
@@ -20,7 +20,7 @@ CREATE TABLE `usuario` (
   `txt_email` varchar(255) DEFAULT NULL,
   `url_imagen_usuario` varchar(255) DEFAULT NULL,
   `username` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- --------------------------------------------------------
@@ -37,7 +37,7 @@ CREATE TABLE `google_user` (
   `name` varchar(255) DEFAULT NULL,
   `picture_url` varchar(255) DEFAULT NULL,
   `id_usuario` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- -------------------------------------------------------
@@ -50,7 +50,7 @@ CREATE TABLE `perfil` (
   `id_perfil` bigint(20) NOT NULL,
   `cod_perfil` enum('OIDC_USER','PERFIL_ADMIN','PERFIL_CLIENTE','PERFIL_GESTOR') NOT NULL,
   `txt_perfil` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- --------------------------------------------------------
@@ -62,7 +62,7 @@ CREATE TABLE `perfil` (
 CREATE TABLE `usuario_perfiles` (
   `id_usuario` bigint(20) NOT NULL,
   `id_perfil` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- --------------------------------------------------------
@@ -79,7 +79,7 @@ CREATE TABLE `alojamiento` (
   `txt_descripcion` varchar(255) NOT NULL,
   `txt_nombre` varchar(50) NOT NULL,
   `id_usuario` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- --------------------------------------------------------
@@ -95,7 +95,7 @@ CREATE TABLE `comodidad_alojamiento` (
   `txt_descripcion` varchar(255) NOT NULL,
   `txt_nombre` varchar(50) NOT NULL,
   `id_tipo_comodidad` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- --------------------------------------------------------
@@ -108,7 +108,7 @@ CREATE TABLE `alojamiento_comodidad_alojamiento` (
   `id_alojamiento_comodidad_alojamiento` bigint(20) NOT NULL,
   `id_alojamiento` bigint(20) DEFAULT NULL,
   `id_comodidad_alojamiento` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- --------------------------------------------------------
@@ -121,7 +121,7 @@ CREATE TABLE `tipo_comodidad` (
   `id_tipo_comodidad` bigint(20) NOT NULL,
   `codigo_tipo_comodidad` varchar(50) NOT NULL,
   `txt_nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,7 @@ CREATE TABLE `alojamiento_dias_ocupados` (
   `dia` int(11) NOT NULL,
   `mes` int(11) NOT NULL,
   `id_alojamiento` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- --------------------------------------------------------
@@ -152,7 +152,7 @@ CREATE TABLE `alquiler_alojamiento` (
   `precio_total_alquiler` double NOT NULL,
   `id_alojamiento` bigint(20) NOT NULL,
   `id_usuario` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 -- --------------------------------------------------------
 
@@ -164,7 +164,7 @@ CREATE TABLE `authorization_consent` (
   `principal_name` varchar(255) NOT NULL,
   `registered_client_id` varchar(255) NOT NULL,
   `authorities` varchar(1000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 -- --------------------------------------------------------
 
@@ -177,7 +177,7 @@ CREATE TABLE `client` (
   `client_id` varchar(255) DEFAULT NULL,
   `client_secret` varchar(255) DEFAULT NULL,
   `require_proof_key` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 -- --------------------------------------------------------
 
@@ -188,7 +188,7 @@ CREATE TABLE `client` (
 CREATE TABLE `client_authentication_methods` (
   `client_id` int(11) NOT NULL,
   `authentication_methods` varbinary(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 -- --------------------------------------------------------
 
@@ -199,7 +199,7 @@ CREATE TABLE `client_authentication_methods` (
 CREATE TABLE `client_authorization_grant_types` (
   `client_id` int(11) NOT NULL,
   `authorization_grant_types` varbinary(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 -- --------------------------------------------------------
 
@@ -210,7 +210,7 @@ CREATE TABLE `client_authorization_grant_types` (
 CREATE TABLE `client_redirect_uris` (
   `client_id` int(11) NOT NULL,
   `redirect_uris` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 -- --------------------------------------------------------
 
@@ -221,7 +221,7 @@ CREATE TABLE `client_redirect_uris` (
 CREATE TABLE `client_scopes` (
   `client_id` int(11) NOT NULL,
   `scopes` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 --
 -- Volcado de datos para la tabla `client_scopes`
@@ -241,7 +241,7 @@ CREATE TABLE `imagen_alojamiento` (
   `num_orden` int(11) NOT NULL,
   `url_datos_imagen` varchar(255) NOT NULL,
   `id_alojamiento` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- --------------------------------------------------------
@@ -259,7 +259,7 @@ CREATE TABLE `ubicacion_alojamiento` (
   `longitud` varchar(255) DEFAULT NULL,
   `provincia` varchar(60) NOT NULL,
   `id_alojamiento` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 
 -- --------------------------------------------------------
@@ -275,7 +275,7 @@ CREATE TABLE `valoracion_alojamiento` (
   `txt_mensaje` varchar(255) NOT NULL,
   `id_alojamiento` bigint(20) NOT NULL,
   `id_usuario` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) 
 
 --
 -- Índices para tablas volcadas

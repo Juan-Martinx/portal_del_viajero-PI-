@@ -34,44 +34,43 @@ spec:
     spec:
       containers:
         - image: mysql:5.7
-          args:
-            - "--ignore-db-dir=lost+found"
           name: mysql
           env:
             - name: MYSQL_USER
-              valueFrom :
-                secretKeyRef :
-                  name : mysql-secrets
-                  key :  username
-                  
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: username
             - name: MYSQL_PASSWORD
-              valueFrom :
-                secretKeyRef :
-                  name : mysql-secrets
-                  key :  password
-
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: password
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom :
-                secretKeyRef :
-                  name : mysql-secrets
-                  key :  password
-
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: password
             - name: MYSQL_DATABASE
-              valueFrom :
-                configMapKeyRef :
-                  name : db-config
-                  key :  dbName
-
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: dbName
           ports:
             - containerPort: 3306
               name: mysql
           volumeMounts:
             - name: mysql-persistent-storage
               mountPath: /var/lib/mysql
+            - name: init-script
+              mountPath: /docker-entrypoint-initdb.d
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: mysql-pv-claim
+        - name: init-script
+          configMap:
+            name: db-config  # Nombre del ConfigMap que contiene el script SQL
 ---
 apiVersion: v1
 kind: Service
