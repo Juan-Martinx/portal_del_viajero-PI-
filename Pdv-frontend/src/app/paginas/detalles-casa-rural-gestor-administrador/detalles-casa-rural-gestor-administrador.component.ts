@@ -42,6 +42,10 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
 
   constructor(private render: Renderer2,private route: ActivatedRoute, private comodidadService: ComodidadService, private alojamientoService: AlojamientoService, private router: Router, private tokenService: TokenService, private mediaService: MediaService) { }
 
+  /**
+   * Busca el alojamiento por su id para su gestión,
+   * en caso de no ser gestor te devuelve al inicio.
+   */
   ngOnInit(): void {
 
     this.route.queryParams.subscribe(params => {
@@ -86,6 +90,11 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     provincia: new FormControl('', [Validators.required])
   });
 
+  /**
+   * Busca las comodidades según los parámetros introducidos.
+   * @param avanzarPagina 
+   * @param codigoTipoComodidad 
+   */
   buscarComodidades(avanzarPagina: boolean, codigoTipoComodidad: CodTipoComodidad) {
 
     const comodidad: IComodidadAlojamientoDTO = {
@@ -108,6 +117,11 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     });
   }
 
+  /**
+   * Cambia la page de las comodidades.
+   * @param codigoTipoComodidad 
+   * @param page 
+   */
   cambiarPage(codigoTipoComodidad: CodTipoComodidad, page: number) {
     if (this.paginaActual < page) {
       this.paginaActual = page;
@@ -118,6 +132,10 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     }
   }
 
+  /**
+   * Añade una comodidad al alojamiento
+   * @param comodidad 
+   */
   aniadirComodidad(comodidad: IComodidadAlojamientoDTO) {
     if (comodidad.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.COMODIDAD && this.alojamientoComodidades.filter(comodidadAlojamiento => comodidadAlojamiento.id == comodidad.id).length == 0) {
       this.alojamientoComodidades.push(comodidad);
@@ -126,6 +144,10 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     }
   }
 
+  /**
+   * Elimina esa comodidad del alojamiento
+   * @param comodidad 
+   */
   eliminarComodidad(comodidad: IComodidadAlojamientoDTO) {
     if (comodidad.idTipoComodidad?.codigoTipoComodidad == CodTipoComodidad.COMODIDAD && this.alojamientoComodidades.filter(comodidadAlojamiento => comodidadAlojamiento.id == comodidad.id).length > 0) {
       this.alojamientoComodidades = this.alojamientoComodidades.filter(comodidadAlojamiento => comodidadAlojamiento.id != comodidad.id);
@@ -134,6 +156,10 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     }
   }
 
+  /**
+   * Guarda el alojamiento
+   * @returns 
+   */
   guardarAlojamiento() {
     if (this.alojamientoForm.valid) {
       if(this.alojamientoModificado.idImagenesAlojamiento && this.alojamientoModificado.idImagenesAlojamiento[0].urlDatosImagen === undefined){
@@ -153,6 +179,10 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     }
   }
 
+  /**
+   * Modifica el alojamiento
+   * @returns 
+   */
   modficarAlojamiento() {
     if (this.alojamientoForm.valid) {
       if(this.alojamientoModificado.idImagenesAlojamiento && this.alojamientoModificado.idImagenesAlojamiento[0].urlDatosImagen === null){
@@ -172,6 +202,10 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     }
   }
 
+  /**
+   * Obtiene el DTO del alojamiento según los campos del formulario.
+   * @returns 
+   */
   getAlojamiento(): IAlojamientoDTO {
 
     const idComodidades: number[] = [];
@@ -195,6 +229,11 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     return alojamiento;
   }
 
+  /**
+   * Sube la imágen del alojamiento
+   * @param event 
+   * @param order 
+   */
   uploadFile(event: any, order: number) {
     const file = event.target.files[0];
 
@@ -222,10 +261,19 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     }
   }
 
+  /**
+   * Evento que salta al pulsar sobre una imágen del alojamiento
+   * @param index 
+   */
   onImageClick(index:number): void {
     this.render.selectRootElement('#image-input-'+index).click();
   }
 
+  /**
+   * Sustituye los divs por las imágenes agregadas
+   * @param order 
+   * @param urlSource 
+   */
   sustituirElementoPorImagen(order: number,  urlSource: string){
     const divPadre = document.querySelector('#contenedor-imagenes');
     const divHijo = document.querySelector('#div-image-' + order) as HTMLElement
@@ -236,6 +284,11 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
     this.sustituirGeneral(order, urlSource);
   }
 
+  /**
+   * Sustituye fuera del modal las imágenes agregadas
+   * @param order 
+   * @param urlSource 
+   */
   sustituirGeneral(order: number, urlSource: string){
     if(order <= 4){
       document.querySelector('#img-' + order)?.setAttribute('src',  urlSource);

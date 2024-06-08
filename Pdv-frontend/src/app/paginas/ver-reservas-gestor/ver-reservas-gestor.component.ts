@@ -17,6 +17,9 @@ export class VerReservasGestorComponent {
 
   reservas: IAlquilerAlojamientoDTO[] = [];
 
+  /**
+   * Buscar las reservas que han solicitado los usuarios sobre tus alojamientos.
+   */
   ngOnInit(): void {
     if(!this.tokenService.isGestor()){
       this.router.navigate(['/']);
@@ -26,6 +29,10 @@ export class VerReservasGestorComponent {
     });
   }
 
+  /**
+   * Cancela la reserva
+   * @param id
+   */
   cancelarReserva(id?: number): void {
     if(confirm("¿Está seguro de que desea cancelar la reserva?")){
       this.alquilerAlojamientoService.cancelarReserva(id as number).subscribe(response => {

@@ -16,6 +16,9 @@ export class LogoutComponent implements OnInit {
     private tokenService: TokenService
   ) { }
 
+  /**
+   * Método para cerrar sesión.
+   */
   ngOnInit(): void {
     this.tokenService.clear();
     this.router.navigate(['']).then(() => {window.location.reload();});

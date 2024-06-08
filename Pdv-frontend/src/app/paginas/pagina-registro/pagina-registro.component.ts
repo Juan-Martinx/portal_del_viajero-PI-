@@ -39,6 +39,9 @@ export class PaginaRegistroComponent {
   perfilGestorSeleccionado: boolean = false;
   logAceptaTerminosYCondiciones: boolean = false;
 
+  /**
+   * Registra al usuario dentro de la app
+   */
   registrarUsuario(){
     //Si el formulario es válido
     if(this.formRegistro.valid){

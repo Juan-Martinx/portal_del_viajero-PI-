@@ -14,6 +14,11 @@ export class ValoracionAlojamientoService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Método que sirve para realizar la reserva de un alojamiento.
+   * @param valoracion 
+   * @returns 
+   */
   realizarReserva(valoracion: IValoracionAlojamientoDTO): Observable<IGenericApiMessageDTO> {
     return this.http.post<IGenericApiMessageDTO>(environment.api + this.alquilerAlojamientoAPI, valoracion);
   }

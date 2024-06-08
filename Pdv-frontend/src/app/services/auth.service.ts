@@ -12,6 +12,12 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
+    /**
+   * Obtiene el token de acceso mediante el intercambio de código de autorización.
+   * @param code El código de autorización recibido del proveedor de OAuth.
+   * @param code_verifier El valor del código de verificación utilizado para proteger contra ataques de código de autorización.
+   * @returns Un Observable que emite el token de acceso y otros detalles de autenticación.
+   */
   public getToken(code: string, code_verifier: string): Observable<any> {
     let body = new URLSearchParams();
     body.set('grant_type', environment.grant_type);

@@ -27,6 +27,10 @@ export class BuscarComodidadComponent implements OnInit{
   tiposComodidades: iTipoComodidadDTO[] = [];
   paginaActual = 0;
 
+  /**
+   * Carga los tipos de comodidades y comprueba si el usuario 
+   * es administrador, sino te redirige al inicio.
+   */
   ngOnInit(): void {
       this.cargarTiposComodidades();
       if(!this.tokenService.isAdmin()){
@@ -40,10 +44,18 @@ export class BuscarComodidadComponent implements OnInit{
     nombreTipoComodidad: new FormControl(-1)
   });
 
+  /**
+   * Te envía a la página de mofidicar comodidad con el código de la comodidad.
+   * @param codigo 
+   */
   modificarComodidad(codigo?: string){
     this.router.navigate(['/modificar-comodidad'], { queryParams: { codigo: codigo } });
   }
 
+  /**
+   * Elimina la comodidad seleccionada.
+   * @param codigo
+   */
   eliminarComodidad(codigo?: string){
     if(confirm("¿Estas seguro de eliminar esta comodidad?")){
       this.comodidadService.eliminarComodidad(codigo as string).subscribe(mensaje => {
@@ -53,12 +65,19 @@ export class BuscarComodidadComponent implements OnInit{
     }
   }
 
+  /**
+   * Carga los tipos de comodidades.
+   */
   cargarTiposComodidades(){
     this.tipoComodidadesService.buscarTiposComodidades().subscribe(tiposComodidades => {
       this.tiposComodidades = tiposComodidades;
     });
   }
 
+  /**
+   * Realiza una búsqueda de comodidades según los parámetros introducidos.
+   * @param avanzarPagina
+   */
   buscarComodidades(avanzarPagina: boolean){
 
     const comodidad: IComodidadAlojamientoDTO = {
@@ -83,6 +102,10 @@ export class BuscarComodidadComponent implements OnInit{
 
   }
 
+  /**
+   * Sirve para cambiar la página de comodidades.
+   * @param page 
+   */
   cambiarPage(page: number) {
     if(this.paginaActual < page){
       this.paginaActual = page;

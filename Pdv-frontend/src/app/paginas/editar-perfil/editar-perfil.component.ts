@@ -25,6 +25,9 @@ export class EditarPerfilComponent implements OnInit {
 
   rutaActual = this.route.snapshot.url[0].path;
   constructor(private tokenService: TokenService, private usuarioService: UsuarioService, private route: ActivatedRoute, private mediaService: MediaService) { }
+  /**
+   * Busca el usuario logueado y carga sus datos.
+   */
   ngOnInit(): void {
     this.usuarioService.buscarUsuarioLogueado().subscribe(usuario => {
       this.usuario = usuario;
@@ -44,10 +47,16 @@ export class EditarPerfilComponent implements OnInit {
     telefono: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{9}')])
   });
 
+  /**
+   * Habilita el formulario de edición
+   */
   editarUsuario() {
     this.isUsuarioEnEdicion = !this.isUsuarioEnEdicion;
   }
 
+  /**
+   * Guarda los cambios realizados en el formulario.
+   */
   guardarCambios() {
 
     if (this.editarUsuarioForm.valid){
@@ -82,6 +91,10 @@ export class EditarPerfilComponent implements OnInit {
     return this.tokenService.isGestor();
   }
 
+  /**
+   * Sube la imágen del usuario al servidor.
+   * @param event 
+   */
   uploadFile(event: any) {
     const file = event.target.files[0];
 

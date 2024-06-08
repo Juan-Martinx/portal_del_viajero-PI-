@@ -15,6 +15,9 @@ export class VerPerfilComponent implements OnInit {
 
   usuario?: IUsuarioDTO;
 
+  /**
+   * Carga los datos de perfil del usuario.
+   */
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const username = params.get('username');

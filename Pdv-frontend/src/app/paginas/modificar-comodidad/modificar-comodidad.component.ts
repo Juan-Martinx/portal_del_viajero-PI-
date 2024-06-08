@@ -30,6 +30,10 @@ export class ModificarComodidadComponent implements OnInit{
 
   constructor(private route: ActivatedRoute, private titleService: Title, private tipoComodidadesService: TipoComodidadService, private comodidadService: ComodidadService, private router: Router, private tokenService: TokenService) { }
 
+  /**
+   * Comprueba si eres administrador, en caso contrario te redirige al inicio.
+   * Si lo eres, te deja modificar la comodidad seleccionada.
+   */
   ngOnInit(): void {
     if (!this.tokenService.isAdmin()) {
       this.router.navigate(['/']);
@@ -53,12 +57,19 @@ export class ModificarComodidadComponent implements OnInit{
     nombreTipoComodidad: new FormControl(this.selectedTipoComodidadId, Validators.required)
   });
 
+  /**
+   * Carga los tipos de comodidades.
+   */
   cargarTiposComodidades(){
     this.tipoComodidadesService.buscarTiposComodidades().subscribe(tiposComodidades => {
       this.tiposComodidades = tiposComodidades;
     });
   }
 
+  /**
+   * Busca la comodidad por código
+   * @param codigo 
+   */
   buscarComodidadByCodigo(codigo: string){
     this.comodidadService.buscarComodidadPorCodigo(codigo).subscribe(comodidad => {
       this.comodidadModificada = comodidad;
@@ -73,6 +84,9 @@ export class ModificarComodidadComponent implements OnInit{
     });
   }
 
+  /**
+   * Añade la comodidad
+   */
   aniadirComodidad(){
     if(this.comodidadesForm.valid){
       this.comodidadService.aniadirComodidad(this.obtenerDatosComodidad()).subscribe(mensaje=> {
@@ -86,6 +100,9 @@ export class ModificarComodidadComponent implements OnInit{
     }
   }
 
+  /**
+   * Modifica la comodidad
+   */
   modificarComodidad(){
     if(this.comodidadesForm.valid){
       this.comodidadService.modificarComodidad(this.obtenerDatosComodidad()).subscribe(mensaje=> {
@@ -99,6 +116,10 @@ export class ModificarComodidadComponent implements OnInit{
     }
   }
 
+  /**
+   * Obtiene los datos de la comodidad del formulario
+   * @returns 
+   */
   obtenerDatosComodidad(): IComodidadAlojamientoDTO{
     let comodidad: IComodidadAlojamientoDTO = {};
     if(this.IsActionNew){

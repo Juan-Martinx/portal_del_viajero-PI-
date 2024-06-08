@@ -4,6 +4,7 @@ import { TokenService } from '../../services/token.service';
 import { HttpParams } from '@angular/common/http';
 import * as CryptoJS from 'crypto-js';
 
+// Caracteres para generar el código aleatorio
 const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 @Component({
@@ -31,6 +32,7 @@ export class BotonRegistroGoogleComponent {
       code_challenge_method: environment.code_challenge_method
     }
 
+    // Método para iniciar sesión con Google
     onLogin(): void {
       const code_verifier = this.generateCodeVerifier();
       this.tokenService.setVerifier(code_verifier);
@@ -40,6 +42,7 @@ export class BotonRegistroGoogleComponent {
       location.href = codeUrl;
     }
 
+  // Generar un código aleatorio para el código verificador
     generateCodeVerifier(): string {
       let result = '';
       const char_length = CHARACTERS.length;
@@ -49,8 +52,11 @@ export class BotonRegistroGoogleComponent {
       return result;
     }
 
+    // Generar el desafío de código para la solicitud de autorización
     generateCodeChallenge(code_verifier: string): string {
+      // Calcular el hash SHA256 del código verificador y convertirlo a Base64
       const codeverifierHash = CryptoJS.SHA256(code_verifier).toString(CryptoJS.enc.Base64);
+      // Modificar el formato del código de desafío según las especificaciones de OAuth
       const code_challenge = codeverifierHash
       .replace(/=/g, '')
       .replace(/\+/g, '-')

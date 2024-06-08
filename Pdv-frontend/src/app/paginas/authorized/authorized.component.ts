@@ -30,6 +30,7 @@ export class AuthorizedComponent implements OnInit {
     });
   }
 
+  //Obtiene el token de acceso y el token de actualización y los guarda en el servicio de tokens
   getToken(code: string, code_verifier: string): void {
     this.authService.getToken(code, code_verifier).subscribe(
       data => {

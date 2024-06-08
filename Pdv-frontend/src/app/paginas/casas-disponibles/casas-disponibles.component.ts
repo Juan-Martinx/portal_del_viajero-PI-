@@ -22,14 +22,17 @@ export class CasasDisponiblesComponent implements OnInit{
 
   constructor(private route: ActivatedRoute, private alojamientoService: AlojamientoService){}
 
+  /**
+   * Carga los alojamientos disponibles del usuario.
+   */
   ngOnInit(): void {
-          this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe(params => {
       const username = params.get('username');
       if (typeof username === 'string' && username.length > 0) {
-       this.usuario = username;
-       this.alojamientoService.buscarAloajmientoByUsername(username).subscribe(alojamientos => {
-        this.alojamientos = alojamientos;
-       });
+        this.usuario = username;
+        this.alojamientoService.buscarAloajmientoByUsername(username).subscribe(alojamientos => {
+          this.alojamientos = alojamientos;
+        });
       }
     });
   }

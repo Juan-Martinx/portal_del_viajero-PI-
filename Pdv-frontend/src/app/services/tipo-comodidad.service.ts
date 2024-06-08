@@ -12,6 +12,10 @@ export class TipoComodidadService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Busca todos los tipos de comodidades disponibles.
+   * @returns Un Observable que emite un array de objetos iTipoComodidadDTO.
+   */
   buscarTiposComodidades(): Observable<iTipoComodidadDTO[]> {
     return this.http.get<iTipoComodidadDTO[]>(environment.api + this.tipoComodidadAPI);
   }

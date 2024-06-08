@@ -19,6 +19,10 @@ export class BarraBusquedaInicioComponent {
 
   constructor(private router: Router, private route: ActivatedRoute) { }
 
+  /**
+   * Método para realizar la búsqueda.
+   * Obtiene los valores del formulario, valida las fechas y navega a la página de inicio con los parámetros de búsqueda.
+   */
   buscar() {
     
   // Obtén los valores del formulario

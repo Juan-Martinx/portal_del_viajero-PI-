@@ -22,6 +22,9 @@ export class CasasAlquilerComponent implements OnInit {
 
   casasRurales: IAlojamientoDTO[] = [];
 
+  /**
+   * Carga las casas rurales del usuario y comprueba si es gestor, sino te redirige al inicio.
+   */
   ngOnInit(): void {
     if(!this.tokenService.isGestor()){
       this.router.navigate(['/']);
@@ -31,6 +34,10 @@ export class CasasAlquilerComponent implements OnInit {
     });
   }
 
+  /**
+   * Elimina una casa rural dado su id.
+   * @param id 
+   */
   eliminarCasaRural(id?: number){
     if(confirm("¿Estás seguro de que quieres eliminar esta casa rural?")){
       this.alojamientoService.eliminarAlojamiento(id as number).subscribe(mensaje => {

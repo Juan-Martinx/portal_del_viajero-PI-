@@ -22,6 +22,11 @@ export class EditarPerfilUsuarioComponent {
   urlFotoPerfil = "";
   rutaActual = this.route.snapshot.url[0].path;
   constructor(private tokenService: TokenService, private usuarioService: UsuarioService, private route: ActivatedRoute, private mediaService: MediaService, private router: Router) { }
+  
+  /**
+   * Sino eres administrador te redirige al inicio.
+   * En caso de hacerlo, carga los datos del usuario seleccionado.
+   */
   ngOnInit(): void {
     if(!this.tokenService.isAdmin()){
       this.router.navigate(['/']);
@@ -54,6 +59,9 @@ export class EditarPerfilUsuarioComponent {
     this.isUsuarioEnEdicion = !this.isUsuarioEnEdicion;
   }
 
+  /**
+   * Guarda los cambios realizados en el formulario.
+   */
   guardarCambios() {
 
     if (this.editarUsuarioForm.valid){
@@ -89,25 +97,9 @@ export class EditarPerfilUsuarioComponent {
     return this.tokenService.isGestor();
   }
 
-  uploadFile(event: any) {
-    const file = event.target.files[0];
-
-    if(file) {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      this.mediaService.uploadFile(formData).subscribe(res => {
-        this.usuarioService.subirFotoPerfil(res.url).subscribe(mensaje => {
-          alert(mensaje.mensaje);
-          location.reload();
-        });
-      },
-      error => {
-        alert('No se ha podido subir la imagen');
-      })
-    }
-  }
-
+  /**
+   * Elimina el usuario seleccionado.
+   */
   eliminarUsuario(){
     if(confirm("¿Estas seguro de eliminar este usuario?")){
       this.usuarioService.eliminarUsuario(this.username).subscribe(mensaje => {

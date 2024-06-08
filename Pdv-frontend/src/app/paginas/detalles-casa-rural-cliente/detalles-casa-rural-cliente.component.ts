@@ -43,6 +43,9 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
 
   constructor(private tokenService: TokenService ,private alojamientoService: AlojamientoService, private route: ActivatedRoute, private alquilerAlojamientoService: AlquilerAlojamientoService, private valoracionAlojamientoService: ValoracionAlojamientoService, private router: Router) { }
 
+  /**
+   * Busca el alojamiento por su id y carga las comodidades e instalaciones.
+   */
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
 
@@ -99,6 +102,9 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
     }
   }
 
+  /**
+   * Realiza la reserva del alojamiento.
+   */
   realizarReserva(): void {
     if(this.reservar.valid){
       if(confirm("¿Está seguro de que desea realizar la reserva?")){
@@ -131,6 +137,9 @@ export class DetallesCasaRuralClienteComponent implements OnInit {
 
   }
 
+  /**
+   * Realiza la valoración del alojamiento.
+   */
   realizarComentario(){
     if(this.valorar.valid){
       if(this.tokenService.isLogged()){

@@ -25,6 +25,10 @@ export class BuscarUsuariosComponent implements OnInit{
 
   constructor(private usuarioService: UsuarioService, private tokenService: TokenService, private router: Router) { }
 
+  /**
+   * Realiza una busqueda de usuarios, si no eres admin
+   * te redirige al inicio.
+   */
   ngOnInit(): void {
     this.cambiarPage(0);
     if(!this.tokenService.isAdmin()){
@@ -38,9 +42,10 @@ export class BuscarUsuariosComponent implements OnInit{
     dni: new FormControl('')
   });
 
-  /**
-   * En caso de avanzar de página será true
-   */
+/**
+ * Busca a los usuarios de la app según los parámetros introducidos.
+ * @param avanzarPagina 
+ */
   buscarUsuarios(avanzarPagina: boolean) {
     const usuario: IUsuarioDTO = {
       username: this.buscadorUsuarios.value.nombre as string,
@@ -63,6 +68,10 @@ export class BuscarUsuariosComponent implements OnInit{
     });
   }
 
+  /**
+   * Cambia la página de la tabla de usuarios.
+   * @param page 
+   */
   cambiarPage(page: number) {
     if(this.paginaActual < page){
       this.paginaActual = page;

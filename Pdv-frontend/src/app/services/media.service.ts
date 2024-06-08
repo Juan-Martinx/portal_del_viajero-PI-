@@ -11,7 +11,12 @@ export class MediaService {
   mediaAPI = "/media";
 
   constructor(private http: HttpClient) { }
-
+  
+ /**
+   * Sube un archivo al servidor.
+   * @param formData Los datos del formulario que contienen el archivo a subir.
+   * @returns Un Observable que emite la respuesta del servidor.
+   */
   uploadFile(formData: FormData): Observable<any> {
     return this.http.post(environment.api + this.mediaAPI + "/upload", formData);
   }

@@ -39,6 +39,10 @@ export class PaginaInicioComponent implements OnInit{
 
   constructor(private tokenService: TokenService, private comodidadService: ComodidadService, private alojamientoService: AlojamientoService, private route: ActivatedRoute){}
 
+  /**
+   * Busca las comodidades disponibles y
+   * realiza una búsqueda de alojamientos general.
+   */
   ngOnInit(): void {
     this.buscarComodidades(true);
     this.buscarComodidades(false);

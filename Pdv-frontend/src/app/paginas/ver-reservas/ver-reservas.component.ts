@@ -22,6 +22,9 @@ export class VerReservasComponent implements OnInit {
 
   reservas: IAlquilerAlojamientoDTO[] = [];
 
+  /**
+   * Buscar las reservas realizadas por el usuario logueado
+   */
   ngOnInit(): void {
     if(!this.tokenService.isLogged()){
       this.router.navigate(['/']);
@@ -31,6 +34,10 @@ export class VerReservasComponent implements OnInit {
     });
   }
 
+  /**
+   * Cancela una reserva dado su id.
+   * @param id
+   */
   cancelarReserva(id?: number): void {
     if(confirm("¿Está seguro de que desea cancelar la reserva?")){
       this.alquilerAlojamientoService.cancelarReserva(id as number).subscribe(response => {

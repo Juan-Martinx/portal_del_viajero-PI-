@@ -29,6 +29,11 @@ export class TokenService {
 
   constructor() { }
 
+    /**
+   * Establece los tokens de acceso y de actualización en el almacenamiento local.
+   * @param access_token Token de acceso.
+   * @param refresh_token Token de actualización.
+   */
   setTokens(access_token: string, refresh_token: string): void {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.setItem(ACCESS_TOKEN, access_token);
@@ -36,19 +41,34 @@ export class TokenService {
     localStorage.setItem(REFRESH_TOKEN, refresh_token);
   }
 
+  /**
+   * Obtiene el token de acceso del almacenamiento local.
+   * @returns El token de acceso o null si no está presente.
+   */
   getAccessToken(): string | null {
     return localStorage.getItem(ACCESS_TOKEN);
   }
 
+  /**
+   * Obtiene el token de actualización del almacenamiento local.
+   * @returns El token de actualización o null si no está presente.
+   */
   getRefreshToken(): string | null {
     return localStorage.getItem(REFRESH_TOKEN);
   }
 
+  /**
+   * Borra los tokens de acceso y de actualización del almacenamiento local.
+   */
   clear(): void {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
   }
 
+  /**
+   * Verifica si el usuario ha iniciado sesión.
+   * @returns true si el usuario ha iniciado sesión, de lo contrario false.
+   */
   isLogged(): boolean {
     return localStorage.getItem(ACCESS_TOKEN) != null;
   }
@@ -56,6 +76,7 @@ export class TokenService {
   isCliente(): boolean {
     return this.tokenWithProfile(CodPerfiles.CLIENTE);
   }
+
 
   isGestor(): boolean {
     return this.tokenWithProfile(CodPerfiles.GESTOR);
@@ -69,6 +90,11 @@ export class TokenService {
     return this.tokenWithProfile(CodPerfiles.GOOGLE_USER);
   }
 
+  /**
+   * Recibe un perfil y verifica si el token tiene ese perfil.
+   * @param profile 
+   * @returns 
+   */
   tokenWithProfile(profile: string): boolean {
     if (!this.isLogged()) {
       return false;
@@ -84,6 +110,10 @@ export class TokenService {
     return true;
   }
 
+  /**
+   * Establece el código de verificación en el almacenamiento local.
+   * @param code_verifier Código de verificación generado.
+   */
   setVerifier(code_verifier: string): void {
     if (localStorage.getItem(CODE_VERIFIER)) {
       this.deleteVerifier();
@@ -92,16 +122,27 @@ export class TokenService {
     localStorage.setItem(CODE_VERIFIER, encrypted.toString());
   }
 
+  /**
+   * Obtiene el código de verificación del almacenamiento local.
+   * @returns El código de verificación o una cadena vacía si no está presente.
+   */
   getVerifier(): string {
     const encrypted = localStorage.getItem(CODE_VERIFIER) as string;
     const decrypted = CryptoJS.AES.decrypt(encrypted, environment.secret_pkce).toString(CryptoJS.enc.Utf8);
     return decrypted;
   }
-
+  
+  /**
+   * Elimina el código de verificación del almacenamiento local.
+   */
   deleteVerifier(): void {
     localStorage.removeItem(CODE_VERIFIER);
   }
 
+  /**
+   * Genera un código de verificación aleatorio.
+   * @returns El código de verificación generado.
+   */
   generateCodeVerifier(): string {
     let result = '';
     const char_length = CHARACTERS.length;
@@ -111,6 +152,11 @@ export class TokenService {
     return result;
   }
 
+  /**
+   * Genera un desafío de código a partir del código de verificación.
+   * @param code_verifier Código de verificación.
+   * @returns El desafío de código generado.
+   */
   generateCodeChallenge(code_verifier: string): string {
     const codeverifierHash = CryptoJS.SHA256(code_verifier).toString(CryptoJS.enc.Base64);
     const code_challenge = codeverifierHash
@@ -120,6 +166,10 @@ export class TokenService {
     return code_challenge;
   }
 
+  /**
+   * Inicia el proceso de autenticación.
+   * Genera un código de verificación, lo establece y construye la URL de autorización.
+   */
   onLogin(): void {
     const code_verifier = this.generateCodeVerifier();
     this.setVerifier(code_verifier);
