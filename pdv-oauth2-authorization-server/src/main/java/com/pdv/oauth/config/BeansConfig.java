@@ -15,11 +15,22 @@ public class BeansConfig {
     @Value("${frontend.api}")
     private String frontendAPI;
     
+	/**
+	 * [CONFIGURATION BEAN]
+	 * Bean que sirve para encriptar contraseñas
+	 * @return
+	 */
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
+	/**
+	 * [CONFIGURATION BEAN]
+	 * Bean que sirve para configurar la política
+	 * de CORS que funcionará en toda la aplicación.
+	 * @return
+	 */
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

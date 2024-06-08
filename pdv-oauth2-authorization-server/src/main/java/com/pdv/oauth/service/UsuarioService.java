@@ -28,6 +28,10 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+/**
+ * Servicio para gestionar usuarios en el sistema.
+ * Proporciona métodos para la creación de usuarios y la generación de usuarios a través de OAuth2.
+ */
 public class UsuarioService {
 	
 	private final UsuarioRepository usuarioRepository;
@@ -35,6 +39,12 @@ public class UsuarioService {
 	private final PerfilRepository perfilRepository;
 	private final PasswordEncoder passwordEncoder;
 	
+	/**
+	 * Crea un nuevo usuario en el sistema.
+	 * 
+	 * @param dto Los datos del usuario a crear
+	 * @return Un objeto GenericAPIMessageDTO con el resultado de la operación
+	 */
 	@Transactional
 	public GenericAPIMessageDTO crearUsuario(AppUsuarioDTO dto) {
 		
@@ -63,6 +73,12 @@ public class UsuarioService {
 				.build();
 	}
 	
+	/**
+	 * Genera un nuevo usuario a través de OAuth2.
+	 * 
+	 * @param googleUser El usuario de Google del que se generará el usuario OAuth2
+	 * @return Un objeto GenericAPIMessageDTO con el resultado de la operación
+	 */
 	public GenericAPIMessageDTO generarUsuarioParaOAuth2(GoogleUser googleUser) {
 		
 		var nuevoUsuario = Usuario.builder()
@@ -86,6 +102,11 @@ public class UsuarioService {
 				.build();
 	}
 	
+	/**
+	 * Obtiene el ID del último usuario creado en la base de datos.
+	 * 
+	 * @return El ID del último usuario creado
+	 */
 	@Transactional
     private Long obtenerIdUltimoUsuarioCreado() {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");

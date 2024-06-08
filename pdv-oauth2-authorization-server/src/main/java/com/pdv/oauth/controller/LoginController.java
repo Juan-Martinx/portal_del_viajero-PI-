@@ -12,16 +12,30 @@ import com.pdv.oauth.commons.PathCommons;
 @RequestMapping(PathCommons.LOGIN_ENTRYPOINT)
 public class LoginController {
 
+	/**
+	 * Login de la app
+	 * @return
+	 */
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
+	/**
+	 * Logout de la app
+	 * @return
+	 */
     @GetMapping("/logout")
     public String logout() {
         return "logout";
     }
 
+/**
+ * Logout exitoso de la app
+ * @param http
+ * @return
+ * @throws Exception
+ */
     @PostMapping("/logout")
     public String logoutOK(HttpSecurity http) throws Exception {
     	http.logout(logout -> 

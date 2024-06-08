@@ -11,19 +11,33 @@ import com.pdv.oauth.commons.PathCommons;
 
 import java.util.function.Consumer;
 
+/**
+ * Configurador para identidades federadas en la seguridad de Spring.
+ * <p>
+ * Esta clase extiende {@link AbstractHttpConfigurer} y proporciona métodos para configurar el manejo de identidades federadas
+ * en la seguridad de Spring, incluyendo la URL de la página de inicio de sesión, la URI de la solicitud de autorización,
+ * y los consumidores para manejar los usuarios OAuth2 y OIDC autenticados.
+ * </p>
+ */
 public final class FederatedIdentityConfigurer extends AbstractHttpConfigurer<FederatedIdentityConfigurer, HttpSecurity> {
 
+    // URL de la página de inicio de sesión, predeterminada a "/login"
     private String loginPageUrl = PathCommons.LOGIN_ENTRYPOINT + "/login";
 
+    // URI de la solicitud de autorización, predeterminada a "/oauth2/authorization/{registrationId}"
     private String authorizationRequestUri;
 
+    // Consumidor para manejar usuarios OAuth2 autenticados
     private Consumer<OAuth2User> oauth2UserHandler;
 
+    // Consumidor para manejar usuarios OIDC autenticados
     private Consumer<OidcUser> oidcUserHandler;
 
     /**
-     * @param loginPageUrl The URL of the login page, defaults to {@code "/login"}
-     * @return This configurer for additional configuration
+     * Establece la URL de la página de inicio de sesión.
+     *
+     * @param loginPageUrl URL de la página de inicio de sesión.
+     * @return Este configurador para configuración adicional.
      */
     public FederatedIdentityConfigurer loginPageUrl(String loginPageUrl) {
         Assert.hasText(loginPageUrl, "loginPageUrl cannot be empty");
@@ -32,10 +46,10 @@ public final class FederatedIdentityConfigurer extends AbstractHttpConfigurer<Fe
     }
 
     /**
-     * @param authorizationRequestUri The authorization request URI for initiating
-     * the login flow with an external IDP, defaults to {@code
-     * "/oauth2/authorization/{registrationId}"}
-     * @return This configurer for additional configuration
+     * Establece la URI de la solicitud de autorización.
+     *
+     * @param authorizationRequestUri URI de la solicitud de autorización.
+     * @return Este configurador para configuración adicional.
      */
     public FederatedIdentityConfigurer authorizationRequestUri(String authorizationRequestUri) {
         Assert.hasText(authorizationRequestUri, "authorizationRequestUri cannot be empty");
@@ -44,9 +58,10 @@ public final class FederatedIdentityConfigurer extends AbstractHttpConfigurer<Fe
     }
 
     /**
-     * @param oauth2UserHandler The {@link Consumer} for performing JIT account provisioning
-     * with an OAuth 2.0 IDP
-     * @return This configurer for additional configuration
+     * Establece el consumidor para manejar usuarios OAuth2 autenticados.
+     *
+     * @param oauth2UserHandler Consumidor para manejar usuarios OAuth2.
+     * @return Este configurador para configuración adicional.
      */
     public FederatedIdentityConfigurer oauth2UserHandler(Consumer<OAuth2User> oauth2UserHandler) {
         Assert.notNull(oauth2UserHandler, "oauth2UserHandler cannot be null");
@@ -55,28 +70,34 @@ public final class FederatedIdentityConfigurer extends AbstractHttpConfigurer<Fe
     }
 
     /**
-     * @param oidcUserHandler The {@link Consumer} for performing JIT account provisioning
-     * with an OpenID Connect 1.0 IDP
-     * @return This configurer for additional configuration
+     * Establece el consumidor para manejar usuarios OIDC autenticados.
+     *
+     * @param oidcUserHandler Consumidor para manejar usuarios OIDC.
+     * @return Este configurador para configuración adicional.
      */
     public FederatedIdentityConfigurer oidcUserHandler(Consumer<OidcUser> oidcUserHandler) {
         Assert.notNull(oidcUserHandler, "oidcUserHandler cannot be null");
         this.oidcUserHandler = oidcUserHandler;
         return this;
     }
-
+    
+    // Inicializa la configuración de seguridad de Spring
     // @formatter:off
     @Override
     public void init(HttpSecurity http) throws Exception {
+        // Obtiene el contexto de la aplicación para recuperar el repositorio de registro de clientes OAuth2
         ApplicationContext applicationContext = http.getSharedObject(ApplicationContext.class);
         ClientRegistrationRepository clientRegistrationRepository =
                 applicationContext.getBean(ClientRegistrationRepository.class);
+        
+        // Crea el punto de entrada de autenticación para identidades federadas
         FederatedIdentityAuthenticationEntryPoint authenticationEntryPoint =
                 new FederatedIdentityAuthenticationEntryPoint(this.loginPageUrl, clientRegistrationRepository);
         if (this.authorizationRequestUri != null) {
             authenticationEntryPoint.setAuthorizationRequestUri(this.authorizationRequestUri);
         }
 
+        // Crea el manejador de éxito de autenticación para identidades federadas
         FederatedIdentityAuthenticationSuccessHandler authenticationSuccessHandler =
                 new FederatedIdentityAuthenticationSuccessHandler();
         if (this.oauth2UserHandler != null) {

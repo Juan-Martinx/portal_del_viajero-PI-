@@ -67,6 +67,17 @@ public class AuthorizationSecurityConfig {
     @Value("${frontend.api}")
     private String frontendAPI;
     
+    /**
+     * Configura la cadena de filtros de seguridad para el servidor de autorización OAuth2.
+     * <p>
+     * Este método establece la configuración de seguridad específica para el servidor de autorización, incluyendo
+     * la protección CSRF, el soporte para OAuth2 y OpenID Connect, y la gestión de excepciones de autenticación.
+     * </p>
+     * 
+     * @param http el objeto {@link HttpSecurity} a configurar.
+     * @return un {@link SecurityFilterChain} configurado.
+     * @throws Exception si ocurre algún error durante la configuración de seguridad.
+     */
 	@Bean 
 	@Order(1)
 	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -87,6 +98,17 @@ public class AuthorizationSecurityConfig {
 		return http.build();
 	}
 	
+	/**
+	 * Configura la cadena de filtros de seguridad para las rutas web de la aplicación.
+	 * <p>
+	 * Este método establece la configuración de seguridad para la aplicación web, incluyendo el manejo de CORS,
+	 * la protección CSRF, la configuración de login y logout, y la integración con proveedores de identidad federada.
+	 * </p>
+	 * 
+	 * @param http el objeto {@link HttpSecurity} a configurar.
+	 * @return un {@link SecurityFilterChain} configurado.
+	 * @throws Exception si ocurre algún error durante la configuración de seguridad.
+	 */
 	@Bean
 	@Order(2)
 	public SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -110,6 +132,16 @@ public class AuthorizationSecurityConfig {
 		return http.build();
 	}
     
+	/**
+	 * Personaliza los tokens OAuth2 emitidos por el servidor de autorización.
+	 * <p>
+	 * Este método configura un personalizador de tokens que agrega información adicional a los tokens JWT generados,
+	 * como el tipo de token, los perfiles del usuario y el nombre de usuario. También elimina la reclamación de
+	 * expiración para que el token no caduque.
+	 * </p>
+	 * 
+	 * @return un {@link OAuth2TokenCustomizer} configurado para personalizar los tokens JWT.
+	 */
 	@Bean
 	public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer() {
 		return context -> {
@@ -140,31 +172,92 @@ public class AuthorizationSecurityConfig {
 		};
 	}
     
+	/**
+	 * Crea y configura el registro de sesiones para la administración de sesiones de usuario.
+	 * <p>
+	 * Este método proporciona una instancia de {@link SessionRegistryImpl}, que se utiliza para gestionar y 
+	 * rastrear las sesiones de los usuarios autenticados en la aplicación.
+	 * </p>
+	 * 
+	 * @return una instancia de {@link SessionRegistry} para la administración de sesiones de usuario.
+	 */
     @Bean
     public SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();
     }
     
+    /**
+     * Crea y configura un publicador de eventos de sesión HTTP.
+     * <p>
+     * Este método proporciona una instancia de {@link HttpSessionEventPublisher}, que se utiliza para publicar 
+     * eventos de creación y destrucción de sesiones HTTP. Esto es útil para la administración de sesiones 
+     * concurrentes y para la integración con el registro de sesiones.
+     * </p>
+     * 
+     * @return una instancia de {@link HttpSessionEventPublisher} para la publicación de eventos de sesión HTTP.
+     */
     @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
     }
     
+    /**
+     * Crea y configura el servicio de autorización OAuth2.
+     * <p>
+     * Este método proporciona una instancia de {@link InMemoryOAuth2AuthorizationService}, que se utiliza para 
+     * gestionar las autorizaciones OAuth2 en memoria. Este servicio almacena y recupera datos relacionados con 
+     * las autorizaciones, como los tokens emitidos y las aprobaciones de consentimientos.
+     * </p>
+     * 
+     * @return una instancia de {@link OAuth2AuthorizationService} para la gestión de autorizaciones OAuth2.
+     */
     @Bean
     public OAuth2AuthorizationService authorizationService() {
         return new InMemoryOAuth2AuthorizationService();
     }
     
+    /**
+     * Configura los ajustes del servidor de autorización OAuth2.
+     * <p>
+     * Este método proporciona una instancia de {@link AuthorizationServerSettings} configurada con el emisor (issuer)
+     * especificado por la propiedad {@code oauth2API}. Estos ajustes se utilizan para definir propiedades del servidor
+     * de autorización, como la URL del emisor.
+     * </p>
+     * 
+     * @return una instancia de {@link AuthorizationServerSettings} con los ajustes configurados.
+     */
     @Bean
     public AuthorizationServerSettings authorizationServerSettings(){
         return AuthorizationServerSettings.builder().issuer(oauth2API).build();
     }
     
+    /**
+     * Crea y configura un decodificador JWT para validar tokens JWT.
+     * <p>
+     * Este método proporciona una instancia de {@link JwtDecoder} configurada con la fuente de claves JWK especificada.
+     * El decodificador JWT se utiliza para validar y decodificar tokens JWT emitidos por el servidor de autorización
+     * OAuth2.
+     * </p>
+     * 
+     * @param jwkSource la fuente de claves JWK utilizada para obtener las claves públicas necesarias para validar
+     *                  los tokens JWT.
+     * @return una instancia de {@link JwtDecoder} configurada para validar tokens JWT.
+     */
     @Bean
     public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource){
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
     }
     
+    /**
+     * Crea y configura una fuente de claves JWK para la obtención de claves públicas.
+     * <p>
+     * Este método genera un par de claves RSA y crea un conjunto de claves JWK utilizando la clave pública generada.
+     * La fuente de claves JWK se utiliza para proporcionar las claves públicas necesarias para validar los tokens JWT
+     * emitidos por el servidor de autorización OAuth2.
+     * </p>
+     * 
+     * @return una instancia de {@link JWKSource} configurada para proporcionar claves JWK.
+     */
     @Bean
     public JWKSource<SecurityContext> jwkSource() {
         RSAKey rsaKey = generateRSAKey();
@@ -172,6 +265,15 @@ public class AuthorizationSecurityConfig {
         return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
     }
     
+    /**
+     * Genera un par de claves RSA y construye un objeto RSAKey utilizando la clave pública y privada generadas.
+     * <p>
+     * Este método utiliza un generador de claves para crear un par de claves RSA, luego construye un objeto RSAKey
+     * que representa estas claves utilizando la clave pública y privada generadas, asignándoles un identificador único.
+     * </p>
+     * 
+     * @return un objeto {@link RSAKey} que representa el par de claves RSA generado.
+     */
     private RSAKey generateRSAKey() {
         KeyPair keyPair = generateKeyPair();
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
@@ -179,6 +281,15 @@ public class AuthorizationSecurityConfig {
         return new RSAKey.Builder(publicKey).privateKey(privateKey).keyID(UUID.randomUUID().toString()).build();
     }
 
+    /**
+     * Genera un par de claves RSA.
+     * <p>
+     * Este método utiliza un generador de pares de claves RSA para crear un nuevo par de claves con una longitud de 2048 bits.
+     * </p>
+     * 
+     * @return un objeto {@link KeyPair} que representa el par de claves RSA generado.
+     * @throws RuntimeException si ocurre un error al intentar generar el par de claves RSA.
+     */
     private KeyPair generateKeyPair() {
         KeyPair keyPair;
         try {
@@ -191,6 +302,16 @@ public class AuthorizationSecurityConfig {
         return keyPair;
     }
     
+    /**
+     * Crea y devuelve un manejador de éxito de autenticación.
+     * <p>
+     * Este método instancia un {@link FederatedIdentityAuthenticationSuccessHandler}, que se utiliza como manejador de éxito
+     * de autenticación para procesar las solicitudes de autenticación exitosas, especialmente cuando se utilizan identidades
+     * federadas como Google Sign-In.
+     * </p>
+     * 
+     * @return un {@link AuthenticationSuccessHandler} configurado para manejar las solicitudes de autenticación exitosas.
+     */
     private AuthenticationSuccessHandler authenticationSuccessHandler(){
         return new FederatedIdentityAuthenticationSuccessHandler();
     }

@@ -13,6 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Slf4j
+/**
+ * Manejador de usuario OAuth2 para el repositorio de usuarios de Google.
+ * <p>
+ * Esta clase implementa la interfaz {@link Consumer} y se encarga de manejar los usuarios OAuth2 autenticados,
+ * generando un nuevo usuario en el repositorio de usuarios de Google si no existe, o simplemente registrando
+ * el inicio de sesión si el usuario ya existe.
+ * </p>
+ */
 public final class UserRepositoryOAuth2UserHandler implements Consumer<OAuth2User> {
 
     private final GoogleUserRepository googleUserRepository;

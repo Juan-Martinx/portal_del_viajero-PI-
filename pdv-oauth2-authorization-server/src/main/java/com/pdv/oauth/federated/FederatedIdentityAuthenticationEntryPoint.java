@@ -15,7 +15,15 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
-
+/**
+ * Punto de entrada de autenticación para identidades federadas.
+ * <p>
+ * Esta clase implementa la interfaz {@link AuthenticationEntryPoint} y se encarga de manejar las solicitudes de
+ * autenticación para identidades federadas. Cuando se recibe una solicitud de autenticación para un proveedor de
+ * identidad federada, esta clase redirige al usuario a la URI de autorización adecuada para iniciar el proceso de
+ * autenticación federada.
+ * </p>
+ */
 public final class FederatedIdentityAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -26,12 +34,27 @@ public final class FederatedIdentityAuthenticationEntryPoint implements Authenti
     private final AuthenticationEntryPoint delegate;
 
     private final ClientRegistrationRepository clientRegistrationRepository;
-
+    
+    /**
+     * Constructor de la clase.
+     *
+     * @param loginPageUrl                 URL de la página de inicio de sesión.
+     * @param clientRegistrationRepository repositorio de registro de cliente OAuth2.
+     */
     public FederatedIdentityAuthenticationEntryPoint(String loginPageUrl, ClientRegistrationRepository clientRegistrationRepository) {
         this.delegate = new LoginUrlAuthenticationEntryPoint(loginPageUrl);
         this.clientRegistrationRepository = clientRegistrationRepository;
     }
 
+    /**
+     * Método para manejar la solicitud de autenticación.
+     *
+     * @param request                 solicitud HTTP recibida.
+     * @param response                respuesta HTTP que se enviará.
+     * @param authenticationException excepción de autenticación, si la hubiera.
+     * @throws IOException      si ocurre un error de entrada/salida durante el proceso.
+     * @throws ServletException si ocurre un error de servlet durante el proceso.
+     */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException, ServletException {
         String idp = request.getParameter("idp");
@@ -50,7 +73,12 @@ public final class FederatedIdentityAuthenticationEntryPoint implements Authenti
 
         this.delegate.commence(request, response, authenticationException);
     }
-
+    
+    /**
+     * Establece la URI de la solicitud de autorización.
+     *
+     * @param authorizationRequestUri URI de la solicitud de autorización.
+     */
     public void setAuthorizationRequestUri(String authorizationRequestUri) {
         this.authorizationRequestUri = authorizationRequestUri;
     }

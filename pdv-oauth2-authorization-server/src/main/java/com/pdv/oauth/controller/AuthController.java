@@ -20,7 +20,12 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
 	private final UsuarioService usuarioService;
-		
+	
+	/**
+	 * Método que sirve para crear un usuario
+	 * @param dto
+	 * @return
+	 */
 	@PostMapping("/crear")
 	public ResponseEntity<GenericAPIMessageDTO> crearUsuario(@RequestBody AppUsuarioDTO dto){
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.crearUsuario(dto));

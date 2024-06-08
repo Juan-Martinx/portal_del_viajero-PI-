@@ -23,6 +23,12 @@ public class ClientController {
 
     private final ClientService clientService;
 
+    /**
+     * Método que sirve para crear un cliente de API
+     * para oauth.
+     * @param dto
+     * @return
+     */
     @PostMapping("/crear")
     public ResponseEntity<GenericAPIMessageDTO> crear(@RequestBody CreateClientDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(clientService.create(dto));

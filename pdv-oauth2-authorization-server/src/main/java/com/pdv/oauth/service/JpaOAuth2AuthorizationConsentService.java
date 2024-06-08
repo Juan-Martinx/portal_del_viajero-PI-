@@ -19,6 +19,13 @@ import com.pdv.oauth.repository.AuthorizationConsentRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Servicio para gestionar el consentimiento de autorización OAuth2 en una base de datos JPA.
+ * <p>
+ * Implementa la interfaz {@link OAuth2AuthorizationConsentService} y proporciona métodos para guardar, eliminar y buscar
+ * el consentimiento de autorización en la base de datos.
+ * </p>
+ */
 @Service
 @RequiredArgsConstructor
 public class JpaOAuth2AuthorizationConsentService implements OAuth2AuthorizationConsentService {

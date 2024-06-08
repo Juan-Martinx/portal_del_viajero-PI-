@@ -19,6 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+/**
+ * Servicio para manejar operaciones relacionadas con clientes OAuth2.
+ * <p>
+ * Esta clase implementa {@link RegisteredClientRepository} y proporciona métodos para crear y recuperar clientes OAuth2.
+ * </p>
+ */
 public class ClientService implements RegisteredClientRepository {
 
     private final ClientRepository clientRepository;
