@@ -4,8 +4,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.pdv.oauth.commons.PathCommons;
 
 @Controller
+@RequestMapping(PathCommons.LOGIN_ENTRYPOINT)
 public class LoginController {
 
     @GetMapping("/login")

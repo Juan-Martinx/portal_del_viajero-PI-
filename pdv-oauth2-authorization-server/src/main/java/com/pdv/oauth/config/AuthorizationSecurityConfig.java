@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -43,7 +44,6 @@ import com.pdv.oauth.enums.CodPerfiles;
 import com.pdv.oauth.federated.FederatedIdentityAuthenticationSuccessHandler;
 import com.pdv.oauth.federated.FederatedIdentityConfigurer;
 import com.pdv.oauth.federated.UserRepositoryOAuth2UserHandler;
-import com.pdv.oauth.model.Usuario;
 import com.pdv.oauth.repository.GoogleUserRepository;
 import com.pdv.oauth.service.ClientService;
 import com.pdv.oauth.service.UsuarioService;
@@ -61,6 +61,12 @@ public class AuthorizationSecurityConfig {
     private final GoogleUserRepository googleUserRepository;
     private final UsuarioService usuarioService;
 
+    @Value("${oauth2.api}")
+    private String oauth2API;
+    
+    @Value("${frontend.api}")
+    private String frontendAPI;
+    
 	@Bean 
 	@Order(1)
 	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -74,7 +80,7 @@ public class AuthorizationSecurityConfig {
         http.oauth2ResourceServer(oAuthResourceServer -> oAuthResourceServer.jwt(Customizer.withDefaults()));
 
         http.exceptionHandling(exceptions -> exceptions.defaultAuthenticationEntryPointFor(
-                new LoginUrlAuthenticationEntryPoint("/login"),
+                new LoginUrlAuthenticationEntryPoint(PathCommons.LOGIN_ENTRYPOINT + "/login"),
                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
         )).oauth2ResourceServer(resource -> resource.jwt(Customizer.withDefaults()));
 
@@ -92,15 +98,15 @@ public class AuthorizationSecurityConfig {
         http
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers(PathCommons.AUTH + "/**", PathCommons.AUTENTIFICATION_CLIENT + "/**", "/login").permitAll()
+                                .requestMatchers(PathCommons.AUTH + "/**", PathCommons.AUTENTIFICATION_CLIENT + "/**", PathCommons.LOGIN_ENTRYPOINT +"/login").permitAll()
                                 .anyRequest().authenticated()
-                ).formLogin(login -> login.loginPage("/login"))
-                .oauth2Login(login -> login.loginPage("/login")
+                ).formLogin(login -> login.loginPage(PathCommons.LOGIN_ENTRYPOINT + "/login"))
+                .oauth2Login(login -> login.loginPage(PathCommons.LOGIN_ENTRYPOINT + "/login")
                         .successHandler(authenticationSuccessHandler())
                 )
                 .apply(federatedIdentityConfigurer);
         http.logout(logout ->
-        		logout.logoutSuccessUrl("http://127.0.0.1:4200/logout"));
+        		logout.logoutSuccessUrl(frontendAPI + "/logout").logoutUrl(PathCommons.LOGIN_ENTRYPOINT + "/logout"));
 		return http.build();
 	}
     
@@ -151,7 +157,7 @@ public class AuthorizationSecurityConfig {
     
     @Bean
     public AuthorizationServerSettings authorizationServerSettings(){
-        return AuthorizationServerSettings.builder().issuer(PathCommons.API_URL).build();
+        return AuthorizationServerSettings.builder().issuer(oauth2API).build();
     }
     
     @Bean

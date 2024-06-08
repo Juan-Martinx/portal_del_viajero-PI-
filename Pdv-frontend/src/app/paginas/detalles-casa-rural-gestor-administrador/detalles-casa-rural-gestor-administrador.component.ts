@@ -192,7 +192,6 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
       idImagenesAlojamiento: this.alojamientoModificado.idImagenesAlojamiento?.filter(imagen => imagen != null) as IImagenAlojamientoDTO[],
       idComodidades: idComodidades
     }
-    console.log
     return alojamiento;
   }
 

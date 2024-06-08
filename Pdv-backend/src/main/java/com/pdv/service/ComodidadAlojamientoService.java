@@ -12,6 +12,7 @@ import com.pdv.dto.ComodidadAlojamientoDTO;
 import com.pdv.dto.GenericAPIMessageDTO;
 import com.pdv.dto.TipoComodidadDTO;
 import com.pdv.model.ComodidadAlojamiento;
+import com.pdv.repository.AlojamientoComodidadAlojamientoRepository;
 import com.pdv.repository.ComodidadAlojamientoRepository;
 import com.pdv.repository.TipoComodidadRepository;
 
@@ -23,8 +24,14 @@ import lombok.RequiredArgsConstructor;
 public class ComodidadAlojamientoService {
 	
 	private final ComodidadAlojamientoRepository comodidadAlojamientoRepository;
+	private final AlojamientoComodidadAlojamientoRepository alojamientoComodidadAlojamientoRepository;
 	private final TipoComodidadRepository tipoComodidadRepository;
 	
+	/**
+	 * Método que sirve para crear una comodidad.
+	 * @param dto
+	 * @return
+	 */
 	@Transactional
 	public GenericAPIMessageDTO crearComodidad(ComodidadAlojamientoDTO dto) {
 		
@@ -48,6 +55,11 @@ public class ComodidadAlojamientoService {
 				.build();
 	}
 	
+	/**
+	 * Método que sirve para modificar una comodidad
+	 * @param dto
+	 * @return
+	 */
 	@Transactional
 	public GenericAPIMessageDTO modificarComodidad(ComodidadAlojamientoDTO dto) {
 		
@@ -72,9 +84,15 @@ public class ComodidadAlojamientoService {
 				.build();
 	}
 	
+	/**
+	 * Método que sirve para eliminar una comodidad.
+	 * @param codigo
+	 * @return
+	 */
 	@Transactional
 	public GenericAPIMessageDTO eliminarComodidad(String codigo) {
 		var comodidad = this.buscarComodidadAlojamientoPorCod(codigo);
+		this.alojamientoComodidadAlojamientoRepository.deleteByIdComodidad(comodidad.getId());
 		this.comodidadAlojamientoRepository.deleteById(comodidad.getId());
 		return GenericAPIMessageDTO.builder()
 				.mensaje("¡Comodidad eliminada con éxito!")
@@ -83,6 +101,11 @@ public class ComodidadAlojamientoService {
 				.build();
 	}
 	
+	/**
+	 * Método que busca comodidades según un código dado.
+	 * @param codigo
+	 * @return
+	 */
 	public ComodidadAlojamientoDTO buscarComodidadAlojamientoPorCod(String codigo) {
 		
 		var jpa = this.comodidadAlojamientoRepository.findByCodigoComodidad(codigo)
@@ -101,6 +124,16 @@ public class ComodidadAlojamientoService {
 				.build();
 	}
 	
+	/**
+	 * Método que encuentra comodidades desde el buscador
+	 * del administrador del sistema.
+	 * @param txtNombre
+	 * @param codigoComodidad
+	 * @param tipoComodidadId
+	 * @param codigoTipoComodidad
+	 * @param page
+	 * @return
+	 */
 	public List<ComodidadAlojamientoDTO> findComodidadesFromBuscador(String txtNombre, String codigoComodidad, Integer tipoComodidadId, String codigoTipoComodidad, Pageable page) {
 		var jpaList = this.comodidadAlojamientoRepository.findComodidadesFromBuscador(txtNombre, codigoComodidad, tipoComodidadId, codigoTipoComodidad, page);
 		var dtoList = new ArrayList<ComodidadAlojamientoDTO>();

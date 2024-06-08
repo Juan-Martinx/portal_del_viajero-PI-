@@ -30,6 +30,13 @@ public class MediaController {
 	private final StorageService storageService;
 	private final HttpServletRequest request;
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que sirve para subir una imagen a
+	 * una carpeta.
+	 * @param multipartFile
+	 * @return
+	 */
 	@PostMapping("/upload")
 	public Map<String, String> uploadFile(@RequestParam("file") MultipartFile multipartFile){
 		String path = storageService.store(multipartFile);
@@ -42,6 +49,13 @@ public class MediaController {
 		return Map.of("url", url);
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que retorna la imágen
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 */
 	@GetMapping("/public/{filename}")
 	public ResponseEntity<Resource> getFile(@PathVariable("filename") String filename) throws IOException{
 		Resource file = storageService.loadAsSource(filename);

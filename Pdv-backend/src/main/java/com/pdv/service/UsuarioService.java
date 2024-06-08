@@ -2,8 +2,6 @@ package com.pdv.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.pdv.dto.GenericAPIMessageDTO;
 import com.pdv.dto.UsuarioDTO;
 import com.pdv.enums.CodPerfiles;
-import com.pdv.model.Perfil;
 import com.pdv.model.Usuario;
 import com.pdv.repository.AlojamientoRepository;
 import com.pdv.repository.AlquilerAlojamientoRepository;
@@ -65,6 +62,11 @@ public class UsuarioService {
 		return dtoList;
 	}
 	
+	/**
+	 * Realiza una búsqueda de un usuario por su username.
+	 * @param username
+	 * @return
+	 */
 	public UsuarioDTO buscarUsuarioPorUsername(String username) {
 		var jpaOpt = this.usuarioRepository.findByUsername(username);
 		var dto = new UsuarioDTO();
@@ -81,6 +83,12 @@ public class UsuarioService {
 		return dto;
 	}
 	
+	/**
+	 * Realiza una búsqueda de usuario pero proporcionando más información,
+	 * esto se usa para administrar a los usuarios.
+	 * @param username
+	 * @return
+	 */
 	public UsuarioDTO buscarUsuarioPorUsernameByAdmin(String username) {
 		var jpaOpt = this.usuarioRepository.findByUsername(username);
 		var dto = new UsuarioDTO();
@@ -98,6 +106,11 @@ public class UsuarioService {
 		return dto;
 	}
 	
+	/**
+	 * Elimina a un usuario de la aplicación.
+	 * @param username
+	 * @return
+	 */
 	@Transactional
 	public GenericAPIMessageDTO eliminarUsuario(String username) {
 		var jpa = this.usuarioRepository.findByUsername(username)
@@ -249,6 +262,13 @@ public class UsuarioService {
 		return mensaje;
 	}
 	
+	/**
+	 * Método que sirve para guardar la URL de la ruta
+	 * dónde se encuentra subida la foto de perfil del usuario.
+	 * @param url
+	 * @param autenticacion
+	 * @return
+	 */
 	public GenericAPIMessageDTO subirFotoPerfil(String url, Authentication autenticacion) {
 		
 		var usuario = this.obtenerUsuarioApp(autenticacion);
@@ -285,7 +305,7 @@ public class UsuarioService {
 	}
 	
 	/**
-	 * Método que detecta si el usuario que se encuentra
+	 * Método que detecta si el usuario se encuentra
 	 * logueado dentro de la aplicación mediante una cuenta
 	 * de google o manualmente. En caso de ser de google,
 	 * lo que va a hacer es encontrar su usuario interno

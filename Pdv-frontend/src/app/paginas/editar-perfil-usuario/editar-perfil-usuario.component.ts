@@ -112,7 +112,7 @@ export class EditarPerfilUsuarioComponent {
     if(confirm("¿Estas seguro de eliminar este usuario?")){
       this.usuarioService.eliminarUsuario(this.username).subscribe(mensaje => {
         alert(mensaje.mensaje);
-        this.router.navigate(['/buscar-usuarios']);
+        this.router.navigate(['/usuarios-registrados']);
       });
   }
 }

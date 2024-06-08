@@ -33,7 +33,6 @@ export class VerReservasComponent implements OnInit {
 
   cancelarReserva(id?: number): void {
     if(confirm("¿Está seguro de que desea cancelar la reserva?")){
-      console.log(id);
       this.alquilerAlojamientoService.cancelarReserva(id as number).subscribe(response => {
         alert(response.mensaje);
       });

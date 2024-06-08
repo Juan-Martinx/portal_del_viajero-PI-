@@ -34,6 +34,12 @@ public class AlquilerAlojamientoService {
 	private final AlojamientoDiasOcupadosRepository alojamientoDiasOcupadosRepository;
 	private final AlojamientoService alojamientoService;
 	
+	/**
+	 * Método que sirve para realizar una reserva.
+	 * @param dto
+	 * @param autenticacion
+	 * @return
+	 */
 	@Transactional
 	public GenericAPIMessageDTO realizarReserva(AlquilerAlojamientoDTO dto, Authentication autenticacion) {
 		
@@ -97,6 +103,11 @@ public class AlquilerAlojamientoService {
 				.fechaYHora(LocalDateTime.now()).build();
 	}
 	
+	/**
+	 * Método que sirve para cancelar una reserva.
+	 * @param idAlquilerAlojamiento
+	 * @return
+	 */
 	@Transactional
 	public GenericAPIMessageDTO cancelarReserva(Long idAlquilerAlojamiento) {
 		
@@ -130,6 +141,12 @@ public class AlquilerAlojamientoService {
 				.fechaYHora(LocalDateTime.now()).build();
 	}
 	
+	/**
+	 * Método que busca las reservas realizadas
+	 * por el usuario logueado dentro de la app.
+	 * @param autenticacion
+	 * @return
+	 */
 	public List<AlquilerAlojamientoDTO> buscarReservasUsuario(Authentication autenticacion){
 		var alquileres = this.alquilerAlojamientoRepository.findByIdUsuarioId(this.usuarioService.obtenerUsuarioApp(autenticacion).getId());
 		var dtoList = new  ArrayList<AlquilerAlojamientoDTO>();
@@ -139,6 +156,12 @@ public class AlquilerAlojamientoService {
 		return dtoList;
 	}
 	
+	/**
+	 * Método que busca las reservas que han realizado otros usuarios
+	 * sobre los alojamientos en posesión del usuario logueado.
+	 * @param autenticacion
+	 * @return
+	 */
 	public List<AlquilerAlojamientoDTO> buscarReservasGestor(Authentication autenticacion){
 		var alquileres = this.alquilerAlojamientoRepository.findByIdAlojamientoIdUsuarioId(this.usuarioService.obtenerUsuarioApp(autenticacion).getId());
 		var dtoList = new  ArrayList<AlquilerAlojamientoDTO>();
@@ -148,6 +171,12 @@ public class AlquilerAlojamientoService {
 		return dtoList;
 	}
 	
+	/**
+	 * Método que pasa una entidad AlquilerAlojamiento
+	 * a su versión DTO.
+	 * @param jpa
+	 * @return
+	 */
 	public AlquilerAlojamientoDTO toDto(AlquilerAlojamiento jpa) {
 		return AlquilerAlojamientoDTO.builder()
 				.id(jpa.getId())

@@ -203,7 +203,6 @@ export class FiltroComponent implements OnInit{
 
   mostrarMenu(){
     this.menu = !this.menu;
-    console.log(this.menu);
   }
 
   resetearMenu(){

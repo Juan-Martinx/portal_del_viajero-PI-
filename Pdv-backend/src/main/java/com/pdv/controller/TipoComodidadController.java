@@ -20,6 +20,12 @@ public class TipoComodidadController {
 	
 	private final TipoComodidadService tipoComodidadService;
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que devuelve todos los tipos de comodidades
+	 * existentes dentro de la aplicación.
+	 * @return
+	 */
 	@GetMapping
 	public ResponseEntity<List<TipoComodidadDTO>> buscarTiposComodidades(){
 		return ResponseEntity.ok().body(this.tipoComodidadService.buscarTodosTiposComodidades());

@@ -11,6 +11,11 @@ import com.pdv.model.Usuario;
 @Service
 public class PerfilService {
 
+	/**
+	 * Método que sirve para retornar los perfiles de un usuario.
+	 * @param usuario
+	 * @return
+	 */
 	public List<String> getPerfilesFromUserJpa(Usuario usuario){
 		var perfiles = new ArrayList<String>();
 		usuario.getIdPerfiles().forEach(perfil -> perfiles.add(perfil.getCodPerfil().name()));

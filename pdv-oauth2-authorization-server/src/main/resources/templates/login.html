@@ -167,7 +167,7 @@
 				<img src="https://github.com/jmarcan286/portal_del_viajero-PI-/blob/main/Pdv-frontend/src/assets/paginaRegistro/logoAplicacion.jpg?raw=true"
 					class="logo">
 			</div>
-			<form class="col-xs-12 col-md-6 formulario-registro row" method="post" th:action="@{/login}">
+			<form class="col-xs-12 col-md-6 formulario-registro row" method="post" th:action="@{/oauth2/user-actions/login}">
 				<a href="http://portaldelviajero.com/inicio" style="text-decoration: none;"><i class="material-icons d-flex justify-content-end pt-2 me-2 mt-2"
 					style="font-size: 30px; max-height: 30px;">arrow_forward</i></a>
 				<div th:if="${param.error}" class="alert alert-danger" role="alert">

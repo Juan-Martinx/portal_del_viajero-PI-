@@ -1,5 +1,9 @@
 package pdv.commons;
 
+/**
+ * En esta clase de definen todas las constantes de la aplicación
+ * que tienen que ver con rutas.
+ */
 public class PathCommons {
 
 	/*Path General del Backend*/

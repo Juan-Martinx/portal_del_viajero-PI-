@@ -28,6 +28,13 @@ public class ValoracionAlojamientoService {
 	private final AlquilerAlojamientoRepository alquilerAlojamientoRepository;
 	private final UsuarioService usuarioService;
 	
+	/**
+	 * Método que sirve para crear la valoración de un 
+	 * alojamiento.
+	 * @param dto
+	 * @param autenticacion
+	 * @return
+	 */
 	@Transactional
 	public GenericAPIMessageDTO crearValoracion(ValoracionAlojamientoDTO dto, Authentication autenticacion) {
 		
@@ -71,6 +78,12 @@ public class ValoracionAlojamientoService {
 				.build();
 	}
 
+	/**
+	 * Método que convierte una entidad ValoracionAlojamiento
+	 * a su correspondiente versión en DTO.
+	 * @param jpa
+	 * @return
+	 */
 	public ValoracionAlojamientoDTO toDto (ValoracionAlojamiento jpa) {
 		return ValoracionAlojamientoDTO.builder()
 				.id(jpa.getId())

@@ -48,7 +48,13 @@ public class AlojamientoService {
 	private final ValoracionAlojamientoService valoracionAlojamientoService;
 	private final ImagenAlojamientoService imagenAlojamientoService;
 	private final ImagenAlojamientoRepository imagenAlojamientoRepository;
-
+	
+	/**
+	 * Método que obtiene todos los alojamientos pertenecientes al usuario
+	 * logueado dentro de la aplicación.
+	 * @param autenticacion
+	 * @return
+	 */
 	public List<AlojamientoDTO> buscarAlojamientoUsuario(Authentication autenticacion) {
 		var usuario = this.usuarioService.obtenerUsuarioApp(autenticacion);
 		var alojamientosList = this.alojamientoRepository.findByIdUsuarioId(usuario.getId());
@@ -61,6 +67,18 @@ public class AlojamientoService {
 		return dtoList;
 	}
 
+	/**
+	 * Método de busqueda general de los alojamientos. Es el que se usa en la página de 
+	 * inicio para encontrar los distintos alojamientos, usa los siguientes filtros:
+	 * @param provincia
+	 * @param idComodidades
+	 * @param numPrecioNocheMin
+	 * @param numPrecioNocheMax
+	 * @param fechaLlegada
+	 * @param fechaSalida
+	 * @param page
+	 * @return
+	 */
 	public List<AlojamientoDTO> buscarAlojamientoWithFilters(String provincia, List<Long> idComodidades,
 			Double numPrecioNocheMin, Double numPrecioNocheMax, LocalDate fechaLlegada, LocalDate fechaSalida,
 			Pageable page) {
@@ -79,22 +97,44 @@ public class AlojamientoService {
 		});
 		return dtoList;
 	}
-
+	
+	/**
+	 * Método de búsqueda de un alojamiento según su id
+	 * @param id
+	 * @return
+	 */
 	public AlojamientoDTO buscarAlojamientoById(Long id) {
 		var jpa = this.alojamientoRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Alojamiento no encontrado"));
 		return this.toDto(jpa);
 	}
-
+	
+	/**
+	 * Busqueda de un alojamiento para su gestión, en caso de estar
+	 * intentando encontrar el alojamiento de otro usuario que no sea
+	 * el logueado para gestionarlo, este método no retornará nada, a menos
+	 * que el usuario logueado tenga el perfil de administrador.
+	 * @param id
+	 * @param autenticacion
+	 * @return
+	 */
 	public AlojamientoDTO buscarAlojamientoByIdForGestion(Long id, Authentication autenticacion) {
 		var jpa = this.alojamientoRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Alojamiento no encontrado"));
-		if (jpa.getIdUsuario().getId() == usuarioService.obtenerUsuarioApp(autenticacion).getId()) {
+		boolean isAdmin = autenticacion.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+				.anyMatch(authority -> CodPerfiles.PERFIL_ADMIN.name().equals(authority));
+		if (jpa.getIdUsuario().getId() == usuarioService.obtenerUsuarioApp(autenticacion).getId() || isAdmin) {
 			return this.toDto(jpa);
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Busqueda de un alojamiento por el username
+	 * del usuario vinculado a él.
+	 * @param username
+	 * @return
+	 */
 	public List<AlojamientoDTO> buscarAlojamientoByUsername(String username) {
 		var jpaList = this.alojamientoRepository.findByIdUsuarioUsername(username);
 		var dtoList = new ArrayList<AlojamientoDTO>();
@@ -105,7 +145,13 @@ public class AlojamientoService {
 		}
 		return dtoList;
 	}
-
+	
+	/**
+	 * Método que sirve para crear un alojamiento.
+	 * @param dto
+	 * @param autenticacion
+	 * @return
+	 */
 	@Transactional
 	public GenericAPIMessageDTO aniadirAlojamiento(AlojamientoDTO dto, Authentication autenticacion) {
 
@@ -161,6 +207,14 @@ public class AlojamientoService {
 				.fechaYHora(LocalDateTime.now()).build();
 	}
 
+	/**
+	 * Método que sirve para modificar un alojamiento existente
+	 * en caso de no pertenecerte, o en caso de que no tengas el 
+	 * perfil de administrador, no podrás hacerlo.
+	 * @param dto
+	 * @param autenticacion
+	 * @return
+	 */
 	@Transactional
 	public GenericAPIMessageDTO modificarAlojamiento(AlojamientoDTO dto, Authentication autenticacion) {
 		var jpa = this.alojamientoRepository.findById(dto.getId())
@@ -171,7 +225,7 @@ public class AlojamientoService {
 		boolean isAdmin = autenticacion.getAuthorities().stream().map(GrantedAuthority::getAuthority)
 				.anyMatch(authority -> CodPerfiles.PERFIL_ADMIN.name().equals(authority));
 
-		if (usuarioAutenticado.getId() != jpa.getIdUsuario().getId() || !isAdmin) {
+		if (usuarioAutenticado.getId() != jpa.getIdUsuario().getId() && !isAdmin) {
 			return GenericAPIMessageDTO.builder().estado(HttpStatus.OK)
 					.mensaje("¡No debes modificar el alojamiento de otro usuario!").fechaYHora(LocalDateTime.now())
 					.build();
@@ -239,14 +293,36 @@ public class AlojamientoService {
 		return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("¡Alojamiento modificado con éxito!")
 				.fechaYHora(LocalDateTime.now()).build();
 	}
+	
+	/**
+	 * Método que sirve para eliminar un alojamiento, en caso
+	 * de no ser el usuario propietario o no tener el perfil de administrador,
+	 * no te dejará hacer nada.
+	 * @param id
+	 * @return
+	 */
+	public GenericAPIMessageDTO eliminarAlojamiento(Long id, Authentication autenticacion) {
+		boolean isAdmin = autenticacion.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+				.anyMatch(authority -> CodPerfiles.PERFIL_ADMIN.name().equals(authority));
+		
+		var jpa = this.alojamientoRepository.getReferenceById(id);
+		var usuarioAutenticado = usuarioService.obtenerUsuarioApp(autenticacion);
 
-	public GenericAPIMessageDTO eliminarAlojamiento(Long id) {
-		this.alojamientoRepository.delete(this.alojamientoRepository.getReferenceById(id));
-		return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("¡Alojamiento eliminado con éxito!")
-				.fechaYHora(LocalDateTime.now()).build();
+		if (usuarioAutenticado.getId() == jpa.getIdUsuario().getId() || isAdmin) {
+			this.alojamientoRepository.delete(jpa);
+			return GenericAPIMessageDTO.builder().estado(HttpStatus.OK).mensaje("¡Alojamiento eliminado con éxito!")
+					.fechaYHora(LocalDateTime.now()).build();
+		}
+		return null;
 
 	}
 
+	/**
+	 * Método que sirve para convertir un jpa de alojamiento
+	 * en un DTO de alojamiento.
+	 * @param jpa
+	 * @return
+	 */
 	public AlojamientoDTO toDto(Alojamiento jpa) {
 		var comodidadesList = new HashSet<AlojamientoComodidadAlojamientoDTO>();
 		ImagenAlojamientoDTO[] imagenesArr = new ImagenAlojamientoDTO[10];

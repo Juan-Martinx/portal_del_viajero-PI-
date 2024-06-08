@@ -61,6 +61,7 @@ public class Usuario implements UserDetails{
 	@Column(name = "url_imagen_usuario")
 	private String urlImagenUsuario;
 	
+	//Atributos de seguridad de la app
 	private boolean expired = false;
 	private boolean locked = false;
 	private boolean credentialsExpired = false;

@@ -24,6 +24,11 @@ public class FileSystemStorageService implements StorageService{
 	
 	private Path rootLocation;
 	
+	/**
+	 * Asigna una ruta para guardar archivos y 
+	 * en caso de que no haya un directorio con ese
+	 * path, lo crea.
+	 */
 	@Override
 	@PostConstruct
 	public void init() throws IOException{
@@ -31,6 +36,11 @@ public class FileSystemStorageService implements StorageService{
         Files.createDirectories(rootLocation);
 	}
 
+	/**
+	 * Método que sirve para guardar los archivos
+	 * proporcionados por los usuarios (fotos de perfil,
+	 * fotos de alojamiento...)
+	 */
 	@Override
 	public String store(MultipartFile file) {
 		try {
@@ -49,6 +59,9 @@ public class FileSystemStorageService implements StorageService{
 		}
 	}
 
+	/**
+	 * Método que sirve para devolver un archivo.
+	 */
 	@Override
 	public Resource loadAsSource(String filename) {
 		try {

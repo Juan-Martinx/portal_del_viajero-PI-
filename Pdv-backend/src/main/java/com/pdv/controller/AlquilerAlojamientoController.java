@@ -27,22 +27,50 @@ public class AlquilerAlojamientoController {
 	
 	private final AlquilerAlojamientoService alquilerAlojamientoService;
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que sirve para realizar la reserva de 
+	 * un alojamiento.
+	 * @param dto
+	 * @param autenticacion
+	 * @return
+	 */
 	@PostMapping
 	public ResponseEntity<GenericAPIMessageDTO> realizarReserva(@RequestBody AlquilerAlojamientoDTO dto, Authentication autenticacion){
 		return ResponseEntity.ok().body(this.alquilerAlojamientoService.realizarReserva(dto, autenticacion));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que sirve para buscar las reservas del usuario
+	 * logueado dentro de la aplicación.
+	 * @param autenticacion
+	 * @return
+	 */
 	@GetMapping
 	public ResponseEntity<List<AlquilerAlojamientoDTO>> buscarReservas(Authentication autenticacion){
 		return ResponseEntity.ok().body(this.alquilerAlojamientoService.buscarReservasUsuario(autenticacion));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que sirve para buscar las reservas que han realizado
+	 * otros usuarios sobre tus propiedades.
+	 * @param autenticacion
+	 * @return
+	 */
 	@PreAuthorize("hasAuthority('PERFIL_GESTOR')")
 	@GetMapping("/gestor")
 	public ResponseEntity<List<AlquilerAlojamientoDTO>> buscarReservasGestor(Authentication autenticacion){
 		return ResponseEntity.ok().body(this.alquilerAlojamientoService.buscarReservasGestor(autenticacion));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Métoodo que sirve para cancelar una reserva.
+	 * @param idAlquilerAlojamiento
+	 * @return
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<GenericAPIMessageDTO> cancelarReserva(@PathVariable("id") Long idAlquilerAlojamiento){
 		return ResponseEntity.ok().body(this.alquilerAlojamientoService.cancelarReserva(idAlquilerAlojamiento));

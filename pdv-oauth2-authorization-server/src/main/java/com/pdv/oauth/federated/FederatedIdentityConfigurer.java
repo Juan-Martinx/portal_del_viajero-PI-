@@ -7,11 +7,13 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.util.Assert;
 
+import com.pdv.oauth.commons.PathCommons;
+
 import java.util.function.Consumer;
 
 public final class FederatedIdentityConfigurer extends AbstractHttpConfigurer<FederatedIdentityConfigurer, HttpSecurity> {
 
-    private String loginPageUrl = "/login";
+    private String loginPageUrl = PathCommons.LOGIN_ENTRYPOINT + "/login";
 
     private String authorizationRequestUri;
 

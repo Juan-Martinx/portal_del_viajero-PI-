@@ -22,7 +22,7 @@ export class UsuarioService {
   }
   
   crearUsuario(usuario: IUsuarioDTO): Observable<IGenericApiMessageDTO> {
-    return this.http.post<IGenericApiMessageDTO>(environment.oauth_api + "pdv-backend/auth/crear", usuario);
+    return this.http.post<IGenericApiMessageDTO>(environment.oauth_api + "pdv-oauth/auth/crear", usuario);
   }
 
   buscarUsuarioLogueado(): Observable<IUsuarioDTO>{

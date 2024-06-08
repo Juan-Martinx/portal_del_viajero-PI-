@@ -21,6 +21,14 @@ public class ValoracionAlojamientoController {
 	
 	private final ValoracionAlojamientoService valoracionAlojamientoService;
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que sirve para crear una valoración
+	 * de un alojamiento.
+	 * @param dto
+	 * @param autenticacion
+	 * @return
+	 */
 	@PostMapping
 	public ResponseEntity<GenericAPIMessageDTO> crearValoracion(@RequestBody ValoracionAlojamientoDTO dto, Authentication autenticacion){
 		return ResponseEntity.ok().body(this.valoracionAlojamientoService.crearValoracion(dto, autenticacion));

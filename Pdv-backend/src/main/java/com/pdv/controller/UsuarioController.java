@@ -31,11 +31,28 @@ public class UsuarioController {
 	
 	private final UsuarioService usuarioService;
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que devuelve la información del
+	 * usuario que se encuentra logueado en la app.
+	 * @param authentication
+	 * @return
+	 */
 	@GetMapping
 	public ResponseEntity<UsuarioDTO> obtenerUsuarioLogueado(Authentication authentication){
 		return ResponseEntity.ok().body(this.usuarioService.obtenerUsuarioLogueadoDto(authentication));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que obtiene los usuarios de la app
+	 * en base a los siguientes filtros:
+	 * @param username
+	 * @param txtDni
+	 * @param txtEmail
+	 * @param page
+	 * @return
+	 */
 	@PreAuthorize("hasAuthority('PERFIL_ADMIN')")
 	@GetMapping("/buscar")
 	public ResponseEntity<List<UsuarioDTO>> obtenerUsuariosApp(@RequestParam("username") String username,
@@ -47,38 +64,87 @@ public class UsuarioController {
 		return ResponseEntity.ok().body(this.usuarioService.buscarUsuariosAplicacion(dto.build(), page));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que busca a un usuario según su username
+	 * @param username
+	 * @return
+	 */
 	@GetMapping("/public/{username}")
 	public ResponseEntity<UsuarioDTO> buscarUsuarioPorUsername(@PathVariable String username){
 		return ResponseEntity.ok().body(this.usuarioService.buscarUsuarioPorUsername(username));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que busca un usuario y da información adicional
+	 * sobre él para su gestión como usuario administrador.
+	 * @param username
+	 * @return
+	 */
 	@PreAuthorize("hasAuthority('PERFIL_ADMIN')")
 	@GetMapping("/admin/{username}")
 	public ResponseEntity<UsuarioDTO> buscarUsuarioPorUsernameByAdmin(@PathVariable String username){
 		return ResponseEntity.ok().body(this.usuarioService.buscarUsuarioPorUsernameByAdmin(username));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que permite editar a un usuario de la aplicación.
+	 * @param dto
+	 * @return
+	 */
 	@PutMapping("/editar")
 	public ResponseEntity<GenericAPIMessageDTO> editarPerfilUsuario(@RequestBody UsuarioDTO dto){
 		return ResponseEntity.ok().body(usuarioService.editarUsuario(dto));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que permite editar a otros usuarios.
+	 * @param username
+	 * @param dto
+	 * @return
+	 */
 	@PreAuthorize("hasAuthority('PERFIL_ADMIN')")
 	@PutMapping("/editar-otro/{username}")
 	public ResponseEntity<GenericAPIMessageDTO> editarPerfilUsuarioOtro(@PathVariable("username") String username,@RequestBody UsuarioDTO dto){
 		return ResponseEntity.ok().body(usuarioService.editarUsuarioByUsername(username,dto));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que permite a un usuario convertirse
+	 * en gestor de alojamientos.
+	 * @param id
+	 * @return
+	 */
 	@PostMapping("convertir-gestor")
 	public ResponseEntity<GenericAPIMessageDTO> convertirUsuarioAGestor(@RequestParam("id") Long id){
 		return ResponseEntity.ok().body(this.usuarioService.convertirUsuarioAGestor(id));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que permite almacenar la dirección URL
+	 * de la foto de perfil subida por el usuario a través
+	 * del mediaController.
+	 * @param params
+	 * @param autenticacion
+	 * @return
+	 */
 	@PostMapping("/foto-perfil")
 	public ResponseEntity<GenericAPIMessageDTO> subirFotoPerfil(@RequestBody Map<String, String> params, Authentication autenticacion){
 		return ResponseEntity.ok().body(this.usuarioService.subirFotoPerfil(params.get("url"), autenticacion));
 	}
 	
+	/**
+	 * [CONTROLLER]
+	 * Método que permite eliminar a un usuario de la
+	 * aplicación.
+	 * @param username
+	 * @return
+	 */
 	@PreAuthorize("hasAuthority('PERFIL_ADMIN')")
 	@DeleteMapping("/{username}")
 	public ResponseEntity<GenericAPIMessageDTO> eliminarUsuario(@PathVariable("username") String username){

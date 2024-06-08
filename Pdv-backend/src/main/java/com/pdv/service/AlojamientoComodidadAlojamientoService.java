@@ -11,6 +11,12 @@ import com.pdv.model.ComodidadAlojamiento;
 @Service
 public class AlojamientoComodidadAlojamientoService {
 	
+	/**
+	 * Método que sirve para pasar un AlojamientoComodidadAlojamiento
+	 * a su versión en DTO con los datos necesarios para su gestión.
+	 * @param jpa
+	 * @return
+	 */
 	AlojamientoComodidadAlojamientoDTO toDtoWithoutAlojamiento(AlojamientoComodidadAlojamiento jpa){
 		var dto = AlojamientoComodidadAlojamientoDTO.builder()
 				.id(jpa.getId())

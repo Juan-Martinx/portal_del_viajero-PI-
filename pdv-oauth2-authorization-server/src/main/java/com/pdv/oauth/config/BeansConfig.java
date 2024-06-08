@@ -1,5 +1,6 @@
 package com.pdv.oauth.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +12,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class BeansConfig {
 	
+    @Value("${frontend.api}")
+    private String frontendAPI;
+    
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -23,7 +27,7 @@ public class BeansConfig {
 		cors.addAllowedHeader("*");
 		cors.addAllowedMethod("*");
 		cors.setAllowCredentials(true);
-		cors.addAllowedOrigin("http://127.0.0.1:4200");
+		cors.addAllowedOrigin(frontendAPI);
 		source.registerCorsConfiguration("/**", cors);
 		return source;
 	}
