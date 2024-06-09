@@ -42,6 +42,7 @@ export class VerReservasComponent implements OnInit {
     if(confirm("¿Está seguro de que desea cancelar la reserva?")){
       this.alquilerAlojamientoService.cancelarReserva(id as number).subscribe(response => {
         alert(response.mensaje);
+        location.reload();
       });
     }
   }

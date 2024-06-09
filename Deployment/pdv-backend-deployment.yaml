@@ -14,33 +14,43 @@ spec:
     spec:
       containers:
         - name: pdv-backend
-          image: jmarcan286/pdv-backend:latest
+          image: juanmartincandela/pdv-backend:latest
           ports:
             - containerPort: 8080
           env:
             - name: DB_HOST
-              valueFrom :
-                configMapKeyRef :
-                  name : db-config
-                  key :  host
-
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: host
             - name: DB_NAME
-              valueFrom :
-                configMapKeyRef :
-                  name : db-config
-                  key :  dbName
-
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: dbName
             - name: DB_USERNAME
-              valueFrom :
-                secretKeyRef :
-                  name : mysql-secrets
-                  key :  username
-
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: username
             - name: DB_PASSWORD
-              valueFrom :
-                secretKeyRef :
-                  name : mysql-secrets
-                  key :  password
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: password
+            - name: OAUTH_API
+              value: "http://pdv-oauth2-svc.default:9999"
+            - name: FRONT_API
+              value: "http://portaldelviajero.com"
+            - name: MEDIA_LOCATION
+              value: "/app/photos"
+          volumeMounts:
+            - name: photos-storage
+              mountPath: /app/photos
+      volumes:
+        - name: photos-storage
+          persistentVolumeClaim:
+            claimName: photos-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -53,3 +63,26 @@ spec:
     - protocol: "TCP"
       port: 8080
       targetPort: 8080
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: photos-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/photos
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: photos-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

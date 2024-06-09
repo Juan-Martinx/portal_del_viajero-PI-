@@ -36,7 +36,7 @@ export class ConvertirGestorComponent {
       this.usuarioService.convertirEnGestor(this.userId).subscribe(
         mensaje => {
           alert(mensaje.mensaje + "\n\r Con fecha " + mensaje.fechaYHora);
-          location.href = environment.oauth_api + "logout";
+          location.href = environment.logout_url;
         }
       );
     }

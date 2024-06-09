@@ -32,7 +32,7 @@ export class UsuarioService {
    * @returns Un observable con el mensaje genérico de la API.
    */  
   crearUsuario(usuario: IUsuarioDTO): Observable<IGenericApiMessageDTO> {
-    return this.http.post<IGenericApiMessageDTO>(environment.oauth_api + "pdv-oauth/auth/crear", usuario);
+    return this.http.post<IGenericApiMessageDTO>(environment.oauth_api + "auth/crear", usuario);
   }
 
   /**

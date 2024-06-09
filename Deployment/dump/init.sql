@@ -595,7 +595,7 @@ INSERT INTO `client_authorization_grant_types` (`client_id`, `authorization_gran
 --
 
 INSERT INTO `client_redirect_uris` (`client_id`, `redirect_uris`) VALUES
-(1, 'portaldelviajero.com/authorized');
+(1, 'http://portaldelviajero.com/authorized');
 
 
 --

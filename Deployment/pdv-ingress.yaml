@@ -21,3 +21,10 @@ spec:
             name: pdv-backend-svc
             port:
               number: 8080
+      - pathType: Prefix
+        path: "/oauth2"
+        backend:
+          service:
+            name: pdv-oauth2-svc
+            port:
+              number: 9999
