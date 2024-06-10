@@ -3,8 +3,10 @@
     <div class="col-12 me-3 mt-4 d-flex justify-content-between">
       @if(isGestor()){
 
-      <a class="casas-alquiler d-flex align-items-center" routerLink="/casas-disponibles/{{usuario.username}}"> <i
+      <a class="casas-alquiler d-flex align-items-center" routerLink="/alojamientos/{{usuario.username}}"> <i
           class="bi bi-house-door me-3"></i>Casas en alquiler</a>
+      <a class="casas-alquiler d-flex align-items-center" routerLink="/alquileres/{{usuario.username}}"> <i
+        class="bi bi-building-down me-3"></i>Alquileres realizados</a>
       <a class="casas-alquiler d-flex align-items-center" (click)="eliminarUsuario()"> <i
           class="bi bi-trash me-3"></i>Eliminar Usuario</a>
       }

@@ -172,6 +172,20 @@ public class AlquilerAlojamientoService {
 	}
 	
 	/**
+	 * Busca las reservas que ha realizado un usuario dado su username.
+	 * @param autenticacion
+	 * @return
+	 */
+	public List<AlquilerAlojamientoDTO> buscarReservasByUsername(String username){
+		var alquileres = this.alquilerAlojamientoRepository.findByIdUsuarioUsername(username);
+		var dtoList = new  ArrayList<AlquilerAlojamientoDTO>();
+		alquileres.forEach(jpa -> {
+			dtoList.add(this.toDto(jpa));
+		});
+		return dtoList;
+	}
+	
+	/**
 	 * Método que pasa una entidad AlquilerAlojamiento
 	 * a su versión DTO.
 	 * @param jpa

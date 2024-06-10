@@ -67,6 +67,19 @@ public class AlquilerAlojamientoController {
 	
 	/**
 	 * [CONTROLLER]
+	 * Método que sirve para buscar las reservas que han realizado
+	 * otros usuarios por su username.
+	 * @param username
+	 * @return
+	 */
+	@PreAuthorize("hasAuthority('PERFIL_ADMIN')")
+	@GetMapping("/{username}")
+	public ResponseEntity<List<AlquilerAlojamientoDTO>> buscarReservasByUsername(@PathVariable("username") String username){
+		return ResponseEntity.ok().body(this.alquilerAlojamientoService.buscarReservasByUsername(username));
+	}
+	
+	/**
+	 * [CONTROLLER]
 	 * Métoodo que sirve para cancelar una reserva.
 	 * @param idAlquilerAlojamiento
 	 * @return

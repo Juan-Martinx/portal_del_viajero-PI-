@@ -31,6 +31,14 @@ export class AlquilerAlojamientoService {
     return this.http.get<IAlquilerAlojamientoDTO[]>(environment.api + this.alquilerAlojamientoAPI);
   }
 
+    /**
+   * Busca las reservas de alojamiento del usuario por su username.
+   * @returns Un Observable que emite una matriz de objetos IAlquilerAlojamientoDTO.
+   */
+    buscarReservasUsuarioByUsername(username: string): Observable<IAlquilerAlojamientoDTO[]> {
+      return this.http.get<IAlquilerAlojamientoDTO[]>(environment.api + this.alquilerAlojamientoAPI + "/" + username);
+    }
+
   /**
    * Busca las reservas de alojamiento para el gestor.
    * @returns Un Observable que emite una matriz de objetos IAlquilerAlojamientoDTO.

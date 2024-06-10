@@ -16,6 +16,8 @@ import { CasasAlquilerComponent } from './paginas/casas-alquiler/casas-alquiler.
 import { PaginaInicioComponent } from './paginas/pagina-inicio/pagina-inicio.component';
 import { VerReservasGestorComponent } from './paginas/ver-reservas-gestor/ver-reservas-gestor.component';
 import { EditarPerfilUsuarioComponent } from './paginas/editar-perfil-usuario/editar-perfil-usuario.component';
+import { AlquileresUsuarioComponent } from './paginas/alquileres-usuario/alquileres-usuario.component';
+import { AlojamientosUsuarioComponent } from './paginas/alojamientos-usuario/alojamientos-usuario.component';
 
 export const routes: Routes = [
     { path: '', redirectTo:"/inicio", pathMatch: 'full'},
@@ -34,6 +36,8 @@ export const routes: Routes = [
     { path: 'detalles-casas', component: DetallesCasaRuralClienteComponent, title: 'Detalles de las Casa Rural'},
     { path: 'casas-alquiler', component: CasasAlquilerComponent, title: 'Tus Casas en Alquiler'},
     { path: 'casas-disponibles/:username', component: CasasDisponiblesComponent, title: 'Casas Disponibles para Alquilar de otros usuarios'},
+    { path: 'alquileres/:username', component: AlquileresUsuarioComponent, title: 'Alquileres de Usuario'},
+    { path: 'alojamientos/:username', component: AlojamientosUsuarioComponent, title: 'Alojamientos de Usuario'},
     { path: 'authorized', component: AuthorizedComponent },
     { path: 'logout', component: LogoutComponent, title: 'Logout'},
     { path: '**', redirectTo: 'inicio', pathMatch: 'full' }

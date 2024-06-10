@@ -18,6 +18,8 @@ public interface AlquilerAlojamientoRepository extends JpaRepository<AlquilerAlo
 	
 	public List<AlquilerAlojamiento> findByIdUsuarioId(Long idUsuario);
 	
+	public List<AlquilerAlojamiento> findByIdUsuarioUsername(String username);
+	
 	public List<AlquilerAlojamiento> findByIdAlojamientoIdUsuarioId(Long id);
 
 	public Optional<List<AlquilerAlojamiento>> findByIdUsuarioIdAndIdAlojamientoId(Long idUsuario, Long idAlojamiento);

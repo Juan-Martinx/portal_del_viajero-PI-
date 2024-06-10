@@ -193,7 +193,11 @@ export class DetallesCasaRuralGestorAdministradorComponent implements OnInit {
       alojamiento.id = this.alojamientoModificado.id;
       this.alojamientoService.modificarAlojamiento(alojamiento).subscribe(response => {
         alert(response.mensaje);
-        this.router.navigate(['/casas-alquiler']);
+        if(this.tokenService.isAdmin()){
+          this.router.navigate(['/usuarios-registrados']);
+        }else{
+          this.router.navigate(['/casas-alquiler']);
+        }
       }, err => {
         alert("Se ha producido un error al guardar el alojamiento");
       });
