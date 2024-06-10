@@ -65,18 +65,6 @@ spec:
       targetPort: 8080
 ---
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: photos-pv
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /mnt/photos
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: photos-pvc
