@@ -29,6 +29,7 @@ ya para desplegar este proyecto se usan tecnologías como Docker y Kubernetes. T
 2. Ir al phpMyAdmin proporcionado por XAMPP y crear un usuario 'usuario' con contraseña 'usuario' que tenga todos los permisos.
 3. Crear una base de datos manualmente que se llame bdpdv
 4. Ir a la carpeta public-resources/Base de Datos/bdpdv.sql y ejecutar todo el script (para esto simplemente vas a la sección de importar dentro de la BBDD de bdpdv y seleccionas el archivo).
+
 5.Una vez todo esté importado tenemos que importar los proyectos MAVEN en un workspace con el IDE Spring tools suite 4.
 6. Ejecutaremos en primer lugar el servidor de autenticación. Una vez levantado, ejecutamos el servidor del backend.
 7.Con node y Angular CLI instalados en nuestro equipo, nos dirigimos a la carpeta de Pdv-frontend/ y desde una terminal ejecutamos el comando `npm install crypto-js`, después `npm install`.
