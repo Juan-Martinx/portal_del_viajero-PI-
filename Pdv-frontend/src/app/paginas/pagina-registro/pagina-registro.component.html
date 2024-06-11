@@ -12,7 +12,7 @@
         <form [formGroup]="formRegistro" class="col-12 row">
           <mat-form-field class="col-9 ms-4">
             <mat-label>Usuario</mat-label>
-            <input matInput placeholder="Introduzca nombre de usuario" formControlName="usuario" />
+            <input tabindex="1" matInput placeholder="Introduzca nombre de usuario" formControlName="usuario" />
             <mat-hint></mat-hint>
            @if(this.formRegistro.get('usuario')?.errors?.['maxlength']){
             <mat-error>Longitud máxima 15 caracteres</mat-error>
@@ -24,7 +24,7 @@
 
           <mat-form-field class="col-9 ms-4">
             <mat-label>Contraseña</mat-label>
-            <input type="password" matInput placeholder="Introduzca contraseña" formControlName="contrasena" />
+            <input tabindex="2" type="password" matInput placeholder="Introduzca contraseña" formControlName="contrasena" />
             <mat-hint></mat-hint>
             @if(this.formRegistro.get('contrasena')?.errors?.['minlength'] &&
             !this.formRegistro.get('contrasena')?.errors?.['required']){
@@ -38,7 +38,7 @@
 
           <mat-form-field class="col-9 ms-4">
             <mat-label>DNI</mat-label>
-            <input matInput placeholder="Introduzca DNI" formControlName="dni" />
+            <input tabindex="3" matInput placeholder="Introduzca DNI" formControlName="dni" />
             <mat-hint></mat-hint>
             @if(this.formRegistro.get('dni')?.errors?.['pattern']){
             <mat-error>Tiene que cumplir con el formato de
@@ -50,7 +50,7 @@
 
           <mat-form-field class="col-9 ms-4">
             <mat-label>Teléfono</mat-label>
-            <input type="tel" matInput placeholder="Introduzca teléfono" formControlName="telefono" />
+            <input tabindex="4" type="tel" matInput placeholder="Introduzca teléfono" formControlName="telefono" />
             <mat-hint></mat-hint>
             @if(this.formRegistro.get('telefono')?.errors?.['pattern']){
             <mat-error>Tiene que tener 9 dígitos</mat-error>
@@ -61,7 +61,7 @@
 
           <mat-form-field class="col-9 ms-4">
             <mat-label>Correo electrónico</mat-label>
-            <input type="email" matInput placeholder="Introduzca correo electrónico"
+            <input tabindex="5" type="email" matInput placeholder="Introduzca correo electrónico"
               formControlName="correoElectronico" />
             <mat-hint></mat-hint>
             @if(this.formRegistro.get('correoElectronico')?.errors?.['email']){
@@ -75,14 +75,14 @@
 
         <div class="col-9 ms-4">
           <p>¿Quieres poner tu casa en alquiler?</p>
-          <select [(ngModel)]="perfilGestorSeleccionado" class="form-select" aria-label="Seleccionar tipo de perfil">
+          <select tabindex="6" [(ngModel)]="perfilGestorSeleccionado" class="form-select" aria-label="Seleccionar tipo de perfil">
             <option [ngValue]="false">No</option>
             <option [ngValue]="true">Si</option>
           </select>
         </div>
 
         <div class="col-9 form-check ms-4 mt-1">
-          <input class="col-lg-1 form-check-input checkbox" type="checkbox" id="terminosYCondiciones"
+          <input tabindex="7" class="col-lg-1 form-check-input checkbox" type="checkbox" id="terminosYCondiciones"
             [(ngModel)]="logAceptaTerminosYCondiciones" />
           <label class="col-lg-9 form-check-label" for="terminosYCondiciones">
             Acepto
@@ -90,11 +90,11 @@
           </label>
         </div>
 
-        <button type="button" class="boton-personalizado-a ms-4 mt-2" style="width: 70%;" (click)="registrarUsuario()">
+        <button tabindex="8" type="button" class="boton-personalizado-a ms-4 mt-2" style="width: 70%;" (click)="registrarUsuario()">
           <span>Registrar</span>
         </button>
 
-        <app-boton-registro-google class="ms-3 mt-2 mb-2"></app-boton-registro-google>
+        <app-boton-registro-google tabindex="9" class="ms-3 mt-2 mb-2"></app-boton-registro-google>
         
         <p class="ms-4 texto-inicioSesion">¿Ya tienes cuenta? <span style="color: #ccc;" (click)="onLogin()">Iniciar Sesión</span></p>
       </div>

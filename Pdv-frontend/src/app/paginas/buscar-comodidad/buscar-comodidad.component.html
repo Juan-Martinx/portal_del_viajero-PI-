@@ -34,26 +34,26 @@
             <table class="table table-borderless" style="overflow-x: auto;">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th>Nombre de comodidad</th>
-                        <th>Código de comodidad</th>
-                        <th>Código de tipo comodidad</th>
-                        <th>Nombre de tipo comodidad</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
+                        <th scope="col" id="iconoComodidad"></th>
+                        <th scope="col" id="nombreComodidad">Nombre de comodidad</th>
+                        <th scope="col" id="codigoComodidad">Código de comodidad</th>
+                        <th scope="col" id="codigoTipoComodidad">Código de tipo comodidad</th>
+                        <th scope="col" id="nombreTipoComodidad">Nombre de tipo comodidad</th>
+                        <th scope="col" id="editarComodidad">Editar</th>
+                        <th scope="col" id="eliminarComodidad">Eliminar</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     @for (comodidad of this.comodidades; track comodidad.id) {
                     <tr>
-                        <td><mat-icon class="d-flex justify-content-center">{{comodidad.iconoComodidad}}</mat-icon></td>
-                        <td> {{comodidad.txtNombre}}</td>
-                        <td>{{comodidad.codigoComodidad}}</td>
-                        <td>{{comodidad.idTipoComodidad?.codigoTipoComodidad}}</td>
-                        <td>{{comodidad.idTipoComodidad?.txtNombre}}</td>
-                        <td (click)="modificarComodidad(comodidad.codigoComodidad)"><i class="bi bi-pencil-fill d-flex justify-content-center"></i></td>
-                        <td (click)="eliminarComodidad(comodidad.codigoComodidad)"><i class="bi bi-trash d-flex justify-content-center"></i></td>
+                        <td headers="iconoComodidad"><mat-icon class="d-flex justify-content-center">{{comodidad.iconoComodidad}}</mat-icon></td>
+                        <td headers="nombreComodidad"> {{comodidad.txtNombre}}</td>
+                        <td headers="codigoComodidad">{{comodidad.codigoComodidad}}</td>
+                        <td headers="codigoTipoComodidad">{{comodidad.idTipoComodidad?.codigoTipoComodidad}}</td>
+                        <td headers="nombreTipoComodidad">{{comodidad.idTipoComodidad?.txtNombre}}</td>
+                        <td headers="editarComodidad" (click)="modificarComodidad(comodidad.codigoComodidad)"><i class="bi bi-pencil-fill d-flex justify-content-center"></i></td>
+                        <td headers="eliminarComodidad" (click)="eliminarComodidad(comodidad.codigoComodidad)"><i class="bi bi-trash d-flex justify-content-center"></i></td>
                     </tr>
                     }
                 </tbody>

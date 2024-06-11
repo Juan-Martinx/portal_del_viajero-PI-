@@ -63,29 +63,30 @@ export class EditarPerfilUsuarioComponent {
    * Guarda los cambios realizados en el formulario.
    */
   guardarCambios() {
+    if(confirm("¿Estas seguro de modificar este usuario?")){
+      if (this.editarUsuarioForm.valid){
+        const usuarioEditado: IUsuarioDTO = {
+          id: this.usuario.id,
+          username: this.editarUsuarioForm.get('usuario')?.value as string,
+          txtDescripcion: this.editarUsuarioForm.get('descripcion')?.value as string,
+          txtDni: this.editarUsuarioForm.get('dni')?.value as string,
+          numTelefono: parseInt(this.editarUsuarioForm.get('telefono')?.value as string),
+          txtEmail: this.usuario.txtEmail
+        };
 
-    if (this.editarUsuarioForm.valid){
-      const usuarioEditado: IUsuarioDTO = {
-        id: this.usuario.id,
-        username: this.editarUsuarioForm.get('usuario')?.value as string,
-        txtDescripcion: this.editarUsuarioForm.get('descripcion')?.value as string,
-        txtDni: this.editarUsuarioForm.get('dni')?.value as string,
-        numTelefono: parseInt(this.editarUsuarioForm.get('telefono')?.value as string),
-        txtEmail: this.usuario.txtEmail
-      };
+        this.usuarioService.editarUsuarioOtro(this.username, usuarioEditado).subscribe(mensaje => {
+          alert(mensaje.mensaje);
+          if (mensaje.estado == "OK") {
+            this.router.navigate(['/editar-perfil-usuario/' + usuarioEditado.username]);
+            this.isUsuarioEnEdicion = false;
+          }
+        }, error => {
+          alert('No se puede editar el usuario debido a que los datos introducidos corresponden ya otro usuario distinto');
+        });
 
-      this.usuarioService.editarUsuarioOtro(this.username, usuarioEditado).subscribe(mensaje => {
-        alert(mensaje.mensaje);
-        if (mensaje.estado == "OK") {
-          this.router.navigate(['/editar-perfil-usuario/' + usuarioEditado.username]);
-          this.isUsuarioEnEdicion = false;
-        }
-      }, error => {
-        alert('No se puede editar el usuario debido a que los datos introducidos corresponden ya otro usuario distinto');
-      });
-
-    } else {
-      alert('Por favor, rellene todos los campos correctamente');
+      } else {
+        alert('Por favor, rellene todos los campos correctamente');
+      }
     }
   }
 

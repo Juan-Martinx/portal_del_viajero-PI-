@@ -25,7 +25,7 @@ export const routes: Routes = [
     { path: 'registro', component: PaginaRegistroComponent, title: 'Página de Registro'},
     { path: 'convertir-gestor', component: ConvertirGestorComponent, title: 'Convertir en Gestor'},
     { path: 'editar-perfil', component: EditarPerfilComponent, title: 'Editar Perfil'},
-    { path: 'editar-perfil-usuario/:username', component: EditarPerfilUsuarioComponent, title: 'Editar Perfil [ADMIN]'},
+    { path: 'editar-perfil-usuario/:username', component: EditarPerfilUsuarioComponent, title: 'Editar Perfil [MODO ADMIN]'},
     { path: 'ver-perfil/:username', component: VerPerfilComponent, title: 'Ver Perfil'},
     { path: 'modificar-comodidad', component: ModificarComodidadComponent, title: 'Modificar Comodidad'},
     { path: 'reservas-realizadas', component: VerReservasComponent, title: 'Ver Reservas Realizadas'},
