@@ -26,7 +26,7 @@ ya para desplegar este proyecto se usan tecnologías como Docker y Kubernetes. T
 ***SE DEBE SEGUIR CADA PASO AL PIE DE LA LETRA, EN CASO CONTRARIO, NO PODRÁS DESPLEGAR NADA BIEN***
 
 1. Instalar XAMPP, ejecutar el despliegue de MYSQL y Tomcat.
-2. Ir al phpMyAdmin proporcionado por XAMPP y crear un usuario con contraseña usuario que tenga todos los permisos.
+2. Ir al phpMyAdmin proporcionado por XAMPP y crear un usuario 'usuario' con contraseña 'usuario' que tenga todos los permisos.
 3. Crear una base de datos manualmente que se llame bdpdv
 4. Ir a la carpeta public-resources/Base de Datos/bdpdv.sql y ejecutar todo el script (para esto simplemente vas a la sección de importar dentro de la BBDD de bdpdv y seleccionas el archivo).
 5.Una vez todo esté importado tenemos que importar los proyectos MAVEN en un workspace con el IDE Spring tools suite 4.
