@@ -5,7 +5,7 @@ metadata:
     app: pdv-frontend
   name: pdv-frontend-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: pdv-frontend
