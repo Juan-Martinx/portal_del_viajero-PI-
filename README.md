@@ -36,7 +36,7 @@ ya para desplegar este proyecto se usan tecnologías como Docker y Kubernetes. T
 9. Ejecutamos el comando `ng serve --host 127.0.0.1` 
 10. ¡Ya está la aplicación lista para usarse!
 
-## ¿Cómo Desplegar el proyecto en entorno de desarrollo?
+## ¿Cómo Desplegar el proyecto en entorno de producción?
 
 ***Todo este proceso viene descrito en el Anexo I de la documentación de este proyecto. Se han de cumplir en orden todos y cada uno de los pasos descritos para que el despliegue sea exitoso.***
 
