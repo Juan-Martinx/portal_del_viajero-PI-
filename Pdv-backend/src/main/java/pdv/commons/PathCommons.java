@@ -1,9 +1,13 @@
 package pdv.commons;
 
+/**
+ * En esta clase de definen todas las constantes de la aplicación
+ * que tienen que ver con rutas.
+ */
 public class PathCommons {
 
 	/*Path General del Backend*/
-	public static final String BACKEND = "/pdv-backend";
+	public static final String BACKEND = "/pdv-backend/resource";
 	
 	/*USUARIOS*/
 	public static final String USUARIOS = BACKEND + "/usuarios";
@@ -35,4 +39,17 @@ public class PathCommons {
 	
 	/*TIPO-COMODIDAD*/
 	public static final String TIPO_COMODIDAD = BACKEND + "/tipo-comodidad";
+	
+	/*LOGIN ENTRYPOINT*/
+	public static final String LOGIN_ENTRYPOINT = BACKEND + "/login";
+	
+	/*CLIENT DE AUTENTIFICACIÓN*/
+	public static final String AUTENTIFICATION_CLIENT = BACKEND + "/client";
+
+	/*URL DE LA API*/
+	public static final String API_URL = "http://localhost:8080";
+	
+	/*MEDIA RESOURCES*/
+	public static final String MEDIA_RESOURCES = BACKEND + "/media";
+
 }

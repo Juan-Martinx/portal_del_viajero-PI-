@@ -2,6 +2,9 @@ package com.pdv.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,11 +15,19 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "alojamiento")
+@EqualsAndHashCode(exclude = "idUsuario")
 public class Alojamiento {
 
 	@Id
@@ -43,18 +54,27 @@ public class Alojamiento {
 	@JoinColumn(referencedColumnName = "id_usuario", name = "id_usuario", nullable = false)
 	private Usuario idUsuario;
 	
-	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ValoracionAlojamiento.class)
+	//Los CascadeType.ALL son debido a que todo lo que le ocurra al alojamiento le ocurrirá también a sus clases hijas
+	@JsonManagedReference
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ValoracionAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<ValoracionAlojamiento> idValoracionesAlojamiento;
 	
-	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlquilerAlojamiento.class)
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlquilerAlojamiento.class, cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private Set<AlquilerAlojamiento> idAlquileresAlojamiento;
 	
-	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ImagenAlojamiento.class)
+	@JsonManagedReference
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = ImagenAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<ImagenAlojamiento> idImagenesAlojamiento;
 	
-	@OneToOne(mappedBy = "idAlojamiento", targetEntity = UbicacionAlojamiento.class, optional = false)
-	private UbicacionAlojamiento IdUbicacion;
+	@OneToOne(mappedBy = "idAlojamiento", targetEntity = UbicacionAlojamiento.class, cascade = CascadeType.ALL)
+	private UbicacionAlojamiento idUbicacion;
 	
-	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class)
+	@JsonManagedReference
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoComodidadAlojamiento.class, cascade = CascadeType.ALL)
 	private Set<AlojamientoComodidadAlojamiento> idAlojamientoComodidades;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "idAlojamiento", targetEntity = AlojamientoDiasOcupados.class, cascade = CascadeType.ALL)
+	private Set<AlojamientoDiasOcupados> idAlojamientoDiasOcupados;
 }

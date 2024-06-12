@@ -1,0 +1,42 @@
+<button mat-raised-button class="btn btn-menu" [matMenuTriggerFor]="menu" aria-label="Menu">
+  <div class="d-inline-flex example-button-row pt-lg-2">
+    <mat-icon class="d-inline-flex me-lg-2 lines">dehaze</mat-icon>
+    <mat-icon class="d-inline-flex person">person_outline</mat-icon>
+  </div>
+</button>
+<mat-menu #menu="matMenu" class="menu-panel">
+  @if(!this.isLogged){
+  <button mat-menu-item routerLink="/registro">
+    <strong><span>Regístrate</span></strong>
+  </button>
+  <button mat-menu-item class="/inicio-sesion" (click)="onLogin()">
+    <span>Iniciar Sesión</span>
+  </button>
+  }@else {
+    @if(this.isLogged && this.isAdmin){
+      <button mat-menu-item routerLink="/buscador-comodidades">
+        <span>Administrar comodidades</span>
+      </button>
+      <button mat-menu-item routerLink="/usuarios-registrados">
+        <span>Ver usuarios registrados</span>
+      </button>
+    }
+    @if(this.isLogged && this.isGestor){
+      <button mat-menu-item routerLink="/casas-alquiler">
+        <span>Tus casas en alquiler</span>
+      </button>
+      <button mat-menu-item routerLink="/reservas-gestion">
+        <span>Gestionar Reservas</span>
+      </button>
+    }
+    <button mat-menu-item routerLink="/editar-perfil">
+      <span>Editar Perfil</span>
+    </button>
+    <button mat-menu-item routerLink="/reservas-realizadas">
+      <span>Ver reservas realizadas</span>
+    </button>
+    <button mat-menu-item class="/cerrar-sesion" (click)="onLogout()">
+      <span>Cerrar Sesión</span>
+    </button>
+  }
+</mat-menu>

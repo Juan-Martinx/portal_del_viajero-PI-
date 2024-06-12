@@ -1,0 +1,89 @@
+<div class="container contenedor-principal">
+    <div class="row m-auto mt-4">
+        <div class="row titulo pb-2">
+            <h1 class="col-7 col-sm-9 fw-bold">Buscador de Comodidades</h1>
+            <div class="col-4 col-sm-3 contenedor-anadir">
+                <button class="col-12 boton-personalizado-a" routerLink="/modificar-comodidad" [queryParams]="{action: 'new'}">AÑADIR</button>
+            </div>
+        </div>
+
+        <form [formGroup]="comodidadesForm" class="row mt-4">
+            <mat-form-field class="col-12 col-md-5 col-2 me-2">
+                <mat-label>Nombre de comodidad</mat-label>
+                <input matInput placeholder="Introduzca nombre de comodidad" formControlName="nombre" />
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-md-5 col-2 me-2">
+                <mat-label>Código de comodidad</mat-label>
+                <input matInput placeholder="Introduzca código de comodidad" formControlName="codigo" />
+            </mat-form-field>
+
+            <mat-form-field class="col-10 col-md-5">
+                <mat-label>Tipo de Comodidad</mat-label>
+                <mat-select required="true" formControlName="nombreTipoComodidad">
+                    <mat-option [value]="-1"></mat-option>
+                  @for (tipoComodidad of tiposComodidades; track tiposComodidades) {
+                    <mat-option [value]="tipoComodidad.id">{{tipoComodidad.txtNombre}}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            <i (click)="cambiarPage(0)" class="bi bi-search ms-md-2 mt-3 col-1"></i>
+        </form>
+
+        <div class="col-12 mt-5" style="overflow-x: auto;">
+            <table class="table table-borderless" style="overflow-x: auto;">
+                <thead>
+                    <tr>
+                        <th scope="col" id="iconoComodidad"></th>
+                        <th scope="col" id="nombreComodidad">Nombre de comodidad</th>
+                        <th scope="col" id="codigoComodidad">Código de comodidad</th>
+                        <th scope="col" id="codigoTipoComodidad">Código de tipo comodidad</th>
+                        <th scope="col" id="nombreTipoComodidad">Nombre de tipo comodidad</th>
+                        <th scope="col" id="editarComodidad">Editar</th>
+                        <th scope="col" id="eliminarComodidad">Eliminar</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (comodidad of this.comodidades; track comodidad.id) {
+                    <tr>
+                        <td headers="iconoComodidad"><mat-icon class="d-flex justify-content-center">{{comodidad.iconoComodidad}}</mat-icon></td>
+                        <td headers="nombreComodidad"> {{comodidad.txtNombre}}</td>
+                        <td headers="codigoComodidad">{{comodidad.codigoComodidad}}</td>
+                        <td headers="codigoTipoComodidad">{{comodidad.idTipoComodidad?.codigoTipoComodidad}}</td>
+                        <td headers="nombreTipoComodidad">{{comodidad.idTipoComodidad?.txtNombre}}</td>
+                        <td headers="editarComodidad" (click)="modificarComodidad(comodidad.codigoComodidad)"><i class="bi bi-pencil-fill d-flex justify-content-center"></i></td>
+                        <td headers="eliminarComodidad" (click)="eliminarComodidad(comodidad.codigoComodidad)"><i class="bi bi-trash d-flex justify-content-center"></i></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <nav class="d-flex justify-content-center w-100">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" aria-label="Previous" (click)="cambiarPage(this.paginaActual - 1)">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Anterior</span>
+                    </a>
+                  </li>
+                  @if(paginaActual <= 1){
+                    <li class="page-item" (click)="cambiarPage(0)"><a class="page-link">1</a></li>
+                    <li class="page-item" (click)="cambiarPage(1)"><a class="page-link">2</a></li>
+                    <li class="page-item" (click)="cambiarPage(2)"><a class="page-link">3</a></li>
+                  }@else {
+                    <li class="page-item" (click)="cambiarPage(this.paginaActual - 1)"><a class="page-link">{{paginaActual}}</a></li>
+                    <li class="page-item" (click)="cambiarPage(this.paginaActual)"><a class="page-link" >{{paginaActual + 1}}</a></li>
+                    <li class="page-item" (click)="cambiarPage(this.paginaActual + 1)"><a class="page-link" >{{paginaActual + 2}}</a></li>
+                  }
+                  <li class="page-item">
+                    <a class="page-link" aria-label="Next" (click)="cambiarPage(this.paginaActual + 1)">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Siguiente</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+        </div>
+
+    </div>
+</div>

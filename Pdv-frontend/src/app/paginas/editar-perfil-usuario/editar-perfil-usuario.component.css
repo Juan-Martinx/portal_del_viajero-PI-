@@ -1,0 +1,74 @@
+.casas-alquiler{
+    color:  rgb(162, 162, 162);
+    font-size: 15px;
+}
+
+.bi{
+    font-size: 35px;
+    color: black;
+}
+
+.contenedor-principal{
+    min-height: 100vh;
+    box-shadow: 0px 0px 10px 5px #ccc;
+    overflow: hidden;
+}
+
+.titulo{
+    color: rgb(162, 162, 162);
+}
+
+.bi-pencil-fill{
+    color: black;
+    font-size: 20px;
+}
+
+.imagen-usuario{
+    border-radius: 50%; 
+    width: 150px; 
+    height: 150px;
+}
+
+
+.editar-usuario{
+    color:  rgb(162, 162, 162);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.imagen-principal{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagen-perfil-edit{
+    aspect-ratio: 1/1;
+    width: 80%;
+}
+
+.anadir-photo{
+    position: absolute;
+    top: 46%;
+    left: 41.3%;
+    visibility: hidden;
+    z-index: 1000;
+}
+.img-principal{
+    position: relative;
+}
+
+.modal-imagenes{
+    height: 450px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.modal-img{
+    background-color: rgb(162, 162, 162, 0.5); height: 15vh; width: 15vh;
+}
+
+a:hover{
+    cursor:pointer
+}

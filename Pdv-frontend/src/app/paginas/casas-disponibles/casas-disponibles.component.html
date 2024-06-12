@@ -1,0 +1,35 @@
+<div class="container contenedor-principal">
+    <div class="row col-12 m-auto">
+        <div class="col-12 d-inline-block mt-5 pb-5">
+            <div class="row titulo pb-2">
+                <h1 class="col-12 col-sm-9 fw-bold">Casas en Alquiler de {{this.usuario}}</h1>
+            </div>
+        </div>
+
+        @for (alojamiento of alojamientos; track alojamiento.id) {
+        <div class="card px-0 m-auto mt-3 pb-3">
+            @if (alojamiento.idImagenesAlojamiento) {
+                <img class="ms-0 me-0 imagen-casa" [src]="alojamiento.idImagenesAlojamiento[0].urlDatosImagen"
+                alt="Card image cap">
+              }
+            <div class="card-body">
+                <h2 class="card-title fw-bold">{{ alojamiento.txtNombre }}</h2>
+                <div class="localizacion d-inline-flex">
+                    <i class="bi bi-geo-alt-fill d-inline-flex me-1 pt-1"></i>
+                    <h3 class="d-inline-flex"> {{ alojamiento.idUbicacion?.lineaDireccion }}, {{alojamiento.idUbicacion?.codigoPostal}}, {{alojamiento.idUbicacion?.provincia}} </h3>
+                </div>
+                <div class="precio-noche d-flex justify-content-between pt-3">
+                    <p class="d-inline-block"><strong>Precio/noche</strong></p>
+                    <p class="d-inline-block"><strong>{{alojamiento.numPrecioNoche}}€</strong></p>
+                </div>
+
+                <p class="mt-4 card-text">{{ alojamiento.txtDescripcion }}</p>
+                <div class="row botones-personalizados">
+                    <button class="col-4 ms-2 mt-1 boton-personalizado-a" routerLink="/detalles-casas" [queryParams]="{id: alojamiento.id}">DETALLES</button>
+                </div>
+
+            </div>
+        </div>
+        }
+    </div>
+</div>

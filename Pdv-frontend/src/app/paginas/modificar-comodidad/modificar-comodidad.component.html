@@ -1,0 +1,72 @@
+<div class="container contenedor-principal">
+  <div class="row pt-3">
+    <div class="col-12 titulo">
+      @if(!this.IsActionNew){
+      <h1 class="fw-bold">Modificar Comodidad</h1>
+      }@else{
+      <h1 class="fw-bold">Añadir Comodidad</h1>
+      }
+    </div>
+    <form [formGroup]="comodidadesForm" class="col-12 mt-3 mb-2">
+      <div class="row">
+        <ol class="col-12 ms-4">
+          <li>Para añadir un icono bastaría con poner el nombre del icono.</li>
+          <li>Los iconos disponibles y sus nombres se pueden consultar aquí: <a href="https://klarsys.github.io/angular-material-icons/" target="_blank">https://klarsys.github.io/angular-material-icons/</a></li>
+        </ol>
+        <mat-form-field class="col-10 col-md-5">
+          <mat-label>Icono Comodidad</mat-label>
+          <input matInput placeholder="Introduzca icono de comodidad" formControlName="icono" />
+        </mat-form-field>
+        <mat-form-field class="col-10 col-md-5">
+          <mat-label>Nombre de comodidad</mat-label>
+          <input matInput placeholder="Introduzca nombre de comodidad" formControlName="nombre" />
+          @if(this.comodidadesForm.get('nombre')?.errors?.['required']){
+            <mat-error>Nombre de la comodidad <strong>requerido</strong></mat-error>
+            }
+        </mat-form-field>
+
+      </div>
+      <div class="row">
+        <mat-form-field class="col-10 col-md-5">
+          <mat-label>Código de comodidad</mat-label>
+          <input matInput placeholder="Introduzca código de comodidad" formControlName="codigo" />
+          @if(this.comodidadesForm.get('nombre')?.errors?.['required']){
+            <mat-error>Código de la comodidad <strong>requerido</strong></mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field class="col-10 col-md-5">
+          <mat-label>Tipo de Comodidad</mat-label>
+          <mat-select required="true" formControlName="nombreTipoComodidad">
+            @for (tipoComodidad of tiposComodidades; track tiposComodidades) {
+              <mat-option [value]="tipoComodidad.id">{{tipoComodidad.txtNombre}}</mat-option>
+            }
+          </mat-select>
+          @if(this.comodidadesForm.get('nombreTipoComodidad')?.errors?.['required']){
+            <mat-error>Nombre de la comodidad <strong>requerido</strong></mat-error>
+            }
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col-10 mb-3">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput placeholder="Descripción" formControlName="descripcion"></textarea>
+          @if(this.comodidadesForm.get('descripcion')?.errors?.['required']){
+            <mat-error>Descripción de la comodidad <strong>requerido</strong></mat-error>
+            }
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="row mt-3 mb-3">
+      <div class="col-5 col-md-4">
+        @if(this.IsActionNew){
+          <button class="col-12 boton-personalizado-a" (click)="aniadirComodidad()">GUARDAR</button>
+        }@else {
+          <button class="col-12 boton-personalizado-a" (click)="modificarComodidad()">GUARDAR</button>
+        }
+      </div>
+      <div class="col-5 col-md-4">
+        <button class="col-12 boton-personalizado-b" routerLink="/buscador-comodidades">CANCELAR</button>
+      </div>
+    </div>
+  </div>
+</div>

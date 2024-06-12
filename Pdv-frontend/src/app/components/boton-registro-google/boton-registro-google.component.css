@@ -1,0 +1,25 @@
+.css-button-sharp--black {
+    min-width: 130px;
+    height: 40px;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border: 2px solid #212529;
+    border-radius: 4px;
+    background: #212529;
+    width: 73%;
+}
+.css-button-sharp--black:hover {
+    background: #fff;
+    color: #212529
+}
+
+span{
+    font-weight: normal;
+    padding-left: 10px;
+}

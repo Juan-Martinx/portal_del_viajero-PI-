@@ -82,3 +82,7 @@ testem.log
 Thumbs.db
 
 Pdv-frontend/.angular/cache/
+
+package-lock.json
+package.json
+mediafiles/

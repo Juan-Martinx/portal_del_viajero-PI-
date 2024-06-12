@@ -4,8 +4,12 @@ import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 @Data
+@AllArgsConstructor
+@Builder
 public class ComodidadAlojamientoDTO {
 
 	private Long id;
@@ -21,7 +25,11 @@ public class ComodidadAlojamientoDTO {
 	@NotBlank
 	private String txtDescripcion;
 	
+	private String iconoComodidad;
+
 	private TipoComodidadDTO idTipoComodidad;
+	
+	private String codigoTipoComodidad;
 
 	private Set<AlojamientoComodidadAlojamientoDTO> idAlojamientoComodidades;
 }

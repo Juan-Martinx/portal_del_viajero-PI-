@@ -2,6 +2,7 @@ package com.pdv.model;
 
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,11 +12,19 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "comodidad_alojamiento")
+@EqualsAndHashCode(exclude = "idAlojamientoComodidades")
 public class ComodidadAlojamiento {
 		
 	@Id
@@ -31,6 +40,9 @@ public class ComodidadAlojamiento {
 	
 	@Column(name = "txt_descripcion", nullable = false)
 	private String txtDescripcion;
+	
+	@Column(name = "icono_comodidad")
+	private String iconoComodidad;
 	
 	@ManyToOne(optional = false, targetEntity = TipoComodidad.class)
 	@JoinColumn(referencedColumnName = "id_tipo_comodidad", name = "id_tipo_comodidad", nullable = false)

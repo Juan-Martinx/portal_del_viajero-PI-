@@ -1,3 +1,21 @@
+h1{
+    font-size: 2.8em;
+    font-weight: bold;
+    line-height: 1em;
+}
+
+h2{
+    font-size: 2.3em;
+    line-height: 1.2em;
+    letter-spacing: 0.02em;
+}
+
+li{
+    color: rgb(162, 162, 162); 
+    margin-left: 2%;
+    margin-bottom: 5%;
+}
+
 .background-container{
     width: 100%;
     min-height: 100vh;
@@ -6,24 +24,19 @@
     background-position: center;
     display: flex;
     align-items: center;
-
+    justify-content: center;
 }
 
 .convertir-gestor-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50vh;
+    max-height: 680px;
+    height: 95vh;
     border-radius: 8px;
     box-shadow: inset;
 }
 
 .imagen-convertir-gestor{
-    
     background-image: url(../../../assets/paginaRegistro/imagenRegistro.jpg);
     background-size: cover;
-    display: flex;
-    justify-content: center;
     text-align: center;
     color: white;
     border-bottom-left-radius: 8px;
@@ -31,43 +44,19 @@
     height: 100%;
 }
 
-.titulo-imagen{
-    margin-top: 40%;
-    margin-left: 10%;
-}
-
-.logoAplicacion{
-    margin-top: 50%;
-    margin-right: 30%;
-}
-
-.titulo-convertir-gestor{
-    margin-left: 5%;
-}
-
 .formulario-convertir-gestor{
     background-color: white;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .bi-arrow-left{
     font-size: 30px;
 }
 
-.boton-convertir-gestor{
-    margin-top: 2%;
-    margin-left: 12%;
-    padding: 1%;
-    background-color: blueviolet;
-    color: white;
-    border-radius: 8px;
-    border: none;
-}
-
-li{
-    color: rgb(162, 162, 162); 
-    margin-left: 2%;
-    margin-bottom: 5%;
+i:hover{
+    cursor: pointer;
 }

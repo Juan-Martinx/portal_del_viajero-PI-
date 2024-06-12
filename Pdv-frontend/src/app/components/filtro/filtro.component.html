@@ -1,0 +1,96 @@
+<!-- EN ESTOS INSTANTES ESTE COMPONENTE NO SE USA, POR LO QUE NO SE COMENTARÁ -->
+<div class="contenido-principal">
+  @if(menu == false){
+    <div class="d-inline-flex example-button-row pt-lg-2">
+      <button class="btn" (click)="mostrarMenu()">
+        <mat-icon class="d-inline-flex me-lg-2 lines">dehaze</mat-icon>
+      </button>
+      <a class="d-inline-flex align-items-center pt-2 mb-3 link-body-emphasis text-decoration-none titulo-filtros" (click)="mostrarMenu()">
+        <span class="fs-5 fw-semibold">Filtros</span>
+      </a>
+    </div>
+  }@else {
+    <form [formGroup]="filtros">
+      <div id="filtros" class="flex-shrink-0 filtros" style="background-color: white;">
+        <button class="btn closes" (click)="mostrarMenu()">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <div class="d-flex justify-content-between border-bottom">
+          <a href="/" class="d-inline-flex align-items-center pt-4 mb-3 link-body-emphasis text-decoration-none">
+            <span class="fs-5 fw-semibold">Filtros</span>
+          </a>
+          <button class="d-inline-flex pt-4 resetear" (click)="resetearMenu()">Resetear</button>
+        </div>
+      
+          <ul class="list-unstyled">
+            <li class="mb-1">
+              <button class="btn btn-toggle d-inline-flex align-items-center justify-content-between rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                Precio por día
+              </button>
+              <div class="collapse show" id="home-collapse">
+                <mat-slider  min="0" max="5000" discrete [color]="'primary'" [displayWith]="formatLabel">
+                  <input matSliderStartThumb formControlName="precioMin">
+                  <input matSliderEndThumb formControlName="precioMax">
+                </mat-slider>
+              </div>
+            </li>
+            <li class="border-top my-3"></li>
+            <li class="mb-1">
+              <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                Fechas de estancia
+              </button>
+              <div class="collapse" id="dashboard-collapse">
+                  <div class="fecha-estancia">
+                      <mat-form-field class="fecha-llegada">
+                          <mat-label>Fecha de llegada</mat-label>
+                          <input matInput [matDatepicker]="picker1" formControlName="fechaLlegada">
+                          <mat-datepicker-toggle matIconSuffix [for]="picker1" ></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                      <b style="font-size: 35px;" class="mx-4 mx-md-2">-</b>
+                      <mat-form-field class="fecha-salida">
+                          <mat-label>Fecha de salida</mat-label>
+                          <input matInput [matDatepicker]="picker2" formControlName="fechaSalida">
+                          <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+              </div>
+            </li>
+            <li class="border-top my-3"></li>
+            <li class="mb-1">
+              <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                Instalaciones
+              </button>
+              <div class="collapse" id="orders-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                  @for (instalacion of instalaciones; track instalacion.length) {
+                    <li><input type="checkbox" class="checkbox" formControlName="instalaciones">{{instalacion.nombre}}</li>
+                  }
+                  <button class="pt-4 ver-mas">Ver más</button>
+                </ul>
+              </div>
+            </li>
+            <li class="border-top my-3"></li>
+            <li class="mb-1">
+              <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                Comodidades
+              </button>
+              <div class="collapse" id="account-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                  @for (comodidad of comodidades; track comodidad.length) {
+                    <li><input type="checkbox" class="checkbox" formControlName="comodidades">{{comodidad.nombre}}</li>
+                  }
+                  <button class="pt-4 ver-mas">Ver más</button>
+                </ul>
+              </div>
+            </li>
+            <li class="border-bottom mt-3"></li>
+          </ul>
+      </div>
+    </form>
+    
+  }
+</div>
+
+  

@@ -1,0 +1,449 @@
+<div class="container contenedor-principal">
+    <div class="row m-auto mt-5">
+        <div class="col-12 ps-3">
+            <h1 class="fw-bold">{{this.alojamiento.txtNombre}}</h1>
+        </div>
+
+        <div class="row m-auto">
+            <div class="img-principal col-12 col-md-6 col-lg-4 px-0 position-relative m-auto">
+                <a href="{{this.rutaActual}}?id={{this.alojamiento.id}}#modal3" class="position-relative">
+                    @if(this.alojamiento.idImagenesAlojamiento && this.alojamiento.idImagenesAlojamiento[0]){
+                    <img [src]="alojamiento.idImagenesAlojamiento[0].urlDatosImagen" class="img-fluid" id="img-0" />
+                    <div class="anadir-photo d-flex justify-content-center align-items-center">
+                        <mat-icon>remove_red_eye</mat-icon>
+                    </div>
+                    }
+                </a>
+            </div>
+            <div class="row d-none d-md-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between m-auto">
+                @if(this.alojamiento.idImagenesAlojamiento && this.alojamiento.idImagenesAlojamiento[1]){
+                <div class="img px-0 object-fit">
+                    <img [src]="alojamiento.idImagenesAlojamiento[1].urlDatosImagen" id="img-1" />
+                </div>
+                }
+                @if(this.alojamiento.idImagenesAlojamiento && this.alojamiento.idImagenesAlojamiento[2]){
+                <div class="img px-0 mt-4 object-fit">
+                    <img [src]="alojamiento.idImagenesAlojamiento[2].urlDatosImagen" id="img-2" />
+                </div>
+                }
+            </div>
+
+            <div class="row d-none d-lg-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between m-auto">
+                @if(this.alojamiento.idImagenesAlojamiento && this.alojamiento.idImagenesAlojamiento[3]){
+                    <div class="img px-0 object-fit">
+                        <img [src]="alojamiento.idImagenesAlojamiento[3].urlDatosImagen" id="img-3" />
+                    </div>
+                    }
+                    @if(this.alojamiento.idImagenesAlojamiento && this.alojamiento.idImagenesAlojamiento[4]){
+                    <div class="img px-0 mt-4 object-fit">
+                        <img [src]="alojamiento.idImagenesAlojamiento[4].urlDatosImagen" id="img-4" />
+                    </div>
+                    }
+            </div>
+           
+        </div>
+
+        
+            <!-- IMAGEN PRINCIPAL MODAL -->
+            <div id="modal3" class="modalmask">
+                <div class="modalbox movedown modal-imagenes">   
+                    <a href="{{this.rutaActual}}?id={{this.alojamiento.id}}#close" title="Close" class="close">X</a>
+            
+                    <div class="row" id="contenedor-imagenes">
+                        <h2>IMAGENES</h2>
+                        @for (imagen of this.alojamiento.idImagenesAlojamiento; track imagen.id) {
+                            <img [src]="imagen.urlDatosImagen"
+                            class="img-fluid col-md-3 ms-1 mb-2 d-flex justify-content-center  modal-img align-items-center m-auto px-0" />
+                        }
+                    </div>
+                </div>
+            </div>
+
+        <div class="row d-flex flex-column flex-md-row m-auto">
+            <div class="row col-12 col-md-6 mt-3 order-2 order-md-1">
+
+                <!-- INSTALACIONES -->
+                <div class="row b-bottom">
+                    <div class="d-flex" >
+                        <h2 class="fw-bold d-inline-flex px-0 me-3">Instalaciones</h2>
+                        <a class="d-inline-flex editar-usuario pt-1" href="{{this.rutaActual}}?id={{this.alojamiento.id}}#modal1" (click)="alojamientoInstalaciones=[]"> <mat-icon>open_in_new</mat-icon>Ver más</a>
+                    </div>
+                    <div class="row">
+                        @for (comodidad of primerasInstalaciones.slice(0,4); track comodidad.id) {
+                        <div class="col-12 col-sm-6 d-flex flex-column-2 mb-3 justify-content-start align-items-center" style="height: 30px;">
+                            <mat-icon
+                                class="me-2 icon-pool mb-3 d-inline-flex">{{comodidad.iconoComodidad}}</mat-icon>
+                            <p>{{comodidad.txtNombre}}</p>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- INSTALACIONES MODAL -->
+            <div id="modal1" class="modalmask">
+                <div class="modalbox movedown">
+                    
+                    <a href="{{this.rutaActual}}?id={{this.alojamiento.id}}#close" (click)="alojamientoInstalaciones=[]"
+                        title="Close" class="close">X</a>
+                    
+                    <div class="row">
+                        <h2>INSTALACIONES</h2>
+
+                        @for (comodidad of primerasInstalaciones; track comodidad.id) {
+                        <div class="row mb-2 justify-content-center d-flex">
+                            <mat-icon
+                                class="d-inline-flex justify-content-center me-2 icon-pool col-2">{{comodidad.iconoComodidad}}</mat-icon>
+                            <p class="d-inline-flex align-items-center col-7">{{comodidad.txtNombre}}</p>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            
+            <!-- COMODIDADES -->
+            <div class="row mt-5 b-bottom">
+                <div class="d-inline-flex">
+                    <h2 class="d-inline-flex fw-bold px-0 me-3">Comodidades</h2>
+                    <a class="d-inline-flex editar-usuario pt-1" href="{{this.rutaActual}}?id={{this.alojamiento.id}}#modal2"
+                        (click)="alojamientoInstalaciones=[]"> <mat-icon>open_in_new</mat-icon>Ver más</a>
+                </div>
+
+                <div class="row">
+                    @for (comodidad of primerasComodidades.slice(0,4); track comodidad.id) {
+                    <div class="col-12 col-sm-6 d-flex flex-column-2 mb-3 justify-content-start align-items-center"
+                        style="height: 30px;">
+                        <mat-icon class="me-2 icon-pool mb-3 d-inline-flex">{{comodidad.iconoComodidad}}</mat-icon>
+                        <p>{{comodidad.txtNombre}}</p>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            </div>
+
+            <!-- COMODIDADES MODAL -->
+            <div id="modal2" class="modalmask">
+                <div class="modalbox movedown">
+                    
+                    <a href="{{this.rutaActual}}?id={{this.alojamiento.id}}#close" (click)="alojamientoComodidades=[]"
+                        title="Close" class="close">X</a>
+                    
+                    <div class="row">
+                        <h2>COMODIDADES</h2>
+
+                        @for (comodidad of primerasComodidades; track comodidad.id) {
+                        <div class="row mb-2 justify-content-center d-flex">
+                            <mat-icon
+                                class="d-inline-flex justify-content-center me-2 icon-pool col-2">{{comodidad.iconoComodidad}}</mat-icon>
+                            <p class="d-inline-flex align-items-center col-7">{{comodidad.txtNombre}}</p>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario de Reservar -->
+            <form class="row col-12 col-md-6 ms-1 ms-md-4 mt-4 order-1 order-md-2" [formGroup]="reservar">
+                <div class="card p-4 row">
+                    <h2 class="fw-bold">{{alojamiento.numPrecioNoche}}€/Noche</h2>
+                    <div class="row">
+                        <mat-form-field class="col-12 col-md-6">
+                            <mat-label>Llegada</mat-label>
+                            <input [disabled]="true" matInput type="text" [matDatepicker]="picker1"
+                                formControlName="llegada" [matDatepickerFilter]="salidaFilter">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker disabled="false" #picker1 (closed)="getDaysDifference()"></mat-datepicker>
+                            @if(this.reservar.get('llegada')?.errors?.['required']){
+                                <mat-error>Debe rellenar <strong>con la fecha de llegada</strong></mat-error>
+                            }
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12 col-md-6">
+                            <mat-label>Salida</mat-label>
+                            <input [disabled]="true" matInput type="text" [matDatepicker]="picker2"
+                                formControlName="salida" [matDatepickerFilter]="salidaFilter" [disabled]="true">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker disabled="false" #picker2 (closed)="getDaysDifference()"></mat-datepicker>
+                            @if(this.reservar.get('salida')?.errors?.['required']){
+                                <mat-error>Debe rellenar <strong>con la fecha de salida</strong></mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                        <mat-form-field class="col-12">
+                            <mat-label>Nº de huéspedes</mat-label>
+                            <input type="number" matInput placeholder="Introduzca número de huéspedes"
+                                formControlName="huespedes" min="{{alojamiento.numPlazaMin}}"
+                                max="{{alojamiento.numPlazaMax}}"/>
+                            @if(this.reservar.get('huespedes')?.errors?.['required']){
+                            <mat-error>Número de Huéspedes <strong>requerido</strong></mat-error>
+                            }@else if(this.reservar.get('huespedes')?.errors?.['min']){
+                            <mat-error>Para reservar debe haber al menos <strong>{{this.alojamiento.numPlazaMin}} huéspedes</strong></mat-error>
+                            }@else if(this.reservar.get('huespedes')?.errors?.['max']){
+                                <mat-error>El número máximo de huespedes en este alojamiento es de <strong>{{this.alojamiento.numPlazaMax}} huéspedes</strong></mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <button class="col-12 boton-personalizado-a" (click)="realizarReserva()"> RESERVAR</button>
+                    <p class="text-center mt-2 texto-gray">No se te cobrará nada aún</p>
+                    <div class="d-flex justify-content-between">
+                        <p class="texto-gray">{{alojamiento.numPrecioNoche}}€ x {{this.diasDiferencia}} noches</p>
+                        <p class="texto-gray">{{this.precioTotal}}€</p>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <strong>Total</strong>
+                        <strong>{{this.precioTotal}}€</strong>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Ubicación -->
+        <div class="row b-bottom mx-auto pt-2 pb-2">
+            <h2 class="fw-bold px-0">Ubicación</h2>
+            <div class="d-flex align-items-center px-0">
+                <i class="bi bi-geo-alt px-0 me-2"></i>
+                <p class="pt-1">{{alojamiento.idUbicacion?.lineaDireccion}}, {{alojamiento.idUbicacion?.codigoPostal}},
+                    {{alojamiento.idUbicacion?.provincia}}</p>
+            </div>
+        </div>
+
+        <!-- Propietario del alojamiento -->
+        <div class="row b-bottom mx-auto pt-2" style="height: 130px;">
+            <h2 class="fw-bold px-0">Propietario del Alojamiento</h2>
+            <div class="col-12 col-md-5 d-inline-flex flex-column propietario">
+                <div class="d-flex" routerLink="/ver-perfil/{{alojamiento.idUsuario?.username}}">
+                    @if(alojamiento.idUsuario?.urlImagenUsuario){
+                    <img class="d-inline-flex perfil-usuario" src="{{alojamiento.idUsuario?.urlImagenUsuario}}">
+                    }@else{
+                    <img class="d-inline-flex perfil-usuario" src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                    }
+                    <div class="flex-column align-items-center ms-2">
+                        <strong>{{alojamiento.idUsuario?.username}}</strong>
+                        <p class="texto-gray">{{alojamiento.idUsuario?.txtDescripcion}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form class="row mt-3" [formGroup]="valorar">
+            <div class="col-12 ">
+                <h2 class="fw-bold">¡Cuéntanos cómo ha sido tu experiencia!</h2>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field class="w-100">
+                    <mat-label>Puntuación del 1 al 5</mat-label>
+                    <input type="number" matInput placeholder="Puntuación del 1 al 5"
+                        formControlName="puntuacion" min="0" max="5"/>
+                    @if(this.valorar.get('puntuacion')?.errors?.['required']){
+                    <mat-error>Puntuación <strong>requerido</strong></mat-error>
+                    }@else if(this.valorar.get('puntuacion')?.errors?.['min']){
+                    <mat-error>La puntuación <strong>no puede ser menor a 0</strong></mat-error>
+                    }@else if(this.valorar.get('puntuacion')?.errors?.['max']){
+                        <mat-error>La puntuación <strong>no puede ser mayor a 5</strong></mat-error>
+                    }
+                </mat-form-field>
+            </div>
+            
+            <mat-form-field class="col-md-9">
+                <mat-label>Comentario</mat-label>
+                <textarea matInput placeholder="Escribe aquí tu comentario..."
+                    formControlName="comentario"></textarea>
+                @if(this.valorar.get('comentario')?.errors?.['required']){
+                <mat-error>Comentario <strong>requerido</strong></mat-error>
+                }
+            </mat-form-field>
+
+            <div class="col-md-4">
+                <button class="w-100 boton-personalizado-a" (click)="realizarComentario()"> Enviar</button>
+            </div>
+        </form>
+
+        <div class="row d-flex mt-4 justify-content-center mt-2">
+            <div class="col-12 valoraciones d-flex justify-content-center align-items-center">
+                <img class="paz" src="../../../assets/paginaRegistro/paz1.png">
+                <h2 class="fw-bold mt-4 mx-2">Valoraciones</h2>
+                <img class="d-inline-flex paz" src="../../../assets/paginaRegistro/paz.png">
+                <div class="d-inline-flex mx-2 flex-column align-items-center mt-4">
+                    <strong>{{this.valoracionPromedio}}</strong>
+                    <div>
+                        @if(this.valoracionPromedio < 0.5){
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 0.5 && this.valoracionPromedio < 1){
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 1 && this.valoracionPromedio < 1.5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 1.5 && this.valoracionPromedio < 2){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 2 && this.valoracionPromedio < 2.5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 2.5 && this.valoracionPromedio < 3){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 3 && this.valoracionPromedio < 3.5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 3.5 && this.valoracionPromedio < 4){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 4 && this.valoracionPromedio < 4.5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 4.5 && this.valoracionPromedio < 5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half me-2 estrella-comentarios"></i>
+                        }@else if(this.valoracionPromedio >= 5){
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
+                        }
+                    </div>
+
+                </div>
+
+                <div class="contenedor-evaluaciones d-flex h-75 align-items-center justify-content-center ps-4">
+                    <strong>{{this.numValoraciones}}</strong>
+                    <a class="evaluaciones">evaluaciones</a>
+                </div>
+
+            </div>
+            
+            <div class="col-12 mt-5 contenedor-resenas-comentarios">
+                @for (valoracion of this.valoraciones ; track valoracion.id) {
+                <div class="col-12 col-md-5 d-inline-flex flex-column">
+                    <div class="cabecera-comentarios" routerLink="/ver-perfil/{{valoracion.idUsuario?.username}}">
+                        @if(valoracion.idUsuario?.urlImagenUsuario){
+                            <img class="d-inline-flex perfil-usuario"
+                                src="{{valoracion.idUsuario?.urlImagenUsuario}}">
+                        }@else{
+                            <img class="d-inline-flex perfil-usuario"
+                            src="../../../assets/paginaRegistro/perfil-de-usuario.jpg">
+                        }
+                        <div class="d-inline-flex flex-column align-items-center ms-2">
+                            <strong>{{valoracion.idUsuario?.username}}</strong>
+                            <p class="texto-gray">{{valoracion.idUsuario?.numTelefono}}</p>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div class="d-inline-flex mt-2">
+                            <!-- ESTRELLAS VALORACIÓN -->
+                            @if(valoracion.puntuacion && valoracion.puntuacion < 0.5){
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 0.5 && valoracion.puntuacion < 1){
+                                <i class="bi bi-star-half"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 1 && valoracion.puntuacion < 1.5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 1.5 && valoracion.puntuacion < 2){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 2 && valoracion.puntuacion < 2.5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 2.5 && valoracion.puntuacion < 3){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 3 && valoracion.puntuacion < 3.5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 3.5 && valoracion.puntuacion < 4){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 4 && valoracion.puntuacion < 4.5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 4.5 && valoracion.puntuacion < 5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half me-2 estrella-comentarios"></i>
+                            }@else if(valoracion.puntuacion && valoracion.puntuacion >= 5){
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill me-2 estrella-comentarios"></i>
+                            }
+
+                        </div>
+                    </div>
+                    <p>{{valoracion.txtMensaje}}</p>
+
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

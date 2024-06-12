@@ -1,9 +1,36 @@
-.registro{
-    width: 100%;
-    height: 100%;
-    background-image: url(/src/imagenes/imagenRegistro.jpg);
-    background-size: cover;
-    background-position: center;
+h1{
+    font-size: 2.8em;
+    font-weight: bold;
+    line-height: 1em;
+}
+
+h2{
+    font-size: 2.3em;
+}
+
+p{
+    color: rgb(162, 162, 162); 
+}
+
+select{
+    width: auto;
+}
+
+select:hover{
+    cursor: pointer;
+}
+
+input:hover{
+    cursor: pointer;
+}
+
+a{
+    color: blueviolet;
+}
+
+span{
+    font-weight: normal;
+    padding-left: 10px;
 }
 
 .background-container{
@@ -14,21 +41,22 @@
     background-position: center;
     display: flex;
     align-items: center;
-
+    justify-content: center;
 }
 
 .registro-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
-    max-height: 800px;
+    max-height: 900px;
+    height: 95vh;
     border-radius: 8px;
     box-shadow: inset;
 }
 
+
+.bi-arrow-left{
+    font-size: 30px;
+}
+
 .imagen-registro{
-    
     background-image: url(../../../assets/paginaRegistro/imagenRegistro.jpg);
     background-size: cover;
     display: flex;
@@ -40,43 +68,13 @@
     height: 100%;
 }
 
-.titulo-imagen{
-    margin-top: 90%;
-    margin-left: 10%;
-}
-
-.logoAplicacion{
-    margin-top: 50%;
-    margin-right: 30%;
-}
-
 .formulario-registro{
     background-color: white;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     height: 100%;
-}
-
-.bi-arrow-left{
-    font-size: 30px;
-}
-
-.titulo-registrar{
-    margin-left: 12%
-}
-
-a{
-    color: blueviolet;
-}
-.select{
-    margin-left: 12%;
-    border-radius: 0px;
-    width: 40%;
-}
-
-.aceptar-terminos{
-    margin-top: 5%;
-    margin-left: 12%;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .checkbox:checked{
@@ -90,19 +88,6 @@ a{
     box-shadow: 0 0 0 black;
 }
 
-
-.boton-registrar{
-    margin-top: 2%;
-    margin-left: 12%;
-    padding: 1%;
-    background-color: blueviolet;
-    color: white;
-    border-radius: 8px;
-    border: none;
-}
-
-.texto, .texto-inicioSesion{
-    color: rgb(162, 162, 162); 
-    margin-left: 12%;
-    margin-bottom: 5%;
+.bi-arrow-left:hover{
+    cursor: pointer;
 }

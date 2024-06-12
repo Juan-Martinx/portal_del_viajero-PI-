@@ -1,0 +1,53 @@
+<div class="container contenedor-principal">
+    <div class="row col-12 m-auto">
+        <div class="col-12 d-inline-block mt-5 pb-5">
+            <div class="row titulo pb-2">
+                <h1 class="col-12 col-sm-9 fw-bold">Gestiona las reservas de tus alojamientos</h1>
+            </div>
+        </div>
+
+        @for (reserva of reservas; track reserva.id) {
+        <div class="card px-0 m-auto mt-3 pb-3 mb-3">
+            @if (reserva.alojamiento && reserva.alojamiento.idImagenesAlojamiento) {
+                <img class="ms-0 me-0 imagen-casa" [src]="reserva.alojamiento.idImagenesAlojamiento[0].urlDatosImagen"
+                alt="Card image cap">
+              }
+            <div class="card-body">
+                <h2 class="card-title fw-bold">{{ reserva.alojamiento?.txtNombre }}</h2>
+                <div class="localizacion d-inline-flex">
+                    <i class="bi bi-geo-alt-fill d-inline-flex me-1 pt-1"></i>
+                    <h3 class="d-inline-flex justify-content-center align-content-center"> {{ reserva.alojamiento?.idUbicacion?.lineaDireccion }},
+                        {{reserva.alojamiento?.idUbicacion?.codigoPostal}},
+                        {{reserva.alojamiento?.idUbicacion?.provincia}}</h3>
+                </div>
+                <div class="precio-noche d-flex justify-content-between flex-column">
+                    <div class="d-flex justify-content-between mt-1">
+                        <p ><strong>Precio Total:</strong></p>
+                        <p ><strong>{{reserva.precioTotalAlquiler}}€</strong></p>
+                    </div>
+                    <div class="d-flex mt-1 justify-content-between">
+
+                        <p><strong>Fecha Llegada:</strong></p>
+                        <p><strong>{{reserva.fechaInicioAlquiler}}</strong></p>
+
+                    </div>
+                    <div class="d-flex justify-content-between mt-1" >
+
+                        <p><strong>Fecha Salida:</strong></p>
+                        <p><strong>{{reserva.fechaFinAlquiler}}</strong></p>
+                    </div>
+                </div>
+
+                <p class="mt-2 card-text">{{ reserva.alojamiento?.txtDescripcion }}</p>
+                <div class="row">
+
+                    <button class="col-4 ms-2 mt-2 boton-personalizado-a" routerLink="/ver-perfil/{{reserva.idUsuario?.username}}">INFO USUARIO</button>
+                    <button class="col-4 ms-2 mt-2 boton-personalizado-b" (click)="cancelarReserva(reserva.id)">CANCELAR</button>
+
+                </div>
+
+            </div>
+        </div>
+        }
+    </div>
+</div>

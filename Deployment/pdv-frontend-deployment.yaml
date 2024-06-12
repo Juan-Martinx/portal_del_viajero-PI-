@@ -5,7 +5,7 @@ metadata:
     app: pdv-frontend
   name: pdv-frontend-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: pdv-frontend
@@ -15,7 +15,7 @@ spec:
         app: pdv-frontend
     spec:
       containers:
-      - image: jmarcan286/pdv-frontend:latest
+      - image: juanmartincandela/pdv-frontend:latest
         name: pdv-frontend
         ports:
         - containerPort: 80

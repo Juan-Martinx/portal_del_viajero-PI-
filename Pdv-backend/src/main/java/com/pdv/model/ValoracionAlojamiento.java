@@ -8,11 +8,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "valoracion_alojamiento")
+@EqualsAndHashCode(exclude = {"idAlojamiento", "idUsuario"})
 public class ValoracionAlojamiento {
 
 	@Id
@@ -23,7 +31,7 @@ public class ValoracionAlojamiento {
 	@Column(name = "txt_mensaje", nullable = false)
 	private String txtMensaje;
 	
-	@Column(name = "txt_asunto", nullable = false, length = 50)
+	@Column(name = "txt_asunto", length = 50)
 	private String txtAsunto;
 	
 	
@@ -37,5 +45,4 @@ public class ValoracionAlojamiento {
 	@ManyToOne(targetEntity = Alojamiento.class)
 	@JoinColumn(referencedColumnName = "id_alojamiento", name = "id_alojamiento", nullable = false)
 	private Alojamiento idAlojamiento;
-	
 }

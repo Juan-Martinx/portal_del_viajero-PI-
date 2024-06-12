@@ -1,0 +1,402 @@
+<div class="container contenedor-principal">
+    <div class="row m-auto pt-3">
+        <form [formGroup]="alojamientoForm">
+            <div class="col-12">
+                @if(this.editarTituloEnable){
+                <mat-form-field class="col-6 me-3">
+                    <mat-label>Título Casa Rural</mat-label>
+                    <input matInput placeholder="Introduzca el titulo de su casa rural" formControlName="titulo" />
+                    @if(this.alojamientoForm.get('titulo')?.errors?.['required']){
+                    <mat-error>Título <strong>requerido</strong></mat-error>
+                    }@else if(this.alojamientoForm.get('titulo')?.errors?.['maxlength']){
+                    <mat-error>El Título <strong>no puede superar los 50 carácteres</strong></mat-error>
+                    }
+                </mat-form-field>
+                }@else{
+                <h1 class="d-inline-flex me-4 fw-bold">{{this.alojamientoForm.get('titulo')?.value}}</h1>
+                }
+                <a class="d-inline-flex editar-usuario" (click)="editarTituloEnable = !editarTituloEnable"><i
+                        class="bi bi-pencil-fill me-3"></i>Editar</a>
+            </div>
+            <div class="row m-auto position-relative">
+                <div class="img-principal col-12 col-md-6 col-lg-4 px-0 position-relative">
+                    @if(this.isActionNew){
+                    <a href="{{this.rutaActual}}?action=new#modal3" class="position-relative">
+                        <img src="../../../assets/fondo-transparente.jpg" class="img-fluid" id="img-0" />
+                        <div class="anadir-photo d-flex justify-content-center align-items-center">
+                            <mat-icon>add_a_photo</mat-icon>
+                        </div>
+                    </a>
+                    }@else {
+                    <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal3" class="position-relative">
+                        @if(alojamientoModificado.idImagenesAlojamiento && alojamientoModificado.idImagenesAlojamiento[0]){
+                            <img [src]="alojamientoModificado.idImagenesAlojamiento[0].urlDatosImagen" class="img-fluid" id="img-0" />
+                            <div class="anadir-photo d-flex justify-content-center align-items-center">
+                                <mat-icon>add_a_photo</mat-icon>
+                            </div>
+                        }@else {
+                            <img src="../../../assets/paginaRegistro/imagenCasaRural.jpg" class="img-fluid" id="img-0" />
+                            <div class="anadir-photo d-flex justify-content-center align-items-center">
+                                <mat-icon>add_a_photo</mat-icon>
+                            </div>
+                        }
+
+                    </a>
+                    }
+                </div>
+                <div class="object-fit row d-none d-md-flex col-6 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between"
+                    style="height: 400px;">
+                    @for (index of [1,2]; track index) {
+                    @if(!isActionNew && alojamientoModificado.idImagenesAlojamiento &&
+                    alojamientoModificado.idImagenesAlojamiento[index]){
+                    <div class="img px-0">
+                        <img [src]="alojamientoModificado.idImagenesAlojamiento[index].urlDatosImagen"
+                            id="img-{{index}}" />
+                    </div>
+                    }@else {
+                    <div class="img px-0">
+                        <img src="../../../assets/fondo-transparente.jpg" id="img-{{index}}" />
+                    </div>
+                    }
+                    }
+                </div>
+                <div class="object-fit row d-none d-lg-flex col-md-4 col-lg-4 m-auto mt-0 d-flex flex-column justify-content-between"
+                    style="height: 400px;">
+                    @for (index of [3,4]; track index) {
+                        @if(!isActionNew && alojamientoModificado.idImagenesAlojamiento &&
+                        alojamientoModificado.idImagenesAlojamiento[index]){
+                        <div class="img px-0">
+                            <img [src]="alojamientoModificado.idImagenesAlojamiento[index].urlDatosImagen"
+                                id="img-{{index}}" />
+                        </div>
+                        }@else {
+                        <div class="img px-0">
+                            <img src="../../../assets/fondo-transparente.jpg" id="img-{{index}}" />
+                        </div>
+                        }
+                        }
+                </div>
+            </div>
+
+            <!-- IMAGEN PRINCIPAL MODAL -->
+            <div id="modal3" class="modalmask">
+                <div class="modalbox movedown modal-imagenes">
+
+                    @if(this.isActionNew){
+                    <a href="{{this.rutaActual}}?action=new#close" (click)="comodidades=[]" title="Close"
+                        class="close">X</a>
+                    }@else {
+                    <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#close" (click)="comodidades=[]"
+                        title="Close" class="close">X</a>
+                    }
+
+                    <div class="row" id="contenedor-imagenes">
+                        <h2>IMAGENES</h2>
+                        @for (index of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; track index) {
+                        @if(alojamientoModificado.idImagenesAlojamiento &&
+                        alojamientoModificado.idImagenesAlojamiento[index]
+                        && alojamientoModificado.idImagenesAlojamiento[index].urlDatosImagen){
+                            <img  (click)="onImageClick(index)" id="imagen-alojamiento-{{index}}" [src]="alojamientoModificado.idImagenesAlojamiento[index].urlDatosImagen"
+                            class="img-fluid col-md-3 ms-1 mb-2 d-flex justify-content-center  modal-img align-items-center m-auto px-0" />
+                        }@else {
+                            <img style="display: none !important;" (click)="onImageClick(index)" id="imagen-alojamiento-{{index}}" [src]=""
+                            class="img-fluid col-md-3 ms-1 mb-2 d-flex justify-content-center  modal-img align-items-center m-auto px-0" />
+                        <div id="div-image-{{index}}" (click)="onImageClick(index)"
+                            class="col-md-3 ms-1 mb-2 d-flex justify-content-center  modal-img align-items-center m-auto">
+
+                            Seleccione Imagen {{index + 1}}
+
+                        </div>
+                        }
+                        <input type="file" id="image-input-{{index}}" class="form-control" accept="image/*"
+                        (change)="uploadFile($event, index)" style="display: none;">
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 b-bottom">
+                <h2 class="fw-bold">Descripción</h2>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput placeholder="Descripción..." formControlName="descripcion"></textarea>
+                    @if(this.alojamientoForm.get('descripcion')?.errors?.['required']){
+                    <mat-error>Descripción <strong>requerido</strong></mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <div class="row mt-3 b-bottom">
+                <h2 class="fw-bold">Precio</h2>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Precio por noche - (En €)</mat-label>
+                    <input matInput placeholder="Introduzca precio por noche - (En €)" type="number" min="10"
+                        formControlName="precioNoche" />
+                    @if(this.alojamientoForm.get('precioNoche')?.errors?.['required']){
+                    <mat-error>Precio por noche <strong>requerido</strong></mat-error>
+                    }@else if(this.alojamientoForm.get('precioNoche')?.errors?.['min']){
+                    <mat-error>El Precio por noche <strong>debe superar los 10€</strong></mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <div class="col-12 mt-3 b-bottom">
+                <h2 class="fw-bold">Huéspedes</h2>
+                <mat-form-field class="col-5 col-md-3">
+                    <mat-label>Número mínimo</mat-label>
+                    <input matInput placeholder="Introduzca número mínimo de huéspedes" type="number" min="1"
+                        formControlName="numeroMinimoHuespedes" />
+                    @if(this.alojamientoForm.get('numeroMinimoHuespedes')?.errors?.['required']){
+                    <mat-error>Número mínimo de Huéspedes <strong>requerido</strong></mat-error>
+                    }@else if(this.alojamientoForm.get('numeroMinimoHuespedes')?.errors?.['min']){
+                    <mat-error>El número de Huéspedes <strong>debe ser como mínimo 1</strong></mat-error>
+                    }
+                </mat-form-field>
+                <b style="font-size: 35px;" class="mx-4 mx-md-2">-</b>
+                <mat-form-field class="col-5 col-md-3">
+                    <mat-label>Número máximo</mat-label>
+                    <input matInput placeholder="Introduzca número máximo de huéspedes" type="number" min="2"
+                        formControlName="numeroMaximoHuespedes" />
+                    @if(this.alojamientoForm.get('numeroMaximoHuespedes')?.errors?.['required']){
+                    <mat-error>Número máximo de Huéspedes <strong>requerido</strong></mat-error>
+                    }@else if(this.alojamientoForm.get('numeroMaximoHuespedes')?.errors?.['min']){
+                    <mat-error>El número máximo de Huéspedes <strong>debe ser como mínimo 2</strong></mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <!-- INSTALACIONES -->
+            <div class="col-12 mt-3 b-bottom">
+                <h2 class="d-inline-flex me-4 fw-bold">Instalaciones</h2>
+                @if(this.isActionNew){
+                <a class="d-inline-flex editar-usuario" href="{{this.rutaActual}}?action=new#modal1"
+                    (click)="comodidades=[]"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
+                }@else {
+                <a class="d-inline-flex editar-usuario"
+                    href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal1" (click)="comodidades=[]"> <i
+                        class="bi bi-pencil-fill me-3"></i>Editar</a>
+                }
+                <div class="row">
+                    @for (comodidad of alojamientoInstalaciones; track comodidad.id) {
+                    <div class="col-6 flex-column-2">
+                        <mat-icon
+                            class="d-inline-flex justify-content-center me-2">{{comodidad.iconoComodidad}}</mat-icon>
+                        <p class="d-inline-flex align-items-center">{{comodidad.txtNombre}}</p>
+                        <a (click)="eliminarComodidad(comodidad)"
+                            class="d-inline-flex justify-content-center remove-icon">
+                            <mat-icon>close</mat-icon>
+                        </a>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!-- INSTALACIONES MODAL -->
+            <div id="modal1" class="modalmask">
+                <div class="modalbox movedown">
+                    @if(this.isActionNew){
+                    <a href="{{this.rutaActual}}?action=new#close" (click)="comodidades=[]" title="Close"
+                        class="close">X</a>
+                    }@else {
+                    <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#close" (click)="comodidades=[]"
+                        title="Close" class="close">X</a>
+                    }
+                    <div class="row">
+                        <h2>INSTALACIONES</h2>
+                        <p class="b-bottom pb-2">Seleccione las instalaciones que desea añadir...</p>
+                        <mat-form-field class="col-10">
+                            <mat-label>Nombre de instalación</mat-label>
+                            <input matInput placeholder="Introduzca el nombre de la instalación..." type="text"
+                                formControlName="selectedComodidadNombre" />
+                        </mat-form-field>
+                        <i class="bi bi-search ms-md-2 mt-3 col-1"
+                            (click)="cambiarPage(codTipoComodidadInstalacion,0)"></i>
+
+                        @for (comodidad of comodidades; track comodidad.id) {
+                        <div class="row mb-2 justify-content-center d-flex">
+                            <mat-icon
+                                class="d-inline-flex justify-content-center me-2 icon-pool col-2">{{comodidad.iconoComodidad}}</mat-icon>
+                            <p class="d-inline-flex align-items-center col-7">{{comodidad.txtNombre}}</p>
+                            <a (click)="aniadirComodidad(comodidad)"
+                                class="d-inline-flex justify-content-center col-2 add-icon">
+                                <mat-icon>add</mat-icon>
+                            </a>
+                        </div>
+                        }
+
+                        <nav class="d-flex justify-content-center w-100">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" aria-label="Previous"
+                                        (click)="cambiarPage(codTipoComodidadInstalacion,this.paginaActual - 1)">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Anterior</span>
+                                    </a>
+                                </li>
+                                @if(paginaActual <= 1){ <li class="page-item"
+                                    (click)="cambiarPage(codTipoComodidadInstalacion,0)"><a class="page-link">1</a></li>
+                                    <li class="page-item" (click)="cambiarPage(codTipoComodidadInstalacion,1)"><a
+                                            class="page-link">2</a></li>
+                                    <li class="page-item" (click)="cambiarPage(codTipoComodidadInstalacion,2)"><a
+                                            class="page-link">3</a></li>
+                                    }@else {
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadInstalacion,this.paginaActual - 1)"><a
+                                            class="page-link">{{paginaActual}}</a></li>
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadInstalacion,this.paginaActual)"><a
+                                            class="page-link">{{paginaActual + 1}}</a></li>
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadInstalacion,this.paginaActual + 1)"><a
+                                            class="page-link">{{paginaActual + 2}}</a></li>
+                                    }
+                                    <li class="page-item">
+                                        <a class="page-link" aria-label="Next"
+                                            (click)="cambiarPage(codTipoComodidadInstalacion,this.paginaActual + 1)">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Siguiente</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMODIDADES -->
+            <div class="col-12 mt-3 b-bottom">
+                <h2 class="d-inline-flex me-4 fw-bold">Comodidades</h2>
+                @if(this.isActionNew){
+                <a class="d-inline-flex editar-usuario" href="{{this.rutaActual}}?action=new#modal2"
+                    (click)="comodidades=[]"> <i class="bi bi-pencil-fill me-3"></i>Editar</a>
+                }@else {
+                <a class="d-inline-flex editar-usuario"
+                    href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#modal2" (click)="comodidades=[]"> <i
+                        class="bi bi-pencil-fill me-3"></i>Editar</a>
+                }
+                <div class="row">
+                    @for (comodidad of alojamientoComodidades; track comodidad.id) {
+                    <div class="col-6 flex-column-2">
+                        <mat-icon
+                            class="d-inline-flex justify-content-center me-2 icon-pool">{{comodidad.iconoComodidad}}</mat-icon>
+                        <p class="d-inline-flex align-items-center">{{comodidad.txtNombre}}</p>
+                        <a (click)="eliminarComodidad(comodidad)"
+                            class="d-inline-flex justify-content-center ms-2 remove-icon">
+                            <mat-icon>close</mat-icon>
+                        </a>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!-- COMODIDADES MODAL -->
+            <div id="modal2" class="modalmask">
+                <div class="modalbox movedown">
+                    @if(this.isActionNew){
+                    <a href="{{this.rutaActual}}?action=new#close" (click)="comodidades=[]" title="Close"
+                        class="close">X</a>
+                    }@else {
+                    <a href="{{this.rutaActual}}?id={{this.alojamientoModificado.id}}#close" (click)="comodidades=[]"
+                        title="Close" class="close">X</a>
+                    }
+                    <div class="row">
+                        <h2>COMODIDADES</h2>
+                        <p class="b-bottom pb-2">Seleccione las comodidades que desea añadir...</p>
+                        <mat-form-field class="col-10">
+                            <mat-label>Nombre de comodidad</mat-label>
+                            <input matInput placeholder="Introduzca el nombre de la comodidad" type="text"
+                                formControlName="selectedComodidadNombre" />
+                        </mat-form-field>
+                        <i class="bi bi-search ms-md-2 mt-3 col-1"
+                            (click)="cambiarPage(codTipoComodidadComodidad,0)"></i>
+
+                        @for (comodidad of comodidades; track comodidad.id) {
+                        <div class="row mb-2 justify-content-center d-flex">
+                            <mat-icon
+                                class="d-inline-flex justify-content-center me-2 icon-pool col-2">{{comodidad.iconoComodidad}}</mat-icon>
+                            <p class="d-inline-flex align-items-center col-7">{{comodidad.txtNombre}}</p>
+                            <a (click)="aniadirComodidad(comodidad)"
+                                class="d-inline-flex justify-content-center col-2 add-icon">
+                                <mat-icon>add</mat-icon>
+                            </a>
+                        </div>
+                        }
+
+                        <nav class="d-flex justify-content-center w-100">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" aria-label="Previous"
+                                        (click)="cambiarPage(codTipoComodidadComodidad,this.paginaActual - 1)">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Anterior</span>
+                                    </a>
+                                </li>
+                                @if(paginaActual <= 1){ <li class="page-item"
+                                    (click)="cambiarPage(codTipoComodidadComodidad,0)"><a class="page-link">1</a></li>
+                                    <li class="page-item" (click)="cambiarPage(codTipoComodidadComodidad,1)"><a
+                                            class="page-link">2</a></li>
+                                    <li class="page-item" (click)="cambiarPage(codTipoComodidadComodidad,2)"><a
+                                            class="page-link">3</a></li>
+                                    }@else {
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadComodidad,this.paginaActual - 1)"><a
+                                            class="page-link">{{paginaActual}}</a></li>
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadComodidad,this.paginaActual)"><a
+                                            class="page-link">{{paginaActual + 1}}</a></li>
+                                    <li class="page-item"
+                                        (click)="cambiarPage(codTipoComodidadComodidad,this.paginaActual + 1)"><a
+                                            class="page-link">{{paginaActual + 2}}</a></li>
+                                    }
+                                    <li class="page-item">
+                                        <a class="page-link" aria-label="Next"
+                                            (click)="cambiarPage(codTipoComodidadComodidad,this.paginaActual + 1)">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Siguientes</span>
+                                        </a>
+                                    </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <!-- COMODIDADES MODAL FIN -->
+
+            <div class="row mt-3 b-bottom">
+                <h2 class="fw-bold">Ubicación</h2>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Línea Dirección</mat-label>
+                    <input matInput placeholder="Introduzca la línea de dirección del alojamiento..."
+                        formControlName="lineaDireccion" />
+                    @if(this.alojamientoForm.get('lineaDireccion')?.errors?.['required']){
+                    <mat-error>Línea Dirección <strong>requerido</strong></mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-2">
+                    <mat-label>Código Postal</mat-label>
+                    <input matInput placeholder="Introduzca el código postal..." formControlName="codigoPostal" />
+                    @if(this.alojamientoForm.get('codigoPostal')?.errors?.['required']){
+                    <mat-error>Código Postal <strong>requerido</strong></mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-2">
+                    <mat-label>Provincia</mat-label>
+                    <input matInput placeholder="Introduzca la provincia..." formControlName="provincia" />
+                    @if(this.alojamientoForm.get('provincia')?.errors?.['required']){
+                    <mat-error>Provincia <strong>requerido</strong></mat-error>
+                    }
+                </mat-form-field>
+            </div>
+
+            <div class="row mt-3 mb-4">
+                @if(this.isActionNew){
+                <button class="col-8 col-md-5 col-lg-3  m-auto ms-md-0 boton-personalizado-a"
+                    (click)="guardarAlojamiento()">GUARDAR</button>
+                }@else {
+                <button class="col-8 col-md-5 col-lg-3  m-auto ms-md-0 boton-personalizado-a"
+                    (click)="modficarAlojamiento()">GUARDAR</button>
+                }
+            </div>
+        </form>
+    </div>
+</div>

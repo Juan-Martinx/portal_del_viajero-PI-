@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pdv-oauth2-server-deployment
+spec:
+  selector:
+    matchLabels:
+      app: pdv-oauth2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pdv-oauth2
+    spec:
+      containers:
+        - name: pdv-oauth2
+          image: juanmartincandela/pdv-oauth2:latest
+          ports:
+            - containerPort: 9999
+          env:
+            - name: DB_HOST
+              valueFrom :
+                configMapKeyRef :
+                  name : db-config
+                  key :  host
+
+            - name: DB_NAME
+              valueFrom :
+                configMapKeyRef :
+                  name : db-config
+                  key :  dbName
+
+            - name: DB_USERNAME
+              valueFrom :
+                secretKeyRef :
+                  name : mysql-secrets
+                  key :  username
+
+            - name: DB_PASSWORD
+              valueFrom :
+                secretKeyRef :
+                  name : mysql-secrets
+                  key :  password
+            - name: OAUTH_API
+              value: "http://pdv-oauth2-svc.default:9999"
+            - name: FRONT_API
+              value: "http://portaldelviajero.com" 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pdv-oauth2-svc
+spec:
+  selector:
+    app: pdv-oauth2
+  ports:
+    - protocol: "TCP"
+      port: 9999
+      targetPort: 9999

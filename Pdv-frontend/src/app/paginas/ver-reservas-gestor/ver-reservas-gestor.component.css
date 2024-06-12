@@ -1,0 +1,51 @@
+h3{
+    color: rgb(162, 162, 162);
+}
+
+.titulo{
+    border-bottom: 1px solid  rgba(162, 162, 162, 0.4);
+    border-bottom-color: rgba(162, 162, 162, 0.4);
+    text-align: start;
+}
+
+.localizacion{
+    margin-top: 0px;
+    max-height: 30px;
+    height: 30px;
+    overflow: hidden;
+}
+
+.contenedor-principal{
+    min-height: 100vh;
+    box-shadow: 0px 0px 10px 5px #ccc;
+    overflow: hidden;
+}
+
+.card{
+    width: 18rem;
+    height: 36rem;
+    border-radius: 8px;
+}
+
+.imagen-casa{
+    height: 40%;
+    width: 100%;
+}
+
+.precio-noche{
+    border-top: 1px solid rgba(162, 162, 162, 0.4);
+    border-bottom: 1px solid rgba(162, 162, 162, 0.4);
+}
+
+.card-text{
+    max-height: 58px;
+    height: 58px;
+    overflow: hidden;
+}
+
+.card-title{
+    font-size: 1.1rem;
+    max-height: 30px;
+    height: 30px;
+    overflow: hidden;
+}

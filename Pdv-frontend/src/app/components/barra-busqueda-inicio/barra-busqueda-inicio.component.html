@@ -1,0 +1,26 @@
+<div class="panel">
+    <form [formGroup]="busqueda" class="d-flex justify-content-center">
+        <div class="col-8 panel-busqueda mt-2">
+            <div class="d-inline-flex align-items-center">
+                <div class="d-inline-flex busqueda-destino">
+                    <label class="busqueda-label mb-1" for="destino"><strong>Provincia</strong></label>
+                    <input class="busqueda-input" type="text" id="destino" formControlName="destino" placeholder="Buscar destinos">
+                </div>
+                <div class="d-inline-flex busqueda-llegada">
+                    <label class="busqueda-label mb-1" for="llegada"><strong>Llegada</strong></label>
+                    <input class="busqueda-input" type="date" id="llegada" formControlName="llegada" placeholder="Fecha Llegada">
+                </div>
+                <div class="d-inline-flex  busqueda-salida">
+                    <label class="busqueda-label mb-1" for="salida"><strong>Salida</strong></label>
+                    <input class="busqueda-input" type="date" id="salida" formControlName="salida" placeholder="Fecha Salida">
+                </div>
+                <button class="boton-busqueda  ms-2 align-items-center justify-content-center" (click)="buscar()">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+    
+        </div>
+    </form>
+    
+    
+</div>
