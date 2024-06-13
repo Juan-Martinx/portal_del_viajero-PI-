@@ -40,6 +40,8 @@ ya para desplegar este proyecto se usan tecnologías como Docker y Kubernetes. T
 
 ***Todo este proceso viene descrito en el Anexo I de la documentación de este proyecto. Se han de cumplir en orden todos y cada uno de los pasos descritos para que el despliegue sea exitoso.***
 
+*Hay una errata en la página 137 de la documentación, el comando que hay que ejecutar es "minikube addons enable ingress"*
+
 ## Reuniones del grupo
 
 Las reuniones del grupo se realizan todos los dias no festivos de Lunes a Viernes y de 15:00 a 19:00.
