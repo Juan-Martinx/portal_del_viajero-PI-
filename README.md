@@ -32,7 +32,7 @@ ya para desplegar este proyecto se usan tecnologías como Docker y Kubernetes. T
 5. Una vez todo esté importado tenemos que importar los proyectos MAVEN en un workspace con el IDE Spring tools suite 4.
 6. Ejecutaremos en primer lugar el servidor de autenticación. Una vez levantado, ejecutamos el servidor del backend.
 7. Con node y Angular CLI instalados en nuestro equipo, nos dirigimos a la carpeta de Pdv-frontend/ y desde una terminal ejecutamos el comando `npm install crypto-js`, después `npm install`.
-8. Una vez instaladas estas dependencias ejecutamos el comando `npm i --save-dev @types/crypto-js
+8. Una vez instaladas estas dependencias ejecutamos el comando `npm i --save-dev @types/crypto-js`
 9. Ejecutamos el comando `ng serve --host 127.0.0.1` 
 10. ¡Ya está la aplicación lista para usarse!
 

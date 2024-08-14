@@ -1,0 +1,54 @@
+services:
+  mysql_pdv:
+    image: mysql:5.7
+    container_name: mysql_pdv
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: usuario
+      MYSQL_USER: portaldelviajero
+      MYSQL_PASSWORD: portaldelviajero
+      MYSQL_DATABASE: bdpdv
+    volumes:
+      - .Deployment/dump/docker:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    networks:
+      - app_pdv
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-padmin1234"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  pdv_backend:
+    image: juanmartincandela/pdv-resourceandauth2:latest
+    container_name: pdv_backend
+    restart: always
+    environment:
+      DB_HOST: mysql_pdv:3306
+      DB_NAME: bdpdv
+      DB_USERNAME: portaldelviajero
+      DB_PASSWORD: portaldelviajero
+      OAUTH_API: http://localhost:9999
+      FRONT_API: http://127.0.0.1
+    ports:
+      - 8080:8080
+      - 9999:9999
+    depends_on:
+      mysql_pdv:
+        condition: service_healthy
+    networks:
+      - app_pdv
+  pdv_frontend:
+    image: juanmartincandela/pdv-frontend:ram
+    container_name: pdv_frontend
+    restart: always
+    ports:
+      - 127.0.0.1:80:80
+    depends_on:
+      - pdv_backend
+    networks:
+      - app_pdv
+networks:
+  app_pdv:
+    name: app_pdv
+    driver: bridge
