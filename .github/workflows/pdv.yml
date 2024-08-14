@@ -1,11 +1,13 @@
 name: pdv
 on: [push, pull_request]
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
 
-        - name: Build Docker images
-          run: docker compose up -d
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Iniciar el contenedor de Docker Compose
+      - name: Build and start Docker containers
+        run: docker compose up -d
